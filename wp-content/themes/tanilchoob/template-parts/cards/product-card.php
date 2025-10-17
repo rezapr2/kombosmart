@@ -36,7 +36,7 @@ if ($on_sale && $regular_price > 0) {
 $add_to_cart_text = isset($args['add_to_cart_text']) ? $args['add_to_cart_text'] : 'افزودن به سبد خرید';
 ?>
 
-<div class="product-card swiper-slide">
+<div class="product-card swiper-slide transition">
     <div class="product-card__inner">
         <div class="product-card__image">
             <?php if ($on_sale && $discount_percentage > 0): ?>
@@ -48,9 +48,9 @@ $add_to_cart_text = isset($args['add_to_cart_text']) ? $args['add_to_cart_text']
                 <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
             </a>
         </div>
-        <div class="product-card__content">
-            <h3 class="product-card__title yekan-16 regular color-black-80">
-                <a href="<?php echo esc_url($permalink); ?>"><?php echo esc_html($title); ?></a>
+        <div class="product-card__content flex flex-col justify-between">
+            <h3 class="product-card__title">
+                <a  class="yekan-20 regular color-black-80" href="<?php echo esc_url($permalink); ?>"><?php echo esc_html($title); ?></a>
             </h3>
             
             <?php if ($average_rating > 0): ?>
@@ -77,7 +77,7 @@ $add_to_cart_text = isset($args['add_to_cart_text']) ? $args['add_to_cart_text']
             </div>
             <?php endif; ?>
             
-            <div class="product-card__price yekan-16 bold">
+            <div class="product-card__price yekan-22 bold color-primary self-end">
                 <?php echo $price_html; ?>
             </div>
             
