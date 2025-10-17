@@ -6,7 +6,7 @@ $type = isset($args['type']) ? $args['type'] : 'default';
 $color = isset($args['color']) ? $args['color'] : 'black';
 $carousel_slider_card = isset($args['card']) ? $args['card'] : 'article-card';
 ?>
-<div class="carousel_slider-wrapper <?php echo $type; ?> <?php echo isset($args['wrapper_class']) ? $args['wrapper_class'] : ''; ?>" data-slidesPerView="<?php echo isset($args['slidesPerView']) ? $args['slidesPerView'] : 1; ?>">
+<div class="carousel_slider-wrapper relative <?php echo $type; ?> <?php echo isset($args['wrapper_class']) ? $args['wrapper_class'] : ''; ?>" data-slidesPerView="<?php echo isset($args['slidesPerView']) ? $args['slidesPerView'] : 1; ?>">
   <div class="container">
 
     <div class="slider_header flex justify-between items-center">

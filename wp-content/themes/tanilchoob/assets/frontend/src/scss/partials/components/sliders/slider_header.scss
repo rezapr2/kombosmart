@@ -13,6 +13,11 @@
     .archive-btn{
         padding: .95rem 1.3rem;
         margin-right: 1rem;
+        &.white{
+            svg path{
+                stroke: #fff;
+            }
+        }
         &:hover{
             background-color: var(--color-primary);
             color: #fff;
@@ -27,6 +32,7 @@
         height: 5rem;
         border-radius: 50%;
         border: 1px solid rgba(0, 0, 0, 0.1);
+        
         svg{
             width: 1.4rem;
             path{
@@ -37,6 +43,18 @@
             border-color: #000;
             svg path{
                 stroke: #000;
+            }
+        }
+        &.white{
+            border-color: rgba(255, 255, 255, 0.3);
+            svg path{
+                stroke: rgba(255, 255, 255, 0.8);
+            }
+            &:hover{
+                border-color: #fff;
+                svg path{
+                    stroke: #fff;
+                }
             }
         }
     }
