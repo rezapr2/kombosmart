@@ -1,0 +1,17 @@
+.home-features{
+    .features{
+        padding: 0 calcRem(70);
+        padding-bottom: calcRem(30);
+        margin-top: calcRem(42);
+        margin-bottom: calcRem(42);
+        gap: calcRem(70);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        .feature-item{
+            gap: calcRem(9);
+            .icon{
+                width: calcRem(146);
+                height: calcRem(146);
+            }
+        }
+    }
+}

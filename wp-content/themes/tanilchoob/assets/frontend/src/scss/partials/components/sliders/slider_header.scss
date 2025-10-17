@@ -1,0 +1,44 @@
+.slider_header{
+    margin-bottom: 3rem;
+    .title_btn, .archive-btn{
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        border-radius: 10rem;
+    }
+    .title_btn{
+        padding: .95rem 2.6rem;
+    }
+    .archive-btn{
+        padding: .95rem 1.3rem;
+        margin-right: 1rem;
+        &:hover{
+            background-color: var(--color-primary);
+            color: #fff;
+            svg path{
+                stroke: #fff;
+            }
+        }
+    }
+
+    .button-next, .button-prev{
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        svg{
+            width: 1.4rem;
+            path{
+                stroke: rgba(0, 0, 0, 0.5);
+            }
+        }
+        &:hover{
+            border-color: #000;
+            svg path{
+                stroke: #000;
+            }
+        }
+    }
+    .button-next{
+        transform: rotate(180deg);
+    }
+    
+}

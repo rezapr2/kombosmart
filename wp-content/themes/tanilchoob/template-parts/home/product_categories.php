@@ -1,0 +1,170 @@
+<?php
+use TanilChoob\Theme\Helper;
+
+$page_id = get_the_ID();
+$features = get_field('features', $page_id);
+$comod_types = get_field('comod_types', $page_id);
+$soffa = get_field('soffa', $page_id);
+$tv_desk = get_field('tv_desk', $page_id);
+$console_desk = get_field('console_desk', $page_id);
+$sleep_products = get_field('sleep_products', $page_id);
+$food_products = get_field('food_products', $page_id);
+$sleep_pack = get_field('sleep_pack', $page_id);
+$soffa_desk = get_field('soffa_desk', $page_id);
+
+$arrow = Helper::file_get_contents( Helper::getAssetPath('dist/images/arrow-left-btn.svg'));
+
+?>
+<section class="home-product-categories flex flex-col container">
+    <div class="title yekan-22 color-black thin text-center color-black-80">
+    <strong class="color-primary">دسته بندی</strong>    محصولات 
+    </div>
+    <div class="description yekan-13 color-black-60 text-center">
+        دسته بندی محصولات توضیحات اضافی
+    </div>
+    <div class="categories gap-07 flex">
+        <div class="category-pack gap-07 flex flex-col">
+            <div class="row gap-07 flex h-100">
+                <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item">
+                    <?php
+                    $img = $comod_types['image'] ?: null;
+                    $link = $comod_types['link'] ?: null;
+                    if ($img) {
+                        echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'انواع کمد') . '" />';
+                    }
+                    ?>
+                    <div class="content">
+                        <div class="title yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'انواع کمد' ?></div>
+                        <div class="more w-fit yekan-13 color-white flex items-center"> بیشتر 
+                            <div class="arrow flex">
+                                <?php echo $arrow; ?>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item">
+                    <?php
+                    $img = $soffa['image'] ?: null;
+                    $link = $soffa['link'] ?: null;
+                    if ($img) {
+                        echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'soffa') . '" />';
+                    }
+                    ?>
+                    <div class="content">
+                        <div class="title yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'مبلمان' ?></div>
+                        <div class="more w-fit yekan-13 color-white flex items-center"> بیشتر 
+                            <div class="arrow flex">
+                                <?php echo $arrow; ?>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item">
+                <?php
+                $img = $tv_desk['image'] ?: null;
+                $link = $tv_desk['link'] ?: null;
+                if ($img) {
+                    echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'tv desk') . '" />';
+                }
+                ?>
+                <div class="content">
+                    <div class="title yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'tv desk' ?></div>
+                    <div class="more w-fit yekan-13 color-white flex items-center"> بیشتر 
+                        <div class="arrow flex">
+                            <?php echo $arrow; ?>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="category-pack gap-07 flex flex-wrap">
+            <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item">
+                <?php
+                $img = $console_desk['image'] ?: null;
+                $link = $console_desk['link'] ?: null;
+                if ($img) {
+                    echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'console desk') . '" />';
+                }
+                ?>
+                <div class="content">
+                    <div class="title yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'console desk' ?></div>
+                    <div class="more w-fit yekan-13 color-white flex items-center"> بیشتر 
+                        <div class="arrow flex">
+                            <?php echo $arrow; ?>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="category-pack gap-07 flex flex-col">
+            <div class="row gap-07 flex h-100">
+                <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item">
+                    <?php
+                    $img = $sleep_products['image'] ?: null;
+                    $link = $sleep_products['link'] ?: null;
+                    if ($img) {
+                        echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'sleep products') . '" />';
+                    }
+                    ?>
+                </a>
+                <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item">
+                    <?php
+                    $img = $sleep_pack['image'] ?: null;
+                    $link = $sleep_pack['link'] ?: null;
+                    if ($img) {
+                        echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'sleep pack') . '" />';
+                    }
+                    ?>
+                    <div class="content">
+                        <div class="title yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'sleep pack' ?></div>
+                        <div class="more w-fit yekan-13 color-white flex items-center"> بیشتر 
+                            <div class="arrow flex">
+                                <?php echo $arrow; ?>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="row gap-07 flex h-100">
+                <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item">
+                    <?php
+                    $img = $food_products['image'] ?: null;
+                    $link = $food_products['link'] ?: null;
+                    if ($img) {
+                        echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'food products') . '" />';
+                    }
+                    ?>
+                    <div class="content">
+                        <div class="title yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'food products' ?></div>
+                        <div class="more w-fit yekan-13 color-white flex items-center"> بیشتر 
+                            <div class="arrow flex">
+                                <?php echo $arrow; ?>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item">
+                    <?php
+                    $img = $soffa_desk['image'] ?: null;
+                    $link = $soffa_desk['link'] ?: null;
+                    if ($img) {
+                        echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'soffa desk') . '" />';
+                    }
+                    ?>
+                    <div class="content">
+                        <div class="title yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'soffa desk' ?></div>
+                        <div class="more w-fit yekan-13 color-white flex items-center"> بیشتر 
+                            <div class="arrow flex">
+                                <?php echo $arrow; ?>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>

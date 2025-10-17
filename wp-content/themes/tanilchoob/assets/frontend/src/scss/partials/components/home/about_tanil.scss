@@ -1,0 +1,64 @@
+/**
+ * About Tanil Section Styles
+ */
+
+.about-tanil {
+  background-color: #F0ECFE;  
+  &__content {
+    padding: 10rem 12rem;
+    width: 53rem;
+  }
+  
+  &__header {
+    margin-bottom: 1.8rem;
+  }
+  
+  &__subtitle {
+    img{
+      width: 13.8rem;
+    }
+  }
+
+  &__title {
+    strong{
+      color: var(--color-primary);
+    }
+  }
+
+  .div{
+    width: .2rem;
+    height: 1.6rem;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  
+  &__description {
+    line-height: 1.67;
+    margin-bottom: 1.6rem;
+  }
+  
+  &__social-links {
+    gap: 1.8rem;
+  }
+  
+  &__social-link {
+    color: #555;
+  }
+  
+  &__cta-btn {
+    background-color: #2F2F2F;
+    border: 1px solid #2F2F2F;
+    color: #fff;
+    padding: 0.8rem 1.2rem;
+    min-width: 25.8rem;
+    svg path{
+      stroke: #fff;
+    }
+    &:hover{
+      background-color: transparent;
+      color: #2F2F2F;
+      svg path{
+        stroke: #2F2F2F;
+      }
+    }
+  }
+}

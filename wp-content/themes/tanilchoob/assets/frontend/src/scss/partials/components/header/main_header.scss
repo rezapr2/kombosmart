@@ -1,0 +1,198 @@
+#main_header {
+    .top-row {
+        padding-top: calcRem(20);
+        padding-bottom: calcRem(20);
+        &__right {
+            .logo {
+                margin-left: calcRem(25);
+                img {
+                    height: calcRem(32);
+                    width: auto;
+                }
+            }
+            .search {
+                form {
+                    display: flex;
+                    align-items: center;
+                    background-color: rgba(0, 0, 0, 0.06);
+                    border: none;
+                    overflow: hidden;
+                    height: calcRem(58);
+                    min-width: calcRem(400);
+                    &:focus-within {
+                        border-color: var(--color-primary);
+                        box-shadow: 0 0 0 2px
+                            rgba(var(--color-primary-rgb), 0.1);
+                    }
+
+                    input[type='text'] {
+                        flex: 1;
+                        border: none;
+                        outline: none;
+                        padding: 0 calcRem(30);
+                        font-size: calcRem(13);
+                        font-family: 'YekanBakh', sans-serif;
+                        background: transparent;
+                        color: #000000;
+
+                        &::placeholder {
+                            color: rgba(0, 0, 0, 0.5);
+                            font-family: 'YekanBakh', sans-serif;
+                        }
+                    }
+
+                    button {
+                        border: none;
+                        padding: 0 calcRem(30);
+                    }
+                }
+            }
+        }
+        &__left {
+            .sign-up-btn {
+                margin-right: calcRem(9);
+                border: 1px solid var(--color-primary-light);
+                height: calcRem(60);
+                padding-right: calcRem(30);
+                padding-left: calcRem(30);
+                font-size: calcRem(16);
+                background-color: var(--color-primary-light);
+                &:hover {
+                    border-color: var(--color-primary);
+                }
+            }
+            .bascket-btn {
+                width: calcRem(60);
+                height: calcRem(60);
+                background-color: var(--color-white);
+                border: 1px solid var(--color-primary-light);
+                &:hover {
+                    background-color: var(--color-primary-light);
+                    border-color: var(--color-primary);
+                }
+            }
+        }
+    }
+
+    .header__menu {
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding-top: calcRem(10);
+        padding-bottom: calcRem(10);
+        .products-menu-dropdown {
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: calcRem(17) calcRem(15);
+            width: fit-content;
+            .burger-menu-btn {
+                margin-left: calcRem(15);
+            }
+
+            &__title {
+                margin-left: calcRem(10);
+                a {
+                    font-size: calcRem(16);
+                    color: var(--color-black);
+                }
+            }
+            .arrow {
+                margin-right: calcRem(10);
+            }
+        }
+        .menu {
+            margin-right: calcRem(40);
+            ul {
+                list-style: none;
+                gap: calcRem(27);
+                li {
+                    position: relative;
+                    a {
+                        font-size: calcRem(18);
+                        line-height: 1em;
+                        color: rgba(0, 0, 0, 0.6);
+                        text-decoration: none;
+                        border-bottom: 1.5px solid transparent;
+                        transition: all 0.3s ease;
+                        padding: calcRem(5) 0;
+                    }
+                    &:hover {
+                        a {
+                            color: var(--color-primary);
+                            border-bottom-color: var(--color-primary);
+                        }
+                    }
+                    // SVG Icon styles for menu items
+                    .icon {
+                        width: calcRem(20);
+                        height: calcRem(20);
+                        margin-left: calcRem(7);
+                        stroke: #6b7280; // Gray initial state
+                        fill: none;
+                        transition: all 0.3s ease;
+
+                        &.home-icon,
+                        &.signpost,
+                        &.info-circle,
+                        &.document-text,
+                        &.call,
+                        &.location-tick {
+                            stroke: #6b7280;
+                        }
+                    }
+
+                    &:hover .icon,
+                    &.current-menu-item .icon,
+                    &.current_page_item .icon {
+                        stroke: var(--color-primary); // Purple on hover/active
+                        path {
+                            stroke: var(--color-primary);
+                        }
+                    }
+
+                    // Active/Current menu item
+                    &.current-menu-item a,
+                    &.current_page_item a {
+                        color: var(--color-primary);
+                        border-bottom-color: var(--color-primary);
+
+                        .icon {
+                            stroke: var(--color-primary);
+                            fill: var(--color-primary);
+                        }
+                    }
+                    &.icon {
+                        &.home-icon {
+                            a {
+                                svg {
+                                    width: calcRem(20);
+                                    height: calcRem(20);
+                                    transition: all 0.3s ease;
+
+                                    path {
+                                        stroke: #6b7280; // Gray color for initial state
+                                        transition: stroke 0.3s ease;
+                                    }
+                                }
+
+                                &:hover {
+                                    svg path {
+                                        stroke: #5d0e87; // Purple color on hover
+                                        fill: #5d0e87; // Fill purple on hover if needed
+                                    }
+                                }
+                            }
+
+                            // Active/Current state for home icon
+                            &.current-menu-item a,
+                            &.current_page_item a {
+                                svg path {
+                                    stroke: #5d0e87;
+                                    fill: #5d0e87;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

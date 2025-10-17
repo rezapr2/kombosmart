@@ -1,0 +1,25 @@
+.hero-slider-wrapper {
+    position: relative;
+    .swiper-slide{
+        background: radial-gradient(49.39% 109.5% at 25.49% 50.11%, #7113A3 0%, #33014E 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+        mix-blend-mode: screen;
+        .slide-content{
+            padding: calcRem(90) calcRem(82);
+        }
+        .slide-img{
+            height: calcRem(285);
+        }
+        .hero-slider-content{
+            .title{
+                font-size: calcRem(44);
+            }
+            .description{
+                font-size: calcRem(26);
+            }
+            .btn{
+                margin-top: calcRem(20);
+                padding: calcRem(9) calcRem(12);
+            }
+        }
+    }
+}

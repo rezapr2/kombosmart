@@ -1,0 +1,64 @@
+#main_footer {
+    background: linear-gradient(180deg, #403f3f 0%, #1b1919 100%);
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+    margin-top: 4rem;
+    .footer_logo {
+        width: 19.1rem;
+        margin-left: 1rem;
+        object-fit: contain;
+    }
+    .footer_socials {
+        gap: 0.3rem;
+        .footer_social {
+            width: 6.2rem;
+            height: 6.2rem;
+            svg path {
+                stroke: #fff;
+            }
+            &:hover {
+                background-color: #fff;
+                svg {
+                    fill: #000;
+                }
+            }
+        }
+    }
+    .description {
+        width: 46.6rem;
+        padding: 1.6rem 0.8rem;
+        box-sizing: border-box;
+    }
+    .list {
+        .items{
+            padding: 0.5rem 2rem;
+        }
+        .title{
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    }
+    .tanil-address {
+        width: 29rem;
+        .item {
+            .icon {
+                width: 5.8rem;
+                min-height: 5.8rem;
+            }
+            .text {
+                padding-right: 1.7rem;
+                padding-left: 1.7rem;
+            }
+            &.address .text{
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+        }
+    }
+    .copyright{
+        padding-top: 3rem;
+    }
+    .border {
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+}

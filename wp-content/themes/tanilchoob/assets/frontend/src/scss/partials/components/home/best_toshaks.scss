@@ -1,0 +1,17 @@
+.home-best-toshaks{
+    .title{
+        strong{
+            color: var(--color-primary);
+        }
+    }
+    .description{
+        width: 53rem;
+    }
+    .bottom-row{
+        padding: 1rem 3rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.15);
+    }
+    .image{
+        width: 55rem;
+    }
+}

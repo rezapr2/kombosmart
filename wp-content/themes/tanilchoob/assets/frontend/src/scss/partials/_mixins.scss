@@ -1,0 +1,14 @@
+@use "sass:math";
+
+:root{
+    --color-primary: #5D0E87;
+    --color-primary-light: #FBF5FF;
+    --color-primary-dark: #2F2F2F;
+    --color-black: #000;
+    --color-white: #fff;
+}
+
+@function calcRem($size) {
+    $remSize: math.div($size, 10);
+    @return #{$remSize}rem;
+}

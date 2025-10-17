@@ -1,0 +1,33 @@
+.stories-wrapper{
+    .stories{
+        padding: calcRem(20) 0;
+        gap: calcRem(28);
+        margin-right: calcRem(58);
+        .story-item{
+            gap: calcRem(12);
+            position: relative;
+            
+            .story-image-wrapper {
+                position: relative;
+                display: inline-block;
+                padding: calcRem(2);
+                border-radius: 50%;
+                background: linear-gradient(45deg, 
+                    #f09433 0%,
+                    #e6683c 25%,
+                    #dc2743 50%,
+                    #cc2366 75%,
+                    #bc1888 100%);
+                
+                img{
+                    width: calcRem(112);
+                    height: calcRem(112);
+                    border-radius: 50%;
+                    border: calcRem(2) solid #fff;
+                    display: block;
+                }
+            }
+            
+        }
+    }
+}
