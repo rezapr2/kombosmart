@@ -95,11 +95,6 @@
   }
   
   &__price {
-    margin-bottom: 15px;
-    color: #333;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     
     del {
       color: #999;
@@ -117,8 +112,12 @@
     }
     
     .woocommerce-Price-currencySymbol {
-      margin-right: 5px;
-      font-size: 0.85em;
+      position: absolute;
+    top: -1.8rem;
+      left: 0;
+      color: #AC8CBD;
+      font-size: 1.2rem;
+      font-weight: 400;
     }
   }
   
@@ -127,80 +126,22 @@
   }
   
   &__add-to-cart {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-top: 10px;
     background-color: #f8f8f8;
-    color: #666;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 8px 15px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    
+    padding: 1.6rem 2rem;    
     svg {
-      width: 18px;
-      height: 18px;
-      margin-left: 8px;
-      fill: currentColor;
+      width: 2rem;
+      height: 2rem;
     }
     
     &:hover {
-      background-color: #f0f0f0;
-      color: #333;
-    }
-  }
-}
-
-// RTL specific adjustments
-html[dir="rtl"] {
-  .product-card {
-    &__discount {
-      right: auto;
-      left: 10px;
-    }
-    
-    &__price {
-      del {
-        margin-right: 0;
-        margin-left: 8px;
+      background-color: #2F2F2F;
+      span{
+        color: #fff;
       }
-    }
-    
-    &__add-to-cart {
-      svg {
-        margin-left: 0;
-        margin-right: 8px;
+      svg path{
+        stroke: #fff;
       }
-    }
-    
-    &__rating {
-      .star {
-        margin-right: 0;
-        margin-left: 2px;
-      }
-    }
-  }
-}
-
-// Responsive adjustments
-@media (max-width: 768px) {
-  .product-card {
-    &__content {
-      padding: 12px;
-    }
-    
-    &__title {
-      font-size: 14px;
-    }
-    
-    &__price {
-      font-size: 14px;
-    }
-    
-    &__add-to-cart {
-      padding: 6px 12px;
-      font-size: 13px;
     }
   }
 }

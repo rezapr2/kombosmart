@@ -849,7 +849,7 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "50",
                 "class": "",
                 "id": ""
             },
@@ -864,6 +864,26 @@
             "bidirectional": 0,
             "multiple": 0,
             "bidirectional_target": []
+        },
+        {
+            "key": "field_68f285f1a15a4",
+            "label": "رمان انتها فروش ویژه",
+            "name": "end_off_sale",
+            "aria-label": "",
+            "type": "date_time_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "d\/m\/Y g:i a",
+            "return_format": "d\/m\/Y g:i a",
+            "first_day": 6,
+            "default_to_current_date": 0,
+            "allow_in_bindings": 0
         },
         {
             "key": "field_68ec13727d8a2",
@@ -1381,5 +1401,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1760648584
+    "modified": 1760724651
 }
