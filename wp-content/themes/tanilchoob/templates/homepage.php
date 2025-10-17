@@ -34,11 +34,13 @@ get_header(); ?>
     /* Special Offers Products Slider */
     $special_offers_term = get_field('special_offers_term', $page_id);
     $args = [
-        'title' => '<span class="yekan-20 color-black-80"><strong>فروش </strong><span class="thin">ویژه</span></span>',
+        'title' => '<span class="yekan-20 color-white"><strong>فروش </strong><span class="thin">ویژه</span></span>',
         'button_link' => '#',
         'card' => 'product-card',
         'wrapper_class' => 'mb-40',
         'slidesPerView' => 3.5,
+        'type' => 'special_offers',
+        'color' => 'white',
         'query' => [
             'post_type'      => 'product',
             'posts_per_page' => 10,

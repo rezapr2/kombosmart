@@ -3,6 +3,9 @@
     .title_btn, .archive-btn{
         border: 1px solid rgba(0, 0, 0, 0.8);
         border-radius: 10rem;
+        &.white{
+            border-color: #fff;
+        }
     }
     .title_btn{
         padding: .95rem 2.6rem;
