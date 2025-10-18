@@ -879,8 +879,8 @@
                 "class": "",
                 "id": ""
             },
-            "display_format": "d\/m\/Y g:i a",
-            "return_format": "d\/m\/Y g:i a",
+            "display_format": "Y-m-d H:i:s",
+            "return_format": "Y-m-d H:i:s",
             "first_day": 6,
             "default_to_current_date": 0,
             "allow_in_bindings": 0
@@ -1401,5 +1401,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1760724651
+    "modified": 1760735223
 }

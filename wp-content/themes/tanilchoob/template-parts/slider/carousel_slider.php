@@ -29,6 +29,16 @@ $carousel_slider_card = isset($args['card']) ? $args['card'] : 'article-card';
           <h3 class="title m-0"><?php echo $args['title']; ?></h3>
         </div>
       <?php endif; ?>
+      <?php if (isset($args['end_off_sale'])): ?>
+        <div class="countdown-timer regular color-primary" data-end-date="<?php echo esc_attr($args['end_off_sale']); ?>">
+          <div class="countdown-timer__time flex items-center gap-10">
+            <span class="countdown-timer__seconds yekan-26">00</span>:
+            <span class="countdown-timer__days yekan-26 ">00</span>:
+            <span class="countdown-timer__hours yekan-26 ">00</span>:
+            <span class="countdown-timer__minutes yekan-26 ">00</span>
+          </div>
+        </div>
+      <?php endif; ?>
       <div class="flex gap-10">
         <!-- Navigation buttons -->
         <div class="button-prev <?php echo $color; ?> flex item-center pointer transition">
