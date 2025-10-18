@@ -1,0 +1,56 @@
+.idea
+### WordPress ###
+# ignore everything in the root except the "wp-content" directory.
+!wp-content/
+tmp/
+
+.htaccess
+.htpasswd
+wp-config.php
+
+# ignore everything in the "wp-content" directory, except:
+# "mu-plugins", "plugins", "themes" directory
+wp-content/*
+!wp-content/uploads
+wp-content/uploads/*
+!wp-content/uploads/theme-assets/
+!wp-content/mu-plugins/
+!wp-content/plugins/
+!wp-content/themes/
+!wp-content/index.php
+
+# ignore these plugins
+wp-content/plugins/hello.php
+wp-content/plugins/fakerpress/*
+wp-content/plugins/wp-crontrol/
+wp-content/plugins/better-search-replace/
+wp-content/plugins/tracix
+
+# ignore specific themes
+wp-content/themes/twenty*/
+wp-content/themes/deploy/
+
+# ignore node dependency directories
+node_modules/
+
+# ignore log files and databases
+*.log
+#*.sql
+*.sqlite
+
+# End of https://www.toptal.com/developers/gitignore/api/wordpress,phpstorm+all,visualstudiocode,linux,macos,windows
+
+
+wp-content/themes/**/assets/frontend/dist/css/*
+wp-content/themes/**/assets/frontend/dist/static/*
+wp-content/themes/**/assets/frontend/dist/images/*
+wp-content/themes/**/assets/frontend/dist/js/*
+wp-content/themes/**/assets/frontend/dist/fonts/*
+wp-content/themes/**/assets/frontend/src/css/*
+wp-content/themes/**/assets/frontend/src/js/scripts.js
+.DS_Store
+.DS_Store?
+
+cookie.txt
+package-lock.json
+.env
