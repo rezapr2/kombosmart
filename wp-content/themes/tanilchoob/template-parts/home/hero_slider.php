@@ -36,9 +36,20 @@ if ($hero_slider) {
                     </div>
                 <?php } ?>
 
-                <!-- Add navigation buttons -->
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
+                <div class="container swiper-navigation absolute flex items-center gap-10">
+                    <!-- Add navigation buttons -->
+                    <div class="swiper-button-prev transition flex item-center">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 8.22852H15M15 8.22852L8 1.22852M15 8.22852L8 15.2285" stroke="white" stroke-opacity="0.52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="swiper-button-next transition flex item-center">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 8.22852H1M1 8.22852L8 1.22852M1 8.22852L8 15.2285" stroke="#500975" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                </div>
+
             </div>
 
         </div>

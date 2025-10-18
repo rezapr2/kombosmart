@@ -22,4 +22,24 @@
             }
         }
     }
+    .swiper-navigation{
+        left: 0;
+        bottom: calcRem(40);
+        .swiper-button-next,
+        .swiper-button-prev{
+            width: calcRem(50);
+            height: calcRem(50);
+            background-color: rgba(255, 255, 255, 0.32);
+            border-radius: 50%;
+            svg path{
+                stroke: rgba(255, 255, 255, 0.5);
+            }
+            &:hover{
+                background-color: #FFFFFF;
+                svg path{
+                    stroke: #500975;
+                }
+            }
+        }
+    }
 }
