@@ -20,7 +20,7 @@ if (!$product) {
 $title = $product->get_name();
 $permalink = $product->get_permalink();
 $image_id = $product->get_image_id();
-$image_url = $image_id ? wp_get_attachment_image_url($image_id, 'medium') : wc_placeholder_img_src('medium');
+$image_url = $image_id ? wp_get_attachment_image_url($image_id, 'full') : wc_placeholder_img_src('full');
 $regular_price = $product->get_regular_price();
 $sale_price = $product->get_sale_price();
 $price_html = $product->get_price_html();

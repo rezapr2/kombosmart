@@ -19,7 +19,7 @@ $image = $best_toshaks['image'];
             <?php echo $description; ?>
         </div>
         <div class="image">
-            <img src="<?php echo $image['url']; ?>" alt="<?php echo $title; ?>">
+            <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo $title; ?>">
         </div>
     </div>
 </section>

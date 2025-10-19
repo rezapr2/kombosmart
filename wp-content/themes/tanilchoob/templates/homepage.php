@@ -39,7 +39,7 @@ get_header(); ?>
         'button_link' => '#',
         'card' => 'product-card',
         'wrapper_class' => 'mb-40',
-        'slidesPerView' => 3.5,
+        'slidesPerView' => 4.5,
         'type' => 'special_offers',
         'end_off_sale' => $end_off_sale,
         'color' => 'white',
