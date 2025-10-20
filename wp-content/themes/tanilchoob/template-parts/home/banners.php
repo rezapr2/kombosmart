@@ -9,7 +9,11 @@ if (empty($banners)) {
         <div class="banner-item flex-1">
             <?php
             $img = $banner['image'] ?: null;
+            $mobile_image = $banner['mobile_image'] ?: null;
             $link = $banner['link'] ?: null;
+            if (wp_is_mobile() && $mobile_image) {
+                $img = $mobile_image;
+            }
             if ($img) {
                 echo '<a href="' . $link['url'] . '" target="_blank" rel="noopener noreferrer">';
                 echo '<img class="w-full" src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'banner') . '" />';
