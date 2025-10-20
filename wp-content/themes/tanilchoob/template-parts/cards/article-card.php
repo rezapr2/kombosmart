@@ -23,13 +23,13 @@ $read_more_text = isset($args['read_more_text']) ? $args['read_more_text'] : 'ا
         </div>
         <?php endif; ?>
         <div class="article-card__content flex flex-col gap-07">
-            <h3 class="article-card__title yekan-18 regular color-black-80">
+            <h3 class="article-card__title yekan-20 regular color-black-80">
                 <?php echo esc_html($title); ?>
             </h3>
-            <div class="article-card__excerpt yekan-14 color-black-50">
+            <div class="article-card__excerpt yekan-16 color-black-50 text-justify">
                 <?php echo wp_kses_post($excerpt); ?>
             </div>
-            <a href="<?php echo esc_url($permalink); ?>" class="article-card__read-more transition w-fit color-white yekan-12 flex items-center gap-10">
+            <a href="<?php echo esc_url($permalink); ?>" class="article-card__read-more transition w-fit color-white yekan-14 flex items-center gap-10">
                 <span class="read-more-text"><?php echo esc_html($read_more_text); ?></span>
                 <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left.svg')); ?>
             </a>

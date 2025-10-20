@@ -91,7 +91,7 @@ $add_to_cart_text = isset($args['add_to_cart_text']) ? $args['add_to_cart_text']
                         <path d="M7.3776 18.3333C7.9529 18.3333 8.41927 17.867 8.41927 17.2917C8.41927 16.7164 7.9529 16.25 7.3776 16.25C6.80231 16.25 6.33594 16.7164 6.33594 17.2917C6.33594 17.867 6.80231 18.3333 7.3776 18.3333Z" stroke="black" stroke-opacity="0.8" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                         <path d="M8 6.6665H18" stroke="black" stroke-opacity="0.8" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <span class="yekan-13 color-black-80"><?php echo esc_html($add_to_cart_text); ?></span>
+                    <span class="yekan-16 color-black-80"><?php echo esc_html($add_to_cart_text); ?></span>
                 </a>
             </div>
         </div>

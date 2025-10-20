@@ -1340,6 +1340,33 @@
                     "parent_repeater": "field_68ec14637d8a4"
                 },
                 {
+                    "key": "field_68f61ffbe1102",
+                    "label": "تصویر در موبایل",
+                    "name": "mobile_image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "allow_in_bindings": 0,
+                    "preview_size": "medium",
+                    "parent_repeater": "field_68ec14637d8a4"
+                },
+                {
                     "key": "field_68ec14637d8a6",
                     "label": "لینک",
                     "name": "link",
@@ -1403,6 +1430,33 @@
                     "key": "field_68ec134e7d8a0",
                     "label": "تصویر",
                     "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "allow_in_bindings": 0,
+                    "preview_size": "medium",
+                    "parent_repeater": "field_68ec134e7d89f"
+                },
+                {
+                    "key": "field_68f6201be1103",
+                    "label": "تصویر در موبایل",
+                    "name": "mobile_image",
                     "aria-label": "",
                     "type": "image",
                     "instructions": "",
@@ -1514,6 +1568,33 @@
                     "parent_repeater": "field_68e6e4f31fa9b"
                 },
                 {
+                    "key": "field_68f62025e1104",
+                    "label": "تصویر در موبایل",
+                    "name": "mobile_image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "allow_in_bindings": 0,
+                    "preview_size": "medium",
+                    "parent_repeater": "field_68e6e4f31fa9b"
+                },
+                {
                     "key": "field_68e6e54f1fa9d",
                     "label": "لینک",
                     "name": "link",
@@ -1552,5 +1633,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1760943833
+    "modified": 1760960589
 }

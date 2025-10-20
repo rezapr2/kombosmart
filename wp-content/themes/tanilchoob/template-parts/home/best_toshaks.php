@@ -8,14 +8,14 @@ $description = $best_toshaks['description'];
 $brands = $best_toshaks['brands'];
 ?>
 <section class="home-best-toshaks flex flex-col container mb-40">
-    <div class="title yekan-22 color-black thin text-center color-black-80">
+    <div class="title yekan-24 color-black thin text-center color-black-80">
        <?php echo $title; ?>
     </div>
-    <div class="sub_title yekan-13 color-black-60 text-center">
+    <div class="sub_title yekan-16 color-black-60 text-center">
         <?php echo $sub_title; ?>
     </div>
     <div class="flex justify-between items-center bottom-row mt-30">
-        <div class="description yekan-20 color-black-50">
+        <div class="description yekan-20 color-black-50 text-justify">
             <?php echo $description; ?>
         </div>
         <div class="brands flex items-center justify-between">

@@ -39,7 +39,7 @@ use TanilChoob\Theme\Helper;
                         endif; ?>
                     </div>
                 </div>
-                <div class="description border yekan-16 color-white-70">
+                <div class="description border yekan-18 color-white-70 text-justify">
                     <?php echo get_field('about_tanil', 'options'); ?>
                 </div>
             </div>
@@ -75,12 +75,12 @@ use TanilChoob\Theme\Helper;
 
                 </ul>
             </div>
-            <div class="flex flex-col tanil-address flex-shrink-0 gap-07">
+            <div class="flex flex-col tanil-address flex-shrink-0 gap-07 text-justify">
                 <div class="item flex phone_numbers gap-05">
                     <div class="icon border flex item-center flex-shrink-0 h-100">
                         <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/call.svg')); ?>
                     </div>
-                    <div class="text border flex item-center yekan-16 color-white-70 w-full">
+                    <div class="text border flex item-center yekan-18 color-white-70 w-full">
                         <?php echo get_field('phone_numbers', 'options'); ?>
                     </div>
                 </div>
@@ -96,7 +96,7 @@ use TanilChoob\Theme\Helper;
                     <div class="icon border flex item-center flex-shrink-0 h-100">
                         <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/map.svg')); ?>
                     </div>
-                    <div class="text border yekan-13 color-white-70 w-full">
+                    <div class="text border yekan-15 color-white-70 w-full">
                         <?php echo get_field('footer_address', 'options'); ?>
                     </div>
                 </div>
