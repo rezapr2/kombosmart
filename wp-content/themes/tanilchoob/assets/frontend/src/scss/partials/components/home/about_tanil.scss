@@ -4,6 +4,9 @@
 
 .about-tanil {
   background-color: #F0ECFE;  
+  &__video{
+    width: 46%;
+  }
   &__content {
     padding: 10rem 12rem;
     width: 53rem;
@@ -42,6 +45,9 @@
   
   &__social-link {
     color: #555;
+    &:hover{
+      transform: scale(1.2);
+    }
   }
   
   &__cta-btn {
