@@ -4,49 +4,62 @@
 namespace TanilChoob\Theme;
 
 
-class Frontend {
+class Frontend
+{
 
 
 	/**
 	 * Frontend constructor.
 	 */
-	public function __construct() {
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-        add_filter('mod_rewrite_rules', [$this, 'fix_security_headers']);
+	public function __construct()
+	{
+		add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
+		add_filter('mod_rewrite_rules', [$this, 'fix_security_headers']);
+		// change IRR to IRT
+		add_filter('woocommerce_currency_symbol', [$this, 'change_existing_currency_symbol'], 10, 2);
 	}
 
-	public function enqueue_scripts() {
-		if ( ! is_admin() ) {
+	public function enqueue_scripts()
+	{
+		if (! is_admin()) {
 			global $wp_query;
 
 			$css_relative_path = '/assets/frontend/dist/css/styles.min.css';
 			$js_relative_path  = '/assets/frontend/dist/js/scripts.min.js';
 
-			$css_version = filemtime( get_theme_file_path( $css_relative_path ) );
-			$js_version  = filemtime( get_theme_file_path( $js_relative_path ) );
+			$css_version = filemtime(get_theme_file_path($css_relative_path));
+			$js_version  = filemtime(get_theme_file_path($js_relative_path));
 
-			wp_enqueue_style( 'tanilchoob', get_template_directory_uri() . $css_relative_path, [], $css_version );
+			wp_enqueue_style('tanilchoob', get_template_directory_uri() . $css_relative_path, [], $css_version);
 
-			wp_enqueue_script( 'scripts', get_template_directory_uri() . $js_relative_path, [ 'jquery' ], $js_version );
-			wp_localize_script( 'scripts', 'tanilchoob', [
+			wp_enqueue_script('scripts', get_template_directory_uri() . $js_relative_path, ['jquery'], $js_version);
+			wp_localize_script('scripts', 'tanilchoob', [
 				'ajax' => [
-					'url'          => admin_url( 'admin-ajax.php' ),
-					'nonce' => wp_create_nonce( 'ajax-nonce' ),
-					'posts'        => json_encode( $wp_query->query_vars ), // everything about your loop is here
-					'current_page' => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
+					'url'          => admin_url('admin-ajax.php'),
+					'nonce' => wp_create_nonce('ajax-nonce'),
+					'posts'        => json_encode($wp_query->query_vars), // everything about your loop is here
+					'current_page' => get_query_var('paged') ? get_query_var('paged') : 1,
 					'max_page'     => $wp_query->max_num_pages,
-					'loading'      => __( 'Loading...', 'tanilchoob' ),
-					'loadMore'     => __( 'Load more', 'tanilchoob' ),
+					'loading'      => __('Loading...', 'tanilchoob'),
+					'loadMore'     => __('Load more', 'tanilchoob'),
 				],
-			] );
-
-
+			]);
 		}
 	}
-
-    public function fix_security_headers($rules)
-    {
-        $new_rules = <<<EOD
+	public function change_existing_currency_symbol($currency_symbol, $currency)
+	{
+		if (!is_admin()) {
+			switch ($currency) {
+				case 'IRR':
+					$currency_symbol = 'تومان';
+					break;
+			}
+		}
+		return $currency_symbol;
+	}
+	public function fix_security_headers($rules)
+	{
+		$new_rules = <<<EOD
 <IfModule mod_headers.c>
 	Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
 	Header set X-Frame-Options "SAMEORIGIN"
@@ -58,6 +71,6 @@ class Frontend {
 
 Options -Indexes
 EOD;
-        return $rules . $new_rules;
-    }
+		return $rules . $new_rules;
+	}
 }
