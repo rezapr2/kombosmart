@@ -5,7 +5,7 @@ $best_toshaks = get_field('best_toshaks', $page_id);
 $title = $best_toshaks['title'];
 $sub_title = $best_toshaks['sub_title'];
 $description = $best_toshaks['description'];
-$image = $best_toshaks['image'];
+$brands = $best_toshaks['brands'];
 ?>
 <section class="home-best-toshaks flex flex-col container mb-40">
     <div class="title yekan-22 color-black thin text-center color-black-80">
@@ -18,8 +18,12 @@ $image = $best_toshaks['image'];
         <div class="description yekan-20 color-black-50">
             <?php echo $description; ?>
         </div>
-        <div class="image">
-            <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo $title; ?>">
+        <div class="brands flex items-center justify-between">
+            <?php foreach ($brands as $brand) : ?>
+                <a href="<?php echo esc_url($brand['link']['url']); ?>">
+                    <img src="<?php echo esc_url($brand['image']['url']); ?>" alt="<?php echo $brand['link']['title']; ?>">
+                </a>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>

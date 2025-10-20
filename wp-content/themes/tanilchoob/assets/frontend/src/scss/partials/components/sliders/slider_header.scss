@@ -13,16 +13,24 @@
     .archive-btn{
         padding: .95rem 1.3rem;
         margin-right: 1rem;
-        &.white{
-            svg path{
-                stroke: #fff;
-            }
-        }
+
         &:hover{
             background-color: var(--color-primary);
             color: #fff;
             svg path{
                 stroke: #fff;
+            }
+        }
+        &.white{
+            svg path{
+                stroke: #fff;
+            }
+            &:hover{
+                background-color: var(--color-white);
+                color: #AC8CBD;
+                svg path{
+                    stroke: #AC8CBD;
+                }
             }
         }
     }
