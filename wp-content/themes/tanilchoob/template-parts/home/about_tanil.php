@@ -73,7 +73,7 @@ $cta_url = $about_tanil['more_btn_link'] ?: '#';
             
         </div>
         <div class="about-tanil__video">
-            <a class="about-tanil__video-wrapper relative">
+            <a class="about-tanil__video-wrapper relative" href="<?php echo esc_url($video_url); ?>">
                 <img class="about-tanil__video-poster flex" src="<?php echo esc_url($video_poster['url']); ?>" alt="<?php echo esc_attr($title); ?>">
                 <div class="absolute center">
                         <img class="about-tanil__video-play-icon" src="<?php echo Helper::getAssetUri('images/play_icon.svg'); ?>" alt="Play Icon">
