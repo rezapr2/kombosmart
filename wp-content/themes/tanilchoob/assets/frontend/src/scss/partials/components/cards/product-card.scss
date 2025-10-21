@@ -64,12 +64,10 @@
   }
   
   &__rating {
-    margin-bottom: 10px;
-    display: flex;
-    
+    margin-top: .6rem;
     .star {
-      color: #ffc107;
-      margin-right: 2px;
+      color: #2F2F2F;
+      margin-right: 2.5px;
       
       &--full:before {
         content: "★";

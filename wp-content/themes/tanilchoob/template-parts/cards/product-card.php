@@ -54,34 +54,37 @@ $add_to_cart_text = isset($args['add_to_cart_text']) ? $args['add_to_cart_text']
             <h3 class="product-card__title">
                 <a class="yekan-20 regular color-black-80" href="<?php echo esc_url($permalink); ?>"><?php echo esc_html($title); ?></a>
             </h3>
+            <div class="flex justify-between">
+                <div class="product-card flex">
 
-            <?php if ($average_rating > 0): ?>
-                <div class="product-card__rating">
-                    <?php
-                    $stars_html = '';
-                    $rating = round($average_rating * 2) / 2; // Round to nearest 0.5
+                    <?php if ($average_rating > 0): ?>
+                        <?php
+                        $stars_html = '';
+                        $rating = round($average_rating * 2) / 2; // Round to nearest 0.5
 
-                    for ($i = 1; $i <= 5; $i++) {
-                        if ($rating >= $i) {
-                            // Full star
-                            $stars_html .= '<span class="star star--full"></span>';
-                        } elseif ($rating >= $i - 0.5) {
-                            // Half star
-                            $stars_html .= '<span class="star star--half"></span>';
-                        } else {
-                            // Empty star
-                            $stars_html .= '<span class="star star--empty"></span>';
+                        for ($i = 1; $i <= 5; $i++) {
+                            if ($rating >= $i) {
+                                // Full star
+                                $stars_html .= '<span class="star star--full"></span>';
+                            } elseif ($rating >= $i - 0.5) {
+                                // Half star
+                                $stars_html .= '<span class="star star--half"></span>';
+                            } else {
+                                // Empty star
+                                $stars_html .= '<span class="star star--empty"></span>';
+                            }
                         }
-                    }
 
-                    echo $stars_html;
-                    ?>
+                        echo $stars_html;
+                        ?>
+
+                    <?php endif; ?>
                 </div>
-            <?php endif; ?>
-
-            <div class="product-card__price yekan-22 bold color-primary self-end relative">
-                <?php echo $price_html; ?>
+                <div class="product-card__price yekan-22 bold color-primary self-end relative">
+                    <?php echo $price_html; ?>
+                </div>
             </div>
+
 
             <div class="product-card__actions">
                 <a href="<?php echo esc_url($permalink); ?>" class="product-card__add-to-cart flex items-center justify-center gap-10">

@@ -118,11 +118,21 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                         echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'sleep products') . '" />';
                     }
                     ?>
+                    <div class="content">
+                        <div class="title yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'sleep pack' ?></div>
+                        <div class="more w-fit yekan-15 color-white flex items-center transition"> بیشتر
+                            <div class="arrow flex">
+                                <?php echo $arrow; ?>
+                            </div>
+                        </div>
+                    </div>
                 </a>
+                <?php
+                $img = $sleep_pack['image'] ?: null;
+                $link = $sleep_pack['link'] ?: null;
+                ?>
                 <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item">
                     <?php
-                    $img = $sleep_pack['image'] ?: null;
-                    $link = $sleep_pack['link'] ?: null;
                     if ($img) {
                         echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'sleep pack') . '" />';
                     }
