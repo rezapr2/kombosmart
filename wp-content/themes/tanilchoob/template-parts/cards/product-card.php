@@ -80,7 +80,7 @@ $add_to_cart_text = isset($args['add_to_cart_text']) ? $args['add_to_cart_text']
 
                     <?php endif; ?>
                 </div>
-                <div class="product-card__price yekan-22 bold color-primary self-end relative">
+                <div class="product-card__price yekan-22 bold flex flex-col-reverse items-end color-primary self-end relative">
                     <?php echo $price_html; ?>
                 </div>
             </div>

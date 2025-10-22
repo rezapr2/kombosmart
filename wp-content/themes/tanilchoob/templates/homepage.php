@@ -72,7 +72,7 @@ get_header(); ?>
         'button_link' => '#',
         'card' => 'product-card',
         'wrapper_class' => 'mb-40',
-        'slidesPerView' => 4.5,
+        'slidesPerView' => 3.5,
         'query' => [
             'post_type'      => 'product',
             'posts_per_page' => 10,
@@ -102,7 +102,7 @@ get_header(); ?>
         'button_link' => '#',
         'card' => 'product-card',
         'wrapper_class' => 'mb-40',
-        'slidesPerView' => 4.5,
+        'slidesPerView' => 3.5,
         'query' => [
             'post_type'      => 'product',
             'posts_per_page' => 10,

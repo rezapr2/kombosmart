@@ -14,8 +14,14 @@
     align-items: center;
     justify-content: center;
 }
+.items-end{
+    align-items: flex-end;
+}
 .flex-col{
     flex-direction: column;
+}
+.flex-col-reverse{
+    flex-direction: column-reverse;
 }
 .flex-row{
     flex-direction: row;
