@@ -15,8 +15,6 @@ class Frontend
 	{
 		add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
 		add_filter('mod_rewrite_rules', [$this, 'fix_security_headers']);
-		// change IRR to IRT
-		add_filter('woocommerce_currency_symbol', [$this, 'change_existing_currency_symbol'], 10, 2);
 	}
 
 	public function enqueue_scripts()
@@ -46,17 +44,7 @@ class Frontend
 			]);
 		}
 	}
-	public function change_existing_currency_symbol($currency_symbol, $currency)
-	{
-		if (!is_admin()) {
-			switch ($currency) {
-				case 'IRR':
-					$currency_symbol = 'تومان';
-					break;
-			}
-		}
-		return $currency_symbol;
-	}
+	
 	public function fix_security_headers($rules)
 	{
 		$new_rules = <<<EOD
