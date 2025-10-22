@@ -46,11 +46,11 @@ use TanilChoob\Theme\Helper;
             <div class="flex flex-col list list_1 border">
                 <?php $list_1 = get_field('list_1', 'options'); ?>
                 <div class="title color-white-80 yekan-22 text-center">
-                    <?php echo ($list_1['title'] ?: ''); ?>
+                    <?php echo (isset($list_1['title']) ? $list_1['title'] : ''); ?>
                 </div>
                 <ul class="items flex flex-col gap-10">
                     <?php
-                    $list = $list_1['list'] ?: [];
+                    $list = (isset($list_1['list']) ? $list_1['list'] : []);
                     foreach ($list as $item) {
                         $link = $item['link'];
                         echo '<li><a class="color-white-50 yekan-20" href="' . $link['url'] . '">' . $link['title'] . '</a></li>';
@@ -62,11 +62,11 @@ use TanilChoob\Theme\Helper;
             <div class="flex flex-col list list_2 border">
                 <?php $list_2 = get_field('list_2', 'options'); ?>
                 <div class="title color-white-80 yekan-22 text-center">
-                    <?php echo ($list_2['title'] ?: ''); ?>
+                    <?php echo (isset($list_2['title']) ? $list_2['title'] : ''); ?>
                 </div>
                 <ul class="items flex flex-col gap-10">
                     <?php
-                    $list = $list_2['list'] ?: [];
+                    $list = (isset($list_2['list']) ? $list_2['list'] : []);
                     foreach ($list as $item) {
                         $link = $item['link'];
                         echo '<li><a class="color-white-50 yekan-20" href="' . $link['url'] . '">' . $link['title'] . '</a></li>';
