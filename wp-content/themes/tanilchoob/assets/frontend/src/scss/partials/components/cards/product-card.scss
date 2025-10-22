@@ -1,16 +1,12 @@
 // Product Card Styles
 .product-card {
   background-color: #fff;
-  height: 100%;
   border: 2px solid rgba(0, 0, 0, 0.08);
   &:hover {
     border-color: #2F2F2F;
   }
   
   &__inner {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
     padding: 1.2rem;
   }
   

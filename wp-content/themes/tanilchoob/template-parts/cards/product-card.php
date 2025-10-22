@@ -38,8 +38,8 @@ if ($on_sale && $regular_price > 0) {
 $add_to_cart_text = isset($args['add_to_cart_text']) ? $args['add_to_cart_text'] : 'اضافه به سبد خرید';
 ?>
 
-<div class="product-card swiper-slide transition">
-    <div class="product-card__inner">
+<div class="product-card swiper-slide transition h-100">
+    <div class="product-card__inner flex flex-col h-100">
         <div class="product-card__image">
             <?php if ($on_sale && $discount_percentage > 0): ?>
                 <div class="product-card__discount">
