@@ -52,5 +52,4 @@ wp-content/themes/**/assets/frontend/src/js/scripts.js
 .DS_Store?
 
 cookie.txt
-package-lock.json
-.env
+package-lock.json.env

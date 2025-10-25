@@ -29,6 +29,12 @@ class Setup {
 		add_image_size( 'archive', 450, 450, true );
 //        add_image_size( 'half-image', 960, 960, true );
 
+		// WooCommerce Support
+		add_theme_support( 'woocommerce' );
+		add_theme_support( 'wc-product-gallery-zoom' );
+		add_theme_support( 'wc-product-gallery-lightbox' );
+		add_theme_support( 'wc-product-gallery-slider' );
+
 
 		// Register Nav menus
 		register_nav_menus(

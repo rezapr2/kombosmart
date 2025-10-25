@@ -8,7 +8,7 @@ $header_logo = get_field('header_logo', 'options');
     <div class="top-row flex items-center justify-between container">
         <div class="top-row__right flex items-center">
             <a class="logo" href="<?php echo home_url(); ?>">
-                <img src="<?php echo $header_logo['url']; ?>"
+                <img src="<?php echo isset($header_logo['url']) ? $header_logo['url'] : ''; ?>"
                     alt="<?php bloginfo('name'); ?>">
             </a>
             <div class="search">
