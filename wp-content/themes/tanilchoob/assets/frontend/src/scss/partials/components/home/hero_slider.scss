@@ -19,6 +19,10 @@
             .btn{
                 margin-top: calcRem(20);
                 padding: calcRem(9) calcRem(12);
+                &:hover{
+                    background-color: #fff;
+                    color: var(--color-primary);
+                }
             }
         }
     }

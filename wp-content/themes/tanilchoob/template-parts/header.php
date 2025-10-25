@@ -13,7 +13,7 @@ $header_logo = get_field('header_logo', 'options');
             </a>
             <div class="search">
                 <form action="<?php echo home_url(); ?>" method="get">
-                    <input type="text" name="s" placeholder="جستجو در تانیل چوب">
+                    <input class="transition" type="text" name="s" placeholder="جستجو در تانیل چوب">
                     <button type="submit" class="btn btn--primary flex items-center">
                         <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/search-normal.svg')); ?>
                     </button>
