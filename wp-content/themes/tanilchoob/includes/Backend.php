@@ -5,7 +5,6 @@ namespace TanilChoob\Theme;
 
 use TanilChoob\Theme\AdminMenu\AdminMenu;
 use TanilChoob\Theme\Ajax\Ajax;
-use TanilChoob\Theme\GutenbergBlock\GutenbergBlocks;
 use TanilChoob\Theme\OptionPage\OptionPage;
 use TanilChoob\Theme\PostType\PostTypes;
 use TanilChoob\Theme\Taxonomy\Taxonomy;
@@ -50,7 +49,6 @@ class Backend {
 		require_once get_template_directory().'/includes/OptionPage/OptionPage.php';
 		require_once get_template_directory().'/includes/AdminMenu/AdminMenu.php';
         require_once get_template_directory().'/includes/Ajax/Ajax.php';
-        require_once get_template_directory().'/includes/GutenbergBlock/GutenbergBlocks.php';
         require_once get_template_directory().'/includes/PostType/PostTypes.php';
         require_once get_template_directory().'/includes/Taxonomy/Taxonomy.php';
 //        require_once get_template_directory().'/includes/Authentication.php';
@@ -59,7 +57,6 @@ class Backend {
 	private function initializer() {
 		new AdminMenu();
         new Ajax();
-        new GutenbergBlocks();
         new OptionPage();
         new PostTypes();
         new Taxonomy();
