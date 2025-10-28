@@ -65,8 +65,8 @@ if (post_password_required()) {
 				</div>
 
 			<?php endif; ?>
-			<div class="product-status">
-				<span>وضعیت محصول :</span>
+			<div class="product-status flex gap-10 items-center">
+				<span class="yekan-18">وضعیت محصول :</span>
 				<?php 
 				$product_status = get_post_meta($product->get_id(), '_product_status', true);
 				$status_labels = array(
@@ -77,10 +77,68 @@ if (post_password_required()) {
 				);
 				$status_label = isset($status_labels[$product_status]) ? $status_labels[$product_status] : $status_labels['in_stock'];
 				?>
-				<span><?php echo esc_html($status_label); ?></span>
+				<span class="yekan-20 color-primary bold"><?php echo esc_html($status_label); ?></span>
 			</div>
 		</div>
 		<div class="product-images">
+			<div class="product-gallery-container">
+				<!-- Swiper Thumbs -->
+				<div class="product-gallery-thumbs">
+					<div class="swiper-container gallery-thumbs">
+						<div class="swiper-wrapper">
+							<?php
+							$attachment_ids = $product->get_gallery_image_ids();
+							$main_image_id = $product->get_image_id();
+							
+							// Add main image to the beginning of the gallery
+							if ($main_image_id) {
+								echo '<div class="swiper-slide">';
+								echo '<div class="thumb-item">';
+								echo wp_get_attachment_image($main_image_id, 'thumbnail');
+								echo '</div>';
+								echo '</div>';
+							}
+							
+							// Add gallery images
+							if ($attachment_ids) {
+								foreach ($attachment_ids as $attachment_id) {
+									echo '<div class="swiper-slide">';
+									echo '<div class="thumb-item">';
+									echo wp_get_attachment_image($attachment_id, 'thumbnail');
+									echo '</div>';
+									echo '</div>';
+								}
+							}
+							?>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Swiper Main -->
+				<div class="product-gallery-main">
+					<div class="swiper-container gallery-main">
+						<div class="swiper-wrapper">
+							<?php
+							// Add main image to the beginning of the gallery
+							if ($main_image_id) {
+								echo '<div class="swiper-slide">';
+								echo wp_get_attachment_image($main_image_id, 'large');
+								echo '</div>';
+							}
+							
+							// Add gallery images
+							if ($attachment_ids) {
+								foreach ($attachment_ids as $attachment_id) {
+									echo '<div class="swiper-slide">';
+									echo wp_get_attachment_image($attachment_id, 'large');
+									echo '</div>';
+								}
+							}
+							?>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<!-- <div class="product-summary">
 			<div class="summary entry-summary">
