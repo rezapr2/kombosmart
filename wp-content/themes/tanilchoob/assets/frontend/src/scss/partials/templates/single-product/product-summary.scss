@@ -1,0 +1,13 @@
+.product-summary{
+    .product{
+        &-title{
+            font-size: 3.6rem;
+            font-weight: 700;
+            margin-bottom: .4rem;
+        }
+        &-comments-ratings{
+            margin-bottom: 1.8rem;
+            color: #999999;
+        }
+    }
+}
