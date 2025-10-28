@@ -9,5 +9,21 @@
             margin-bottom: 1.8rem;
             color: #999999;
         }
+        &-offer-countdown{
+            .countdown-timer{
+                background-color: rgba(255, 0, 132, 0.07);
+                border: 1px solid #FF0084;
+                color: #FF0084;
+                padding: 1rem 1.2rem;
+                line-height: 3rem;
+                .countdown-timer__label{
+                    font-weight: 400;
+                }
+            }
+        }
+        &-status{
+            margin-bottom: .4rem;
+        }
     }
+    
 }

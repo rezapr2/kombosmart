@@ -24,7 +24,7 @@ if (post_password_required()) {
 ?>
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class('', $product); ?>>
 	<div class="product-container container flex mt-40">
-		<div class="product-summary flex flex-col">
+		<div class="product-summary flex flex-col gap-04">
 			<h1 class="product-title"><?php the_title(); ?></h1>
 			<div class="product-comments-ratings flex items-center yekan-16">
 				<div class="product-rating">
@@ -38,23 +38,46 @@ if (post_password_required()) {
 				</div>
 			</div>
 			<!-- Product offer countdown -->
-			<div class="product-offer-countdown">
-				<?php
-				$sale_end_date = $product->get_date_on_sale_to();
-				if ($sale_end_date): ?>
-					<div class="countdown-timer regular color-primary" data-end-date="<?php echo esc_attr($sale_end_date->date('Y-m-d H:i:s')); ?>">
+			<?php
+			$sale_end_date = $product->get_date_on_sale_to();
+			if ($sale_end_date): ?>
+				<div class="product-offer-countdown">
+					<div class="countdown-timer regular flex items-center gap-10 justify-between" data-end-date="<?php echo esc_attr($sale_end_date->date('Y-m-d H:i:s')); ?>">
 						<div class="countdown-timer__time flex items-center gap-10">
-							<span class="countdown-timer__seconds yekan-26">00</span>
-							<span class="countdown-timer__minutes yekan-26 ">00</span>
-							<span class="countdown-timer__hours yekan-26 ">00</span>
-							<span class="countdown-timer__days yekan-26 ">00</span>
+							<div class="flex flex-col text-center">
+								<div class="countdown-timer__seconds yekan-30">00</div>
+								<div class="countdown-timer__label yekan-18">ثانیه</div>
+							</div>
+							<div class="flex flex-col text-center">
+								<div class="countdown-timer__minutes yekan-30">00</div>
+								<div class="countdown-timer__label yekan-18">دقیقه</div>
+							</div>
+							<div class="flex flex-col text-center">
+								<div class="countdown-timer__hours yekan-30">00</div>
+								<div class="countdown-timer__label yekan-18">ساعت</div>
+							</div>
+							<div class="flex flex-col text-center">
+								<div class="countdown-timer__days yekan-30">00</div>
+								<div class="countdown-timer__label yekan-18">روز</div>
+							</div>
 						</div>
 					</div>
-				<?php endif; ?>
-			</div>
+				</div>
+
+			<?php endif; ?>
 			<div class="product-status">
 				<span>وضعیت محصول :</span>
-				<span>موجود و آماده ارسال</span>
+				<?php 
+				$product_status = get_post_meta($product->get_id(), '_product_status', true);
+				$status_labels = array(
+					'in_stock' => __('موجود و آماده ارسال', 'tanilchoob'),
+					'in_produce' => __('در حال تولید', 'tanilchoob'),
+					'out_of_stock_temporary' => __('توقف موقت تولید', 'tanilchoob'),
+					'out_of_stock' => __('توقف کامل تولید', 'tanilchoob'),
+				);
+				$status_label = isset($status_labels[$product_status]) ? $status_labels[$product_status] : $status_labels['in_stock'];
+				?>
+				<span><?php echo esc_html($status_label); ?></span>
 			</div>
 		</div>
 		<div class="product-images">
