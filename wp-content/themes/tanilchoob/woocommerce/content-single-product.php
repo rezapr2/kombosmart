@@ -44,9 +44,9 @@ if (post_password_required()) {
 				if ($sale_end_date): ?>
 					<div class="countdown-timer regular color-primary" data-end-date="<?php echo esc_attr($sale_end_date->date('Y-m-d H:i:s')); ?>">
 						<div class="countdown-timer__time flex items-center gap-10">
-							<span class="countdown-timer__seconds yekan-26">00</span>:
-							<span class="countdown-timer__minutes yekan-26 ">00</span>:
-							<span class="countdown-timer__hours yekan-26 ">00</span>:
+							<span class="countdown-timer__seconds yekan-26">00</span>
+							<span class="countdown-timer__minutes yekan-26 ">00</span>
+							<span class="countdown-timer__hours yekan-26 ">00</span>
 							<span class="countdown-timer__days yekan-26 ">00</span>
 						</div>
 					</div>
