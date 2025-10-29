@@ -6,27 +6,16 @@
         if ($('.product-gallery-container').length) {
             // Initialize thumbnail slider
             var galleryThumbs = new Swiper('.gallery-thumbs', {
-                spaceBetween: 10,
-                slidesPerView: 4,
+                slidesPerView: 'auto',
                 direction: 'vertical',
                 watchSlidesVisibility: true,
                 watchSlidesProgress: true,
-                breakpoints: {
-                    // when window width is <= 768px
-                    768: {
-                        direction: 'vertical',
-                        slidesPerView: 3,
-                    }
-                }
             });
             
             // Initialize main slider
             var galleryMain = new Swiper('.gallery-main', {
+                slidesPerView: 1,
                 spaceBetween: 10,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
                 thumbs: {
                     swiper: galleryThumbs
                 },

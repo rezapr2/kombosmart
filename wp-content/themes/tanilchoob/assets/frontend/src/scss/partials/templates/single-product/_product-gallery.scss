@@ -1,82 +1,64 @@
 // Product Gallery Styles
 .product-gallery-container {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 30px;
-  
-  @media (max-width: 768px) {
-    flex-direction: row;
-  }
-  
-  // Thumbnails
-  .product-gallery-thumbs {
-    width: 100px;
-    margin-right: 15px;
-    
-    @media (max-width: 768px) {
-      width: 100px;
-      margin-right: 15px;
+    // Thumbnails
+    .product-gallery-thumbs {
+        .swiper-wrapper {
+            gap: 0.5rem;
+        }
+        .gallery-thumbs {
+            height: 45.8rem;
+            overflow: hidden;
+            .swiper-slide {
+                cursor: pointer;
+                height: 11rem;
+
+                .thumb-item {
+                    height: 10rem;
+                    padding: .5rem;
+                    border: 1px solid rgba(0, 0, 0, 0.15);
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        width: 10rem;
+                        height: 10rem;
+                        background-color: rgba(0, 0, 0, 0.6);
+                        z-index: 1;
+                    }
+                    img {
+                        width: 10rem;
+                        object-fit: cover;
+                    }
+                }
+                &.swiper-slide-thumb-active{
+                  .thumb-item {
+                    border-color: #000;
+                    &::before {
+                        display: none;
+                    }
+                  }
+                }
+            }
+        }
     }
-    
-    .gallery-thumbs {
-      height: 400px;
-      
-      @media (max-width: 768px) {
-        height: 400px;
-      }
-      
-      .swiper-slide {
-        opacity: 0.6;
-        cursor: pointer;
-        transition: opacity 0.3s;
-        
-        &.swiper-slide-thumb-active {
-          opacity: 1;
-          border: 2px solid #ddd;
+
+    // Main Gallery
+    .product-gallery-main {
+        .gallery-main {
+            height: 43.7rem;
+            width: 62.7rem;
+            overflow: hidden;
+            padding: 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            .swiper-slide {
+                img {
+                    max-height: 100%;
+                    max-width: 100%;
+                    object-fit: cover;
+                }
+            }
         }
-        
-        .thumb-item {
-          height: 80px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          
-          img {
-            max-height: 100%;
-            width: auto;
-            object-fit: contain;
-          }
-        }
-      }
     }
-  }
-  
-  // Main Gallery
-  .product-gallery-main {
-    flex: 1;
-    
-    .gallery-main {
-      .swiper-slide {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 400px;
-        
-        img {
-          max-height: 100%;
-          max-width: 100%;
-          object-fit: contain;
-        }
-      }
-      
-      .swiper-button-next,
-      .swiper-button-prev {
-        color: #333;
-        
-        &:after {
-          font-size: 24px;
-        }
-      }
-    }
-  }
 }

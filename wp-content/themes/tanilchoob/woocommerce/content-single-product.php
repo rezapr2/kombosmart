@@ -23,8 +23,8 @@ if (post_password_required()) {
 }
 ?>
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class('', $product); ?>>
-	<div class="product-container container flex mt-40">
-		<div class="product-summary flex flex-col gap-04">
+	<div class="product-container container flex gap-15 mt-40">
+		<div class="product-summary flex flex-col w-full gap-04">
 			<h1 class="product-title"><?php the_title(); ?></h1>
 			<div class="product-comments-ratings flex items-center yekan-16">
 				<div class="product-rating">
@@ -41,9 +41,9 @@ if (post_password_required()) {
 			<?php
 			$sale_end_date = $product->get_date_on_sale_to();
 			if ($sale_end_date): ?>
-				<div class="product-offer-countdown">
-					<div class="countdown-timer regular flex items-center gap-10 justify-between" data-end-date="<?php echo esc_attr($sale_end_date->date('Y-m-d H:i:s')); ?>">
-						<div class="countdown-timer__time flex items-center gap-10">
+				<div class="product-offer-countdown ">
+					<div class="countdown-timer regular" data-end-date="<?php echo esc_attr($sale_end_date->date('Y-m-d H:i:s')); ?>">
+						<div class="countdown-timer__time  flex items-center gap-10 w-full h-100 justify-evenly">
 							<div class="flex flex-col text-center">
 								<div class="countdown-timer__seconds yekan-30">00</div>
 								<div class="countdown-timer__label yekan-18">ثانیه</div>
@@ -65,7 +65,7 @@ if (post_password_required()) {
 				</div>
 
 			<?php endif; ?>
-			<div class="product-status flex gap-10 items-center">
+			<div class="product-status flex gap-10 px-25 items-center">
 				<span class="yekan-18">وضعیت محصول :</span>
 				<?php 
 				$product_status = get_post_meta($product->get_id(), '_product_status', true);
@@ -80,15 +80,43 @@ if (post_password_required()) {
 				<span class="yekan-20 color-primary bold"><?php echo esc_html($status_label); ?></span>
 			</div>
 		</div>
-		<div class="product-images">
-			<div class="product-gallery-container">
+		<div class="product-images flex-shrink-0">
+			<div class="product-gallery-container flex gap-10">
+
+			<!-- Swiper Main -->
+				<div class="product-gallery-main">
+					<div class="swiper-container gallery-main">
+						<div class="swiper-wrapper">
+							<?php
+
+							$attachment_ids = $product->get_gallery_image_ids();
+							$main_image_id = $product->get_image_id();
+
+							// Add main image to the beginning of the gallery
+							if ($main_image_id) {
+								echo '<div class="swiper-slide">';
+								echo wp_get_attachment_image($main_image_id, 'large');
+								echo '</div>';
+							}
+							
+							// Add gallery images
+							if ($attachment_ids) {
+								foreach ($attachment_ids as $attachment_id) {
+									echo '<div class="swiper-slide">';
+									echo wp_get_attachment_image($attachment_id, 'large');
+									echo '</div>';
+								}
+							}
+							?>
+						</div>
+					</div>
+				</div>
 				<!-- Swiper Thumbs -->
 				<div class="product-gallery-thumbs">
 					<div class="swiper-container gallery-thumbs">
 						<div class="swiper-wrapper">
 							<?php
-							$attachment_ids = $product->get_gallery_image_ids();
-							$main_image_id = $product->get_image_id();
+							
 							
 							// Add main image to the beginning of the gallery
 							if ($main_image_id) {
@@ -106,31 +134,6 @@ if (post_password_required()) {
 									echo '<div class="thumb-item">';
 									echo wp_get_attachment_image($attachment_id, 'thumbnail');
 									echo '</div>';
-									echo '</div>';
-								}
-							}
-							?>
-						</div>
-					</div>
-				</div>
-				
-				<!-- Swiper Main -->
-				<div class="product-gallery-main">
-					<div class="swiper-container gallery-main">
-						<div class="swiper-wrapper">
-							<?php
-							// Add main image to the beginning of the gallery
-							if ($main_image_id) {
-								echo '<div class="swiper-slide">';
-								echo wp_get_attachment_image($main_image_id, 'large');
-								echo '</div>';
-							}
-							
-							// Add gallery images
-							if ($attachment_ids) {
-								foreach ($attachment_ids as $attachment_id) {
-									echo '<div class="swiper-slide">';
-									echo wp_get_attachment_image($attachment_id, 'large');
 									echo '</div>';
 								}
 							}
@@ -159,11 +162,6 @@ if (post_password_required()) {
 				?>
 			</div>
 		</div>
-		<div class="product-images">
-			<?php
-
-			?>
-		</div> -->
 
 
 	</div>
