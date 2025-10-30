@@ -214,6 +214,7 @@ if (post_password_required()) {
 				<div id="tab-specs-content" class="tab-content-item">
 					<?php echo $product->get_short_description(); ?>
 				</div>
+			</div>
 		</div>
 	</div>
 	<?php endif; 
