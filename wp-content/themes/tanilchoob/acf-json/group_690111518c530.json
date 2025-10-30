@@ -3,6 +3,24 @@
     "title": "اطلاعات محصول",
     "fields": [
         {
+            "key": "field_6903ec193674a",
+            "label": "اطلاعات محصول",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
             "key": "field_69011c7be4ab0",
             "label": "مشخصات کلی",
             "name": "",
@@ -111,6 +129,27 @@
             "selected": 0
         },
         {
+            "key": "field_6903ead904bad",
+            "label": "نحوه نگهداری محصول",
+            "name": "product_maintenance",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
             "key": "field_69011cc2e4ab6",
             "label": "روند تولید",
             "name": "",
@@ -129,11 +168,11 @@
             "selected": 0
         },
         {
-            "key": "field_6903c7b93e16d",
+            "key": "field_6903eb7f60784",
             "label": "زیر محصولات",
             "name": "",
             "aria-label": "",
-            "type": "tab",
+            "type": "accordion",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -142,9 +181,9 @@
                 "class": "",
                 "id": ""
             },
-            "placement": "top",
-            "endpoint": 1,
-            "selected": 0
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 0
         },
         {
             "key": "field_6903c7d43e16e",
@@ -316,11 +355,11 @@
             ]
         },
         {
-            "key": "field_6903c75203294",
+            "key": "field_6903eb2d02d40",
             "label": "سوالات متداول",
             "name": "",
             "aria-label": "",
-            "type": "tab",
+            "type": "accordion",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -329,9 +368,9 @@
                 "class": "",
                 "id": ""
             },
-            "placement": "top",
-            "endpoint": 1,
-            "selected": 0
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 0
         },
         {
             "key": "field_69027fd5771e8",
@@ -420,5 +459,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1761855938
+    "modified": 1761864747
 }

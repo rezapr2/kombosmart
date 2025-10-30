@@ -197,15 +197,15 @@ if (post_password_required()) {
 	</div>
 	<div class="container mb-40">
 		<div class="tab-contents">
-			<div class="tabs flex">
-				<div id="tab-desc" class="tab-item yekan-14 color-black-30 cursor-pointer active">توضیحات محصول</div>
-				<div id="tab-specs" class="tab-item yekan-14 color-black-30 cursor-pointer">مشخصات کلی</div>
-				<div id="tab-review" class="tab-item yekan-14 color-black-30 cursor-pointer">بررسی تخصصی</div>
-				<div id="tab-dimensions" class="tab-item yekan-14 color-black-30 cursor-pointer">ابعاد محصول</div>
-				<div id="tab-faqs" class="tab-item yekan-14 color-black-30 cursor-pointer">پرسش و پاسخ</div>
-				<div id="tab-reviews" class="tab-item yekan-14 color-black-30 cursor-pointer">نظرات مشتریان</div>
-				<div id="tab-maintenance" class="tab-item yekan-14 color-black-30 cursor-pointer">نحوه نگهداری محصول</div>
-				<div id="tab-production" class="tab-item yekan-14 color-black-30 cursor-pointer">روند تولید</div>
+			<div class="tabs flex w-full">
+				<div id="tab-desc" class="tab-item yekan-14 color-black-30 pointer active">توضیحات محصول</div>
+				<div id="tab-specs" class="tab-item yekan-14 color-black-30 pointer">مشخصات کلی</div>
+				<div id="tab-review" class="tab-item yekan-14 color-black-30 pointer">بررسی تخصصی</div>
+				<div id="tab-dimensions" class="tab-item yekan-14 color-black-30 pointer">ابعاد محصول</div>
+				<div id="tab-faqs" class="tab-item yekan-14 color-black-30 pointer">پرسش و پاسخ</div>
+				<div id="tab-reviews" class="tab-item yekan-14 color-black-30 pointer">نظرات مشتریان</div>
+				<div id="tab-maintenance" class="tab-item yekan-14 color-black-30 pointer">نحوه نگهداری محصول</div>
+				<div id="tab-production" class="tab-item yekan-14 color-black-30 pointer">روند تولید</div>
 			</div>
 			<div class="tab-content flex flex-col gap-20">
 				<div id="tab-desc-content" class="tab-content-item active">
