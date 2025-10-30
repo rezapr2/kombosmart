@@ -13,7 +13,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use TanilChoob\Theme\Helper;
 
 ?>
 <!DOCTYPE html>

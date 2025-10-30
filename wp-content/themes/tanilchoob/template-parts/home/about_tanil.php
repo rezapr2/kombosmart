@@ -37,7 +37,7 @@ $cta_url = $about_tanil['more_btn_link'] ?: '#';
                 <?php echo wp_kses_post($description); ?>
             </div>
             <div class="flex justify-between items-center">
-                <a href="<?php echo esc_url($cta_url); ?>" class="about-tanil__cta-btn transition flex items-center justify-between yekan-16">
+                <a href="<?php echo esc_url($cta_url); ?>" class="about-tanil__cta-btn bg-black transition flex items-center justify-between yekan-16">
                     <?php echo esc_html($cta_text); ?>
                     <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-circle.svg')); ?>
                 </a>
