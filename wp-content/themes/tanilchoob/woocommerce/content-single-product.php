@@ -25,7 +25,7 @@ if (post_password_required()) {
 }
 ?>
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class('', $product); ?>>
-	<div class="product-container container flex gap-15 mt-40">
+	<div class="product-container container flex gap-15 mt-40 mb-40">
 		<div class="product-summary flex flex-col w-full gap-04">
 			<h1 class="product-title"><?php the_title(); ?></h1>
 			<div class="product-comments-ratings flex items-center yekan-16">
@@ -101,7 +101,7 @@ if (post_password_required()) {
 
 				<!-- Swiper Main -->
 				<div class="product-gallery-main">
-					<div class="swiper-container gallery-main">
+					<div class="swiper-container gallery-main overflow-hidden">
 						<div class="swiper-wrapper">
 							<?php
 
@@ -129,7 +129,7 @@ if (post_password_required()) {
 				</div>
 				<!-- Swiper Thumbs -->
 				<div class="product-gallery-thumbs">
-					<div class="swiper-container gallery-thumbs">
+					<div class="swiper-container gallery-thumbs overflow-hidden">
 						<div class="swiper-wrapper">
 							<?php
 
@@ -161,6 +161,62 @@ if (post_password_required()) {
 		</div>
 	</div>
 	<?php
+	$full_product_image = get_field('full_product_image');
+	$sub_products = get_field('sub_products');
+	if($full_product_image || $sub_products) :
+	?>
+	<div class="container-right sub-products-container overflow-hidden flex items-center mb-40 gap-40">
+		<?php if($full_product_image) : ?>
+			<div class="full-product-image z-index-5">
+				<?php echo wp_get_attachment_image($full_product_image['ID'], 'medium', false, array('class' => 'w-full h-full block object-cover')); ?>
+			</div>
+		<?php endif; ?>
+		<?php if($sub_products) : ?>
+			<div class="sub-products swiper-container flex gap-10 overflow-hidden">
+				<div class="swiper-wrapper gap-40">
+				<?php foreach($sub_products as $sub_product) : ?>
+					<div class="swiper-slide sub-product h-auto flex flex-col justify-content-end items-center gap-20 <?php if(!$sub_product['purchasable']) echo 'not-purchasable'; ?>">
+						<?php echo wp_get_attachment_image($sub_product['image']['ID'], 'thumbnail'); ?>
+						<a href="<?php echo $sub_product['link']; ?>" class="sub-product-info flex items-center flex-col">
+							<?php if($sub_product['purchasable']) : ?>
+								<div class="sub-product-name yekan-18 color-black-80"><?php echo $sub_product['title']; ?></div>
+								<div class="sub-product-price yekan-16 color-primary"><?php echo $sub_product['price']; ?></div>
+							<?php else : ?>
+								<div class="sub-product-name yekan-18 color-black-50 text-center">غیر قابل فروش به صورت تکی</div>
+							<?php endif; ?>
+						</a>
+					</div>
+				<?php endforeach; ?>
+					<div class="swiper-slide">
+					</div>
+				</div>
+			</div>
+		<?php endif; ?>
+
+		</div>
+	</div>
+	<div class="container mb-40">
+		<div class="tab-contents">
+			<div class="tabs flex">
+				<div id="tab-desc" class="tab-item yekan-14 color-black-30 cursor-pointer active">توضیحات محصول</div>
+				<div id="tab-specs" class="tab-item yekan-14 color-black-30 cursor-pointer">مشخصات کلی</div>
+				<div id="tab-review" class="tab-item yekan-14 color-black-30 cursor-pointer">بررسی تخصصی</div>
+				<div id="tab-dimensions" class="tab-item yekan-14 color-black-30 cursor-pointer">ابعاد محصول</div>
+				<div id="tab-faqs" class="tab-item yekan-14 color-black-30 cursor-pointer">پرسش و پاسخ</div>
+				<div id="tab-reviews" class="tab-item yekan-14 color-black-30 cursor-pointer">نظرات مشتریان</div>
+				<div id="tab-maintenance" class="tab-item yekan-14 color-black-30 cursor-pointer">نحوه نگهداری محصول</div>
+				<div id="tab-production" class="tab-item yekan-14 color-black-30 cursor-pointer">روند تولید</div>
+			</div>
+			<div class="tab-content flex flex-col gap-20">
+				<div id="tab-desc-content" class="tab-content-item active">
+					<?php echo $product->get_description(); ?>
+				</div>
+				<div id="tab-specs-content" class="tab-content-item">
+					<?php echo $product->get_short_description(); ?>
+				</div>
+		</div>
+	</div>
+	<?php endif; 
 	$faqs = get_field('faqs');
 	if ($faqs) : ?>
 		<div class="product-faqs flex flex-col gap-20">
@@ -190,7 +246,7 @@ if (post_password_required()) {
 			
 		</div>
 	<?php endif; ?>
-
+							
 
 
 

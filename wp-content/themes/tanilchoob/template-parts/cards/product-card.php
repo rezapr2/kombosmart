@@ -40,7 +40,7 @@ $add_to_cart_text = isset($args['add_to_cart_text']) ? $args['add_to_cart_text']
 
 <div class="product-card swiper-slide transition h-100">
     <div class="product-card__inner flex flex-col h-100">
-        <div class="product-card__image">
+        <div class="product-card__image overflow-hidden">
             <?php if ($on_sale && $discount_percentage > 0): ?>
                 <div class="product-card__discount">
                     <span><?php echo esc_html($discount_percentage . '%'); ?></span>

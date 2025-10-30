@@ -11,8 +11,6 @@
     &__image {
         position: relative;
         width: 24.5rem;
-        height: auto; /* Change to auto */
-        overflow: hidden;
         &::after {
             content: '';
             position: absolute;

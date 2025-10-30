@@ -12,11 +12,8 @@
             }
             .search {
                 form {
-                    display: flex;
-                    align-items: center;
                     background-color: rgba(0, 0, 0, 0.06);
                     border: none;
-                    overflow: hidden;
                     height: calcRem(58);
                     min-width: calcRem(400);
                     

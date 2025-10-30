@@ -7,7 +7,6 @@
         }
         .gallery-thumbs {
             height: 45.8rem;
-            overflow: hidden;
             .swiper-slide {
                 cursor: pointer;
                 height: 11rem;
@@ -49,7 +48,6 @@
         .gallery-main {
             height: 43.7rem;
             width: 62.7rem;
-            overflow: hidden;
             padding: 1rem;
             border: 1px solid rgba(0, 0, 0, 0.15);
             .swiper-slide {

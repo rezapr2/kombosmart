@@ -1,0 +1,17 @@
+.tab-contents{
+    .tab-item{
+        padding: 1rem 2rem;
+        border-bottom: 2px solid transparent;
+        &.active{
+            border-color: #000;
+            color: #000;
+            background-color:   rgba(0, 0, 0, 0.03);
+        }
+    }
+    .tab-content-item{
+        display: none;
+        &.active{
+            display: block;
+        }
+    }
+}
