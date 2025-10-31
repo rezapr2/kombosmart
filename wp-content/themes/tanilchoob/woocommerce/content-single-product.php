@@ -208,8 +208,8 @@ if (post_password_required()) {
 				<div id="tab-production" class="tab-item yekan-14 color-black-30 pointer">روند تولید</div>
 			</div>
 			<div class="tab-content flex flex-col gap-20">
-				<div id="tab-desc-content" class="tab-content-item active">
-					<?php echo $product->get_description(); ?>
+				<div id="tab-desc-content" class="tab-content-item yekan-18 px-40 py-25 color-black-60 active">
+					<?php echo nl2br($product->get_description()); ?>
 				</div>
 				<div id="tab-specs-content" class="tab-content-item">
 					<?php echo $product->get_short_description(); ?>
