@@ -220,7 +220,7 @@ if (post_password_required()) {
 	<?php endif; 
 	$faqs = get_field('faqs');
 	if ($faqs) : ?>
-		<div class="product-faqs flex flex-col gap-20">
+		<div class="product-faqs flex flex-col gap-20 mb-40">
 			<div class="container flex">
 				<div class="flex flex-col gap-20">
 					<div class="faq-title yekan-28 bold color-primary">سوالات متداول</div>
@@ -247,7 +247,29 @@ if (post_password_required()) {
 			
 		</div>
 	<?php endif; ?>
-							
+	<div class="container mb-25">
+		<div class="cta help-cta bg-primary">
+			<div class="flex justify-between">
+				<div class="flex flex-col">
+					<div class="yekan-34 color-white">برای خرید به مشاوره نیاز داری؟</div>
+					<div class="yekan-34 color-white">درمورد این محصول سوالی دارید؟</div>
+				</div>
+				<div class="flex flex-col">
+					<a href="#" class="yekan-34 color-white">پیام در واتساپ</a>
+					<a href="#" class="yekan-34 color-white">تماس تلفنی</a>
+				</div>
+			</div>
+
+		</div>
+	</div>	
+	<div class="container mb-25">
+			<div class="flex justify-between">
+				<div class="flex justify-between">
+					<div class="yekan-34 color-white">برای خرید به مشاوره نیاز داری؟</div>
+					<div class="yekan-34 color-white">درمورد این محصول سوالی دارید؟</div>
+				</div>
+			</div>
+	</div>		
 
 
 
