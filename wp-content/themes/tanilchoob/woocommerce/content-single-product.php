@@ -45,7 +45,7 @@ if (post_password_required()) {
 			if ($sale_end_date): ?>
 				<div class="product-offer-countdown ">
 					<div class="countdown-timer regular" data-end-date="<?php echo esc_attr($sale_end_date->date('Y-m-d H:i:s')); ?>">
-						<div class="countdown-timer__time  flex items-center gap-10 w-full h-100 justify-evenly">
+						<div class="countdown-timer__time  flex py-20 px-40 w-full h-100 justify-evenly">
 							<div class="flex flex-col text-center">
 								<div class="countdown-timer__seconds yekan-30">00</div>
 								<div class="countdown-timer__label yekan-18">ثانیه</div>
@@ -82,7 +82,7 @@ if (post_password_required()) {
 				<span class="yekan-20 color-primary bold"><?php echo esc_html($status_label); ?></span>
 			</div>
 			<div class="buttons-wrapper flex gap-07 items-center">
-				<div class="add-to-cart h-100 flex items-center gap-10 bg-black">
+				<div class="add-to-cart h-100 flex py-20 px-40 bg-black">
 					<svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M2.10156 2.10449H3.93219C5.06844 2.10449 5.96271 3.08293 5.86802 4.20866L4.99479 14.6874C4.8475 16.4023 6.20468 17.8752 7.9301 17.8752H19.1348C20.6498 17.8752 21.9754 16.6338 22.0911 15.1293L22.6593 7.23866C22.7855 5.49221 21.4599 4.07188 19.7029 4.07188H6.12053" stroke="white" stroke-width="1.57812" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
 						<path d="M17.0964 23.1458C17.8227 23.1458 18.4115 22.557 18.4115 21.8307C18.4115 21.1044 17.8227 20.5156 17.0964 20.5156C16.37 20.5156 15.7812 21.1044 15.7812 21.8307C15.7812 22.557 16.37 23.1458 17.0964 23.1458Z" stroke="white" stroke-width="1.57812" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
@@ -163,113 +163,270 @@ if (post_password_required()) {
 	<?php
 	$full_product_image = get_field('full_product_image');
 	$sub_products = get_field('sub_products');
-	if($full_product_image || $sub_products) :
+	if ($full_product_image || $sub_products) :
 	?>
-	<div class="container-right sub-products-container overflow-hidden flex items-center mb-40 gap-40">
-		<?php if($full_product_image) : ?>
-			<div class="full-product-image z-index-5">
-				<?php echo wp_get_attachment_image($full_product_image['ID'], 'medium', false, array('class' => 'w-full h-full block object-cover')); ?>
-			</div>
-		<?php endif; ?>
-		<?php if($sub_products) : ?>
-			<div class="sub-products swiper-container flex gap-10 overflow-hidden">
-				<div class="swiper-wrapper gap-40">
-				<?php foreach($sub_products as $sub_product) : ?>
-					<div class="swiper-slide sub-product h-auto flex flex-col justify-content-end items-center gap-20 <?php if(!$sub_product['purchasable']) echo 'not-purchasable'; ?>">
-						<?php echo wp_get_attachment_image($sub_product['image']['ID'], 'thumbnail'); ?>
-						<a href="<?php echo $sub_product['link']; ?>" class="sub-product-info flex items-center flex-col">
-							<?php if($sub_product['purchasable']) : ?>
-								<div class="sub-product-name yekan-18 color-black-80"><?php echo $sub_product['title']; ?></div>
-								<div class="sub-product-price yekan-16 color-primary"><?php echo $sub_product['price']; ?></div>
-							<?php else : ?>
-								<div class="sub-product-name yekan-18 color-black-50 text-center">غیر قابل فروش به صورت تکی</div>
-							<?php endif; ?>
-						</a>
-					</div>
-				<?php endforeach; ?>
-					<div class="swiper-slide">
-					</div>
+		<div class="container-right sub-products-container overflow-hidden flex items-center mb-40 gap-40">
+			<?php if ($full_product_image) : ?>
+				<div class="full-product-image z-index-5">
+					<?php echo wp_get_attachment_image($full_product_image['ID'], 'medium', false, array('class' => 'w-full h-full block object-cover')); ?>
 				</div>
-			</div>
-		<?php endif; ?>
-
-		</div>
-	</div>
-	<div class="container mb-40">
-		<div class="tab-contents">
-			<div class="tabs flex w-full">
-				<div id="tab-desc" class="tab-item yekan-14 color-black-30 pointer active">توضیحات محصول</div>
-				<div id="tab-specs" class="tab-item yekan-14 color-black-30 pointer">مشخصات کلی</div>
-				<div id="tab-review" class="tab-item yekan-14 color-black-30 pointer">بررسی تخصصی</div>
-				<div id="tab-dimensions" class="tab-item yekan-14 color-black-30 pointer">ابعاد محصول</div>
-				<div id="tab-faqs" class="tab-item yekan-14 color-black-30 pointer">پرسش و پاسخ</div>
-				<div id="tab-reviews" class="tab-item yekan-14 color-black-30 pointer">نظرات مشتریان</div>
-				<div id="tab-maintenance" class="tab-item yekan-14 color-black-30 pointer">نحوه نگهداری محصول</div>
-				<div id="tab-production" class="tab-item yekan-14 color-black-30 pointer">روند تولید</div>
-			</div>
-			<div class="tab-content flex flex-col gap-20">
-				<div id="tab-desc-content" class="tab-content-item yekan-18 px-40 py-25 color-black-60 active">
-					<?php echo nl2br($product->get_description()); ?>
-				</div>
-				<div id="tab-specs-content" class="tab-content-item">
-					<?php echo $product->get_short_description(); ?>
-				</div>
-			</div>
-		</div>
-	</div>
-	<?php endif; 
-	$faqs = get_field('faqs');
-	if ($faqs) : ?>
-		<div class="product-faqs flex flex-col gap-20 mb-40">
-			<div class="container flex">
-				<div class="flex flex-col gap-20">
-					<div class="faq-title yekan-28 bold color-primary">سوالات متداول</div>
-					<div class="faq-items flex flex-col gap-10">
-						<?php foreach ($faqs as $faq) : ?>
-							<div class="faq-item flex flex-col">
-								<div class="faq-question yekan-20 color-black-80 flex justify-between items-center cursor-pointer">
-									<span><?php echo $faq['question']; ?></span>
-									<span class="faq-toggle thin">+</span>
-								</div>
-								<div class="faq-answer yekan-20 color-black" style="display: none;"><?php echo $faq['answer']; ?></div>
+			<?php endif; ?>
+			<?php if ($sub_products) : ?>
+				<div class="sub-products swiper-container flex gap-10 overflow-hidden">
+					<div class="swiper-wrapper gap-40">
+						<?php foreach ($sub_products as $sub_product) : ?>
+							<div class="swiper-slide sub-product h-auto flex flex-col justify-content-end items-center gap-20 <?php if (!$sub_product['purchasable']) echo 'not-purchasable'; ?>">
+								<?php echo wp_get_attachment_image($sub_product['image']['ID'], 'thumbnail'); ?>
+								<a href="<?php echo $sub_product['link']; ?>" class="sub-product-info flex items-center flex-col">
+									<?php if ($sub_product['purchasable']) : ?>
+										<div class="sub-product-name yekan-18 color-black-80"><?php echo $sub_product['title']; ?></div>
+										<div class="sub-product-price yekan-16 color-primary"><?php echo $sub_product['price']; ?></div>
+									<?php else : ?>
+										<div class="sub-product-name yekan-18 color-black-50 text-center">غیر قابل فروش به صورت تکی</div>
+									<?php endif; ?>
+								</a>
 							</div>
 						<?php endforeach; ?>
+						<div class="swiper-slide">
+						</div>
 					</div>
 				</div>
-				<div class="faqs-desc flex flex-col items-center justify-center">
-					<?php
-						$faq_icon = Helper::getAssetUri('images/faq_icon.png');
-						echo '<img src="' . esc_url($faq_icon) . '" alt="FAQ Icon" />';
-					?>
-					<div class="faq-icon-text yekan-26 color-black-80">شما عزیزان می توانید با مراجعه به بخش <a href="#faq-items" class="color-white bg-black px-25 inline-block">( پرسش های متدوال)</a>  بخش تمامی سوالات احتمالی خود را دریافت کنید</div>
-				</div>
-			</div>
-			
-		</div>
-	<?php endif; ?>
-	<div class="container mb-25">
-		<div class="cta help-cta bg-primary">
-			<div class="flex justify-between">
-				<div class="flex flex-col">
-					<div class="yekan-34 color-white">برای خرید به مشاوره نیاز داری؟</div>
-					<div class="yekan-34 color-white">درمورد این محصول سوالی دارید؟</div>
-				</div>
-				<div class="flex flex-col">
-					<a href="#" class="yekan-34 color-white">پیام در واتساپ</a>
-					<a href="#" class="yekan-34 color-white">تماس تلفنی</a>
-				</div>
-			</div>
+			<?php endif; ?>
 
 		</div>
-	</div>	
-	<div class="container mb-25">
-			<div class="flex justify-between">
-				<div class="flex justify-between">
-					<div class="yekan-34 color-white">برای خرید به مشاوره نیاز داری؟</div>
-					<div class="yekan-34 color-white">درمورد این محصول سوالی دارید؟</div>
+</div>
+<div class="container mb-40">
+	<?php
+		$description = $product->get_description();
+
+		$product_cat = get_field('product_cat');
+		$product_style = get_field('product_style');
+		$product_group = get_field('product_group');
+		$usage_material = get_field('usage_material');
+		$material_of_bases = get_field('material_of_bases');
+		$coating_material = get_field('coating_material');
+		$wood_color = get_field('wood_color');
+		$fabric_color = get_field('fabric_color');
+		$fabric_type = get_field('fabric_type');
+		$drawers_type = get_field('drawers_type');
+
+		$specs_fields = array(
+			$product_cat,
+			$product_style,
+			$product_group,
+			$usage_material,
+			$material_of_bases,
+			$coating_material,
+			$wood_color,
+			$fabric_color,
+			$fabric_type,
+			$drawers_type
+		);
+		// Verify if the fields are not empty
+		$has_specs = false;
+
+		// Check each field to see if it has content
+		foreach ($specs_fields as $spec) :
+			if (!empty($spec)) :
+				$has_specs = true;
+				break;
+			endif;
+		endforeach;
+
+	?>
+	<div class="tab-contents">
+		<div class="tabs flex w-full">
+			<?php if ($description) : ?>
+				<div id="tab-desc" class="tab-item yekan-14 color-black-30 pointer active">توضیحات محصول</div>
+			<?php endif;
+			if ($has_specs) : ?>
+				<div id="tab-specs" class="tab-item yekan-14 color-black-30 pointer">مشخصات کلی</div>
+			<?php endif; ?>
+			<div id="tab-review" class="tab-item yekan-14 color-black-30 pointer">بررسی تخصصی</div>
+			<div id="tab-dimensions" class="tab-item yekan-14 color-black-30 pointer">ابعاد محصول</div>
+			<div id="tab-faqs" class="tab-item yekan-14 color-black-30 pointer">پرسش و پاسخ</div>
+			<div id="tab-reviews" class="tab-item yekan-14 color-black-30 pointer">نظرات مشتریان</div>
+			<div id="tab-maintenance" class="tab-item yekan-14 color-black-30 pointer">نحوه نگهداری محصول</div>
+			<div id="tab-production" class="tab-item yekan-14 color-black-30 pointer">روند تولید</div>
+		</div>
+		<div class="tab-content flex flex-col gap-20">
+			<?php if ($description) : ?>
+				<div id="tab-desc-content" class="tab-content-item yekan-18 px-40 py-25 color-black-60 active">
+					<?php echo nl2br($description); ?>
+				</div>
+			<?php endif;
+			if ($has_specs) : ?>
+				<div id="tab-specs-content" class="tab-content-item py-20">
+					<div class="items grid grid-cols-2 gap-07">
+						<?php if ($product_cat) : ?>
+							<div class="spec-item flex flex-col py-20 px-40">
+								<div class="spec-name yekan-20 color-black-80">دسته بندی محصول</div>
+								<div class="spec-value yekan-18 color-black-50"><?php
+																				$cat_names = array();
+																				foreach ($product_cat as $cat) {
+																					$cat_names[] = $cat->name;
+																				}
+																				echo implode(' | ', $cat_names);
+																				?>
+								</div>
+							</div>
+						<?php endif; ?>
+						<?php if ($product_style) : ?>
+							<div class="spec-item flex flex-col py-20 px-40">
+								<div class="spec-name yekan-20 color-black-80">سبک محصول</div>
+								<div class="spec-value yekan-18 color-black-50"><?php
+																				$cat_names = array();
+																				foreach ($product_style as $cat) {
+																					$cat_names[] = $cat->name;
+																				}
+																				echo implode(' | ', $cat_names);
+																				?></div>
+							</div>
+						<?php endif; ?>
+						<?php if ($product_group) : ?>
+							<div class="spec-item flex flex-col py-20 px-40">
+								<div class="spec-name yekan-20 color-black-80">گروه محصول</div>
+								<div class="spec-value yekan-18 color-black-50"><?php echo $product_group; ?></div>
+							</div>
+						<?php endif; ?>
+						<?php if ($usage_material) : ?>
+							<div class="spec-item flex flex-col py-20 px-40">
+								<div class="spec-name yekan-20 color-black-80">متریال مصرفی</div>
+								<div class="spec-value yekan-18 color-black-50"><?php
+																				$cat_names = array();
+																				foreach ($usage_material as $cat) {
+																					$cat_names[] = $cat->name;
+																				}
+																				echo implode(' | ', $cat_names);
+																				?></div>
+							</div>
+						<?php endif; ?>
+						<?php if ($material_of_bases) : ?>
+							<div class="spec-item flex flex-col py-20 px-40">
+								<div class="spec-name yekan-20 color-black-80">جنس پایه‌ها (و ستون‌ها)</div>
+								<div class="spec-value yekan-18 color-black-50"><?php echo $material_of_bases; ?></div>
+							</div>
+						<?php endif; ?>
+						<?php if ($coating_material) : ?>
+							<div class="spec-item flex flex-col py-20 px-40">
+								<div class="spec-name yekan-20 color-black-80">جنس روکش</div>
+								<div class="spec-value yekan-18 color-black-50"><?php
+																				$cat_names = array();
+																				foreach ($coating_material as $cat) {
+																					$cat_names[] = $cat->name;
+																				}
+																				echo implode(' | ', $cat_names);
+																				?></div>
+							</div>
+						<?php endif; ?>
+						<?php if ($wood_color) : ?>
+							<div class="spec-item flex flex-col py-20 px-40">
+								<div class="spec-name yekan-20 color-black-80">رنگ چوب</div>
+								<div class="spec-value yekan-18 color-black-50"><?php
+																				$cat_names = array();
+																				foreach ($wood_color as $cat) {
+																					$cat_names[] = $cat->name;
+																				}
+																				echo implode(' | ', $cat_names);
+																				?></div>
+							</div>
+						<?php endif; ?>
+						<?php if ($fabric_type) : ?>
+							<div class="spec-item flex flex-col py-20 px-40">
+								<div class="spec-name yekan-20 color-black-80">جنس پارچه</div>
+								<div class="spec-value yekan-18 color-black-50"><?php
+																				$cat_names = array();
+																				foreach ($fabric_type as $cat) {
+																					$cat_names[] = $cat->name;
+																				}
+																				echo implode(' | ', $cat_names);
+																				?></div>
+							</div>
+						<?php endif; ?>
+						<?php if ($fabric_color) : ?>
+							<div class="spec-item flex flex-col py-20 px-40">
+								<div class="spec-name yekan-20 color-black-80">رنگ پارچه</div>
+								<div class="spec-value yekan-18 color-black-50"><?php
+																				$cat_names = array();
+																				foreach ($fabric_color as $cat) {
+																					$cat_names[] = $cat->name;
+																				}
+																				echo implode(' | ', $cat_names);
+																				?></div>
+							</div>
+						<?php endif; ?>
+						<?php if ($drawers_type) : ?>
+							<div class="spec-item flex flex-col py-20 px-40">
+								<div class="spec-name yekan-20 color-black-80">نوع کشوها</div>
+								<div class="spec-value yekan-18 color-black-50"><?php
+																				$cat_names = array();
+																				foreach ($drawers_type as $cat) {
+																					$cat_names[] = $cat->name;
+																				}
+																				echo implode(' | ', $cat_names);
+																				?></div>
+							</div>
+						<?php endif; ?>
+					</div>
+
+				</div>
+			<?php endif; ?>
+		</div>
+	</div>
+</div>
+<?php endif;
+	$faqs = get_field('faqs');
+	if ($faqs) : ?>
+	<div class="product-faqs flex flex-col gap-20 mb-40">
+		<div class="container flex">
+			<div class="flex flex-col gap-20">
+				<div class="faq-title yekan-28 bold color-primary">سوالات متداول</div>
+				<div class="faq-items flex flex-col gap-10">
+					<?php foreach ($faqs as $faq) : ?>
+						<div class="faq-item flex flex-col">
+							<div class="faq-question yekan-20 color-black-80 flex justify-between items-center cursor-pointer">
+								<span><?php echo $faq['question']; ?></span>
+								<span class="faq-toggle thin">+</span>
+							</div>
+							<div class="faq-answer yekan-20 color-black" style="display: none;"><?php echo $faq['answer']; ?></div>
+						</div>
+					<?php endforeach; ?>
 				</div>
 			</div>
-	</div>		
+			<div class="faqs-desc flex flex-col items-center justify-center">
+				<?php
+				$faq_icon = Helper::getAssetUri('images/faq_icon.png');
+				echo '<img src="' . esc_url($faq_icon) . '" alt="FAQ Icon" />';
+				?>
+				<div class="faq-icon-text yekan-26 color-black-80">شما عزیزان می توانید با مراجعه به بخش <a href="#faq-items" class="color-white bg-black px-25 inline-block">( پرسش های متدوال)</a> بخش تمامی سوالات احتمالی خود را دریافت کنید</div>
+			</div>
+		</div>
+
+	</div>
+<?php endif; ?>
+<div class="container mb-25">
+	<div class="cta help-cta bg-primary">
+		<div class="flex justify-between">
+			<div class="flex flex-col">
+				<div class="yekan-34 color-white">برای خرید به مشاوره نیاز داری؟</div>
+				<div class="yekan-34 color-white">درمورد این محصول سوالی دارید؟</div>
+			</div>
+			<div class="flex flex-col">
+				<a href="#" class="yekan-34 color-white">پیام در واتساپ</a>
+				<a href="#" class="yekan-34 color-white">تماس تلفنی</a>
+			</div>
+		</div>
+
+	</div>
+</div>
+<div class="container mb-25">
+	<div class="flex justify-between">
+		<div class="flex justify-between">
+			<div class="yekan-34 color-white">برای خرید به مشاوره نیاز داری؟</div>
+			<div class="yekan-34 color-white">درمورد این محصول سوالی دارید؟</div>
+		</div>
+	</div>
+</div>
 
 
 

@@ -46,3 +46,6 @@
     align-self: flex-end;
 }
 
+.grid-cols-2{
+    grid-template-columns: repeat(2, 1fr);
+}
