@@ -8,9 +8,11 @@
             padding: 2.4rem 4rem;
             border: 1px solid rgba(0, 0, 0, 0.2);
             .faq-question {
-                .faq-toggle {
+                &::after{
+                    content: '+';
                     font-size: 3rem;
                     line-height: 0;
+                    font-weight: 100;
                 }
             }
             .faq-answer {
@@ -18,6 +20,11 @@
             }
             
             &.active {
+                .faq-question {
+                    &::after{
+                        content: '-';
+                    }
+                }
             }
         }
     }

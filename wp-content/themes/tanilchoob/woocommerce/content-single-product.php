@@ -42,7 +42,7 @@ if (post_password_required()) {
 			<!-- Product offer countdown -->
 			<?php
 			$sale_end_date = $product->get_date_on_sale_to();
-			if ($sale_end_date): ?>
+			if ($sale_end_date && $sale_end_date > new DateTime()): ?>
 				<div class="product-offer-countdown ">
 					<div class="countdown-timer regular" data-end-date="<?php echo esc_attr($sale_end_date->date('Y-m-d H:i:s')); ?>">
 						<div class="countdown-timer__time  flex py-20 px-40 w-full h-100 justify-evenly">
@@ -177,7 +177,7 @@ if (post_password_required()) {
 						<?php foreach ($sub_products as $sub_product) : ?>
 							<div class="swiper-slide sub-product h-auto flex flex-col justify-content-end items-center gap-20 <?php if (!$sub_product['purchasable']) echo 'not-purchasable'; ?>">
 								<?php echo wp_get_attachment_image($sub_product['image']['ID'], 'thumbnail'); ?>
-								<a href="<?php echo $sub_product['link']; ?>" class="sub-product-info flex items-center flex-col">
+								<a href="<?php echo isset($sub_product['link']['url']) ? $sub_product['link']['url'] : '#'; ?>" class="sub-product-info flex items-center flex-col">
 									<?php if ($sub_product['purchasable']) : ?>
 										<div class="sub-product-name yekan-18 color-black-80"><?php echo $sub_product['title']; ?></div>
 										<div class="sub-product-price yekan-16 color-primary"><?php echo $sub_product['price']; ?></div>
@@ -233,6 +233,30 @@ if (post_password_required()) {
 			endif;
 		endforeach;
 
+		$has_technical_review = false;
+
+		$general_product_specifications = get_field('general_product_specifications');
+		$product_material_specifications = get_field('product_material_specifications');
+		$functional_features_and_capabilities = get_field('functional_features_and_capabilities');
+		$product_technical_specifications = get_field('product_technical_specifications');
+		$product_installation_specifications = get_field('product_installation_specifications');
+		
+		$technical_reviews = array(
+			$general_product_specifications,
+			$product_material_specifications,
+			$functional_features_and_capabilities,
+			$product_technical_specifications,
+			$product_installation_specifications
+		);
+		// Check each field to see if it has content
+		foreach ($technical_reviews as $review) :
+			if (!empty($review)) :
+				$has_technical_review = true;
+				break;
+			endif;
+		endforeach;
+		
+
 	?>
 	<div class="tab-contents">
 		<div class="tabs flex w-full">
@@ -242,7 +266,9 @@ if (post_password_required()) {
 			if ($has_specs) : ?>
 				<div id="tab-specs" class="tab-item yekan-14 color-black-30 pointer">مشخصات کلی</div>
 			<?php endif; ?>
-			<div id="tab-review" class="tab-item yekan-14 color-black-30 pointer">بررسی تخصصی</div>
+			<?php if ($has_technical_review) : ?>
+				<div id="tab-technical-review" class="tab-item yekan-14 color-black-30 pointer">بررسی تخصصی</div>
+			<?php endif; ?>
 			<div id="tab-dimensions" class="tab-item yekan-14 color-black-30 pointer">ابعاد محصول</div>
 			<div id="tab-faqs" class="tab-item yekan-14 color-black-30 pointer">پرسش و پاسخ</div>
 			<div id="tab-reviews" class="tab-item yekan-14 color-black-30 pointer">نظرات مشتریان</div>
@@ -371,6 +397,9 @@ if (post_password_required()) {
 
 				</div>
 			<?php endif; ?>
+			<?php if ($has_technical_review) : ?>
+				<div id="tab-technical-review" class="tab-item yekan-14 color-black-30 pointer">بررسی تخصصی</div>
+			<?php endif; ?>
 		</div>
 	</div>
 </div>
@@ -383,12 +412,11 @@ if (post_password_required()) {
 				<div class="faq-title yekan-28 bold color-primary">سوالات متداول</div>
 				<div class="faq-items flex flex-col gap-10">
 					<?php foreach ($faqs as $faq) : ?>
-						<div class="faq-item flex flex-col">
-							<div class="faq-question yekan-20 color-black-80 flex justify-between items-center cursor-pointer">
+						<div class="faq-item slide-down-wrapper flex flex-col">
+							<div class="faq-question slide-down-trigger yekan-20 color-black-80 flex justify-between items-center cursor-pointer">
 								<span><?php echo $faq['question']; ?></span>
-								<span class="faq-toggle thin">+</span>
 							</div>
-							<div class="faq-answer yekan-20 color-black" style="display: none;"><?php echo $faq['answer']; ?></div>
+							<div class="faq-answer slide-down-content yekan-20 color-black" style="display: none;"><?php echo $faq['answer']; ?></div>
 						</div>
 					<?php endforeach; ?>
 				</div>
