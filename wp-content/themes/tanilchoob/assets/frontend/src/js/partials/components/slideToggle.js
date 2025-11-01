@@ -13,9 +13,6 @@
             // Slide toggle the answer
             $slideDownContent.slideToggle(300);
             
-            // Close other open slide downs (optional - comment out if you want multiple open at once)
-            $('.slide-down-wrapper').not($slideDownItem).removeClass('active');
-            $('.slide-down-content').not($slideDownContent).slideUp(300);
             
         });
     });

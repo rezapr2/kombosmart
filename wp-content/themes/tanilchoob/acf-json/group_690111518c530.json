@@ -786,6 +786,48 @@
             "selected": 0
         },
         {
+            "key": "field_690651ee05fe7",
+            "label": "عنوان",
+            "name": "production_process_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_69065086bd627",
+            "label": "لینک ویدئو",
+            "name": "production_process_video_link",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_6903eb7f60784",
             "label": "زیر محصولات",
             "name": "",
@@ -1077,5 +1119,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1762015420
+    "modified": 1762021923
 }
