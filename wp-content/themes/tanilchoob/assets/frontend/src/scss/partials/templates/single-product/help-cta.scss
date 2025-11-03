@@ -1,3 +1,17 @@
 .help-cta{
     background-color: #734B6C;
+    .btn{
+        border: 1px solid #fff;
+        padding: 1.5rem;
+        path{
+            stroke: #fff;
+        }
+        &:hover{
+            background-color: #fff;
+            color: #734B6C;
+            path{
+                stroke: #734B6C;
+            }
+        }
+    }
 }
