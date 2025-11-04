@@ -69,7 +69,7 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "array",
+            "return_format": "url",
             "library": "all",
             "min_width": "",
             "min_height": "",
@@ -79,7 +79,7 @@
             "max_size": "",
             "mime_types": "",
             "allow_in_bindings": 0,
-            "preview_size": "medium_large"
+            "preview_size": "medium"
         },
         {
             "key": "field_690a35814fcf0",
@@ -130,5 +130,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1762276760
+    "modified": 1762277727
 }

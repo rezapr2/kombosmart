@@ -17,8 +17,20 @@
             while ($the_query->have_posts()) {
                 $the_query->the_post();
                 $thumbnail_url = get_the_post_thumbnail_url();
+                $subtitle = get_field('subtitle');
+                $content_type = get_field('content_type');
+                $image = get_field('image');
+                $video_link = get_field('video_link');
+                $story_content = array(
+                    'title' => get_the_title(),
+                    'thumbnail_url' => $thumbnail_url,
+                    'subtitle' => $subtitle,
+                    'content_type' => $content_type,
+                    'image' => $image,
+                    'video_link' => $video_link,
+                );
             ?>
-            <div class="story-item flex flex-col items-center">
+            <div class="story-item flex flex-col items-center" data-story-content='<?php echo esc_attr( wp_json_encode( $story_content ) ); ?>'>
                 <div class="story-image-wrapper">
                     <img src="<?php echo $thumbnail_url; ?>" alt="<?php the_title(); ?>" />
                 </div>
