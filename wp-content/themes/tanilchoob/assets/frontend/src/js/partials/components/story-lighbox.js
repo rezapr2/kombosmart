@@ -2,7 +2,7 @@
  * Story Lightbox - shows image or video content in a centered modal
  * Reads data from the element's `data-story-content` attribute (JSON).
  */
-(function($) {
+(function ($) {
     'use strict';
 
     function createStoryLightboxModal() {
@@ -57,7 +57,9 @@
         if (!image) return '';
         if (typeof image === 'string') return image;
         if (image.url) return image.url;
-        const anyUrl = Object.values(image).find(v => typeof v === 'string' && /^(https?:)?\/\//.test(v));
+        const anyUrl = Object.values(image).find(
+            (v) => typeof v === 'string' && /^(https?:)?\/\//.test(v)
+        );
         return anyUrl || '';
     }
 
@@ -69,7 +71,7 @@
         $('body').removeClass('story-lightbox-open');
     }
 
-    $.fn.storyLightbox = function(options) {
+    $.fn.storyLightbox = function (options) {
         const settings = $.extend({}, options);
 
         createStoryLightboxModal();
@@ -83,63 +85,66 @@
 
         $closeBtn.off('click').on('click', closeLightbox);
 
-        $modal.off('click').on('click', function(e) {
+        $modal.off('click').on('click', function (e) {
             if (e.target === this) {
                 closeLightbox();
             }
         });
 
-        $(document).off('keydown.storyLightbox').on('keydown.storyLightbox', function(e) {
-            if (e.key === 'Escape' && $modal.is(':visible')) {
-                closeLightbox();
-            }
-        });
+        $(document)
+            .off('keydown.storyLightbox')
+            .on('keydown.storyLightbox', function (e) {
+                if (e.key === 'Escape' && $modal.is(':visible')) {
+                    closeLightbox();
+                }
+            });
 
-        return this.each(function() {
+        return this.each(function () {
             const $this = $(this);
             $this.css('cursor', 'pointer');
 
-            $this.off('click.storyLightbox').on('click.storyLightbox', function(e) {
-                e.preventDefault();
+            $this
+                .off('click.storyLightbox')
+                .on('click.storyLightbox', function (e) {
+                    e.preventDefault();
 
-                let data = null;
-                try {
-                    const raw = $this.attr('data-story-content');
-                    if (!raw) return;
-                    data = typeof raw === 'string' ? JSON.parse(raw) : raw;
-                } catch(err) {
-                    console.error('Error parsing story content:', err);
-                    return;
-                }
+                    let data = null;
+                    try {
+                        const raw = $this.attr('data-story-content');
+                        if (!raw) return;
+                        data = typeof raw === 'string' ? JSON.parse(raw) : raw;
+                    } catch (err) {
+                        console.error('Error parsing story content:', err);
+                        return;
+                    }
 
-                const title = data.title || '';
-                const subtitle = data.subtitle || '';
-                const contentType = (data.content_type || '').toLowerCase();
-                const imageUrl = getImageUrl(data.image);
-                const thumbUrl = data.thumbnail_url || imageUrl;
-                const videoUrl = data.video_link || '';
+                    const title = data.title || '';
+                    const subtitle = data.subtitle || '';
+                    const contentType = (data.content_type || '').toLowerCase();
+                    const imageUrl = getImageUrl(data.image);
+                    const thumbUrl = data.thumbnail_url || imageUrl;
+                    const videoUrl = data.video_link || '';
 
-                let contentHTML = '';
-                if (contentType === 'video' && videoUrl) {
-                    contentHTML = getVideoEmbed(videoUrl);
-                } else if (imageUrl) {
-                    contentHTML = `<img src="${imageUrl}" alt="${title}" />`;
-                }
-                if (!contentHTML) return;
+                    let contentHTML = '';
+                    if (contentType === 'video' && videoUrl) {
+                        contentHTML = getVideoEmbed(videoUrl);
+                    } else if (imageUrl) {
+                        contentHTML = `<img src="${imageUrl}" alt="${title}" />`;
+                    }
+                    if (!contentHTML) return;
 
-                $media.html(contentHTML);
-                $username.text(title);
-                if (thumbUrl) $avatar.attr('src', thumbUrl);
-                $caption.text(subtitle);
+                    $media.html(contentHTML);
+                    $username.text(title);
+                    if (thumbUrl) $avatar.attr('src', thumbUrl);
+                    $caption.text(subtitle);
 
-                $modal.css('display', 'flex').attr('aria-hidden', 'false');
-                $('body').addClass('story-lightbox-open');
-            });
+                    $modal.css('display', 'flex').attr('aria-hidden', 'false');
+                    $('body').addClass('story-lightbox-open');
+                });
         });
     };
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.story-item').storyLightbox();
     });
-
 })(jQuery);

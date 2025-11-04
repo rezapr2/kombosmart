@@ -12,21 +12,20 @@
             }
             .search {
                 form {
-                    background-color: rgba(0, 0, 0, 0.06);
-                    border: none;
-                    height: calcRem(58);
-                    min-width: calcRem(400);
                     
-
                     input[type='text'] {
                         flex: 1;
-                        border: none;
                         outline: none;
-                        padding: 0 calcRem(30);
-                        font-size: calcRem(15);
-                        font-family: 'YekanBakh', sans-serif;
+                        padding: 0 3rem;
+                        font-size: 1.5rem;
+                        font-family: YekanBakh, sans-serif;
                         background: transparent;
-                        color: #000000;
+                        color: #000;
+                        min-width: 36rem;
+                        height: 5.8rem;
+                        background-color: rgba(0, 0, 0, .06);
+                        padding-left: 9rem;
+                        border: 1px solid transparent;
                         &::placeholder {
                             color: rgba(0, 0, 0, 0.5);
                             font-family: 'YekanBakh', sans-serif;
@@ -39,7 +38,9 @@
 
                     button {
                         border: none;
-                        padding: 0 calcRem(30);
+                        padding: 0 3rem;
+                        margin-right: -10rem;
+                        background: transparent;
                     }
                 }
             }

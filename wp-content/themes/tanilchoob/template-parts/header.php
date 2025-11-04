@@ -12,7 +12,7 @@ $header_logo = get_field('header_logo', 'options');
                     alt="<?php bloginfo('name'); ?>">
             </a>
             <div class="search">
-                <form class="search-form overflow-hidden flex items-center" action="<?php echo home_url(); ?>" method="get">
+                <form class="search-form flex items-center" action="<?php echo home_url(); ?>" method="get">
                     <input class="transition" type="text" name="s" placeholder="جستجو در تانیل چوب">
                     <button type="submit" class="btn btn--primary flex items-center">
                         <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/search-normal.svg')); ?>
