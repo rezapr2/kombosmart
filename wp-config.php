@@ -26,7 +26,7 @@ define( 'DB_NAME', 'tanilchoob' );
 define( 'DB_USER', 'root' );
 
 /** Database password */
-define( 'DB_PASSWORD', 'root' );
+define( 'DB_PASSWORD', 'ServBay.dev' );
 
 /** Database hostname */
 define( 'DB_HOST', 'localhost' );
