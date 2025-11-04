@@ -38,7 +38,7 @@ class Story extends PostType
             'labels' => $labels,
             'menu_icon' => 'dashicons-format-status',
             'has_archive' => false,
-            'supports' => ['title', 'editor', 'thumbnail'],
+            'supports' => ['title', 'thumbnail'],
             'hierarchical' => false,
             'description' => '',
             'public' => true,
