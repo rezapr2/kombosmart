@@ -19,7 +19,7 @@ if ($hero_slider) {
                                         <?php echo $item['description']; ?>
                                     </div>
                                     <?php if ($item['link']) { ?>
-                                        <a href="<?php echo $item['link']['url']; ?>" class="btn yekan-18 bg-white-30 color-white w-fit transition">
+                                        <a href="<?php echo $item['link']['url']; ?>" class="btn color-primary yekan-18 bg-white-30 w-fit transition">
                                             <?php echo $item['link']['title']; ?>
                                         </a>
                                     <?php } ?>
