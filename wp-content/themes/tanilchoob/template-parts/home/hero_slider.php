@@ -8,7 +8,7 @@ if ($hero_slider) {
         <div class="hero-slider swiper">
             <div class="swiper-wrapper">
                 <?php foreach ($hero_slider as $item) { ?>
-                    <div class="swiper-slide ">
+                    <div class="swiper-slide <?php echo isset($item['background_color']) ? $item['background_color'] : 'purple'; ?>">
                         <div class="container">
                             <div class="slide-content flex justify-between items-center">
                                 <div class="hero-slider-content flex flex-col">

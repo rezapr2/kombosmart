@@ -52,7 +52,7 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "table",
+            "layout": "block",
             "pagination": 0,
             "min": 0,
             "max": 0,
@@ -70,7 +70,7 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "",
+                        "width": "50",
                         "class": "",
                         "id": ""
                     },
@@ -83,25 +83,28 @@
                     "parent_repeater": "field_68e6ca20e4d32"
                 },
                 {
-                    "key": "field_68e6cab668629",
-                    "label": "توضیح",
-                    "name": "description",
+                    "key": "field_690a31c8666e0",
+                    "label": "رنگ پس زمینه",
+                    "name": "background_color",
                     "aria-label": "",
-                    "type": "textarea",
+                    "type": "button_group",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "",
+                        "width": "25",
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "",
-                    "maxlength": "",
+                    "choices": {
+                        "purple": "بنفش",
+                        "green": "سبز"
+                    },
+                    "default_value": "purple",
+                    "return_format": "value",
+                    "allow_null": 0,
                     "allow_in_bindings": 0,
-                    "rows": "",
-                    "placeholder": "",
-                    "new_lines": "br",
+                    "layout": "horizontal",
                     "parent_repeater": "field_68e6ca20e4d32"
                 },
                 {
@@ -114,12 +117,34 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "",
+                        "width": "25",
                         "class": "",
                         "id": ""
                     },
                     "return_format": "array",
                     "allow_in_bindings": 0,
+                    "parent_repeater": "field_68e6ca20e4d32"
+                },
+                {
+                    "key": "field_68e6cab668629",
+                    "label": "توضیح",
+                    "name": "description",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "rows": 4,
+                    "placeholder": "",
+                    "new_lines": "br",
                     "parent_repeater": "field_68e6ca20e4d32"
                 },
                 {
@@ -132,7 +157,7 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "",
+                        "width": "50",
                         "class": "",
                         "id": ""
                     },
@@ -1633,5 +1658,6 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1760960589
+    "display_title": "",
+    "modified": 1762276166
 }

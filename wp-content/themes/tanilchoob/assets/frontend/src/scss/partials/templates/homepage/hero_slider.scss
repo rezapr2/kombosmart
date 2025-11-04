@@ -3,6 +3,9 @@
     .swiper-slide{
         background: radial-gradient(49.39% 109.5% at 25.49% 50.11%, #7113A3 0%, #33014E 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
         mix-blend-mode: screen;
+        &.green{
+            background: radial-gradient(49.39% 109.5% at 25.49% 50.11%, #7ACA8B 0%, #288F3E 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+        }
         .slide-content{
             padding: calcRem(90) calcRem(82);
         }
@@ -20,8 +23,8 @@
                 margin-top: calcRem(20);
                 padding: calcRem(9) calcRem(12);
                 &:hover{
-                    background-color: #fff;
-                    color: var(--color-primary);
+                    background-color: rgba(255, 255, 255, 0.3);
+                    color: #fff;
                 }
             }
         }
