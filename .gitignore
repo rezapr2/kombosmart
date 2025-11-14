@@ -35,6 +35,9 @@ node_modules/
 
 # ignore log files and databases
 *.log
+.log
+.*.log
+
 #*.sql
 *.sqlite
 
