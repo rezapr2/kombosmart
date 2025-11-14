@@ -601,14 +601,7 @@ if (post_password_required()) {
 
 	</div>
 </div>
-<div class="container mb-25">
-	<div class="flex justify-between">
-		<div class="flex justify-between">
-			<div class="yekan-34 color-white">برای خرید به مشاوره نیاز داری؟</div>
-			<div class="yekan-34 color-white">درمورد این محصول سوالی دارید؟</div>
-		</div>
-	</div>
-</div>
+<?php get_template_part('template-parts/product/consult-cta'); ?>
 
 
 
