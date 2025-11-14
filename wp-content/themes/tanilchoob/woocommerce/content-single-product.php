@@ -8,8 +8,6 @@
 
 defined('ABSPATH') || exit;
 
-use TanilChoob\Theme\Helper;
-
 global $product;
 
 /**

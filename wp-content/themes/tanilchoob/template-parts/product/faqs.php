@@ -1,4 +1,6 @@
 <?php
+use TanilChoob\Theme\Helper;
+
 $faqs = isset($faqs) ? $faqs : get_query_var('faqs');
 ?>
 <?php if ($faqs) : ?>
@@ -19,9 +21,7 @@ $faqs = isset($faqs) ? $faqs : get_query_var('faqs');
 		</div>
 		<div class="faqs-desc flex flex-col items-center justify-center">
 			<?php
-			$faq_icon = function_exists('get_theme_file_uri')
-				? get_theme_file_uri('images/faq_icon.png')
-				: get_stylesheet_directory_uri() . '/images/faq_icon.png';
+			$faq_icon = Helper::getAssetUri('/images/faq_icon.png');
 			echo '<img src="' . esc_url($faq_icon) . '" alt="FAQ Icon" />';
 			?>
 			<div class="faq-icon-text yekan-26 color-black-80">شما عزیزان می توانید با مراجعه به بخش <a href="#faq-items" class="color-white bg-black px-25 inline-block">( پرسش های متدوال)</a> بخش تمامی سوالات احتمالی خود را دریافت کنید</div>
