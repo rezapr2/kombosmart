@@ -196,356 +196,90 @@ if (post_password_required()) {
 		</div>
 	<?php endif; ?>
 
-<div class="container mb-40">
-	<?php
-		$description = $product->get_description();
+<?php
+    // Prepare tabs context and include template part.
+    $description = $product->get_description();
 
-		$product_cat = get_field('product_cat');
-		$product_style = get_field('product_style');
-		$product_group = get_field('product_group');
-		$usage_material = get_field('usage_material');
-		$material_of_bases = get_field('material_of_bases');
-		$coating_material = get_field('coating_material');
-		$wood_color = get_field('wood_color');
-		$fabric_color = get_field('fabric_color');
-		$fabric_type = get_field('fabric_type');
-		$drawers_type = get_field('drawers_type');
+    $product_cat = get_field('product_cat');
+    $product_style = get_field('product_style');
+    $product_group = get_field('product_group');
+    $usage_material = get_field('usage_material');
+    $material_of_bases = get_field('material_of_bases');
+    $coating_material = get_field('coating_material');
+    $wood_color = get_field('wood_color');
+    $fabric_color = get_field('fabric_color');
+    $fabric_type = get_field('fabric_type');
+    $drawers_type = get_field('drawers_type');
 
-		$specs_fields = array(
-			$product_cat,
-			$product_style,
-			$product_group,
-			$usage_material,
-			$material_of_bases,
-			$coating_material,
-			$wood_color,
-			$fabric_color,
-			$fabric_type,
-			$drawers_type
-		);
-		// Verify if the fields are not empty
-		$has_specs = false;
+    $specs_fields = array(
+        $product_cat,
+        $product_style,
+        $product_group,
+        $usage_material,
+        $material_of_bases,
+        $coating_material,
+        $wood_color,
+        $fabric_color,
+        $fabric_type,
+        $drawers_type
+    );
+    $has_specs = false;
+    foreach ($specs_fields as $spec) {
+        if (!empty($spec)) { $has_specs = true; break; }
+    }
 
-		// Check each field to see if it has content
-		foreach ($specs_fields as $spec) :
-			if (!empty($spec)) :
-				$has_specs = true;
-				break;
-			endif;
-		endforeach;
+    $has_technical_review = false;
+    $general_product_specifications = get_field('general_product_specifications');
+    $product_material_specifications = get_field('product_material_specifications');
+    $functional_features_and_capabilities = get_field('functional_features_and_capabilities');
+    $product_technical_specifications = get_field('product_technical_specifications');
+    $product_installation_specifications = get_field('product_installation_specifications');
 
-		$has_technical_review = false;
+    $technical_reviews = array(
+        $general_product_specifications,
+        $product_material_specifications,
+        $functional_features_and_capabilities,
+        $product_technical_specifications,
+        $product_installation_specifications
+    );
+    foreach ($technical_reviews as $review) {
+        if (!empty($review)) { $has_technical_review = true; break; }
+    }
 
-		$general_product_specifications = get_field('general_product_specifications');
-		$product_material_specifications = get_field('product_material_specifications');
-		$functional_features_and_capabilities = get_field('functional_features_and_capabilities');
-		$product_technical_specifications = get_field('product_technical_specifications');
-		$product_installation_specifications = get_field('product_installation_specifications');
-		
-		$technical_reviews = array(
-			$general_product_specifications,
-			$product_material_specifications,
-			$functional_features_and_capabilities,
-			$product_technical_specifications,
-			$product_installation_specifications
-		);
-		// Check each field to see if it has content
-		foreach ($technical_reviews as $review) :
-			if (!empty($review)) :
-				$has_technical_review = true;
-				break;
-			endif;
-		endforeach;
-		$product_size_images = get_field('product_size_images');
+    $product_size_images = get_field('product_size_images');
+    $product_maintenance = get_field('product_maintenance');
+    $production_process_video_link = get_field('production_process_video_link');
+    $production_process_title = get_field('production_process_title');
+    $production_process_video_poster = get_field('production_process_video_poster');
 
-		$product_maintenance = get_field('product_maintenance');
-		
-		$production_process_video_link = get_field('production_process_video_link');
-		$production_process_title = get_field('production_process_title');
-		$production_process_video_poster = get_field('production_process_video_poster');
-		
-
-	?>
-	<div class="tab-contents">
-		<div class="tabs flex w-full">
-			<?php if ($description) : ?>
-				<div id="tab-desc" class="tab-item yekan-14 color-black-30 pointer active">توضیحات محصول</div>
-			<?php endif;
-			if ($has_specs) : ?>
-				<div id="tab-specs" class="tab-item yekan-14 color-black-30 pointer">مشخصات کلی</div>
-			<?php endif; ?>
-			<?php if ($has_technical_review) : ?>
-				<div id="tab-technical-review" class="tab-item yekan-14 color-black-30 pointer">بررسی تخصصی</div>
-			<?php endif; ?>
-			<?php if($product_size_images) : ?>
-			<div id="tab-dimensions" class="tab-item yekan-14 color-black-30 pointer">ابعاد محصول</div>
-			<?php endif; ?>
-			<div id="tab-faqs" class="tab-item yekan-14 color-black-30 pointer">پرسش و پاسخ</div>
-			<div id="tab-reviews" class="tab-item yekan-14 color-black-30 pointer">نظرات مشتریان</div>
-			<?php if($product_maintenance) : ?>
-			<div id="tab-maintenance" class="tab-item yekan-14 color-black-30 pointer">نحوه نگهداری محصول</div>
-			<?php endif; ?>
-			<?php if($production_process_video_link) : ?>
-			<div id="tab-production" class="tab-item yekan-14 color-black-30 pointer">روند تولید</div>
-			<?php endif; ?>
-		</div>
-		<div class="tab-content flex flex-col gap-20">
-			<?php if ($description) : ?>
-				<div id="tab-desc-content" class="tab-content-item yekan-18 px-40 py-25 color-black-60 bg-black-03 active">
-					<?php echo nl2br($description); ?>
-				</div>
-			<?php endif;
-			if ($has_specs) : ?>
-				<div id="tab-specs-content" class="tab-content-item py-20">
-					<div class="items grid grid-cols-2 gap-07">
-						<?php if ($product_cat) : ?>
-							<div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-								<div class="spec-name yekan-20 color-black-80">دسته بندی محصول</div>
-								<div class="spec-value yekan-18 color-black-50"><?php
-																				$cat_names = array();
-																				foreach ($product_cat as $cat) {
-																					$cat_names[] = $cat->name;
-																				}
-																				echo implode(' | ', $cat_names);
-																				?>
-								</div>
-							</div>
-						<?php endif; ?>
-						<?php if ($product_style) : ?>
-							<div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-								<div class="spec-name yekan-20 color-black-80">سبک محصول</div>
-								<div class="spec-value yekan-18 color-black-50"><?php
-																				$cat_names = array();
-																				foreach ($product_style as $cat) {
-																					$cat_names[] = $cat->name;
-																				}
-																				echo implode(' | ', $cat_names);
-																				?></div>
-							</div>
-						<?php endif; ?>
-						<?php if ($product_group) : ?>
-							<div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-								<div class="spec-name yekan-20 color-black-80">گروه محصول</div>
-								<div class="spec-value yekan-18 color-black-50"><?php echo $product_group; ?></div>
-							</div>
-						<?php endif; ?>
-						<?php if ($usage_material) : ?>
-							<div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-								<div class="spec-name yekan-20 color-black-80">متریال مصرفی</div>
-								<div class="spec-value yekan-18 color-black-50"><?php
-																				$cat_names = array();
-																				foreach ($usage_material as $cat) {
-																					$cat_names[] = $cat->name;
-																				}
-																				echo implode(' | ', $cat_names);
-																				?></div>
-							</div>
-						<?php endif; ?>
-						<?php if ($material_of_bases) : ?>
-							<div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-								<div class="spec-name yekan-20 color-black-80">جنس پایه‌ها (و ستون‌ها)</div>
-								<div class="spec-value yekan-18 color-black-50"><?php echo $material_of_bases; ?></div>
-							</div>
-						<?php endif; ?>
-						<?php if ($coating_material) : ?>
-							<div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-								<div class="spec-name yekan-20 color-black-80">جنس روکش</div>
-								<div class="spec-value yekan-18 color-black-50"><?php
-																				$cat_names = array();
-																				foreach ($coating_material as $cat) {
-																					$cat_names[] = $cat->name;
-																				}
-																				echo implode(' | ', $cat_names);
-																				?></div>
-							</div>
-						<?php endif; ?>
-						<?php if ($wood_color) : ?>
-							<div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-								<div class="spec-name yekan-20 color-black-80">رنگ چوب</div>
-								<div class="spec-value yekan-18 color-black-50"><?php
-																				$cat_names = array();
-																				foreach ($wood_color as $cat) {
-																					$cat_names[] = $cat->name;
-																				}
-																				echo implode(' | ', $cat_names);
-																				?></div>
-							</div>
-						<?php endif; ?>
-						<?php if ($fabric_type) : ?>
-							<div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-								<div class="spec-name yekan-20 color-black-80">جنس پارچه</div>
-								<div class="spec-value yekan-18 color-black-50"><?php
-																				$cat_names = array();
-																				foreach ($fabric_type as $cat) {
-																					$cat_names[] = $cat->name;
-																				}
-																				echo implode(' | ', $cat_names);
-																				?></div>
-							</div>
-						<?php endif; ?>
-						<?php if ($fabric_color) : ?>
-							<div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-								<div class="spec-name yekan-20 color-black-80">رنگ پارچه</div>
-								<div class="spec-value yekan-18 color-black-50"><?php
-																				$cat_names = array();
-																				foreach ($fabric_color as $cat) {
-																					$cat_names[] = $cat->name;
-																				}
-																				echo implode(' | ', $cat_names);
-																				?></div>
-							</div>
-						<?php endif; ?>
-						<?php if ($drawers_type) : ?>
-							<div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-								<div class="spec-name yekan-20 color-black-80">نوع کشوها</div>
-								<div class="spec-value yekan-18 color-black-50"><?php
-																				$cat_names = array();
-																				foreach ($drawers_type as $cat) {
-																					$cat_names[] = $cat->name;
-																				}
-																				echo implode(' | ', $cat_names);
-																				?></div>
-							</div>
-						<?php endif; ?>
-					</div>
-
-				</div>
-			<?php endif; ?>
-			<?php if ($has_technical_review) : ?>
-				<div id="tab-technical-review-content" class="tab-content-item px-25 py-25 bg-black-03">
-					<div class="flex flex-col gap-20">
-						<?php if ($general_product_specifications) : ?>
-							<div class="technical-review-item slide-down-wrapper flex flex-col gap-10 active">
-								<div class="technical-review-title slide-down-trigger yekan-24 color-primary flex gap-10 items-center cursor-pointer">
-									<svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M1.10156 1.09961L8.60156 8.57836L16.1016 1.09961" stroke="#5D0E87" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-									</svg>
-									<span>مشخصات کلی محصول</span>
-								</div>
-								<div class="technical-review-content slide-down-content flex flex-col gap-07 yekan-14 color-black-80">
-									<?php foreach ($general_product_specifications as $spec) : ?>
-										<div class="spec-item flex gap-10">
-											<div class="spec-name"><?php echo $spec['label']; ?></div>
-											<div class="spec-value"><?php echo $spec['value']; ?></div>
-										</div>
-									<?php endforeach; ?>
-								</div>
-							</div>
-						<?php endif; ?>
-						<?php if ($product_material_specifications) : ?>
-							<div class="technical-review-item slide-down-wrapper flex flex-col gap-10 ">
-								<div class="technical-review-title slide-down-trigger yekan-24 color-primary flex gap-10 items-center cursor-pointer">
-									<svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M1.10156 1.09961L8.60156 8.57836L16.1016 1.09961" stroke="#5D0E87" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-									</svg>
-									<span>مشخصات جنس محصول</span>
-								</div>
-								<div class="technical-review-content slide-down-content flex flex-col gap-07 yekan-14 color-black-80" style="display: none;">
-									<?php foreach ($product_material_specifications as $spec) : ?>
-										<div class="spec-item flex gap-10">
-											<div class="spec-name"><?php echo $spec['label']; ?></div>
-											<div class="spec-value"><?php echo $spec['value']; ?></div>
-										</div>
-									<?php endforeach; ?>
-								</div>
-							</div>
-						<?php endif; ?>
-						<?php if ($functional_features_and_capabilities) : ?>
-							<div class="technical-review-item slide-down-wrapper flex flex-col gap-10 ">
-								<div class="technical-review-title slide-down-trigger yekan-24 color-primary flex gap-10 items-center cursor-pointer">
-									<svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M1.10156 1.09961L8.60156 8.57836L16.1016 1.09961" stroke="#5D0E87" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-									</svg>
-									<span> امکانات و قابیلت های کاربردی </span>
-								</div>
-								<div class="technical-review-content slide-down-content flex flex-col gap-07 yekan-14 color-black-80" style="display: none;">
-									<?php foreach ($functional_features_and_capabilities as $spec) : ?>
-										<div class="spec-item flex gap-10">
-											<div class="spec-name"><?php echo $spec['label']; ?></div>
-											<div class="spec-value"><?php echo $spec['value']; ?></div>
-										</div>
-									<?php endforeach; ?>
-								</div>
-							</div>
-						<?php endif; ?>
-						<?php if ($product_technical_specifications) : ?>
-							<div class="technical-review-item slide-down-wrapper flex flex-col gap-10 ">
-								<div class="technical-review-title slide-down-trigger yekan-24 color-primary flex gap-10 items-center cursor-pointer">
-									<svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M1.10156 1.09961L8.60156 8.57836L16.1016 1.09961" stroke="#5D0E87" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-									</svg>
-									<span>مشخصات فنی محصول</span>
-								</div>
-								<div class="technical-review-content slide-down-content flex flex-col gap-07 yekan-14 color-black-80" style="display: none;">
-									<?php foreach ($product_technical_specifications as $spec) : ?>
-										<div class="spec-item flex gap-10">
-											<div class="spec-name"><?php echo $spec['label']; ?></div>
-											<div class="spec-value"><?php echo $spec['value']; ?></div>
-										</div>
-									<?php endforeach; ?>
-								</div>
-							</div>
-						<?php endif; ?>
-						<?php if ($product_installation_specifications) : ?>
-							<div class="technical-review-item slide-down-wrapper flex flex-col gap-10 ">
-								<div class="technical-review-title slide-down-trigger yekan-24 color-primary flex gap-10 items-center cursor-pointer">
-									<svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M1.10156 1.09961L8.60156 8.57836L16.1016 1.09961" stroke="#5D0E87" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-									</svg>
-									<span>مشخصات نصب محصول</span>
-								</div>
-								<div class="technical-review-content slide-down-content flex flex-col gap-07 yekan-14 color-black-80" style="display: none;">
-									<?php foreach ($product_installation_specifications as $spec) : ?>
-										<div class="spec-item flex gap-10">
-											<div class="spec-name"><?php echo $spec['label']; ?></div>
-											<div class="spec-value"><?php echo $spec['value']; ?></div>
-										</div>
-									<?php endforeach; ?>
-								</div>
-							</div>
-						<?php endif; ?>
-					</div>
-				</div>
-			<?php endif; ?>
-			<?php if($product_size_images) : ?>
-				<div id="tab-dimensions-content" class="tab-content-item  bg-black-03 py-20">
-					<div class="flex items-center justify-center w-full">
-						<?php foreach ($product_size_images as $image) : ?>
-							<img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
-						<?php endforeach; ?>
-					</div>
-					
-
-				</div>
-			<?php endif; ?>
-			<?php if ($product_maintenance) : ?>
-				<div id="tab-maintenance-content" class="tab-content-item yekan-18 px-40 py-25 color-black-60 bg-black-03">
-					<?php echo ($product_maintenance); ?>
-				</div>
-			<?php endif; ?>
-			<?php if($production_process_video_link) : ?>
-				<div id="tab-production-content" class="tab-content-item  px-25 py-25 bg-black-03">
-					<div class="flex flex-col items-center gap-20">
-						<div class="title yekan-26 color-black-80">
-							<?php echo ($production_process_title); ?>
-						</div>
-						<div class="production-process-video">
-							<a class="video relative video-lightbox" data-video-url="<?php echo esc_url($production_process_video_link); ?>">
-								<img class=" flex" src="<?php echo esc_url($production_process_video_poster['url']); ?>" alt="<?php echo esc_attr($production_process_title); ?>">
-								<div class="absolute center z-index-5">
-										<img class="transform" src="<?php echo Helper::getAssetUri('images/play_icon.svg'); ?>" alt="Play Icon">
-								</div>
-							</a>
-						</div>
-					</div>
-				</div>
-			<?php endif; ?>
-			<div class="tab-reviews-content">
-				
-			</div>
-		</div>
-	</div>
-</div>
+    $__product_tabs_ctx = array(
+        'description' => $description,
+        'has_specs' => $has_specs,
+        'has_technical_review' => $has_technical_review,
+        'product_cat' => $product_cat,
+        'product_style' => $product_style,
+        'product_group' => $product_group,
+        'usage_material' => $usage_material,
+        'material_of_bases' => $material_of_bases,
+        'coating_material' => $coating_material,
+        'wood_color' => $wood_color,
+        'fabric_type' => $fabric_type,
+        'fabric_color' => $fabric_color,
+        'drawers_type' => $drawers_type,
+        'general_product_specifications' => $general_product_specifications,
+        'product_material_specifications' => $product_material_specifications,
+        'functional_features_and_capabilities' => $functional_features_and_capabilities,
+        'product_technical_specifications' => $product_technical_specifications,
+        'product_installation_specifications' => $product_installation_specifications,
+        'product_size_images' => $product_size_images,
+        'product_maintenance' => $product_maintenance,
+        'production_process_video_link' => $production_process_video_link,
+        'production_process_title' => $production_process_title,
+        'production_process_video_poster' => $production_process_video_poster,
+    );
+    set_query_var('product_tabs', $__product_tabs_ctx);
+    get_template_part('template-parts/product/tabs');
+?>
 <?php 
 	$faqs = get_field('faqs');
 	if ($faqs) :
