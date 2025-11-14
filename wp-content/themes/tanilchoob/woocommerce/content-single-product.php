@@ -194,7 +194,8 @@ if (post_password_required()) {
 			<?php endif; ?>
 
 		</div>
-</div>
+	<?php endif; ?>
+
 <div class="container mb-40">
 	<?php
 		$description = $product->get_description();
@@ -545,7 +546,7 @@ if (post_password_required()) {
 		</div>
 	</div>
 </div>
-<?php endif;
+<?php 
 	$faqs = get_field('faqs');
 	if ($faqs) : ?>
 	<div class="product-faqs flex flex-col gap-20 mb-40">
