@@ -45,7 +45,7 @@ if (post_password_required()) {
 			if ($sale_end_date && $sale_end_date > new DateTime()): ?>
 				<div class="product-offer-countdown ">
 					<div class="countdown-timer regular" data-end-date="<?php echo esc_attr($sale_end_date->date('Y-m-d H:i:s')); ?>">
-						<div class="countdown-timer__time  flex py-20 px-40 w-full h-100 justify-evenly">
+						<div class="countdown-timer__time flex  w-full h-100 justify-evenly">
 							<div class="flex flex-col text-center">
 								<div class="countdown-timer__seconds yekan-30">00</div>
 								<div class="countdown-timer__label yekan-18">ثانیه</div>
