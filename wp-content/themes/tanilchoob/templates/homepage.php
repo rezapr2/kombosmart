@@ -57,7 +57,7 @@ get_header(); ?>
             ]
         ]
     ];
-    get_template_part('template-parts/slider/carousel_slider', null, $args);
+    get_template_part('template-parts/home/carousel_slider', null, $args);
 
     /* Banners */
     $args = [
@@ -87,7 +87,7 @@ get_header(); ?>
             ]
         ]
     ];
-    get_template_part('template-parts/slider/carousel_slider', null, $args);
+    get_template_part('template-parts/home/carousel_slider', null, $args);
 
     /* Banners */
     $args = [
@@ -117,7 +117,7 @@ get_header(); ?>
             ]
         ]
     ];
-    get_template_part('template-parts/slider/carousel_slider', null, $args);
+    get_template_part('template-parts/home/carousel_slider', null, $args);
 
     /* Best Toshaks */
     get_template_part('template-parts/home/best_toshaks');
@@ -137,7 +137,7 @@ get_header(); ?>
             'order'          => 'DESC'
         ]
     ];
-    get_template_part('template-parts/slider/carousel_slider', null, $args);
+    get_template_part('template-parts/home/carousel_slider', null, $args);
     ?>
 
 
