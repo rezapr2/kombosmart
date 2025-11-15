@@ -286,10 +286,32 @@ if (post_password_required()) {
 	endif; ?>
 <?php get_template_part('template-parts/product/help-cta'); ?>
 
-<div class="container mb-25">
+<div class="container mb-25 mt-25">
 	<div class="flex justify-between gap-20">
-		<?php get_template_part('template-parts/product/consult-cta'); ?>
-		<?php get_template_part('template-parts/product/consult-cta'); ?>
+		<?php 
+		
+		get_template_part('template-parts/product/consult-cta', null, array(
+			'label' => 'موجودی و نحوه ارسال محصول',
+			'url' => '#',
+			'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M2 9V7C2 4 4 2 7 2H17C20 2 22 4 22 7V9" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+				<path d="M2 15V17C2 20 4 22 7 22H17C20 22 22 20 22 17V15" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+				<path d="M6.70312 9.25977L12.0031 12.3298L17.2631 9.27979" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+				<path d="M12 17.7698V12.3198" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+				<path d="M10.7622 6.29006L7.56218 8.07009C6.84218 8.47009 6.24219 9.48008 6.24219 10.3101V13.7001C6.24219 14.5301 6.83218 15.5401 7.56218 15.9401L10.7622 17.7201C11.4422 18.1001 12.5622 18.1001 13.2522 17.7201L16.4522 15.9401C17.1722 15.5401 17.7722 14.5301 17.7722 13.7001V10.3101C17.7722 9.48008 17.1822 8.47009 16.4522 8.07009L13.2522 6.29006C12.5622 5.90006 11.4422 5.90006 10.7622 6.29006Z" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+			</svg>',
+		)); 
+
+		get_template_part('template-parts/product/consult-cta', null, array(
+			'label' => 'شرایط گارنتی محصولات',
+			'url' => '#',
+			'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M10.4862 2.23055L5.49625 4.11055C4.34625 4.54055 3.40625 5.90055 3.40625 7.12055V14.5505C3.40625 15.7305 4.18625 17.2805 5.13625 17.9905L9.43625 21.2005C10.8462 22.2605 13.1663 22.2605 14.5763 21.2005L18.8762 17.9905C19.8262 17.2805 20.6063 15.7305 20.6063 14.5505V7.12055C20.6063 5.89055 19.6663 4.53055 18.5163 4.10055L13.5262 2.23055C12.6762 1.92055 11.3162 1.92055 10.4862 2.23055Z" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+			<path d="M9.04688 11.8697L10.6569 13.4797L14.9569 9.17969" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
+			',
+		)); 
+		?>
 	</div>
 </div>
 
