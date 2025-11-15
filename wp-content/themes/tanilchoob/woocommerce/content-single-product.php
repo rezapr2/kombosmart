@@ -285,7 +285,13 @@ if (post_password_required()) {
 		get_template_part('template-parts/product/faqs');
 	endif; ?>
 <?php get_template_part('template-parts/product/help-cta'); ?>
-<?php get_template_part('template-parts/product/consult-cta'); ?>
+
+<div class="container mb-25">
+	<div class="flex justify-between gap-20">
+		<?php get_template_part('template-parts/product/consult-cta'); ?>
+		<?php get_template_part('template-parts/product/consult-cta'); ?>
+	</div>
+</div>
 
 
 
