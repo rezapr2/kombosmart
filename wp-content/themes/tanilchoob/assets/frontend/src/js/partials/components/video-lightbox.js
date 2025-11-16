@@ -14,7 +14,7 @@
         if ($('#video-lightbox-modal').length === 0) {
             const modalHTML = `
                 <div id="video-lightbox-modal" class="video-lightbox-modal">
-                    <div class="video-lightbox-content">
+                    <div class="video-lightbox-content relative">
                         <span class="video-lightbox-close">&times;</span>
                         <div class="video-container"></div>
                     </div>

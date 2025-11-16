@@ -9,7 +9,7 @@
         if ($('#story-lightbox-modal').length === 0) {
             const modalHTML = `
                 <div id="story-lightbox-modal" class="story-lightbox-modal" aria-hidden="true" role="dialog">
-                    <div class="story-lightbox-content" role="document">
+                    <div class="story-lightbox-content relative" role="document">
                         <div class="story-header">
                             <img class="story-avatar" src="" alt="" />
                             <div class="story-username yekan-24 color-white"></div>

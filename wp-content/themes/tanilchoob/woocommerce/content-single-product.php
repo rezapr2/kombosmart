@@ -290,6 +290,9 @@ if (post_password_required()) {
 		set_query_var('faqs', $faqs);
 		get_template_part('template-parts/product/faqs');
 	endif; ?>
+
+	<?php get_template_part('template-parts/product/testimonials'); ?>
+
 	<?php get_template_part('template-parts/product/help-cta'); ?>
 
 	<div class="container mb-25 mt-25">
@@ -322,6 +325,7 @@ if (post_password_required()) {
 	</div>
 
 	<?php get_template_part('template-parts/product/products-suggustions'); ?>
+	
 	<div class="container mb-25 mt-25">
 		<div class="flex justify-between gap-20">
 			<?php

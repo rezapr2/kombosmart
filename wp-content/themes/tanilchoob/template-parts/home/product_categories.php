@@ -30,7 +30,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                 $img = $comod_types['image'] ?: null;
                 $link = $comod_types['link'] ?: null;
                 ?>
-                <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item">
+                <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                     <?php
                     if ($img) {
                         echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'انواع کمد') . '" />';
@@ -49,7 +49,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                 $img = $soffa['image'] ?: null;
                 $link = $soffa['link'] ?: null;
                 ?>
-                <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item">
+                <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                     <?php
                     if ($img) {
                         echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'soffa') . '" />';
@@ -69,7 +69,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
             $img = $tv_desk['image'] ?: null;
             $link = $tv_desk['link'] ?: null;
             ?>
-            <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item">
+            <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                 <?php
                 if ($img) {
                     echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'tv desk') . '" />';
@@ -90,7 +90,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
         $link = $console_desk['link'] ?: null;
         ?>
         <div class="category-pack gap-07 flex flex-wrap">
-            <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item">
+            <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative" >
                 <?php
                 if ($img) {
                     echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'console desk') . '" />';
@@ -112,7 +112,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
         ?>
         <div class="category-pack gap-07 flex flex-col">
             <div class="row gap-07 flex h-100">
-                <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item">
+                <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                     <?php
                     if ($img) {
                         echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'sleep products') . '" />';
@@ -131,7 +131,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                 $img = $sleep_pack['image'] ?: null;
                 $link = $sleep_pack['link'] ?: null;
                 ?>
-                <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item">
+                <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                     <?php
                     if ($img) {
                         echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'sleep pack') . '" />';
@@ -152,7 +152,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
             $link = $food_products['link'] ?: null;
             ?>
             <div class="row gap-07 flex h-100">
-                <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item">
+                <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                     <?php
                     if ($img) {
                         echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'food products') . '" />';
@@ -171,7 +171,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                 $img = $soffa_desk['image'] ?: null;
                 $link = $soffa_desk['link'] ?: null;
                 ?>
-                <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item">
+                <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                     <?php
                     if ($img) {
                         echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'soffa desk') . '" />';

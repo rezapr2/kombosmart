@@ -314,7 +314,7 @@ $play_icon_src = function_exists('get_theme_file_uri')
                         <div class="title yekan-26 color-black-80">
                             <?php echo ($production_process_title); ?>
                         </div>
-                        <div class="production-process-video">
+                        <div class="production-process-video relative w-full">
                             <a class="video relative video-lightbox" data-video-url="<?php echo esc_url($production_process_video_link); ?>">
                                 <img class=" flex" src="<?php echo esc_url($production_process_video_poster['url'] ?? ''); ?>" alt="<?php echo esc_attr($production_process_title); ?>">
                                 <div class="absolute center z-index-5">

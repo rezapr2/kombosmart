@@ -2,7 +2,6 @@
     .categories{
         margin-top: calcRem(30);
         .category-item{
-            position: relative;
             &::after{
                 content: '';
                 position: absolute;

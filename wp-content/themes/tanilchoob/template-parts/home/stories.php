@@ -30,8 +30,8 @@
                     'video_link' => $video_link,
                 );
             ?>
-            <div class="story-item flex flex-col items-center" data-story-content='<?php echo esc_attr( wp_json_encode( $story_content ) ); ?>'>
-                <div class="story-image-wrapper">
+            <div class="story-item relative flex flex-col items-center" data-story-content='<?php echo esc_attr( wp_json_encode( $story_content ) ); ?>'>
+                <div class="story-image-wrapper relative">
                     <img src="<?php echo $thumbnail_url; ?>" alt="<?php the_title(); ?>" />
                 </div>
                 <div class="title yekan-18 color-black-50"><?php the_title(); ?></div>
