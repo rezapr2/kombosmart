@@ -1,3 +1,6 @@
+<?php
+
+?>
 <div class="testimonials mb-40">
   <div class="container">
     <div class="title yekan-24 color-black thin text-center color-black-80">
