@@ -8,42 +8,39 @@
     </div>
 
     <div class="mt-25 flex gap-10">
+      <div class="testimonial-slider swiper relative flex flex-col gap-15">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="flex items-center gap-10">
+              <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#CBD5E1,#94A3B8);"></div>
+              <div class="flex flex-col gap-04">
+                <div class="yekan-18 color-black">امیر باقری</div>
+                <div class="color-black-30 yekan-14">1402/05/28</div>
+              </div>
+            </div>
 
-      <!-- Right: Testimonial Card -->
-      <div class="testimonial-slider relative flex flex-col gap-15">
-        <!-- Header: Avatar, Name, Date -->
-        <div class="flex items-center gap-10">
-          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#CBD5E1,#94A3B8);"></div>
-          <div class="flex flex-col gap-04">
-            <div class="yekan-18 color-black">امیر باقری</div>
-            <div class="color-black-30 yekan-14">1402/05/28</div>
+            <p class="yekan-18 color-black-70">
+              من یک سرویس خواب از این فروشگاه خریداری کردم و واقعاً از کیفیت و خدمات پس از فروش راضی هستم. تحویل به موقع انجام شد. محصول دقیقاً مطابق با تصاویر سایت بود. پیشنهاد می‌کنم حتماً از این فروشگاه خرید کنید.
+            </p>
+          </div>
+          <div class="swiper-navigation flex bg-black absolute bottom-0 left-0">
+            <div class="swiper-button-prev transition flex item-center">
+              <svg width="25" height="18" viewBox="0 0 25 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.4297 17.0439L23.523 8.95061L15.4297 0.85728" stroke="white" stroke-width="1.71429" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M0.859375 8.9502L23.2994 8.9502" stroke="white" stroke-width="1.71429" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div class="swiper-button-next transition flex item-center">
+              <svg width="25" height="18" viewBox="0 0 25 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.95312 17.0439L0.859793 8.95061L8.95313 0.85728" stroke="white" stroke-width="1.71429" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M23.5234 8.9502L1.08344 8.95019" stroke="white" stroke-width="1.71429" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
           </div>
         </div>
 
-        <!-- Body Text -->
-        <p class="yekan-18 color-black-70">
-          من یک سرویس خواب از این فروشگاه خریداری کردم و واقعاً از کیفیت و خدمات پس از فروش راضی هستم. تحویل به موقع انجام شد. محصول دقیقاً مطابق با تصاویر سایت بود. پیشنهاد می‌کنم حتماً از این فروشگاه خرید کنید.
-        </p>
 
-        <!-- Slider Controls -->
-        <div style="display:flex;gap:8px;" class="absolute bottom-0 left-0">
-          <button type="button" aria-label="قبلی" style="padding:6px 12px;border:1px solid #D1D5DB;background:#FFF;color:#111;display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
-            <svg width="25" height="18" viewBox="0 0 25 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15.4297 17.0439L23.523 8.95061L15.4297 0.85728" stroke="white" stroke-width="1.71429" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M0.859375 8.9502L23.2994 8.9502" stroke="white" stroke-width="1.71429" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-          <button type="button" aria-label="بعدی" style="padding:6px 12px;border:1px solid #D1D5DB;background:#FFF;color:#111;display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
-            <svg width="25" height="18" viewBox="0 0 25 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15.4297 17.0439L23.523 8.95061L15.4297 0.85728" stroke="white" stroke-width="1.71429" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M0.859375 8.9502L23.2994 8.9502" stroke="white" stroke-width="1.71429" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-
-          </button>
-        </div>
       </div>
-
-
 
       <!-- Middle: Gallery Previews with View All Overlay -->
       <div style="width:220px;display:grid;grid-template-rows:1fr 1fr;gap:12px;">
