@@ -45,26 +45,6 @@
                     slidesPerView: slidesPerView,
                     spaceBetween: 24,
 
-                    // Accessibility
-                    a11y: {
-                        prevSlideMessage: 'Previous slide',
-                        nextSlideMessage: 'Next slide',
-                        firstSlideMessage: 'This is the first slide',
-                        lastSlideMessage: 'This is the last slide',
-                        paginationBulletMessage: 'Go to slide {{index}}',
-                    },
-
-                    // Keyboard control
-                    keyboard: {
-                        enabled: true,
-                        onlyInViewport: true,
-                    },
-
-                    // Mouse wheel control
-                    mousewheel: {
-                        enabled: false,
-                    },
-
                     // Touch settings
                     touchRatio: 1,
                     touchAngle: 45,
