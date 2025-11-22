@@ -150,32 +150,6 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 		<div class="reset_variations_alert screen-reader-text" role="alert" aria-live="polite" aria-relevant="all"></div>
 		<?php do_action('woocommerce_after_variations_table'); ?>
 
-		<script>
-		(function(){
-		  try {
-		    var form = document.querySelector('form.variations_form');
-		    if (!form || form.dataset.tanilRadiosInit) return;
-		    form.dataset.tanilRadiosInit = '1';
-		    form.addEventListener('change', function(e){
-		      var radio = e.target;
-		      if (radio && radio.classList && radio.classList.contains('tanil-variation-radio')) {
-		        var attr = radio.getAttribute('data-attribute');
-		        var select = form.querySelector('select[name="attribute_' + attr + '"]');
-		        if (!select) {
-		          var sanitized = attr.replace(/\s+/g,'-').toLowerCase();
-		          select = form.querySelector('select[name="attribute_' + sanitized + '"]');
-		        }
-		        if (select) {
-		          select.value = radio.value;
-		          if (window.jQuery) { window.jQuery(select).trigger('change'); }
-		          else { select.dispatchEvent(new Event('change', { bubbles: true })); }
-		        }
-		      }
-		    });
-		  } catch (err) {}
-		})();
-		</script>
-
 		<div class="single_variation_wrap">
 			<?php
 			/**
