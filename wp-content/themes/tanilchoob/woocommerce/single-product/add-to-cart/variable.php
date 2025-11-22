@@ -151,6 +151,9 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 		<?php do_action('woocommerce_after_variations_table'); ?>
 
 		<div class="single_variation_wrap">
+			<div class="tanil-variation-price yekan-18 color-primary">
+				<?php echo wp_kses_post( $product->get_price_html() ); ?>
+			</div>
 			<?php
 			/**
 			 * Hook: woocommerce_before_single_variation.
