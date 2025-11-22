@@ -26,7 +26,15 @@
             background-color: rgba(93, 14, 135, 0.07);
             border: 1px solid var(--color-primary);
         }
+        
     }
+    .accordion-box{
+            background-color: rgba(0, 0, 0, 0.04);
+            padding: 1.8rem 2.4rem;
+            .slide-down-trigger.active{
+                transform: rotate(180deg);
+            }
+        }
      .buttons-wrapper{
             height: 6.4rem;
             .product-price{

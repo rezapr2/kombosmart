@@ -21,8 +21,10 @@ if (post_password_required()) {
 	echo get_the_password_form(); // WPCS: XSS ok.
 	return;
 }
+
+$product_id = $product->get_id();
 ?>
-<div id="product-<?php the_ID(); ?>" <?php wc_product_class('', $product); ?>>
+<div id="product-<?php $product_id; ?>" <?php wc_product_class('', $product); ?>>
 	<div class="product-container container flex gap-15 mt-40 mb-40">
 		<div class="product-summary flex flex-col w-full gap-04">
 			<h1 class="product-title"><?php the_title(); ?></h1>
@@ -68,7 +70,7 @@ if (post_password_required()) {
 			<div class="product-status flex gap-10 px-25 items-center">
 				<span class="yekan-18">وضعیت محصول :</span>
 				<?php
-				$product_status = get_post_meta($product->get_id(), '_product_status', true);
+				$product_status = get_post_meta($product_id, '_product_status', true);
 				$status_labels = array(
 					'in_stock' => __('موجود و آماده ارسال', 'tanilchoob'),
 					'in_produce' => __('در حال تولید', 'tanilchoob'),
@@ -79,6 +81,23 @@ if (post_password_required()) {
 				?>
 				<span class="yekan-20 color-primary bold"><?php echo esc_html($status_label); ?></span>
 			</div>
+			<?php
+			$product_components_text = get_field('product_components_text', $product_id);
+			if($product_components_text):
+			?>
+			<div class="accordion-box slide-down-wrapper flex flex-col gap-10">
+				<div class="box-title flex items-center justify-between">
+					<span class="yekan-18 color-black-60">اجزای محصول:</span>
+					<div class="slide-down-trigger transition" role="button" aria-expanded="false">
+					<svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0.75 6L6.01498 0.749929L11.28 6" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</div>
+
+				</div>
+				<div class="content slide-down-content yekan-18 color-primary"><?php echo $product_components_text; ?></div>
+			</div>
+			<?php endif; ?>
 			<div class="buttons-wrapper flex gap-07 items-center">
 				<div class="add-to-cart h-100 flex py-20 px-40 bg-black">
 					<svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -873,8 +873,8 @@
         },
         {
             "key": "field_692161f074a5b",
-            "label": "اجزای محصول:",
-            "name": "product_components",
+            "label": "نوشته اجزای محصول",
+            "name": "product_components_text",
             "aria-label": "",
             "type": "textarea",
             "instructions": "",
@@ -1495,5 +1495,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1763795487
+    "modified": 1763797187
 }
