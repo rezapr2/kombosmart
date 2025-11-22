@@ -33,10 +33,24 @@ $product_id = $product->get_id();
 					<?php woocommerce_template_single_rating(); ?>
 				</div>
 				<div class="product-comments">
-					12 دیدگاه کاربران
+					<?php
+						// Display average rating and count in the desired format: "3.1 ⭐ (15نفر)"
+						$average      = $product ? (float) $product->get_average_rating() : 0.0;
+						$rating_count = $product ? (int) $product->get_rating_count() : 0;
+						if ($rating_count === 0 && $product) {
+							$rating_count = (int) $product->get_review_count();
+						}
+						$average_str  = $average > 0 ? number_format($average, 1) : '0.0';
+						echo esc_html($average_str) . ' ' . '⭐' . ' (' . esc_html($rating_count) . 'نفر)';
+					?>
 				</div>
 				<div class="product-questions-answers">
-					25 پرسش و پاسخ
+					<?php
+						// Show users reviews count
+						$product_obj  = isset($product) && $product instanceof WC_Product ? $product : wc_get_product(get_the_ID());
+						$reviews_count = $product_obj ? (int) $product_obj->get_review_count() : 0;
+						echo esc_html($reviews_count) . ' دیدگاه کاربران';
+					?>
 				</div>
 			</div>
 			<!-- Product offer countdown -->

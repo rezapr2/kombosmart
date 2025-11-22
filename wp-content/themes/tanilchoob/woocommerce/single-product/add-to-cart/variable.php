@@ -134,14 +134,6 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 					$hidden_select = ob_get_clean();
 					echo '<div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">' . $hidden_select . '</div>';
 
-					/**
-					 * Filters the reset variation button.
-					 *
-					 * @since 2.5.0
-					 *
-					 * @param string  $button The reset variation button HTML.
-					 */
-					echo end($attribute_keys) === $attribute_name ? wp_kses_post(apply_filters('woocommerce_reset_variations_link', '<a class="reset_variations" href="#" aria-label="' . esc_attr__('Clear options', 'woocommerce') . '">' . esc_html__('Clear', 'woocommerce') . '</a>')) : '';
 					?>
 				</div>
 			</div>
@@ -151,7 +143,7 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 		<?php do_action('woocommerce_after_variations_table'); ?>
 
 		<div class="single_variation_wrap">
-			<div class="tanil-variation-price yekan-18 color-primary">
+			<div class="tanil-variation-price product-price h-100 flex items-center yekan-22 color-primary bold">
 				<?php echo wp_kses_post( $product->get_price_html() ); ?>
 			</div>
 			<?php

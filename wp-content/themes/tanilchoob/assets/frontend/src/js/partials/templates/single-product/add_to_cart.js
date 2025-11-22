@@ -115,15 +115,6 @@
             updatePriceFromSelection($form);
         });
 
-        // Clear selections when user clicks reset link
-        $(document).on('click', '.reset_variations', function (e) {
-            var $form = $(this).closest('form.variations_form');
-            $form.find('select.tanil-hidden-select').each(function () {
-                $(this).val('').trigger('change');
-            });
-            $form.find('.tanil-variation-radio').prop('checked', false);
-            $form.find('.variation-radio-item').removeClass('checked');
-        });
 
         // Optional safety: hide built-in variation block and restore custom price when data is reset
         $('form.variations_form').on('reset_data', function () {

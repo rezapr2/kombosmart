@@ -17,6 +17,10 @@ class Frontend
 		add_filter('mod_rewrite_rules', [$this, 'fix_security_headers']);
 		// Customize WooCommerce breadcrumb classes
 		add_filter('woocommerce_breadcrumb_defaults', [$this, 'wc_breadcrumb_defaults']);
+		// Disable WooCommerce core styles
+		add_filter('woocommerce_enqueue_styles', '__return_empty_array');
+		// Dequeue WooCommerce Blocks styles after they are enqueued
+		add_action('wp_enqueue_scripts', [$this, 'dequeue_wc_block_styles'], 100);
 	}
 
 	public function enqueue_scripts()
@@ -73,5 +77,14 @@ EOD;
 		$args['delimiter']  = '<span class="color-black-30">&nbsp;/&nbsp;</span>';
 		
 		return $args;
+	}
+
+	public function dequeue_wc_block_styles()
+	{
+		// Known WooCommerce Blocks style handles
+		wp_dequeue_style('wc-blocks-style');
+		wp_dequeue_style('wc-blocks-style-product-query');
+		// WooCommerce inline style handle
+		wp_dequeue_style('woocommerce-inline');
 	}
 }
