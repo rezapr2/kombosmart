@@ -77,8 +77,8 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 								}
 
 								if(isset($item_array['color_code']) || isset($item_array['patern_image'])){
-									// Add class to item array
-									$item_array['class'] = 'has-color-patern';
+									// Add has-color-patern to item array
+									$item_array['has-color-patern'] = true;
 								}
 
 								$radio_items[] = $item_array;
@@ -91,13 +91,13 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 					}
 					?>
 
-					<div class="variations-radio-group flex flex-wrap gap-20" data-attribute="<?php echo esc_attr( $attribute_name ); ?>">
+					<div class="variations-radio-group <?php echo isset($item['has-color-patern']) ? ' flex flex-wrap gap-20' : ''; ?>" data-attribute="<?php echo esc_attr( $attribute_name ); ?>">
 						<?php foreach ( $radio_items as $item ) :
 							$input_id = 'var-' . $sanitized_attr . '-' . sanitize_title( $item['value'] );
 							// Check if checked 
 							$is_checked = ( $selected_value === $item['value'] );
 						?>
-							<label class="variation-radio-item flex items-center gap-05 pointer <?php echo $is_checked ? 'checked' : ''; echo isset($item['class']) ? ' ' . $item['class'] : ''; ?>" for="<?php echo esc_attr( $input_id ); ?>">
+							<label class="variation-radio-item flex items-center gap-05 pointer <?php echo $is_checked ? 'checked' : ''; echo isset($item['has-color-patern']) ? ' has-color-patern' : ''; ?>" for="<?php echo esc_attr( $input_id ); ?>">
 								<input
 									id="<?php echo esc_attr( $input_id ); ?>"
 									type="radio"
