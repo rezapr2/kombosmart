@@ -98,6 +98,22 @@ $product_id = $product->get_id();
 				<div class="content slide-down-content yekan-18 color-primary"><?php echo $product_components_text; ?></div>
 			</div>
 			<?php endif; ?>
+			<?php
+                    // Show product variation selector here for variable products.
+                    if ( $product && $product->is_type( 'variable' ) ) {
+                        $available_variations = $product->get_available_variations();
+                        $attributes           = $product->get_variation_attributes();
+                        $selected_attributes  = $product->get_default_attributes();
+                        wc_get_template(
+                            'single-product/add-to-cart/variable.php',
+                            array(
+                                'available_variations' => $available_variations,
+                                'attributes'           => $attributes,
+                                'selected_attributes'  => $selected_attributes,
+                            )
+                        );
+                    }
+            ?>
 			<div class="buttons-wrapper flex gap-07 items-center">
 				<div class="add-to-cart h-100 flex py-20 px-40 bg-black">
 					<svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">

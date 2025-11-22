@@ -1,45 +1,61 @@
-.product-summary{
+.product-summary {
     width: 51rem;
-    .product{
-        &-title{
+    .product {
+        &-title {
             font-size: 3.6rem;
             font-weight: 700;
-            margin-bottom: .4rem;
+            margin-bottom: 0.4rem;
         }
-        &-comments-ratings{
+        &-comments-ratings {
             margin-bottom: 1.8rem;
             color: #999999;
         }
-        &-offer-countdown{
-            .countdown-timer{
+        &-offer-countdown {
+            .countdown-timer {
                 background-color: rgba(255, 0, 132, 0.07);
-                border: 1px solid #FF0084;
-                color: #FF0084;
+                border: 1px solid #ff0084;
+                color: #ff0084;
                 height: 7rem;
-                .countdown-timer__label{
+                .countdown-timer__label {
                     font-weight: 400;
                 }
             }
         }
-        &-status{
+        &-status {
             height: 7rem;
             background-color: rgba(93, 14, 135, 0.07);
             border: 1px solid var(--color-primary);
         }
-        
     }
-    .accordion-box{
-            background-color: rgba(0, 0, 0, 0.04);
-            padding: 1.8rem 2.4rem;
-            .slide-down-trigger.active{
-                transform: rotate(180deg);
+    .accordion-box {
+        background-color: rgba(0, 0, 0, 0.04);
+        padding: 1.8rem 2.4rem;
+        .slide-down-trigger.active {
+            transform: rotate(180deg);
+        }
+    }
+    .variation-box{
+        .variation-radio-item{
+            &.has-color-patern{
+                input{
+                    display: none;
+                }
+            }
+            &.checked span{
+                color: var(--color-primary);
             }
         }
-     .buttons-wrapper{
-            height: 6.4rem;
-            .product-price{
-                border: 1px solid var(--color-primary);
-            }
+        
+        .color-dot, .patern-image{
+            height: 3.4rem;
+            width: 3.4rem;
+            border-radius: 100%;
         }
-    
+    }
+    .buttons-wrapper {
+        height: 6.4rem;
+        .product-price {
+            border: 1px solid var(--color-primary);
+        }
+    }
 }
