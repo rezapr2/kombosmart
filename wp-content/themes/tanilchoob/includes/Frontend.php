@@ -15,6 +15,8 @@ class Frontend
 	{
 		add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
 		add_filter('mod_rewrite_rules', [$this, 'fix_security_headers']);
+		// Customize WooCommerce breadcrumb classes
+		add_filter('woocommerce_breadcrumb_defaults', [$this, 'wc_breadcrumb_defaults']);
 	}
 
 	public function enqueue_scripts()
@@ -60,5 +62,16 @@ class Frontend
 Options -Indexes
 EOD;
 		return $rules . $new_rules;
+	}
+
+	public function wc_breadcrumb_defaults($args)
+	{
+		// Add custom classes to the breadcrumb wrapper element
+		$classes = 'breadcrumb yekan-16 py-20';
+		$args['wrap_before'] = '<div class="container"><nav class="' . $classes . '" aria-label="breadcrumb">';
+		$args['wrap_after']  = '</nav></div>';
+		$args['delimiter']  = '<span class="color-black-30">&nbsp;/&nbsp;</span>';
+		
+		return $args;
 	}
 }
