@@ -78,12 +78,19 @@ $testimonials_customers = get_field('testimonials_customers', $post_id);
         if(isset($customer_video['url'])){
           $video_url = $customer_video['url'];
           $video_poster = $customer_video['cover'];
-          $title = $customer_video['title'];
-          echo '<div class="about-tanil__video">';
-          echo '<a class="about-tanil__video-wrapper relative video-lightbox" data-video-url="'.esc_url($video_url).'">';
-          echo '<img class="about-tanil__video-poster flex" src="'.esc_url($video_poster['url']).'" alt="'.esc_attr($title).'">';
+          echo '<div class="customer_video flex">';
+          echo '<a class="customer_video-wrapper relative video-lightbox" data-video-url="'.esc_url($video_url).'">';
+          echo '<img class="customer_video-poster h-100" src="'.esc_url($video_poster['url']).'" alt="'.esc_attr($title).'">';
+          // Dark overlay on top of poster image
+          echo '<div class="customer_video-overlay dark-overlay"></div>';
           echo '<div class="absolute center">';
-          echo '<img class="about-tanil__video-play-icon" src="'.esc_url(Helper::getAssetUri('images/play_icon.svg')).'" alt="Play Icon">';
+          echo '<svg width="59" height="59" viewBox="0 0 59 59" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <foreignObject x="-13.6688" y="-13.6688" width="86.3376" height="86.3376"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(6.83px);clip-path:url(#bgblur_0_971_11134_clip_path);height:100%;width:100%"></div></foreignObject><circle data-figma-bg-blur-radius="13.6688" cx="29.5" cy="29.5" r="29.5" fill="white" fill-opacity="0.62"/>
+          <path d="M42.7813 27.5512C44.1146 28.321 44.1146 30.2455 42.7812 31.0153L24.0312 41.8406C22.6979 42.6104 21.0312 41.6481 21.0312 40.1085L21.0312 18.4579C21.0312 16.9183 22.6979 15.956 24.0312 16.7258L42.7813 27.5512Z" fill="white"/>
+          <defs>
+          <clipPath id="bgblur_0_971_11134_clip_path" transform="translate(13.6688 13.6688)"><circle cx="29.5" cy="29.5" r="29.5"/>
+          </clipPath></defs>
+          </svg>';
           echo '</div></a></div>';
         }
       ?>
