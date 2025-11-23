@@ -29,6 +29,53 @@
                 font-size: 1.8rem;
             }
         }
+
+        // Custom star rating UI
+        .comment-form-rating {
+            p.stars {
+                display: flex;
+                gap: 0.8rem;
+                margin: 0.8rem 0;
+            }
+            p.stars a {
+                color: rgba(0, 0, 0, 0.25);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 2.4rem;
+                height: 2.4rem;
+                text-decoration: none;
+                cursor: pointer;
+            }
+            p.stars a.filled {
+                color: $color-main-blue; // uses var(--branding-color)
+            }
+            p.stars a:focus {
+                outline: 2px solid #999;
+                outline-offset: 2px;
+                border-radius: 4px;
+            }
+            .star-icon {
+                width: 1.8rem;
+                height: 1.8rem;
+            }
+            .rating-required-error {
+                margin-top: 0.5rem;
+                color: #d00;
+                font-size: 1.4rem;
+            }
+            .sr-only {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                padding: 0;
+                margin: -1px;
+                overflow: hidden;
+                clip: rect(0, 0, 0, 0);
+                white-space: nowrap;
+                border: 0;
+            }
+        }
         .form-submit {
             margin-top: 2rem;
             .submit {

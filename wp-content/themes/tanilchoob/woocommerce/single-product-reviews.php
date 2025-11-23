@@ -118,18 +118,19 @@ if ( ! comments_open() ) {
 				}
 
 				if ( wc_review_ratings_enabled() ) {
-					$icon = '<svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M21.6086 2.63915L24.8511 9.12417C25.2933 10.0269 26.4724 10.8928 27.4673 11.0586L33.3443 12.0351C37.1027 12.6614 37.987 15.3881 35.2788 18.0779L30.7098 22.6469C29.936 23.4207 29.5122 24.913 29.7517 25.9815L31.0598 31.6375C32.0915 36.1144 29.7149 37.8462 25.7539 35.5064L20.2453 32.2455C19.2504 31.6559 17.6108 31.6559 16.5975 32.2455L11.0889 35.5064C7.14629 37.8462 4.75126 36.096 5.78297 31.6375L7.09102 25.9815C7.33053 24.913 6.90679 23.4207 6.13301 22.6469L1.56402 18.0779C-1.12579 15.3881 -0.259893 12.6614 3.49847 12.0351L9.37552 11.0586C10.352 10.8928 11.5311 10.0269 11.9732 9.12417L15.2157 2.63915C16.9844 -0.879715 19.8584 -0.879715 21.6086 2.63915Z" fill="black" fill-opacity="0.2"/>
-</svg>
-';
-					$comment_form['comment_field'] = '<div class="comment-form-rating "><label for="rating" id="comment-form-rating-label">' . esc_html__( 'Your rating', 'woocommerce' ) . ( wc_review_ratings_required() ? '&nbsp;<span class="required">*</span>' : '' ) . '</label><select name="rating" id="rating" required>
-						<option value="">' . $icon . '</option>
-						<option value="5">' . $icon. '</option>
-						<option value="4">' . $icon . '</option>
-						<option value="3">' . $icon . '</option>
-						<option value="2">' . $icon . '</option>
-						<option value="1">' . $icon . '</option>
-					</select></div>';
+					$icon = '<svg class="star-icon" width="20" height="20" viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M21.6086 2.63915L24.8511 9.12417C25.2933 10.0269 26.4724 10.8928 27.4673 11.0586L33.3443 12.0351C37.1027 12.6614 37.987 15.3881 35.2788 18.0779L30.7098 22.6469C29.936 23.4207 29.5122 24.913 29.7517 25.9815L31.0598 31.6375C32.0915 36.1144 29.7149 37.8462 25.7539 35.5064L20.2453 32.2455C19.2504 31.6559 17.6108 31.6559 16.5975 32.2455L11.0889 35.5064C7.14629 37.8462 4.75126 36.096 5.78297 31.6375L7.09102 25.9815C7.33053 24.913 6.90679 23.4207 6.13301 22.6469L1.56402 18.0779C-1.12579 15.3881 -0.259893 12.6614 3.49847 12.0351L9.37552 11.0586C10.352 10.8928 11.5311 10.0269 11.9732 9.12417L15.2157 2.63915C16.9844 -0.879715 19.8584 -0.879715 21.6086 2.63915Z" fill="currentColor"/></svg>';
+
+					$comment_form['comment_field'] = '<div class="comment-form-rating"><label for="rating" id="comment-form-rating-label">' . esc_html__( 'Your rating', 'woocommerce' ) . ( wc_review_ratings_required() ? '&nbsp;<span class="required">*</span>' : '' ) . '</label>'
+						. '<p class="stars"><span role="group" aria-labelledby="comment-form-rating-label">'
+							. '<a class="star-1" role="radio" aria-checked="false" href="#" tabindex="0">' . $icon . '<span class="sr-only">' . esc_html__( '1 out of 5 stars', 'woocommerce' ) . '</span></a>'
+							. '<a class="star-2" role="radio" aria-checked="false" href="#" tabindex="0">' . $icon . '<span class="sr-only">' . esc_html__( '2 out of 5 stars', 'woocommerce' ) . '</span></a>'
+							. '<a class="star-3" role="radio" aria-checked="false" href="#" tabindex="0">' . $icon . '<span class="sr-only">' . esc_html__( '3 out of 5 stars', 'woocommerce' ) . '</span></a>'
+							. '<a class="star-4" role="radio" aria-checked="false" href="#" tabindex="0">' . $icon . '<span class="sr-only">' . esc_html__( '4 out of 5 stars', 'woocommerce' ) . '</span></a>'
+							. '<a class="star-5" role="radio" aria-checked="false" href="#" tabindex="0">' . $icon . '<span class="sr-only">' . esc_html__( '5 out of 5 stars', 'woocommerce' ) . '</span></a>'
+						. '</span></p>'
+						. '<input type="hidden" name="rating" id="rating" ' . ( wc_review_ratings_required() ? 'data-required="1"' : '' ) . ' />'
+						. ( wc_review_ratings_required() ? '<p class="rating-required-error yekan-16" style="display:none; color:#d00;">' . esc_html__( 'Please select a star rating.', 'woocommerce' ) . '</p>' : '' )
+					. '</div>';
 				}
 
 				$comment_form['comment_field'] .= '<div class="comment-form-field flex flex-col comment-form-comment"><label for="comment" class="yekan-18 color-black-80">' . esc_html__( 'Your review', 'woocommerce' ) . '&nbsp;<span class="required">*</span></label><textarea id="comment" name="comment" cols="45" rows="8" required></textarea></div>';

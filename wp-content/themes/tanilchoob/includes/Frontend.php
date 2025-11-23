@@ -21,7 +21,8 @@ class Frontend
 		add_filter('woocommerce_enqueue_styles', '__return_empty_array');
 		// Dequeue WooCommerce Blocks styles after they are enqueued
 		add_action('wp_enqueue_scripts', [$this, 'dequeue_wc_block_styles'], 100);
-		
+
+		// Woo single product script is heavy and we have custom UI; keep it dequeued.
 		add_action('wp_enqueue_scripts', function(){ if (is_product()) { wp_dequeue_script('wc-single-product'); } }, 100);
 
 	}
