@@ -8,12 +8,68 @@
     }
     .reviews_list {
         padding: 2rem 0;
+        .commentlist {
+            .review{
+                padding-bottom: 1.8rem;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+            }
+            .review-stars {
+                display: inline-flex;
+                gap: 0.3rem;
+                align-items: center;
+                justify-self: end;
+                margin-right: 3rem;
+                .star {
+                    color: rgba(0, 0, 0, 0.25);
+                }
+                .star.filled {
+                    color: #FFDC52;
+                }
+                .star-icon {
+                    width: 1.4rem;
+                    height: 1.4rem;
+                }
+            }
+            .children{
+                padding-right: 2rem;
+                margin-right: 2rem;
+                padding-top: 3rem;
+                position: relative;
+                &:before{
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    width: 1px;
+                    height: 70%;
+                    background-color: rgba(0, 0, 0, .2);
+                }
+                &:after{
+                    content: "";
+                    position: absolute;
+                    top: 70%;
+                    right: 0;
+                    width: 2rem;
+                    height: 1px;
+                    background-color: rgba(0, 0, 0, .2);
+                }
+            }
+            .description{
+                margin: 1.4rem 0;
+            }
+        }
     }
     #review_form_wrapper {
         padding: 5.2rem;
         border: 1px solid rgba(0, 0, 0, 0.2);
-        width: fit-content;
+        width: 50%;
         background-color: #fff;
+        .comment-reply-title{
+            margin-bottom: 1.4rem;
+        }
+        .comment-notes{
+            display: none;
+        }
         .comment-form-field {
             margin-bottom: 1.3rem;
             label {
@@ -38,17 +94,17 @@
                 margin: 0.8rem 0;
             }
             p.stars a {
-                color: rgba(0, 0, 0, 0.25);
+                color: rgba(0, 0, 0, 0.20);
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                width: 2.4rem;
-                height: 2.4rem;
+                width: 4.4rem;
+                height: 4.4rem;
                 text-decoration: none;
                 cursor: pointer;
             }
             p.stars a.filled {
-                color: $color-main-blue; // uses var(--branding-color)
+                color: #FFDC52;
             }
             p.stars a:focus {
                 outline: 2px solid #999;
@@ -56,8 +112,8 @@
                 border-radius: 4px;
             }
             .star-icon {
-                width: 1.8rem;
-                height: 1.8rem;
+                width: 3.4rem;
+                height: 3.4rem;
             }
             .rating-required-error {
                 margin-top: 0.5rem;
