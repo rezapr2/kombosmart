@@ -5,8 +5,8 @@ $faqs = isset($faqs) ? $faqs : get_query_var('faqs');
 ?>
 <?php if ($faqs) : ?>
 <div class="product-faqs flex flex-col gap-20 mb-40">
-	<div class="container flex">
-		<div class="flex flex-col gap-20">
+	<div class="container flex justify-between">
+		<div class="faq-items-wrapper flex flex-col gap-20">
 			<div class="faq-title yekan-28 bold color-primary">سوالات متداول</div>
 			<div class="faq-items flex flex-col gap-10">
 				<?php foreach ($faqs as $faq) : ?>

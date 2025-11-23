@@ -15,7 +15,7 @@ $testimonials_customers = get_field('testimonials_customers', $post_id);
     </div>
 
     <div class="mt-25 flex gap-10">
-      <div class="testimonial-slider swiper relative flex flex-col gap-15">
+      <div class="testimonial-slider swiper relative flex flex-1 flex-col gap-15">
         <div class="swiper-wrapper">
           <?php if ($testimonials_customers):
             foreach ($testimonials_customers as $testimonial_customer):

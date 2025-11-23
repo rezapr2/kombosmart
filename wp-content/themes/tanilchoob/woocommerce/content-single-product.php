@@ -26,13 +26,10 @@ $product_id = $product->get_id();
 ?>
 <div id="product-<?php $product_id; ?>" <?php wc_product_class('', $product); ?>>
 	<div class="product-container container flex gap-15 mt-40 mb-40">
-		<div class="product-summary flex flex-col w-full gap-04">
+		<div class="product-summary flex flex-col gap-04">
 			<h1 class="product-title"><?php the_title(); ?></h1>
-			<div class="product-comments-ratings flex items-center yekan-16">
-				<div class="product-rating">
-					<?php woocommerce_template_single_rating(); ?>
-				</div>
-				<div class="product-comments">
+			<ul class="product-comments-ratings flex items-center yekan-16 gap-10">
+				<li class="product-comments">
 					<?php
 						// Display average rating and count in the desired format: "3.1 ⭐ (15نفر)"
 						$average      = $product ? (float) $product->get_average_rating() : 0.0;
@@ -43,16 +40,16 @@ $product_id = $product->get_id();
 						$average_str  = $average > 0 ? number_format($average, 1) : '0.0';
 						echo esc_html($average_str) . ' ' . '⭐' . ' (' . esc_html($rating_count) . 'نفر)';
 					?>
-				</div>
-				<div class="product-questions-answers">
+				</li>
+				<li class="product-questions-answers">
 					<?php
 						// Show users reviews count
 						$product_obj  = isset($product) && $product instanceof WC_Product ? $product : wc_get_product(get_the_ID());
 						$reviews_count = $product_obj ? (int) $product_obj->get_review_count() : 0;
 						echo esc_html($reviews_count) . ' دیدگاه کاربران';
 					?>
-				</div>
-			</div>
+				</li>
+			</ul>
 			<!-- Product offer countdown -->
 			<?php
 			$sale_end_date = $product->get_date_on_sale_to();
@@ -133,7 +130,7 @@ $product_id = $product->get_id();
 			<div class="product-gallery-container flex gap-10">
 
 				<!-- Swiper Main -->
-				<div class="product-gallery-main">
+				<div class="product-gallery-main flex">
 					<div class="swiper-container gallery-main overflow-hidden">
 						<div class="swiper-wrapper">
 							<?php

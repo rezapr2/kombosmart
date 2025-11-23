@@ -1,5 +1,5 @@
 .product-summary {
-    width: 51rem;
+    width: 38%;
     .product {
         &-title {
             font-size: 3.6rem;
@@ -9,6 +9,13 @@
         &-comments-ratings {
             margin-bottom: 1.8rem;
             color: #999999;
+            li{
+                padding-left: 1rem;
+                border-left: 1px solid #999999;
+                &:last-child {
+                    border-left: none;
+                }
+            }
         }
         &-offer-countdown {
             .countdown-timer {
@@ -55,6 +62,7 @@
     .buttons-wrapper {
         height: 6.4rem;
         .product-price {
+            flex: 1;
             border: 1px solid var(--color-primary);
         }
     }

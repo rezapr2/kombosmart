@@ -1,9 +1,10 @@
 .product-faqs{
     background-color: rgba(93, 14, 135, 0.07);
     padding: 4rem 0;
+    .faq-items-wrapper{
+        width: 55%;
+    }
     .faq-items{
-        width: 69rem;
-        margin-left: 19.2rem;
         .faq-item{
             padding: 2.4rem 4rem;
             border: 1px solid rgba(0, 0, 0, 0.2);
@@ -29,7 +30,8 @@
         }
     }
     .faqs-desc{
-        width: 31.8rem;
+        width: 24%;
+        margin-left: 5%;
         .faq-icon-text{
             text-align: justify;
         }

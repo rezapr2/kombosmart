@@ -142,8 +142,8 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 		<div class="reset_variations_alert screen-reader-text" role="alert" aria-live="polite" aria-relevant="all"></div>
 		<?php do_action('woocommerce_after_variations_table'); ?>
 
-		<div class="single_variation_wrap buttons-wrapper flex gap-07">
-			<div class="tanil-variation-price product-price h-100 flex items-center yekan-22 color-primary bold">
+		<div class="single_variation_wrap buttons-wrapper flex flex-row-reverse gap-07">
+			<div class="tanil-variation-price product-price h-100 flex items-center justify-center yekan-22 color-primary bold">
 				<?php echo wp_kses_post( $product->get_price_html() ); ?>
 			</div>
 			<?php
