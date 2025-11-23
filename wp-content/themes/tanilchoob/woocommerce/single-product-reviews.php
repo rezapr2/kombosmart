@@ -24,21 +24,16 @@ if ( ! comments_open() ) {
 }
 
 ?>
-<div id="reviews" class="woocommerce-Reviews">
-	<div id="comments">
-		<h2 class="woocommerce-Reviews-title">
-			<?php
-			$count = $product->get_review_count();
-			if ( $count && wc_review_ratings_enabled() ) {
-				/* translators: 1: reviews count 2: product name */
-				$reviews_title = sprintf( esc_html( _n( '%1$s review for %2$s', '%1$s reviews for %2$s', $count, 'woocommerce' ) ), esc_html( $count ), '<span>' . get_the_title() . '</span>' );
-				echo apply_filters( 'woocommerce_reviews_title', $reviews_title, $count, $product ); // WPCS: XSS ok.
-			} else {
-				esc_html_e( 'Reviews', 'woocommerce' );
-			}
-			?>
-		</h2>
-
+<div id="reviews" class="woocommerce-Reviews customer-reviews flex flex-col items-center">
+	<div class="submit-review flex items-center justify-between w-full">
+		<div class="flex flex-col">
+			<h3 class="yekan-18 color-black-60">شما هم درباره این کالا دیدگاه ثبت کنید.</h3>
+			<p class="yekan-18 color-black-40">بدون نیاز به وارد شدن به حساب کاربری، نظر خود را در رابطه بااین کالا ثبت کنید و به نظرات دیگران امتیاز دهید.</p>
+		</div>
+		<div class="submit-button yekan-18 color-white bg-black">ثبت دیدگاه</div>
+	</div>
+	<div id="comments" class="reviews_list w-full">
+		
 		<?php if ( have_comments() ) : ?>
 			<ol class="commentlist">
 				<?php wp_list_comments( apply_filters( 'woocommerce_product_review_list_args', array( 'callback' => 'woocommerce_comments' ) ) ); ?>
@@ -61,7 +56,7 @@ if ( ! comments_open() ) {
 			endif;
 			?>
 		<?php else : ?>
-			<p class="woocommerce-noreviews"><?php esc_html_e( 'There are no reviews yet.', 'woocommerce' ); ?></p>
+			<p class="woocommerce-noreviews yekan-18 color-black-60 w-full"><?php esc_html_e( 'There are no reviews yet.', 'woocommerce' ); ?></p>
 		<?php endif; ?>
 	</div>
 
@@ -75,10 +70,10 @@ if ( ! comments_open() ) {
 					'title_reply'         => have_comments() ? esc_html__( 'Add a review', 'woocommerce' ) : sprintf( esc_html__( 'Be the first to review &ldquo;%s&rdquo;', 'woocommerce' ), get_the_title() ),
 					/* translators: %s is product title */
 					'title_reply_to'      => esc_html__( 'Leave a Reply to %s', 'woocommerce' ),
-					'title_reply_before'  => '<span id="reply-title" class="comment-reply-title" role="heading" aria-level="3">',
+					'title_reply_before'  => '<span id="reply-title" class="comment-reply-title yekan-24 color-black-80 text-center" role="heading" aria-level="3">',
 					'title_reply_after'   => '</span>',
 					'comment_notes_after' => '',
-					'label_submit'        => esc_html__( 'Submit', 'woocommerce' ),
+					'label_submit'        => 'ثبت نظر',
 					'logged_in_as'        => '',
 					'comment_field'       => '',
 				);
@@ -104,14 +99,14 @@ if ( ! comments_open() ) {
 				$comment_form['fields'] = array();
 
 				foreach ( $fields as $key => $field ) {
-					$field_html  = '<p class="comment-form-' . esc_attr( $key ) . '">';
-					$field_html .= '<label for="' . esc_attr( $key ) . '">' . esc_html( $field['label'] );
+					$field_html  = '<div class="comment-form-field flex flex-col comment-form-' . esc_attr( $key ) . '">';
+					$field_html .= '<label for="' . esc_attr( $key ) . '" class="yekan-18 color-black-80">' . esc_html( $field['label'] );
 
 					if ( $field['required'] ) {
 						$field_html .= '&nbsp;<span class="required">*</span>';
 					}
 
-					$field_html .= '</label><input id="' . esc_attr( $key ) . '" name="' . esc_attr( $key ) . '" type="' . esc_attr( $field['type'] ) . '" autocomplete="' . esc_attr( $field['autocomplete'] ) . '" value="' . esc_attr( $field['value'] ) . '" size="30" ' . ( $field['required'] ? 'required' : '' ) . ' /></p>';
+					$field_html .= '</label><input id="' . esc_attr( $key ) . '" name="' . esc_attr( $key ) . '" type="' . esc_attr( $field['type'] ) . '" autocomplete="' . esc_attr( $field['autocomplete'] ) . '" value="' . esc_attr( $field['value'] ) . '" size="30" ' . ( $field['required'] ? 'required' : '' ) . ' /></div>';
 
 					$comment_form['fields'][ $key ] = $field_html;
 				}
@@ -123,17 +118,21 @@ if ( ! comments_open() ) {
 				}
 
 				if ( wc_review_ratings_enabled() ) {
-					$comment_form['comment_field'] = '<div class="comment-form-rating"><label for="rating" id="comment-form-rating-label">' . esc_html__( 'Your rating', 'woocommerce' ) . ( wc_review_ratings_required() ? '&nbsp;<span class="required">*</span>' : '' ) . '</label><select name="rating" id="rating" required>
-						<option value="">' . esc_html__( 'Rate&hellip;', 'woocommerce' ) . '</option>
-						<option value="5">' . esc_html__( 'Perfect', 'woocommerce' ) . '</option>
-						<option value="4">' . esc_html__( 'Good', 'woocommerce' ) . '</option>
-						<option value="3">' . esc_html__( 'Average', 'woocommerce' ) . '</option>
-						<option value="2">' . esc_html__( 'Not that bad', 'woocommerce' ) . '</option>
-						<option value="1">' . esc_html__( 'Very poor', 'woocommerce' ) . '</option>
+					$icon = '<svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M21.6086 2.63915L24.8511 9.12417C25.2933 10.0269 26.4724 10.8928 27.4673 11.0586L33.3443 12.0351C37.1027 12.6614 37.987 15.3881 35.2788 18.0779L30.7098 22.6469C29.936 23.4207 29.5122 24.913 29.7517 25.9815L31.0598 31.6375C32.0915 36.1144 29.7149 37.8462 25.7539 35.5064L20.2453 32.2455C19.2504 31.6559 17.6108 31.6559 16.5975 32.2455L11.0889 35.5064C7.14629 37.8462 4.75126 36.096 5.78297 31.6375L7.09102 25.9815C7.33053 24.913 6.90679 23.4207 6.13301 22.6469L1.56402 18.0779C-1.12579 15.3881 -0.259893 12.6614 3.49847 12.0351L9.37552 11.0586C10.352 10.8928 11.5311 10.0269 11.9732 9.12417L15.2157 2.63915C16.9844 -0.879715 19.8584 -0.879715 21.6086 2.63915Z" fill="black" fill-opacity="0.2"/>
+</svg>
+';
+					$comment_form['comment_field'] = '<div class="comment-form-rating "><label for="rating" id="comment-form-rating-label">' . esc_html__( 'Your rating', 'woocommerce' ) . ( wc_review_ratings_required() ? '&nbsp;<span class="required">*</span>' : '' ) . '</label><select name="rating" id="rating" required>
+						<option value="">' . $icon . '</option>
+						<option value="5">' . $icon. '</option>
+						<option value="4">' . $icon . '</option>
+						<option value="3">' . $icon . '</option>
+						<option value="2">' . $icon . '</option>
+						<option value="1">' . $icon . '</option>
 					</select></div>';
 				}
 
-				$comment_form['comment_field'] .= '<p class="comment-form-comment"><label for="comment">' . esc_html__( 'Your review', 'woocommerce' ) . '&nbsp;<span class="required">*</span></label><textarea id="comment" name="comment" cols="45" rows="8" required></textarea></p>';
+				$comment_form['comment_field'] .= '<div class="comment-form-field flex flex-col comment-form-comment"><label for="comment" class="yekan-18 color-black-80">' . esc_html__( 'Your review', 'woocommerce' ) . '&nbsp;<span class="required">*</span></label><textarea id="comment" name="comment" cols="45" rows="8" required></textarea></div>';
 
 				comment_form( apply_filters( 'woocommerce_product_review_comment_form_args', $comment_form ) );
 				?>
