@@ -325,8 +325,12 @@ $play_icon_src = function_exists('get_theme_file_uri')
                     </div>
                 </div>
             <?php endif; ?>
-            <div class="tab-reviews-content">
-
+            <div id="tab-reviews-content" class="tab-content-item  px-25 py-25 bg-black-03">
+                <?php
+                // Render WooCommerce product reviews (list + form) inside this tab.
+                // WooCommerce hooks into comments_template() to load single-product-reviews.php for products.
+                comments_template();
+                ?>
             </div>
         </div>
     </div>
