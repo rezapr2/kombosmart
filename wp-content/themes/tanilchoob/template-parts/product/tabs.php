@@ -17,11 +17,6 @@ $fabric_type = $ctx['fabric_type'] ?? null;
 $fabric_color = $ctx['fabric_color'] ?? null;
 $drawers_type = $ctx['drawers_type'] ?? null;
 
-$general_product_specifications = $ctx['general_product_specifications'] ?? [];
-$product_material_specifications = $ctx['product_material_specifications'] ?? [];
-$functional_features_and_capabilities = $ctx['functional_features_and_capabilities'] ?? [];
-$product_technical_specifications = $ctx['product_technical_specifications'] ?? [];
-$product_installation_specifications = $ctx['product_installation_specifications'] ?? [];
 
 $product_size_images = $ctx['product_size_images'] ?? [];
 $product_maintenance = $ctx['product_maintenance'] ?? '';
@@ -214,12 +209,12 @@ $play_icon_src = function_exists('get_theme_file_uri')
                                     <span><?php echo $review['product_review_title'] ?: ' ' ; ?></span>
                                 </div>
                                 <div class="technical-review-content slide-down-content flex flex-col gap-07 yekan-14 color-black-80">
-                                    <?php foreach ($review['items'] as $spec) : ?>
+                                    <?php if($review['items']) : foreach ($review['items'] as $spec) : ?>
                                         <div class="spec-item flex gap-10">
                                             <div class="spec-name"><?php echo $spec['label']; ?></div>
                                             <div class="spec-value"><?php echo $spec['value']; ?></div>
                                         </div>
-                                    <?php endforeach; ?>
+                                    <?php endforeach; endif; ?>
                                 </div>
                             </div>
                         <?php endforeach; ?>
