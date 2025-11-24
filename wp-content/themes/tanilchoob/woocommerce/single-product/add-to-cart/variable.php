@@ -90,7 +90,7 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 						}
 					}
 					?>
-					<div class="variations-radio-group<?php echo ($attribute_name === 'pa_رنگ-چوب' || $attribute_name === 'pa_رنگ-پارچه') ? ' flex flex-wrap gap-20' : ''; ?>" data-attribute="<?php echo esc_attr( $attribute_name ); ?>">
+					<div class="variations-radio-group<?php echo ($attribute_name === 'pa_attribute_wood_color' || $attribute_name === 'pa_attribute_cloth_color') ? ' flex flex-wrap gap-20' : ''; ?>" data-attribute="<?php echo esc_attr( $attribute_name ); ?>">
 						<?php foreach ( $radio_items as $item ) :
 							$input_id = 'var-' . $sanitized_attr . '-' . sanitize_title( $item['value'] );
 							// Check if checked 

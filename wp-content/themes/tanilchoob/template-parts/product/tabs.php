@@ -115,7 +115,15 @@ $play_icon_src = function_exists('get_theme_file_uri')
                         <?php if ($material_of_bases) : ?>
                             <div class="spec-item flex flex-col py-20 px-40 bg-black-03">
                                 <div class="spec-name yekan-20 color-black-80">جنس پایه‌ها (و ستون‌ها)</div>
-                                <div class="spec-value yekan-18 color-black-50"><?php echo $material_of_bases; ?></div>
+                                <div class="spec-value yekan-18 color-black-50">
+                                    <?php
+                                    $cat_names = array();
+                                    foreach ($material_of_bases as $cat) {
+                                        $cat_names[] = $cat->name;
+                                    }
+                                    echo implode(' | ', $cat_names);
+                                    ?>
+                                </div>
                             </div>
                         <?php endif; ?>
                         <?php if ($coating_material) : ?>
