@@ -27,8 +27,8 @@ $production_process_video_poster = $ctx['production_process_video_poster'] ?? nu
 
 // Theme asset helper replacement for play icon while preserving classes.
 $play_icon_src = function_exists('get_theme_file_uri')
-    ? get_theme_file_uri('images/play_icon.svg')
-    : (get_stylesheet_directory_uri() . '/images/play_icon.svg');
+    ? get_theme_file_uri('assets/frontend/dist/images/play_icon.svg')
+    : (get_stylesheet_directory_uri() . '/assets/frontend/dist/images/play_icon.svg');
 ?>
 
 <div class="container mb-40">
