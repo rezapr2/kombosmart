@@ -34,7 +34,7 @@
             {
                 "param": "taxonomy",
                 "operator": "==",
-                "value": "pa_رنگ-چوب"
+                "value": "pa_attribute_wood_color"
             }
         ]
     ],
@@ -48,5 +48,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1763837901
+    "modified": 1763964388
 }

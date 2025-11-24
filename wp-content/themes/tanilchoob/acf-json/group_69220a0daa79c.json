@@ -31,7 +31,7 @@
             {
                 "param": "taxonomy",
                 "operator": "==",
-                "value": "pa_رنگ-پارچه"
+                "value": "pa_attribute_cloth_color"
             }
         ]
     ],
@@ -45,5 +45,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1763838522
+    "modified": 1763964377
 }

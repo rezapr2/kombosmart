@@ -1,9 +1,10 @@
 <?php
 
-use TanilChoob\Theme\Helper;
-
 $post_id = get_the_ID();
 $testimonials_customers = get_field('testimonials_customers', $post_id);
+if(!$testimonials_customers) {
+  return;
+}
 ?>
 <div class="testimonials mb-40">
   <div class="container">
