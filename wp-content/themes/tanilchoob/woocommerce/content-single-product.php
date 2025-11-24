@@ -162,23 +162,48 @@ $product_id = $product->get_id();
 					<div class="swiper-container gallery-thumbs overflow-hidden">
 						<div class="swiper-wrapper">
 							<?php
-
-
-							// Add main image to the beginning of the gallery
+							// Build a flat list of all gallery image IDs (main first)
+							$all_gallery_ids = array();
 							if ($main_image_id) {
-								echo '<div class="swiper-slide">';
-								echo '<div class="thumb-item">';
-								echo wp_get_attachment_image($main_image_id, 'thumbnail');
-								echo '</div>';
-								echo '</div>';
+								$all_gallery_ids[] = $main_image_id;
+							}
+							if ($attachment_ids) {
+								$all_gallery_ids = array_merge($all_gallery_ids, $attachment_ids);
 							}
 
-							// Add gallery images
-							if ($attachment_ids) {
-								foreach ($attachment_ids as $attachment_id) {
+							$total_thumbs = count($all_gallery_ids);
+							$limit = 4;
+
+							// Prepare lightbox data (full + thumb urls)
+							$lightbox_items = array();
+							foreach ($all_gallery_ids as $img_id) {
+								$full_src = wp_get_attachment_image_src($img_id, 'large');
+								$thumb_src = wp_get_attachment_image_src($img_id, 'thumbnail');
+								$lightbox_items[] = array(
+									'full' => $full_src ? $full_src[0] : '',
+									'thumb' => $thumb_src ? $thumb_src[0] : '',
+								);
+							}
+
+							// Render up to 4 thumb slides; if more than 4, make the 4th a lightbox button
+							for ($i = 0; $i < min($limit, $total_thumbs); $i++) {
+								$img_id = $all_gallery_ids[$i];
+								$thumb_html = wp_get_attachment_image($img_id, 'thumbnail');
+
+								if ($i === $limit - 1 && $total_thumbs > $limit) {
+									$more_count = $total_thumbs - ($limit - 1);
+									$lightbox_json = wp_json_encode($lightbox_items);
+									echo '<div class="swiper-slide">';
+									echo '<button type="button" class="thumb-item more-thumbs open-gallery-lightbox" data-gallery="' . esc_attr($lightbox_json) . '" data-more-count="' . esc_attr($more_count) . '" aria-label="مشاهده همه تصاویر">';
+									// Show current thumb underneath overlay for context
+									echo $thumb_html;
+									echo '<span class="more-label yekan-14">+' . esc_html($more_count) . '</span>';
+									echo '</button>';
+									echo '</div>';
+								} else {
 									echo '<div class="swiper-slide">';
 									echo '<div class="thumb-item">';
-									echo wp_get_attachment_image($attachment_id, 'thumbnail');
+									echo $thumb_html;
 									echo '</div>';
 									echo '</div>';
 								}
