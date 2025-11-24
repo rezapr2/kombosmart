@@ -125,7 +125,7 @@
                 "class": "",
                 "id": ""
             },
-            "taxonomy": "pa_متریال-مصرفی",
+            "taxonomy": "pa_attribute_material",
             "add_term": 1,
             "save_terms": 0,
             "load_terms": 0,
@@ -142,7 +142,7 @@
             "label": "جنس پایه‌ها (و ستون‌ها)",
             "name": "material_of_bases",
             "aria-label": "",
-            "type": "text",
+            "type": "taxonomy",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -151,12 +151,17 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "maxlength": "",
+            "taxonomy": "pa_attribute_legs",
+            "add_term": 1,
+            "save_terms": 0,
+            "load_terms": 0,
+            "return_format": "object",
+            "field_type": "multi_select",
+            "allow_null": 0,
             "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "bidirectional": 0,
+            "multiple": 0,
+            "bidirectional_target": []
         },
         {
             "key": "field_690521bc90b2c",
@@ -172,7 +177,7 @@
                 "class": "",
                 "id": ""
             },
-            "taxonomy": "pa_جنس-روکش",
+            "taxonomy": "pa_attribute_the_cover",
             "add_term": 1,
             "save_terms": 0,
             "load_terms": 0,
@@ -198,7 +203,7 @@
                 "class": "",
                 "id": ""
             },
-            "taxonomy": "pa_رنگ-چوب",
+            "taxonomy": "pa_attribute_wood_color",
             "add_term": 1,
             "save_terms": 0,
             "load_terms": 0,
@@ -224,7 +229,7 @@
                 "class": "",
                 "id": ""
             },
-            "taxonomy": "pa_رنگ-پارچه",
+            "taxonomy": "pa_attribute_cloth_color",
             "add_term": 1,
             "save_terms": 0,
             "load_terms": 0,
@@ -250,7 +255,7 @@
                 "class": "",
                 "id": ""
             },
-            "taxonomy": "pa_حنس-پارچه",
+            "taxonomy": "pa_attribute_fabric_type",
             "add_term": 1,
             "save_terms": 0,
             "load_terms": 0,
@@ -1495,5 +1500,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1763797187
+    "modified": 1764013317
 }
