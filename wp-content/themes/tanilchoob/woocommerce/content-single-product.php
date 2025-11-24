@@ -286,37 +286,19 @@ $product_id = $product->get_id();
 		}
 	}
 
-	$has_technical_review = false;
-	$general_product_specifications = get_field('general_product_specifications');
-	$product_material_specifications = get_field('product_material_specifications');
-	$functional_features_and_capabilities = get_field('functional_features_and_capabilities');
-	$product_technical_specifications = get_field('product_technical_specifications');
-	$product_installation_specifications = get_field('product_installation_specifications');
-
-	$technical_reviews = array(
-		$general_product_specifications,
-		$product_material_specifications,
-		$functional_features_and_capabilities,
-		$product_technical_specifications,
-		$product_installation_specifications
-	);
-	foreach ($technical_reviews as $review) {
-		if (!empty($review)) {
-			$has_technical_review = true;
-			break;
-		}
-	}
+	
 
 	$product_size_images = get_field('product_size_images');
 	$product_maintenance = get_field('product_maintenance');
 	$production_process_video_link = get_field('production_process_video_link');
 	$production_process_title = get_field('production_process_title');
 	$production_process_video_poster = get_field('production_process_video_poster');
+	$product_review = get_field('product_review');
 
 	$__product_tabs_ctx = array(
 		'description' => $description,
 		'has_specs' => $has_specs,
-		'has_technical_review' => $has_technical_review,
+		'product_review' => $product_review,
 		'product_cat' => $product_cat,
 		'product_style' => $product_style,
 		'product_group' => $product_group,

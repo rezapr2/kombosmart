@@ -312,9 +312,9 @@
             "selected": 0
         },
         {
-            "key": "field_690532d9be2a4",
-            "label": "مشخصات کلی محصول",
-            "name": "general_product_specifications",
+            "key": "field_6924b58a6e5a3",
+            "label": "بررسی تخصصی محصول",
+            "name": "product_review",
             "aria-label": "",
             "type": "repeater",
             "instructions": "",
@@ -325,7 +325,7 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "table",
+            "layout": "block",
             "pagination": 0,
             "min": 0,
             "max": 0,
@@ -334,16 +334,16 @@
             "rows_per_page": 20,
             "sub_fields": [
                 {
-                    "key": "field_69053314be2a5",
-                    "label": "عنوان",
-                    "name": "label",
+                    "key": "field_6924b5976e5a4",
+                    "label": "عنوان بررسی",
+                    "name": "product_review_title",
                     "aria-label": "",
                     "type": "text",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "50",
+                        "width": "",
                         "class": "",
                         "id": ""
                     },
@@ -353,301 +353,76 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "parent_repeater": "field_690532d9be2a4"
+                    "parent_repeater": "field_6924b58a6e5a3"
                 },
                 {
-                    "key": "field_69053332be2a6",
-                    "label": "مقدار",
-                    "name": "value",
+                    "key": "field_6924b6596e5a5",
+                    "label": "آیتم ها",
+                    "name": "items",
                     "aria-label": "",
-                    "type": "text",
+                    "type": "repeater",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "50",
+                        "width": "",
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_690532d9be2a4"
-                }
-            ]
-        },
-        {
-            "key": "field_69053347be2a7",
-            "label": "مشخصات جنس محصول",
-            "name": "product_material_specifications",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "table",
-            "pagination": 0,
-            "min": 0,
-            "max": 0,
-            "collapsed": "",
-            "button_label": "سطر جدید",
-            "rows_per_page": 20,
-            "sub_fields": [
-                {
-                    "key": "field_69053347be2a8",
-                    "label": "عنوان",
-                    "name": "label",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_69053347be2a7"
-                },
-                {
-                    "key": "field_69053347be2a9",
-                    "label": "مقدار",
-                    "name": "value",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_69053347be2a7"
-                }
-            ]
-        },
-        {
-            "key": "field_6905336bbe2aa",
-            "label": "امکانات و قابلیت های کاربردی",
-            "name": "functional_features_and_capabilities",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "table",
-            "pagination": 0,
-            "min": 0,
-            "max": 0,
-            "collapsed": "",
-            "button_label": "سطر جدید",
-            "rows_per_page": 20,
-            "sub_fields": [
-                {
-                    "key": "field_6905336bbe2ab",
-                    "label": "عنوان",
-                    "name": "label",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_6905336bbe2aa"
-                },
-                {
-                    "key": "field_6905336bbe2ac",
-                    "label": "مقدار",
-                    "name": "value",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_6905336bbe2aa"
-                }
-            ]
-        },
-        {
-            "key": "field_6905338bbe2ad",
-            "label": "مشخصات فنی محصول",
-            "name": "product_technical_specifications",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "table",
-            "pagination": 0,
-            "min": 0,
-            "max": 0,
-            "collapsed": "",
-            "button_label": "سطر جدید",
-            "rows_per_page": 20,
-            "sub_fields": [
-                {
-                    "key": "field_6905338bbe2ae",
-                    "label": "عنوان",
-                    "name": "label",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_6905338bbe2ad"
-                },
-                {
-                    "key": "field_6905338bbe2af",
-                    "label": "مقدار",
-                    "name": "value",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_6905338bbe2ad"
-                }
-            ]
-        },
-        {
-            "key": "field_690533a7be2b0",
-            "label": "مشخصات نصب محصول",
-            "name": "product_installation_specifications",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "table",
-            "pagination": 0,
-            "min": 0,
-            "max": 0,
-            "collapsed": "",
-            "button_label": "سطر جدید",
-            "rows_per_page": 20,
-            "sub_fields": [
-                {
-                    "key": "field_690533a7be2b1",
-                    "label": "عنوان",
-                    "name": "label",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_690533a7be2b0"
-                },
-                {
-                    "key": "field_690533a7be2b2",
-                    "label": "مقدار",
-                    "name": "value",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_690533a7be2b0"
+                    "layout": "table",
+                    "pagination": 0,
+                    "min": 0,
+                    "max": 0,
+                    "collapsed": "",
+                    "button_label": "سطر جدید",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_6924b6876e5a6",
+                            "label": "عنوان",
+                            "name": "label",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "15",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_6924b6596e5a5"
+                        },
+                        {
+                            "key": "field_6924b69c6e5a7",
+                            "label": "مقدار",
+                            "name": "value",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "85",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_6924b6596e5a5"
+                        }
+                    ],
+                    "parent_repeater": "field_6924b58a6e5a3"
                 }
             ]
         },
@@ -1500,5 +1275,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1764013317
+    "modified": 1764014014
 }

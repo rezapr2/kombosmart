@@ -4,7 +4,7 @@ $ctx = get_query_var('product_tabs');
 
 $description = $ctx['description'] ?? '';
 $has_specs = !empty($ctx['has_specs']);
-$has_technical_review = !empty($ctx['has_technical_review']);
+$product_review = $ctx['product_review'] ?? '';
 
 $product_cat = $ctx['product_cat'] ?? null;
 $product_style = $ctx['product_style'] ?? null;
@@ -45,7 +45,7 @@ $play_icon_src = function_exists('get_theme_file_uri')
             if ($has_specs) : ?>
                 <div id="tab-specs" class="tab-item yekan-14 color-black-30 pointer">مشخصات کلی</div>
             <?php endif; ?>
-            <?php if ($has_technical_review) : ?>
+            <?php if ($product_review) : ?>
                 <div id="tab-technical-review" class="tab-item yekan-14 color-black-30 pointer">بررسی تخصصی</div>
             <?php endif; ?>
             <?php if ($product_size_images) : ?>
@@ -197,19 +197,24 @@ $play_icon_src = function_exists('get_theme_file_uri')
 
                 </div>
             <?php endif; ?>
-            <?php if ($has_technical_review) : ?>
+            <?php if ($product_review) : ?>
+                
                 <div id="tab-technical-review-content" class="tab-content-item px-25 py-25 bg-black-03">
                     <div class="flex flex-col gap-20">
-                        <?php if ($general_product_specifications) : ?>
-                            <div class="technical-review-item slide-down-wrapper flex flex-col gap-10 active">
+                        <?php
+                        $x = 0;
+                        foreach ($product_review as $review) :
+                            $x++;
+                        ?>
+                        <div class="technical-review-item slide-down-wrapper flex flex-col gap-10 <?php echo $x == 1 ? 'active' : ''; ?>">
                                 <div class="technical-review-title slide-down-trigger yekan-24 color-primary flex gap-10 items-center cursor-pointer">
                                     <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1.10156 1.09961L8.60156 8.57836L16.1016 1.09961" stroke="#5D0E87" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
-                                    <span>مشخصات کلی محصول</span>
+                                    <span><?php echo $review['product_review_title'] ?: ' ' ; ?></span>
                                 </div>
                                 <div class="technical-review-content slide-down-content flex flex-col gap-07 yekan-14 color-black-80">
-                                    <?php foreach ($general_product_specifications as $spec) : ?>
+                                    <?php foreach ($review['items'] as $spec) : ?>
                                         <div class="spec-item flex gap-10">
                                             <div class="spec-name"><?php echo $spec['label']; ?></div>
                                             <div class="spec-value"><?php echo $spec['value']; ?></div>
@@ -217,79 +222,7 @@ $play_icon_src = function_exists('get_theme_file_uri')
                                     <?php endforeach; ?>
                                 </div>
                             </div>
-                        <?php endif; ?>
-                        <?php if ($product_material_specifications) : ?>
-                            <div class="technical-review-item slide-down-wrapper flex flex-col gap-10 ">
-                                <div class="technical-review-title slide-down-trigger yekan-24 color-primary flex gap-10 items-center cursor-pointer">
-                                    <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1.10156 1.09961L8.60156 8.57836L16.1016 1.09961" stroke="#5D0E87" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                    <span>مشخصات جنس محصول</span>
-                                </div>
-                                <div class="technical-review-content slide-down-content flex flex-col gap-07 yekan-14 color-black-80" style="display: none;">
-                                    <?php foreach ($product_material_specifications as $spec) : ?>
-                                        <div class="spec-item flex gap-10">
-                                            <div class="spec-name"><?php echo $spec['label']; ?></div>
-                                            <div class="spec-value"><?php echo $spec['value']; ?></div>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($functional_features_and_capabilities) : ?>
-                            <div class="technical-review-item slide-down-wrapper flex flex-col gap-10 ">
-                                <div class="technical-review-title slide-down-trigger yekan-24 color-primary flex gap-10 items-center cursor-pointer">
-                                    <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1.10156 1.09961L8.60156 8.57836L16.1016 1.09961" stroke="#5D0E87" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                    <span> امکانات و قابیلت های کاربردی </span>
-                                </div>
-                                <div class="technical-review-content slide-down-content flex flex-col gap-07 yekan-14 color-black-80" style="display: none;">
-                                    <?php foreach ($functional_features_and_capabilities as $spec) : ?>
-                                        <div class="spec-item flex gap-10">
-                                            <div class="spec-name"><?php echo $spec['label']; ?></div>
-                                            <div class="spec-value"><?php echo $spec['value']; ?></div>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($product_technical_specifications) : ?>
-                            <div class="technical-review-item slide-down-wrapper flex flex-col gap-10 ">
-                                <div class="technical-review-title slide-down-trigger yekan-24 color-primary flex gap-10 items-center cursor-pointer">
-                                    <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1.10156 1.09961L8.60156 8.57836L16.1016 1.09961" stroke="#5D0E87" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                    <span>مشخصات فنی محصول</span>
-                                </div>
-                                <div class="technical-review-content slide-down-content flex flex-col gap-07 yekan-14 color-black-80" style="display: none;">
-                                    <?php foreach ($product_technical_specifications as $spec) : ?>
-                                        <div class="spec-item flex gap-10">
-                                            <div class="spec-name"><?php echo $spec['label']; ?></div>
-                                            <div class="spec-value"><?php echo $spec['value']; ?></div>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($product_installation_specifications) : ?>
-                            <div class="technical-review-item slide-down-wrapper flex flex-col gap-10 ">
-                                <div class="technical-review-title slide-down-trigger yekan-24 color-primary flex gap-10 items-center cursor-pointer">
-                                    <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1.10156 1.09961L8.60156 8.57836L16.1016 1.09961" stroke="#5D0E87" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                    <span>مشخصات نصب محصول</span>
-                                </div>
-                                <div class="technical-review-content slide-down-content flex flex-col gap-07 yekan-14 color-black-80" style="display: none;">
-                                    <?php foreach ($product_installation_specifications as $spec) : ?>
-                                        <div class="spec-item flex gap-10">
-                                            <div class="spec-name"><?php echo $spec['label']; ?></div>
-                                            <div class="spec-value"><?php echo $spec['value']; ?></div>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             <?php endif; ?>
