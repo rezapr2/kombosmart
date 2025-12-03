@@ -131,8 +131,8 @@ $product_id = $product->get_id();
 
 				<!-- Swiper Main -->
 				<div class="product-gallery-main flex relative">
-					<div class="gallery-buttons flex flex-col gap-10 absolute z-index-5 items-start">
-						<div class="button flex item-center pointer share-button">
+						<div class="gallery-buttons flex flex-col gap-10 absolute z-index-5 items-start">
+							<div class="button flex item-center pointer share-button" data-share-url="<?php echo esc_url( get_permalink() ); ?>" data-share-title="<?php echo esc_attr( get_the_title() ); ?>">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M16.9609 6.16992C18.9609 7.55992 20.3409 9.76992 20.6209 12.3199" stroke="#484848" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M3.49219 12.3697C3.75219 9.82973 5.11219 7.61973 7.09219 6.21973" stroke="#484848" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

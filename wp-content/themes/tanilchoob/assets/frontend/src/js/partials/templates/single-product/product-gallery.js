@@ -57,6 +57,23 @@
                 }
             });
 
+            // OS Share modal on share button
+            $(document).on('click', '.share-button', function (e) {
+                e.preventDefault();
+                var $btn = $(this);
+                var url = $btn.attr('data-share-url') || window.location.href;
+                var title = $btn.attr('data-share-title') || document.title;
+                var text = $btn.find('span').text() || '';
+                if (navigator.share) {
+                    navigator.share({ title: title, text: text, url: url }).catch(function () { /* ignore */ });
+                } else {
+                    // Fallback: copy link to clipboard silently
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(url).catch(function () { /* ignore */ });
+                    }
+                }
+            });
+
             // Lightbox creation and initialization
             function openGalleryLightbox(images) {
                 if (!images || !images.length) return;
