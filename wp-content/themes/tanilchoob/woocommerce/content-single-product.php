@@ -130,7 +130,28 @@ $product_id = $product->get_id();
 			<div class="product-gallery-container flex gap-10">
 
 				<!-- Swiper Main -->
-				<div class="product-gallery-main flex">
+				<div class="product-gallery-main flex relative">
+					<div class="gallery-buttons flex flex-col gap-10 absolute z-index-5 items-start">
+						<div class="button flex item-center pointer share-button">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.9609 6.16992C18.9609 7.55992 20.3409 9.76992 20.6209 12.3199" stroke="#484848" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M3.49219 12.3697C3.75219 9.82973 5.11219 7.61973 7.09219 6.21973" stroke="#484848" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8.1875 20.9404C9.3475 21.5304 10.6675 21.8604 12.0575 21.8604C13.3975 21.8604 14.6575 21.5604 15.7875 21.0104" stroke="#484848" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12.0613 7.69965C13.5966 7.69965 14.8413 6.455 14.8413 4.91965C14.8413 3.3843 13.5966 2.13965 12.0613 2.13965C10.5259 2.13965 9.28125 3.3843 9.28125 4.91965C9.28125 6.455 10.5259 7.69965 12.0613 7.69965Z" stroke="#484848" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4.82687 19.9204C6.36223 19.9204 7.60688 18.6757 7.60688 17.1404C7.60688 15.605 6.36223 14.3604 4.82687 14.3604C3.29152 14.3604 2.04688 15.605 2.04688 17.1404C2.04688 18.6757 3.29152 19.9204 4.82687 19.9204Z" stroke="#484848" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M19.1706 19.9204C20.706 19.9204 21.9506 18.6757 21.9506 17.1404C21.9506 15.605 20.706 14.3604 19.1706 14.3604C17.6353 14.3604 16.3906 15.605 16.3906 17.1404C16.3906 18.6757 17.6353 19.9204 19.1706 19.9204Z" stroke="#484848" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+<span class="yekan-12">اشتراک گذاری</span>
+
+						</div>
+						<div class="button flex item-center pointer whish-button">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.62 20.8096C12.28 20.9296 11.72 20.9296 11.38 20.8096C8.48 19.8196 2 15.6896 2 8.68961C2 5.59961 4.49 3.09961 7.56 3.09961C9.38 3.09961 10.99 3.97961 12 5.33961C13.01 3.97961 14.63 3.09961 16.44 3.09961C19.51 3.09961 22 5.59961 22 8.68961C22 15.6896 15.52 19.8196 12.62 20.8096Z" stroke="#484848" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+<span class="yekan-12">افزودن به علاقه مندی ها</span>
+
+						</div>
+					</div>
 					<div class="swiper-container gallery-main overflow-hidden">
 						<div class="swiper-wrapper">
 							<?php

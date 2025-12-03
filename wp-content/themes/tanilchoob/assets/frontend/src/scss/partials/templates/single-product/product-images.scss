@@ -64,6 +64,34 @@
         // Main Gallery
         .product-gallery-main {
             width: 84%;
+            .gallery-buttons{
+                top: 2rem;
+                right: 2rem;
+                .button{
+                    background: rgba(255, 255, 255, 0.6);
+                    border: 1px solid rgba(255, 255, 255, 0.54);
+                    backdrop-filter: blur(3.75px);
+                    padding: 1.6rem;
+                    transition: all 600ms ease;
+                    svg { flex: 0 0 auto; }
+                    span {
+                        white-space: nowrap;
+                        overflow: hidden;
+                        max-width: 0; // hide label by default
+                        opacity: 0;
+                        transition: all 600ms ease;
+                    }
+                    &:hover {
+                        background: rgba(255, 255, 255, 0.9);
+                        border-color: rgba(0, 0, 0, 0.12);
+                        span {
+                            max-width: 16rem; // expand to reveal text
+                            opacity: 1;
+                            margin-right: 1rem;
+                        }
+                    }
+                }
+            }
             .gallery-main {
                 width: 100%;
                 padding: 1rem;
