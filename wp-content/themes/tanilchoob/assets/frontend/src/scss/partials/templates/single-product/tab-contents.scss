@@ -1,50 +1,51 @@
-.tab-contents{
-    .tab-item{
+.tab-contents {
+    .tab-item {
         padding: 1rem 2rem;
         border-bottom: 2px solid transparent;
-        &.active{
+        &.active {
             border-color: #000;
             color: #000;
-            background-color:   rgba(0, 0, 0, 0.03);
+            background-color: rgba(0, 0, 0, 0.03);
         }
     }
-    .tab-content-item{
+    .tab-content-item {
         display: none;
-        &.active{
+        &.active {
             display: block;
         }
     }
-    #tab-technical-review-content{
-        .technical-review-item{
-            &.active{
-                svg{
+    #tab-technical-review-content {
+        .technical-review-item {
+            &.active {
+                svg {
                     transform: rotate(180deg);
                 }
             }
         }
-        .spec-item{
-            .spec-name, .spec-value{
+        .spec-item {
+            .spec-name,
+            .spec-value {
                 padding: 1.5rem;
                 border: 1px solid rgba(0, 0, 0, 0.08);
             }
-            .spec-name{
+            .spec-name {
                 width: 12%;
             }
-            .spec-value{
+            .spec-value {
                 width: 88%;
             }
         }
     }
-    #tab-production-content{
-        .production-process-video{
+    #tab-production-content {
+        .production-process-video {
             height: 500px;
-            img{
+            img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
             }
-            .video{
-                &::after{
+            .video {
+                &::after {
                     content: '';
                     position: absolute;
                     top: 0;
@@ -54,16 +55,55 @@
                     background-color: rgba(0, 0, 0, 0.5);
                 }
             }
-            
         }
     }
-    .product-tags, .product-cats{
-        a{
+    /* Toggle visibility of controls */
+    .desc-readmore .desc-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin: 0 auto;
+    }
+    .desc-readmore.active .desc-toggle-more {
+        display: none;
+    }
+    .desc-readmore:not(.active) .desc-toggle-less {
+        display: none;
+    }
+
+    /* Clamp height and apply a larger fade when collapsed */
+    .desc-readmore .desc-full {
+        position: relative;
+        overflow: hidden;
+        max-height: 280px; /* height-based preview */
+        transition: max-height 0.35s ease;
+    }
+    .desc-readmore:not(.active) .desc-full {
+        /* Larger fade area: fade bottom ~60% */
+        -webkit-mask-image: linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 1) 40%,
+            rgba(0, 0, 0, 0) 100%
+        );
+        mask-image: linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 1) 40%,
+            rgba(0, 0, 0, 0) 100%
+        );
+    }
+    .desc-readmore.active .desc-full {
+        max-height: none;
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+    .product-tags,
+    .product-cats {
+        a {
             color: rgba($color: #000000, $alpha: 0.6);
             background-color: rgba($color: #000000, $alpha: 0.1);
-            padding: .5rem 1rem;
-            transition: all .5s ease;
-            &:hover{
+            padding: 0.5rem 1rem;
+            transition: all 0.5s ease;
+            &:hover {
                 color: #fff;
                 background-color: #000;
             }
