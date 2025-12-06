@@ -63,6 +63,35 @@
             return true;
         }
 
+        // Helpers to merge option adjustments into displayed price
+        function tcParsePriceFromEl($el) {
+            var txt = ($el.text() || '').replace(/[^0-9.\-]/g, '');
+            // Remove thousands separators; keep decimal point
+            var n = parseFloat(txt);
+            return isNaN(n) ? null : n;
+        }
+        function tcGetCurrencySymbol($priceBox, match) {
+            var s = $priceBox.find('.woocommerce-Price-currencySymbol').first().text();
+            if (!s && match && match.price_html) {
+                var tmp = jQuery('<div>').html(match.price_html);
+                s = tmp.find('.woocommerce-Price-currencySymbol').first().text();
+            }
+            return s || '';
+        }
+        function tcRenderPrice(amount, symbol) {
+            var formatted = tcFormatNumber(amount);
+            var symbolHtml = symbol ? '<span class="woocommerce-Price-currencySymbol">' + symbol + '</span>' : '';
+            return '<span class="price"><span class="woocommerce-Price-amount amount"><bdi>' + formatted + symbolHtml + '</bdi></span></span>';
+        }
+        function tcGetOptionsSum() {
+            var sum = 0;
+            $('.product-options .adj-checkbox:checked').each(function(){
+                var amt = parseFloat($(this).attr('data-amount') || '0');
+                sum += isNaN(amt) ? 0 : amt;
+            });
+            return sum;
+        }
+
         function updatePriceFromSelection($form) {
             var variations = parseVariations($form);
             var selections = getSelectedAttributes($form);
@@ -77,7 +106,20 @@
 
             var $priceBox = $form.find('.tanil-variation-price');
             if ($priceBox.length) {
-                if (match && match.price_html) {
+                var symbol = tcGetCurrencySymbol($priceBox, match);
+                var basePrice = null;
+                if (match && typeof match.display_price !== 'undefined') {
+                    basePrice = parseFloat(match.display_price);
+                }
+                if (basePrice === null) {
+                    basePrice = tcParsePriceFromEl($priceBox);
+                }
+                var finalPrice = null;
+                var optSum = tcGetOptionsSum();
+                if (basePrice !== null) {
+                    finalPrice = basePrice + optSum;
+                    $priceBox.html(tcRenderPrice(finalPrice, symbol));
+                } else if (match && match.price_html) {
                     $priceBox.html(match.price_html);
                 } else {
                     var defaultHtml = $priceBox.data('defaultHtml');
@@ -138,5 +180,52 @@
                 $priceBox.html(variation.price_html);
             }
         });
+
+        // ----- Product Options (price adjustments) -----
+        // Moved from template to JS: handles checkboxes that add/remove cost
+        function tcFormatNumber(n) {
+            try { return new Intl.NumberFormat('fa-IR').format(n); } catch (e) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+        }
+
+        function tcCollectSelected() {
+            var selected = []; var sum = 0;
+            $('.product-options .adj-checkbox').each(function () {
+                var $b = $(this);
+                if ($b.prop('checked')) {
+                    var amt = parseFloat($b.attr('data-amount') || '0');
+                    selected.push({ id: $b.attr('data-id'), label: $b.attr('data-label'), amount: amt });
+                    sum += amt;
+                }
+            });
+            return { selected: selected, sum: sum };
+        }
+
+        function tcEnsureHiddenInputs() {
+            $('form.cart').each(function () {
+                var $f = $(this);
+                if (!$f.find('input[name="product_option_adjustments"]').length) {
+                    $('<input>', { type: 'hidden', name: 'product_option_adjustments' }).appendTo($f);
+                }
+            });
+        }
+
+        function tcUpdateOptionsUI() {
+            var data = tcCollectSelected();
+            $('form.cart input[name="product_option_adjustments"]').val(JSON.stringify(data.selected));
+            // Also refresh the displayed product price to include option sum
+            $('form.variations_form').each(function(){
+                updatePriceFromSelection($(this));
+            });
+        }
+
+        // Bind events
+        $(document).on('change', '.product-options .adj-checkbox', function () {
+            tcUpdateOptionsUI();
+        });
+
+        // Initialize on ready
+        tcEnsureHiddenInputs();
+        tcUpdateOptionsUI();
+        $('form.cart').on('submit', function () { tcUpdateOptionsUI(); });
     });
 })(jQuery);
