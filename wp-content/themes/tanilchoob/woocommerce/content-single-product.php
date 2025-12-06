@@ -218,7 +218,7 @@ $product_id = $product->get_id();
 									echo '<button type="button" class="thumb-item more-thumbs open-gallery-lightbox" data-gallery="' . esc_attr($lightbox_json) . '" data-more-count="' . esc_attr($more_count) . '" aria-label="مشاهده همه تصاویر">';
 									// Show current thumb underneath overlay for context
 									echo $thumb_html;
-									echo '<span class="more-label yekan-14">+' . esc_html($more_count) . '</span>';
+									echo '<div class="more-label w-full color-white center absolute flex flex-col items-center gap-2 z-index-5"><span class="yekan-20">' . esc_html($more_count) . '+</span><span class="yekan-12">مشاهده همه</span></div>';
 									echo '</button>';
 									echo '</div>';
 								} else {
