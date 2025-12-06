@@ -288,6 +288,13 @@ $play_icon_src = function_exists('get_theme_file_uri')
                     </div>
                 </div>
             <?php endif; ?>
+            <div id="tab-faqs-content" class="tab-content-item px-25 py-25 bg-black-03">
+                <?php
+                // Render Product Questions & Answers inside this tab.
+                // Custom template shows questions (comments with type 'question') and their answers.
+                get_template_part('template-parts/product/questions-answers');
+                ?>
+            </div>
             <div id="tab-reviews-content" class="tab-content-item  px-25 py-25 bg-black-03">
                 <?php
                 // Render WooCommerce product reviews (list + form) inside this tab.
