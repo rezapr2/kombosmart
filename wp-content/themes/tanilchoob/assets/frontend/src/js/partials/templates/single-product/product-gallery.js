@@ -110,11 +110,40 @@
                 $mainWrapper.empty();
                 $thumbWrapper.empty();
                 images.forEach(function (img) {
+                    var isVideo = (img.type === 'video');
                     var full = img.full || img.src || '';
-                    var thumb = img.thumb || img.thumbnail || full;
-                    if (!full) return;
-                    $mainWrapper.append('<div class="swiper-slide"><img src="' + full + '" alt="" /></div>');
-                    $thumbWrapper.append('<div class="swiper-slide"><div class="thumb-item"><img src="' + thumb + '" alt="" /></div></div>');
+                    var thumb = img.thumb || img.thumbnail || '';
+                    if (!full && !isVideo) return;
+
+                    if (isVideo) {
+                        var embed = img.embed || '';
+                        var videoUrl = img.video_url || '';
+                        var mainHtml = '<div class="swiper-slide video-slide"><div class="video-wrapper">';
+                        if (embed) {
+                            mainHtml += embed;
+                        } else if (videoUrl) {
+                            mainHtml += '<video controls playsinline src="' + videoUrl + '"></video>';
+                        }
+                        mainHtml += '</div></div>';
+                        $mainWrapper.append(mainHtml);
+
+                        var thumbHtml = '<div class="swiper-slide"><div class="thumb-item video-thumb">';
+                        if (thumb) {
+                            thumbHtml += '<img src="' + thumb + '" alt="" />';
+                        }
+                        thumbHtml += '<span class="video-icon absolute center z-index-5" aria-hidden="true">'
+                            + '<svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">'
+                            + '<foreignObject x="-9.96202" y="-9.96202" width="62.924" height="62.924"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(4.98px);clip-path:url(#bgblur_0_1_1115_clip_path);height:100%;width:100%"></div></foreignObject><circle data-figma-bg-blur-radius="9.96202" cx="21.5" cy="21.5" r="21.5" fill="white" fill-opacity="0.62"/>'
+                            + '<path d="M31.1807 20.0795C32.1525 20.6405 32.1525 22.0431 31.1807 22.6042L17.5155 30.4938C16.5437 31.0549 15.3291 30.3535 15.3291 29.2315L15.3291 13.4522C15.3291 12.3301 16.5437 11.6288 17.5155 12.1898L31.1807 20.0795Z" fill="white"/>'
+                            + '<defs><clipPath id="bgblur_0_1_1115_clip_path" transform="translate(9.96202 9.96202)"><circle cx="21.5" cy="21.5" r="21.5"/></clipPath></defs>'
+                            + '</svg>'
+                            + '</span>';
+                        thumbHtml += '</div></div>';
+                        $thumbWrapper.append(thumbHtml);
+                    } else {
+                        $mainWrapper.append('<div class="swiper-slide"><img src="' + full + '" alt="" /></div>');
+                        $thumbWrapper.append('<div class="swiper-slide"><div class="thumb-item"><img src="' + (thumb || full) + '" alt="" /></div></div>');
+                    }
                 });
 
                 // Initialize or reinitialize Swipers inside modal

@@ -34,6 +34,19 @@
                             cursor: pointer;
                             &::before { display: block; }
                         }
+                        &.video-thumb {
+                            .video-icon {
+                                position: absolute;
+                                left: 50%;
+                                top: 50%;
+                                transform: translate(-50%, -50%);
+                                z-index: 2;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                svg { width: 43px; height: 43px; }
+                            }
+                        }
                         img {
                             width: 100%;
                             object-fit: cover;
@@ -136,6 +149,18 @@
         .product-gallery-thumbs { width: 10%; height: 90vh; }
         .product-gallery-main { width: 89%; height: 90vh; }
         .gallery-lightbox-main .swiper-slide img { width: auto;  height: 100%; margin: 0 auto; display: block;}
+        .gallery-lightbox-main .swiper-slide .video-wrapper {
+            width: 100%;
+            height: 100%;
+            iframe,
+            video {
+                width: 100%;
+                height: 100%;
+                display: block;
+                border: 0;
+                object-fit: contain;
+            }
+        }
     }
 }
 

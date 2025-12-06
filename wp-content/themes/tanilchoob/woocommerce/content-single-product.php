@@ -248,15 +248,42 @@ $product_id = $product->get_id();
 							$total_thumbs = count($thumb_items);
 							$limit = 4;
 
-							// Prepare lightbox data (images only)
+							// Prepare lightbox data (include video if present)
 							$lightbox_items = array();
-							foreach ($all_gallery_ids as $img_id) {
-								$full_src = wp_get_attachment_image_src($img_id, 'large');
-								$thumb_src = wp_get_attachment_image_src($img_id, 'thumbnail');
+							// main image first
+							if ($main_image_id) {
+								$full_src = wp_get_attachment_image_src($main_image_id, 'large');
+								$thumb_src = wp_get_attachment_image_src($main_image_id, 'thumbnail');
 								$lightbox_items[] = array(
+									'type' => 'image',
 									'full' => $full_src ? $full_src[0] : '',
 									'thumb' => $thumb_src ? $thumb_src[0] : '',
 								);
+							}
+							// video second
+							if ($has_video) {
+								$embed_html = '';
+								if (!empty($video_url)) {
+									$embed_html = wp_oembed_get($video_url);
+								}
+								$lightbox_items[] = array(
+									'type' => 'video',
+									'video_url' => $video_url,
+									'embed' => $embed_html ? $embed_html : '',
+									'thumb' => $video_thumb_src,
+								);
+							}
+							// other images
+							if ($attachment_ids) {
+								foreach ($attachment_ids as $img_id) {
+									$full_src = wp_get_attachment_image_src($img_id, 'large');
+									$thumb_src = wp_get_attachment_image_src($img_id, 'thumbnail');
+									$lightbox_items[] = array(
+										'type' => 'image',
+										'full' => $full_src ? $full_src[0] : '',
+										'thumb' => $thumb_src ? $thumb_src[0] : '',
+									);
+								}
 							}
 
 							// Render up to 4 thumb slides; if more than 4, make the 4th a lightbox button
