@@ -7,5 +7,9 @@
     }
     .more-btn{
         padding:1rem 3.4rem;
+        border: 1px solid rgba(0,0,0,.05);
+        &:hover{
+            border-color: #2f2f2f;
+        }
     }
 }

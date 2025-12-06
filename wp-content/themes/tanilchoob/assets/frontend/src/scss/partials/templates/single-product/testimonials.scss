@@ -8,6 +8,11 @@
             .swiper-button-prev, 
             .swiper-button-next{
                 padding: .8rem 1.4rem;
+                &:hover{
+                    svg path{
+                        stroke: #7C7C7C;
+                    }
+                }
             }
         }
     }
