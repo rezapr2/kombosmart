@@ -133,7 +133,17 @@
         .gallery-lightbox-body {
             gap: 10px;
         }
-        .product-gallery-thumbs { width: 10%; height: 90vh; }
+        .product-gallery-thumbs { 
+            width: 10%; 
+            height: 90vh; 
+            .thumb-item{
+                img{
+                    aspect-ratio: 1;
+                    object-fit: cover;
+                    display: block;
+                }
+            }
+        }
         .product-gallery-main { width: 89%; height: 90vh; }
         .gallery-lightbox-main .swiper-slide img { width: auto;  height: 100%; margin: 0 auto; display: block;}
         .gallery-lightbox-main .swiper-slide .video-wrapper {

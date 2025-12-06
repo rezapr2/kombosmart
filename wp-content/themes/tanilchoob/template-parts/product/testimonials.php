@@ -67,17 +67,31 @@ if(!$testimonials_customers) {
         $limit = $images_count > 3 ? 3 : $images_count;
         $more_count = $images_count > 3 ? ($images_count - 3) : 0;
 
+        // Build lightbox items for all customer images
+        $lightbox_items = array();
+        foreach ($customer_images as $img) {
+          if (!empty($img['url'])) {
+            $lightbox_items[] = array(
+              'type' => 'image',
+              'full' => esc_url($img['url']),
+              'thumb' => esc_url($img['url']),
+            );
+          }
+        }
+        $lightbox_json = wp_json_encode($lightbox_items);
+
         for ($i = 0; $i < $limit; $i++) {
           if (isset($customer_images[$i])) {
             $is_more_tile = ($i === $limit - 1 && $more_count > 0);
             if ($is_more_tile) {
               echo '<div class="image img'.($i+1).' relative">';
-              echo '<img src="'.$customer_images[$i]['url'].'" alt="'.$customer_images[$i]['alt'].'">';
-              echo '<div class="more-label w-100 h-100 flex item-center pointer color-white center absolute flex flex-col items-center gap-2 z-index-5"><span class="yekan-20">' . esc_html($more_count) . '+</span><span class="yekan-12">مشاهده همه</span></div>';
+              echo '<img src="'.esc_url($customer_images[$i]['url']).'" alt="'.esc_attr($customer_images[$i]['alt']).'">';
+              // Make overlay clickable to open lightbox, reusing product gallery handler
+              echo '<div class="more-label open-gallery-lightbox w-100 h-100 flex item-center pointer color-white center absolute flex flex-col items-center gap-2 z-index-5" data-gallery="'.esc_attr($lightbox_json).'" aria-label="مشاهده همه تصاویر"><span class="yekan-20">' . esc_html($more_count) . '+</span><span class="yekan-12">مشاهده همه</span></div>';
               echo '</div>';
             } else {
               echo '<div class="image img'.($i+1).'">';
-              echo '<img src="'.$customer_images[$i]['url'].'" alt="'.$customer_images[$i]['alt'].'">';
+              echo '<img src="'.esc_url($customer_images[$i]['url']).'" alt="'.esc_attr($customer_images[$i]['alt']).'">';
               echo '</div>';
             }
           }
