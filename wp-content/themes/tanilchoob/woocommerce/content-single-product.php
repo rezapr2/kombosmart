@@ -158,12 +158,32 @@ $product_id = $product->get_id();
 
 							$attachment_ids = $product->get_gallery_image_ids();
 							$main_image_id = $product->get_image_id();
-
+							$video_gallery_url = get_field('video_gallery_url', $product_id);
+							
 							// Add main image to the beginning of the gallery
 							if ($main_image_id) {
 								echo '<div class="swiper-slide">';
 								echo wp_get_attachment_image($main_image_id, 'large');
 								echo '</div>';
+							}
+
+							// If video exists, show it as the next slide
+							if ($video_gallery_url) {
+								$video_url = is_array($video_gallery_url) && isset($video_gallery_url['url']) ? $video_gallery_url['url'] : $video_gallery_url;
+								$video_url = is_string($video_url) ? trim($video_url) : '';
+								if ($video_url) {
+									$embed = wp_oembed_get($video_url);
+									echo '<div class="swiper-slide video-slide">';
+									echo '<div class="video-wrapper">';
+									if ($embed) {
+										echo $embed;
+									} else {
+										// Fallback to HTML5 video element
+										echo '<video controls playsinline src="' . esc_url($video_url) . '"></video>';
+									}
+									echo '</div>';
+									echo '</div>';
+								}
 							}
 
 							// Add gallery images
@@ -183,7 +203,7 @@ $product_id = $product->get_id();
 					<div class="swiper-container gallery-thumbs overflow-hidden">
 						<div class="swiper-wrapper">
 							<?php
-							// Build a flat list of all gallery image IDs (main first)
+							// Build images list (main first)
 							$all_gallery_ids = array();
 							if ($main_image_id) {
 								$all_gallery_ids[] = $main_image_id;
@@ -192,10 +212,43 @@ $product_id = $product->get_id();
 								$all_gallery_ids = array_merge($all_gallery_ids, $attachment_ids);
 							}
 
-							$total_thumbs = count($all_gallery_ids);
+							// Determine if we have a video and compute a thumbnail src for it (use main image or first gallery)
+							$has_video = false;
+							$video_thumb_src = '';
+							if (!empty($video_gallery_url)) {
+								$video_url = is_array($video_gallery_url) && isset($video_gallery_url['url']) ? $video_gallery_url['url'] : $video_gallery_url;
+								$video_url = is_string($video_url) ? trim($video_url) : '';
+								if ($video_url) {
+									$has_video = true;
+									if ($main_image_id) {
+										$thumb_src_arr = wp_get_attachment_image_src($main_image_id, 'thumbnail');
+										$video_thumb_src = $thumb_src_arr ? $thumb_src_arr[0] : '';
+									} elseif (!empty($attachment_ids)) {
+										$first_id = reset($attachment_ids);
+										$thumb_src_arr = wp_get_attachment_image_src($first_id, 'thumbnail');
+										$video_thumb_src = $thumb_src_arr ? $thumb_src_arr[0] : '';
+									}
+								}
+							}
+
+							// Build ordered thumb items: main image, then video (if any), then other images
+							$thumb_items = array();
+							if ($main_image_id) {
+								$thumb_items[] = array('type' => 'image', 'id' => $main_image_id);
+							}
+							if ($has_video) {
+								$thumb_items[] = array('type' => 'video', 'src' => $video_thumb_src);
+							}
+							if ($attachment_ids) {
+								foreach ($attachment_ids as $aid) {
+									$thumb_items[] = array('type' => 'image', 'id' => $aid);
+								}
+							}
+
+							$total_thumbs = count($thumb_items);
 							$limit = 4;
 
-							// Prepare lightbox data (full + thumb urls)
+							// Prepare lightbox data (images only)
 							$lightbox_items = array();
 							foreach ($all_gallery_ids as $img_id) {
 								$full_src = wp_get_attachment_image_src($img_id, 'large');
@@ -208,8 +261,16 @@ $product_id = $product->get_id();
 
 							// Render up to 4 thumb slides; if more than 4, make the 4th a lightbox button
 							for ($i = 0; $i < min($limit, $total_thumbs); $i++) {
-								$img_id = $all_gallery_ids[$i];
-								$thumb_html = wp_get_attachment_image($img_id, 'thumbnail');
+								$item = $thumb_items[$i];
+								$is_video = isset($item['type']) && $item['type'] === 'video';
+								$thumb_html = '';
+								if ($is_video) {
+									$src = isset($item['src']) ? $item['src'] : '';
+									$thumb_html = $src ? '<img src="' . esc_url($src) . '" alt="" />' : '';
+								} else {
+									$img_id = isset($item['id']) ? $item['id'] : 0;
+									$thumb_html = $img_id ? wp_get_attachment_image($img_id, 'thumbnail') : '';
+								}
 
 								if ($i === $limit - 1 && $total_thumbs > $limit) {
 									$more_count = $total_thumbs - ($limit - 1);
@@ -223,9 +284,26 @@ $product_id = $product->get_id();
 									echo '</div>';
 								} else {
 									echo '<div class="swiper-slide">';
-									echo '<div class="thumb-item">';
-									echo $thumb_html;
-									echo '</div>';
+									if ($is_video) {
+										echo '<div class="thumb-item video-thumb">';
+										// image preview if available
+										echo $thumb_html;
+										// play icon overlay
+										echo '<span class="video-icon absolute center z-index-5" aria-hidden="true">';
+										echo '<svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+<foreignObject x="-9.96202" y="-9.96202" width="62.924" height="62.924"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(4.98px);clip-path:url(#bgblur_0_1_1115_clip_path);height:100%;width:100%"></div></foreignObject><circle data-figma-bg-blur-radius="9.96202" cx="21.5" cy="21.5" r="21.5" fill="white" fill-opacity="0.62"/>
+<path d="M31.1807 20.0795C32.1525 20.6405 32.1525 22.0431 31.1807 22.6042L17.5155 30.4938C16.5437 31.0549 15.3291 30.3535 15.3291 29.2315L15.3291 13.4522C15.3291 12.3301 16.5437 11.6288 17.5155 12.1898L31.1807 20.0795Z" fill="white"/>
+<defs>
+<clipPath id="bgblur_0_1_1115_clip_path" transform="translate(9.96202 9.96202)"><circle cx="21.5" cy="21.5" r="21.5"/>
+</clipPath></defs>
+</svg>';
+										echo '</span>';
+										echo '</div>';
+									} else {
+										echo '<div class="thumb-item">';
+										echo $thumb_html;
+										echo '</div>';
+									}
 									echo '</div>';
 								}
 							}
