@@ -64,13 +64,25 @@ if(!$testimonials_customers) {
       <div class="customer_images grid gap-07">
         <?php 
         $images_count = count($customer_images);
-        for ($i=0; $i < ($images_count > 3 ? 3 : $images_count); $i++) { 
-          if(isset($customer_images[$i])){
-            echo '<div class="image img'.($i+1).'">';
-            echo '<img src="'.$customer_images[$i]['url'].'" alt="'.$customer_images[$i]['alt'].'">';
-            echo '</div>';
+        $limit = $images_count > 3 ? 3 : $images_count;
+        $more_count = $images_count > 3 ? ($images_count - 3) : 0;
+
+        for ($i = 0; $i < $limit; $i++) {
+          if (isset($customer_images[$i])) {
+            $is_more_tile = ($i === $limit - 1 && $more_count > 0);
+            if ($is_more_tile) {
+              echo '<div class="image img'.($i+1).' relative">';
+              echo '<img src="'.$customer_images[$i]['url'].'" alt="'.$customer_images[$i]['alt'].'">';
+              echo '<div class="more-label w-100 h-100 flex item-center pointer color-white center absolute flex flex-col items-center gap-2 z-index-5"><span class="yekan-20">' . esc_html($more_count) . '+</span><span class="yekan-12">مشاهده همه</span></div>';
+              echo '</div>';
+            } else {
+              echo '<div class="image img'.($i+1).'">';
+              echo '<img src="'.$customer_images[$i]['url'].'" alt="'.$customer_images[$i]['alt'].'">';
+              echo '</div>';
+            }
           }
-        }?>
+        }
+        ?>
       </div>
       <?php endif; ?>
 
