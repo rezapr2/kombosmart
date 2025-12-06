@@ -400,9 +400,9 @@ $product_id = $product->get_id();
 	$sub_products = get_field('sub_products');
 	if ($full_product_image || $sub_products) :
 	?>
-		<div class="container-right sub-products-container overflow-hidden flex items-center mb-40 gap-40">
+		<div class="container-right sub-products-container overflow-hidden flex items-center mb-40">
 			<?php if ($full_product_image) : ?>
-				<div class="full-product-image z-index-5">
+				<div class="full-product-image z-index-5 relative">
 					<?php echo wp_get_attachment_image($full_product_image['ID'], 'medium', false, array('class' => 'w-full h-full block object-cover')); ?>
 				</div>
 			<?php endif; ?>
@@ -410,7 +410,7 @@ $product_id = $product->get_id();
 				<div class="sub-products swiper-container flex gap-10 overflow-hidden">
 					<div class="swiper-wrapper gap-40">
 						<?php foreach ($sub_products as $sub_product) : ?>
-							<div class="swiper-slide sub-product h-auto flex flex-col justify-content-end items-center gap-20 <?php if (!$sub_product['purchasable']) echo 'not-purchasable'; ?>">
+							<div class="swiper-slide sub-product h-auto flex flex-col justify-content-end items-center relative gap-20 <?php if (!$sub_product['purchasable']) echo 'not-purchasable'; ?>  ">
 								<?php echo wp_get_attachment_image($sub_product['image']['ID'], 'thumbnail'); ?>
 								<a href="<?php echo isset($sub_product['link']['url']) ? $sub_product['link']['url'] : '#'; ?>" class="sub-product-info flex items-center flex-col">
 									<?php if ($sub_product['purchasable']) : ?>
