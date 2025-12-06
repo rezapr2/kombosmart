@@ -59,6 +59,20 @@ $play_icon_src = function_exists('get_theme_file_uri')
             <?php if ($description) : ?>
                 <div id="tab-desc-content" class="tab-content-item yekan-18 px-40 py-25 color-black-60 bg-black-03 active">
                     <?php echo nl2br($description); ?>
+
+                    <?php
+                    $product_id = get_the_ID();
+                    if ($product_id) {
+                        $tag_list = wc_get_product_tag_list($product_id, '');
+                        if (!empty($tag_list)) {
+                            echo '<div class="product-tags yekan-16 flex gap-10 mt-25"><span class="yekan-16 color-black">برچسب‌ها: </span>' . $tag_list . '</div>';
+                        }
+                        $cat_list = wc_get_product_category_list($product_id, '');
+                        if (!empty($cat_list)) {
+                            echo '<div class="product-cats yekan-14 flex gap-10 mt-10"><span class="yekan-16 color-black">دسته‌ها: </span>' . $cat_list . '</div>';
+                        }
+                    }
+                    ?>
                 </div>
             <?php endif;
             if ($has_specs) : ?>
