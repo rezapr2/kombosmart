@@ -31,15 +31,17 @@ $thumb_url   = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'large') : '';
 
 <div class="container mt-25 mb-25">
     <div class="category-hero flex gap-20 items-center justify-center">
-        <h1 class="yekan-28 color-black bold"><?php echo esc_html($title); ?></h1>
-        <a class="back-btn circle-radius flex item-center" href="<?php echo esc_url(home_url('/shop/')); ?>">
+        <a class="back-btn circle-radius bg-black-03 flex item-center" href="<?php echo esc_url(home_url('/shop/')); ?>">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0.75 7.75H14.75M14.75 7.75L7.75 0.75M14.75 7.75L7.75 14.75" stroke="#909090" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </a>
-      
+        <h1 class="yekan-28 color-black bold"><?php echo esc_html($title); ?></h1>
     </div>
-    <div class="category-controls mt-20 mb-20">
+</div>
+
+
+<div class="category-controls mt-20 mb-20">
         <?php
         /**
          * Show notices, result count, and ordering controls.
@@ -51,8 +53,6 @@ $thumb_url   = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'large') : '';
         do_action('woocommerce_before_shop_loop');
         ?>
     </div>
-</div>
-
 <?php if (woocommerce_product_loop()) : ?>
     <?php woocommerce_product_loop_start(); ?>
     <?php while (have_posts()) : the_post(); ?>
