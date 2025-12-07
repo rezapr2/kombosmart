@@ -55,7 +55,7 @@ $add_to_cart_text = isset($args['add_to_cart_text']) ? $args['add_to_cart_text']
                 <a class="yekan-20 regular color-black-80" href="<?php echo esc_url($permalink); ?>"><?php echo esc_html($title); ?></a>
             </h3>
             <div class="flex justify-between">
-                <div class="product-card flex">
+                <div class="product-card__rating flex">
 
                     <?php if ($average_rating > 0): ?>
                         <?php

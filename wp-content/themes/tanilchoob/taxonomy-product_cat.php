@@ -135,12 +135,12 @@ if ($term_id) {
         </div>
     </div>
 </div>
+<div class="container mt-10">
+    <div class="category-products grid grid-cols-4 gap-30">
 <?php if (woocommerce_product_loop()) : ?>
-    <?php woocommerce_product_loop_start(); ?>
     <?php while (have_posts()) : the_post(); ?>
-        <?php wc_get_template_part('content', 'product'); ?>
+        <?php get_template_part('template-parts/cards/product-card', null, ['post_id' => get_the_ID()]); ?>
     <?php endwhile; ?>
-    <?php woocommerce_product_loop_end(); ?>
 
     <?php
     /**
@@ -160,6 +160,8 @@ if ($term_id) {
     do_action('woocommerce_no_products_found');
     ?>
 <?php endif; ?>
+</div>
+</div>
 <?php if (! empty($description)) : ?>
     <div class="yekan-18 color-black-50"><?php echo wp_kses_post($description); ?></div>
 <?php endif; ?>
