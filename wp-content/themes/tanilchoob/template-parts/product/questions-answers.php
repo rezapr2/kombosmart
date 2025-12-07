@@ -8,8 +8,6 @@
 
 defined('ABSPATH') || exit;
 
-global $product;
-
 $post_id = get_the_ID();
 
 // Fetch published top-level questions for this product from CPT.

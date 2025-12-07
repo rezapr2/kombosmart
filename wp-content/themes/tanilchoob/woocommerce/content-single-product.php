@@ -8,6 +8,8 @@
 
 defined('ABSPATH') || exit;
 
+use TanilChoob\Theme\Helper;
+
 global $product;
 
 /**
@@ -41,7 +43,7 @@ $product_id = $product->get_id();
 					echo esc_html($average_str) . ' ' . '⭐' . ' (' . esc_html($rating_count) . 'نفر)';
 					?>
 				</li>
-				<li class="product-questions-answers">
+				<li class="product-reviews">
 					<?php
 					// Show users reviews count
 					$product_obj  = isset($product) && $product instanceof WC_Product ? $product : wc_get_product(get_the_ID());
@@ -49,6 +51,14 @@ $product_id = $product->get_id();
 					echo esc_html($reviews_count) . ' دیدگاه کاربران';
 					?>
 				</li>
+				<?php 
+					$questions_count = Helper::get_product_questions_count($product_id);
+					if($questions_count > 0) {
+						echo '<li class="product-questions-answers">';
+						echo esc_html($questions_count) . ' پرسش و پاسخ';
+						echo '</li>';
+					}
+				?>
 			</ul>
 			<!-- Product offer countdown -->
 			<?php

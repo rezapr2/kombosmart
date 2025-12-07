@@ -167,240 +167,33 @@ class Helper {
         }
     }
 
-    public static function get_list_of_regions_and_municipalities()
+    public static function get_product_questions_count($product_id)
     {
-        return [
-            "Aveiro" => [
-                "Águeda",
-                "Anadia",
-                "Aveiro",
-                "Espinho",
-                "Estarreja",
-                "Ílhavo",
-                "Mealhada",
-                "Oliveira de Azeméis",
-                "Oliveira do Bairro",
-                "Ovar",
-                "Santa Maria da Feira",
-                "São João da Madeira",
-                "Vagos",
-                "Vale de Cambra"
-            ],
-            "Beja" => [
-                "Beja",
-                "Moura",
-                "Odemira",
-                "Serpa"
-            ],
-            "Braga" => [
-                "Amares",
-                "Barcelos",
-                "Braga",
-                "Cabeceiras de Basto",
-                "Celorico de Basto",
-                "Esposende",
-                "Fafe",
-                "Guimarães",
-                "Póvoa de Lanhoso",
-                "Vila Nova de Famalicão",
-                "Vila Verde",
-                "Vizela"
-            ],
-            "Bragança" => [
-                "Bragança",
-                "Mogadouro",
-                "Vimioso"
-            ],
-            "Castelo Branco" => [
-                "Castelo Branco",
-                "Covilhã",
-                "Fundão",
-                "Proença-a-Nova"
-            ],
-            "Coimbra" => [
-                "Coimbra",
-                "Condeixa-a-Nova",
-                "Figueira da Foz",
-                "Lousã",
-                "Mira",
-                "Montemor-o-Velho",
-                "Soure"
-            ],
-            "Évora" => [
-                "Estremoz",
-                "Évora",
-                "Redondo"
-            ],
-            "Faro" => [
-                "Albufeira",
-                "Faro",
-                "Lagoa (Algarve)",
-                "Lagos",
-                "Loulé",
-                "Olhão",
-                "Portimão",
-                "Silves",
-                "Tavira",
-                "Vila Real de Santo António"
-            ],
-            "Guarda" => [
-                "Guarda",
-                "Trancoso"
-            ],
-            "Ilha da Madeira" => [
-                "Calheta (Madeira)",
-                "Funchal",
-                "Machico",
-                "Ribeira Brava"
-            ],
-            "Ilha de Santa Maria" => [
-                "Vila do Porto"
-            ],
-            "Ilha de São Jorge" => [
-                "Calheta (São Jorge)"
-            ],
-            "Ilha de São Miguel" => [
-                "Ponta Delgada",
-                "Ribeira Grande"
-            ],
-            "Ilha do Faial" => [
-                "Horta"
-            ],
-            "Ilha do Pico" => [
-                "Madalena"
-            ],
-            "Ilha Terceira" => [
-                "Angra do Heroísmo"
-            ],
-            "Leiria" => [
-                "Alcobaça",
-                "Alvaiázere",
-                "Ansião",
-                "Batalha",
-                "Bombarral",
-                "Caldas da Rainha",
-                "Leiria",
-                "Marinha Grande",
-                "Nazaré",
-                "Peniche",
-                "Pombal",
-                "Porto de Mós"
-            ],
-            "Lisboa" => [
-                "Alenquer",
-                "Amadora",
-                "Arruda dos Vinhos",
-                "Azambuja",
-                "Cascais",
-                "Lisboa",
-                "Loures",
-                "Mafra",
-                "Odivelas",
-                "Oeiras",
-                "Sintra",
-                "Torres Vedras",
-                "Vila Franca de Xira"
-            ],
-            "Portalegre" => [
-                "Elvas",
-                "Portalegre"
-            ],
-            "Porto" => [
-                "Amarante",
-                "Felgueiras",
-                "Gondomar",
-                "Lousada",
-                "Maia",
-                "Marco de Canaveses",
-                "Matosinhos",
-                "Paços de Ferreira",
-                "Paredes",
-                "Penafiel",
-                "Porto",
-                "Póvoa de Varzim",
-                "Santo Tirso",
-                "Trofa",
-                "Valongo",
-                "Vila do Conde",
-                "Vila Nova de Gaia"
-            ],
-            "Santarém" => [
-                "Abrantes",
-                "Almeirim",
-                "Benavente",
-                "Cartaxo",
-                "Entroncamento",
-                "Ourém",
-                "Rio Maior",
-                "Santarém",
-                "Tomar",
-                "Torres Novas"
-            ],
-            "Setúbal" => [
-                "Alcácer do Sal",
-                "Alcochete",
-                "Almada",
-                "Barreiro",
-                "Grândola",
-                "Moita",
-                "Montijo",
-                "Palmela",
-                "Santiago do Cacém",
-                "Seixal",
-                "Sesimbra",
-                "Setúbal",
-                "Sines"
-            ],
-            "Viana do Castelo" => [
-                "Arcos de Valdevez",
-                "Caminha",
-                "Monção",
-                "Ponte da Barca",
-                "Ponte de Lima",
-                "Valença",
-                "Viana do Castelo"
-            ],
-            "Vila Real" => [
-                "Chaves",
-                "Murça",
-                "Vila Real"
-            ],
-            "Viseu" => [
-                "Castro Daire",
-                "Lamego",
-                "Mangualde",
-                "Nelas",
-                "Santa Comba Dão",
-                "São Pedro do Sul",
-                "Tondela",
-                "Viseu"
-            ]
-        ];
-    }
-
-    public static function import_regions_and_municipalities($regions_taxonomy, $municipalities_taxonomy, $log=false)
-    {
-        ini_set( "memory_limit", "2048M" );
-        ini_set( 'max_execution_time', '3600' );
-        set_time_limit( 3600 );
-
-
-        self::clear_taxonomy_items( $regions_taxonomy );
-        self::clear_taxonomy_items( $municipalities_taxonomy );
-
-        $list = self::get_list_of_regions_and_municipalities();
-
-        foreach ( $list as $region => $municipalities ) {
-            if($log) error_log('$region: ' . $region);
-            $region_taxonomy = wp_insert_term( $region, $regions_taxonomy );
-
-            foreach ( $municipalities as $municipality ) {
-                if($log) error_log('$municipality: ' . $municipality);
-                $municipality_taxonomy = wp_insert_term( $municipality, $municipalities_taxonomy );
-                $municipality_term_id = $municipality_taxonomy['term_id'];
-
-                update_field( 'region', $region_taxonomy['term_id'], 'term_' . $municipality_term_id );
-            }
+        $product_id = intval($product_id);
+        if ($product_id <= 0) {
+            return 0;
         }
+
+        $query = new \WP_Query([
+            'post_type'              => 'product_questions',
+            'post_status'            => 'publish',
+            'post_parent'            => 0,
+            'posts_per_page'         => 1,            // use found_posts for count
+            'fields'                 => 'ids',        // lightweight
+            'no_found_rows'          => false,        // needed to populate found_posts
+            'cache_results'          => false,
+            'update_post_meta_cache' => false,
+            'update_post_term_cache' => false,
+            'meta_query'             => [
+                [
+                    'key'     => 'product',
+                    'value'   => $product_id,
+                    'compare' => '=',
+                    'type'    => 'NUMERIC',
+                ],
+            ],
+        ]);
+
+        return isset($query->found_posts) ? intval($query->found_posts) : 0;
     }
 }
