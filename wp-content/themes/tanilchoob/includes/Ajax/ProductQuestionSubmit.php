@@ -19,14 +19,24 @@ class ProductQuestionSubmit extends AjaxHandler
         $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
         $author     = isset($_POST['qa_name']) ? sanitize_text_field($_POST['qa_name']) : '';
         $email      = isset($_POST['qa_email']) ? sanitize_email($_POST['qa_email']) : '';
+        $current_user = wp_get_current_user();
+        if ($current_user && $current_user->ID) {
+            $author = $current_user->display_name ?: $current_user->user_login;
+            $email  = $current_user->user_email;
+        }
         $question   = isset($_POST['qa_question']) ? sanitize_textarea_field($_POST['qa_question']) : '';
 
         if ($product_id <= 0 || get_post_type($product_id) !== 'product') {
             wp_send_json_error(['message' => __('شناسه محصول معتبر نیست.', 'tanilchoob')]);
         }
 
-        if ($author === '' || $question === '') {
-            wp_send_json_error(['message' => __('نام و متن سوال الزامی است.', 'tanilchoob')]);
+        if ($question === '') {
+            wp_send_json_error(['message' => __('متن سوال الزامی است.', 'tanilchoob')]);
+        }
+        if (!$current_user || !$current_user->ID) {
+            if ($author === '') {
+                wp_send_json_error(['message' => __('نام الزامی است.', 'tanilchoob')]);
+            }
         }
 
         // Create a new Product Question post (pending for moderation).
@@ -39,9 +49,8 @@ class ProductQuestionSubmit extends AjaxHandler
         $post_title = !empty($title_seed) ? $title_seed : __('پرسش درباره محصول', 'tanilchoob');
 
         $postarr = [
-            'post_type'    => 'product_question',
+            'post_type'    => 'product_questions',
             'post_status'  => 'pending',
-            'post_parent'  => 0,
             'post_title'   => $post_title,
             'post_content' => $question,
         ];
@@ -53,12 +62,16 @@ class ProductQuestionSubmit extends AjaxHandler
         }
 
         // Save metadata to associate with product and optional contact details.
-        update_post_meta($question_post_id, 'product_id', $product_id);
+        update_field( 'product', $product_id, $question_post_id );
+
         if (!empty($author)) {
-            update_post_meta($question_post_id, 'qa_name', $author);
+            update_field( 'customer_name', $author, $question_post_id );
         }
         if (!empty($email)) {
-            update_post_meta($question_post_id, 'qa_email', $email);
+            update_field( 'customer_email', $email, $question_post_id );
+        }
+        if ($current_user && $current_user->ID) {
+            update_field( 'customer', $current_user->ID, $question_post_id );
         }
 
         wp_send_json_success(['message' => __('سوال شما دریافت شد و پس از بررسی منتشر می‌شود.', 'tanilchoob')]);

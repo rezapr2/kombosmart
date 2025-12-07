@@ -7,38 +7,21 @@
         }
     }
     .qa_list {
-        padding: 2rem 0;
         .qa-list {
             .qa-item{
-                padding-bottom: 1.8rem;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-            }
-            .qa-answers{
-                padding-right: 2rem;
-                margin-right: 2rem;
-                padding-top: 1.6rem;
-                position: relative;
-                &:before{
-                    content: "";
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    width: 1px;
-                    height: 70%;
-                    background-color: rgba(0, 0, 0, .2);
+                padding: .4rem;
+                border: 1px solid rgba(0, 0, 0, 0.15);
+                min-height: 10rem;
+                .qa-question-icon, .qa-answer-icon{
+                    width: 9.4rem;
+                    margin-left: 1.6rem;
                 }
-                &:after{
-                    content: "";
-                    position: absolute;
-                    top: 70%;
-                    right: 0;
-                    width: 2rem;
-                    height: 1px;
-                    background-color: rgba(0, 0, 0, .2);
+                .qa-question-icon{
+                    background-color: #F7E9FF;
                 }
-            }
-            .qa-answer{
-                margin: 1.4rem 0;
+                .qa-answer-icon{
+                    background-color: #F3F3F3;
+                }
             }
         }
     }
