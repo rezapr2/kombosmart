@@ -70,8 +70,13 @@
             }
         }
         .product-price {
-            flex: 1;
             border: 1px solid var(--color-primary);
+            .woocommerce-Price-currencySymbol{
+                font-weight: 400;
+                opacity: .25;
+                font-size: 2rem;
+                margin-right: .6rem;
+            }
         }
     }
 }
