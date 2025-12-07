@@ -1,4 +1,7 @@
 .subcategories-slider {
+    .swiper-slide{
+        width: 28rem;
+    }
     .category-item {
         &::after {
             content: '';
@@ -18,7 +21,8 @@
             transition: all 0.35s ease-in-out;
         }
         img {
-            height: 100%;
+            aspect-ratio: .7;
+            object-fit: cover;
         }
         .content {
             position: absolute;

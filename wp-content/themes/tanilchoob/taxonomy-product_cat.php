@@ -56,7 +56,7 @@ if ($term_id) {
 ?>
 <?php if (!is_wp_error($subcategories) && !empty($subcategories)) : ?>
     <div class="container-right mb-25">
-        <div class="carousel_slider-wrapper subcategories-slider" data-slidesPerView="4.2">
+        <div class="carousel_slider-wrapper subcategories-slider" data-slidesPerView="auto" data-spaceBetween="8">
             <div class="swiper carousel_slider">
                 <div class="swiper-wrapper">
                     <?php foreach ($subcategories as $subcategory) :
@@ -90,17 +90,50 @@ if ($term_id) {
     </div>
 <?php endif; ?>
 
-<div class="category-controls mt-20 mb-20">
-    <?php
-    /**
-     * Show notices, result count, and ordering controls.
-     *
-     * @hooked woocommerce_output_all_notices - 10
-     * @hooked woocommerce_result_count - 20
-     * @hooked woocommerce_catalog_ordering - 30
-     */
-    do_action('woocommerce_before_shop_loop');
-    ?>
+<div class="container mt-40">
+    <div class="category-controls py-25">
+        <?php
+        // Show notices and result count (without default dropdown ordering)
+        if (function_exists('woocommerce_output_all_notices')) {
+            woocommerce_output_all_notices();
+        }
+
+        // Current orderby from query (fallback to menu_order)
+        $current_orderby = isset($_GET['orderby']) ? wc_clean(wp_unslash($_GET['orderby'])) : 'menu_order';
+
+        // Define our custom sort options to match the desired UI
+        $sort_options = array(
+            'date'       => 'جدیدترین',      // Newest
+            'price-desc' => 'گران‌ترین',      // Most expensive
+            'price'      => 'ارزان‌ترین',     // Cheapest
+            'popularity' => 'پربازدیدترین',   // Most viewed/popular
+            // You can add 'rating' => 'بالاترین امتیاز' if needed
+        );
+        ?>
+        <div class="flex items-center gap-15">
+            <div class="flex items-center color-black-30">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 7H21" stroke="black" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M6 12H18" stroke="black" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M10 17H14" stroke="black" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <span class="yekan-14 color-black-60">مرتب سازی بر اساس:</span>
+            <div class="flex items-center gap-20">
+                <?php foreach ($sort_options as $orderby => $label):
+                    // Build link preserving existing query args while setting orderby
+                    $url = add_query_arg(array('orderby' => $orderby));
+                    $is_active = ($current_orderby === $orderby);
+                ?>
+                    <a href="<?php echo esc_url($url); ?>" class="yekan-14 pointer <?php echo $is_active ? 'color-primary' : 'color-black-30'; ?>">
+                        <?php echo esc_html($label); ?>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+            <div class="flex-grow"></div>
+            
+        </div>
+    </div>
 </div>
 <?php if (woocommerce_product_loop()) : ?>
     <?php woocommerce_product_loop_start(); ?>

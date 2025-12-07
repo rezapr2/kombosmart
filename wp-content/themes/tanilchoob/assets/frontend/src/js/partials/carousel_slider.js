@@ -13,6 +13,7 @@
                 
                 // Get custom settings from data attributes
                 const slidesPerView = $wrapper.data('slidesperview') || 2.2;
+                const spaceBetween = $wrapper.data('spacebetween') || 24;
                 
                 // Get navigation elements within this specific wrapper
                 const $nextButton = $wrapper.find('.button-next');
@@ -43,7 +44,7 @@
 
                     // Use the data attribute value or default
                     slidesPerView: slidesPerView,
-                    spaceBetween: 24,
+                    spaceBetween: spaceBetween,
 
                     // Touch settings
                     touchRatio: 1,
