@@ -141,15 +141,6 @@ if ($term_id) {
     <?php while (have_posts()) : the_post(); ?>
         <?php get_template_part('template-parts/cards/product-card', null, ['post_id' => get_the_ID()]); ?>
     <?php endwhile; ?>
-
-    <?php
-    /**
-     * Pagination.
-     *
-     * @hooked woocommerce_pagination - 10
-     */
-    do_action('woocommerce_after_shop_loop');
-    ?>
 <?php else : ?>
     <?php
     /**
@@ -163,7 +154,31 @@ if ($term_id) {
 </div>
 </div>
 <?php if (! empty($description)) : ?>
-    <div class="yekan-18 color-black-50"><?php echo wp_kses_post($description); ?></div>
+    <div class="container mt-30">
+        <div class="category-desc yekan-18 color-black-60 bg-black-03 py-25 px-40">
+            <?php
+            // Implement read-more collapse similar to product tabs
+            $desc_raw  = (string) $description;
+            $desc_text = wp_kses_post($desc_raw); // keep allowed HTML
+            $plain     = trim(wp_strip_all_tags($desc_raw));
+            $should_collapse = mb_strlen($plain, 'UTF-8') > 250;
+
+            if (! $should_collapse) {
+                echo $desc_text;
+            } else {
+                ?>
+                <div class="desc-readmore slide-down-wrapper flex flex-col gap-10">
+                    <div class="desc-full yekan-18 color-black-60">
+                        <?php echo $desc_text; ?>
+                    </div>
+                    <div class="desc-toggle desc-toggle-more slide-down-trigger yekan-16 color-primary cursor-pointer" role="button" aria-expanded="false">نمایش بیشتر متن</div>
+                    <div class="desc-toggle desc-toggle-less slide-down-trigger yekan-16 color-primary cursor-pointer" role="button" aria-expanded="true">نمایش کمتر متن</div>
+                </div>
+                <?php
+            }
+            ?>
+        </div>
+    </div>
 <?php endif; ?>
 <?php
 /**
