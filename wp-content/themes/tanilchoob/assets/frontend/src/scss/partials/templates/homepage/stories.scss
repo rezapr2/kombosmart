@@ -9,7 +9,6 @@
             .story-image-wrapper {
                 display: inline-block;
                 padding: calcRem(2);
-                border-radius: 50%;
                 background: linear-gradient(45deg, 
                     #f09433 0%,
                     #e6683c 25%,
@@ -20,7 +19,6 @@
                 img{
                     width: calcRem(112);
                     height: calcRem(112);
-                    border-radius: 50%;
                     border: calcRem(2) solid #fff;
                     display: block;
                 }
@@ -86,7 +84,6 @@ body.story-lightbox-open{ overflow: hidden; }
 .story-avatar{
     width: calcRem(70);
     height: calcRem(70);
-    border-radius: 50%;
 }
 
 

@@ -32,19 +32,19 @@ $carousel_slider_card = isset($args['card']) ? $args['card'] : 'article-card';
       <?php if (isset($args['end_off_sale'])): ?>
         <div class="countdown-timer regular color-primary" data-end-date="<?php echo esc_attr($args['end_off_sale']); ?>">
           <div class="countdown-timer__time flex items-center gap-10">
-            <span class="countdown-timer__seconds yekan-26">00</span>:
-            <span class="countdown-timer__minutes yekan-26 ">00</span>:
-            <span class="countdown-timer__hours yekan-26 ">00</span>:
-            <span class="countdown-timer__days yekan-26 ">00</span>
+            <span class="countdown-timer__seconds yekan-26 circle-radius">00</span>:
+            <span class="countdown-timer__minutes yekan-26 circle-radius">00</span>:
+            <span class="countdown-timer__hours yekan-26 circle-radius">00</span>:
+            <span class="countdown-timer__days yekan-26 circle-radius">00</span>
           </div>
         </div>
       <?php endif; ?>
       <div class="flex gap-10">
         <!-- Navigation buttons -->
-        <div class="button-prev <?php echo $color; ?> flex item-center pointer transition">
+        <div class="button-prev circle-radius <?php echo $color; ?> flex item-center pointer transition">
           <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-right.svg')); ?>
         </div>
-        <div class="button-next <?php echo $color; ?> flex item-center pointer transition">
+        <div class="button-next circle-radius <?php echo $color; ?> flex item-center pointer transition">
           <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-right.svg')); ?>
         </div>
         <?php if (isset($args['button_link'])): ?>

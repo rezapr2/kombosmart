@@ -11,7 +11,7 @@
                 <div id="story-lightbox-modal" class="story-lightbox-modal" aria-hidden="true" role="dialog">
                     <div class="story-lightbox-content relative" role="document">
                         <div class="story-header">
-                            <img class="story-avatar" src="" alt="" />
+                            <img class="story-avatar circle-radius" src="" alt="" />
                             <div class="story-username yekan-24 color-white"></div>
                             <div class="story-close pointer" aria-label="Close"><svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M29.6995 29.6982L49.4985 49.4972" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>

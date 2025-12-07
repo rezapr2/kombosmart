@@ -108,10 +108,10 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 								/>
 								
 								<?php if(isset($item['color_code']) && $item['color_code']){ ?>
-									<span class="color-dot" style="background-color:<?php echo $item['color_code']; ?>"></span>
+									<span class="color-dot circle-radius" style="background-color:<?php echo $item['color_code']; ?>"></span>
 								<?php } ?>
 								<?php if(isset($item['patern_image']) && $item['patern_image']){ ?>
-									<img class="patern-image" src="<?php echo $item['patern_image']['url']; ?>" alt="<?php echo $item['label']; ?>" />
+									<img class="patern-image circle-radius" src="<?php echo $item['patern_image']['url']; ?>" alt="<?php echo $item['label']; ?>" />
 								<?php } ?>
 								<span class="yekan-18 color-black-50"><?php echo esc_html( $item['label'] ); ?></span>
 							</label>
