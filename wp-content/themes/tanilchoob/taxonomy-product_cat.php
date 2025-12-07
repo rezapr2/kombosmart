@@ -136,7 +136,7 @@ if ($term_id) {
     </div>
 </div>
 <div class="container mt-10">
-    <div class="category-products grid grid-cols-4 gap-30">
+    <div class="category-products grid grid-cols-4 gap-30" id="category-products">
 <?php if (woocommerce_product_loop()) : ?>
     <?php while (have_posts()) : the_post(); ?>
         <?php get_template_part('template-parts/cards/product-card', null, ['post_id' => get_the_ID()]); ?>
@@ -152,6 +152,22 @@ if ($term_id) {
     ?>
 <?php endif; ?>
 </div>
+    <?php
+    // Infinite scroll data and loader UI
+    global $wp_query;
+    $current_paged = max(1, (int) get_query_var('paged'));
+    $max_pages     = isset($wp_query->max_num_pages) ? (int) $wp_query->max_num_pages : 1;
+    ?>
+    <div class="infinite-scroll-data"
+         data-current-page="<?php echo esc_attr($current_paged); ?>"
+         data-max-pages="<?php echo esc_attr($max_pages); ?>"></div>
+    <div class="infinite-scroll-trigger" aria-hidden="true"></div>
+    <div class="loadmore-wrapper mt-20">
+        <button class="loadmore-btn" type="button" disabled>
+            <span class="load-text yekan-14 color-black-60">در حال بارگذاری...</span>
+            <span class="spinner" aria-hidden="true"></span>
+        </button>
+    </div>
 </div>
 <?php if (! empty($description)) : ?>
     <div class="container mt-30">
