@@ -71,7 +71,7 @@
         .comment-notes{
             display: none;
         }
-        .comment-form-field {
+        .comment-form-field{
             margin-bottom: 1.3rem;
             label {
                 margin-bottom: 0.8rem;
@@ -84,6 +84,31 @@
                 outline: none;
                 padding: 1.2rem;
                 font-size: 1.8rem;
+            }
+        }
+
+        .aiowps-captcha{
+            label{
+                font-size: 1.8rem;
+            }
+        }
+        .aiowps-captcha-equation{
+            margin-top: 0.8rem;
+            strong{
+                width: 100%;
+                display: flex;
+                font-size: 1.8rem;
+                align-items: center;
+                gap: 1rem;
+            }
+            input{
+                resize: none;
+                background-color: rgba(0, 0, 0, .03);
+                border: 1px solid rgba(0, 0, 0, .05);
+                outline: none;
+                padding: 1.2rem;
+                font-size: 1.8rem;
+                flex: 1;
             }
         }
 
