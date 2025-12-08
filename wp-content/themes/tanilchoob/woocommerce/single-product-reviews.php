@@ -79,22 +79,16 @@ if ( ! comments_open() ) {
 				);
 
 				$name_email_required = (bool) get_option( 'require_name_email', 1 );
-				$fields              = array(
-					'author' => array(
-						'label'        => __( 'Name', 'woocommerce' ),
-						'type'         => 'text',
-						'value'        => $commenter['comment_author'],
-						'required'     => $name_email_required,
-						'autocomplete' => 'name',
-					),
-					'email'  => array(
-						'label'        => __( 'Email', 'woocommerce' ),
-						'type'         => 'email',
-						'value'        => $commenter['comment_author_email'],
-						'required'     => $name_email_required,
-						'autocomplete' => 'email',
-					),
-				);
+                // Remove email field from the review form; keep author only.
+                $fields              = array(
+                    'author' => array(
+                        'label'        => __( 'Name', 'woocommerce' ),
+                        'type'         => 'text',
+                        'value'        => $commenter['comment_author'],
+                        'required'     => $name_email_required,
+                        'autocomplete' => 'name',
+                    ),
+                );
 
 				$comment_form['fields'] = array();
 
@@ -103,7 +97,7 @@ if ( ! comments_open() ) {
 					$field_html .= '<label for="' . esc_attr( $key ) . '" class="yekan-18 color-black-80">' . esc_html( $field['label'] );
 
 					if ( $field['required'] ) {
-						$field_html .= '&nbsp;<span class="required">*</span>';
+						$field_html .= '&nbsp;<span class="required">(اجباری)</span>';
 					}
 
 					$field_html .= '</label><input id="' . esc_attr( $key ) . '" name="' . esc_attr( $key ) . '" type="' . esc_attr( $field['type'] ) . '" autocomplete="' . esc_attr( $field['autocomplete'] ) . '" value="' . esc_attr( $field['value'] ) . '" size="30" ' . ( $field['required'] ? 'required' : '' ) . ' /></div>';
@@ -120,7 +114,7 @@ if ( ! comments_open() ) {
 				if ( wc_review_ratings_enabled() ) {
 					$icon = '<svg class="star-icon" width="20" height="20" viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M21.6086 2.63915L24.8511 9.12417C25.2933 10.0269 26.4724 10.8928 27.4673 11.0586L33.3443 12.0351C37.1027 12.6614 37.987 15.3881 35.2788 18.0779L30.7098 22.6469C29.936 23.4207 29.5122 24.913 29.7517 25.9815L31.0598 31.6375C32.0915 36.1144 29.7149 37.8462 25.7539 35.5064L20.2453 32.2455C19.2504 31.6559 17.6108 31.6559 16.5975 32.2455L11.0889 35.5064C7.14629 37.8462 4.75126 36.096 5.78297 31.6375L7.09102 25.9815C7.33053 24.913 6.90679 23.4207 6.13301 22.6469L1.56402 18.0779C-1.12579 15.3881 -0.259893 12.6614 3.49847 12.0351L9.37552 11.0586C10.352 10.8928 11.5311 10.0269 11.9732 9.12417L15.2157 2.63915C16.9844 -0.879715 19.8584 -0.879715 21.6086 2.63915Z" fill="currentColor"/></svg>';
 
-					$comment_form['comment_field'] = '<div class="comment-form-rating flex flex-col items-center"><label for="rating" id="comment-form-rating-label" class="yekan-18 color-black-80">' . 'امتیاز شما' . ( wc_review_ratings_required() ? '&nbsp;<span class="required">( اجباری )</span>' : '' ) . '</label>'
+					$comment_form['comment_field'] = '<div class="comment-form-rating flex flex-col items-center"><label for="rating" id="comment-form-rating-label" class="yekan-18 color-black-80">' . 'امتیاز شما' . ( wc_review_ratings_required() ? '&nbsp;<span class="required">(اجباری)</span>' : '' ) . '</label>'
 						. '<p class="stars"><span role="group" aria-labelledby="comment-form-rating-label">'
 							. '<a class="star-1" role="radio" aria-checked="false" href="#" tabindex="0">' . $icon . '<span class="sr-only">' . esc_html__( '1 out of 5 stars', 'woocommerce' ) . '</span></a>'
 							. '<a class="star-2" role="radio" aria-checked="false" href="#" tabindex="0">' . $icon . '<span class="sr-only">' . esc_html__( '2 out of 5 stars', 'woocommerce' ) . '</span></a>'
@@ -133,7 +127,7 @@ if ( ! comments_open() ) {
 					. '</div>';
 				}
 
-				$comment_form['comment_field'] .= '<div class="comment-form-field flex flex-col comment-form-comment"><label for="comment" class="yekan-18 color-black-80">' . esc_html__( 'Your review', 'woocommerce' ) . '&nbsp;<span class="required">*</span></label><textarea id="comment" name="comment" cols="45" rows="8" required></textarea></div>';
+				$comment_form['comment_field'] .= '<div class="comment-form-field flex flex-col comment-form-comment"><label for="comment" class="yekan-18 color-black-80">' . 'دیدگاه شما' . '&nbsp;<span class="required">(اجباری)</span></label><textarea id="comment" name="comment" cols="45" rows="8" required></textarea></div>';
 
 				comment_form( apply_filters( 'woocommerce_product_review_comment_form_args', $comment_form ) );
 				?>

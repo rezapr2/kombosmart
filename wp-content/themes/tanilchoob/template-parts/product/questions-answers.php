@@ -100,12 +100,12 @@ $questions = $questions_query->posts;
                 <input type="hidden" name="qa_name" value="<?php echo esc_attr( $display_name ); ?>" />
             <?php else : ?>
                 <div class="qa-form-field flex flex-col">
-                    <label for="qa_name" class="yekan-18 color-black-80">نام <span class="required">*</span></label>
+                    <label for="qa_name" class="yekan-18 color-black-80">نام <span class="required">(اجباری)</span></label>
                     <input id="qa_name" name="qa_name" type="text" autocomplete="name" required />
                 </div>
             <?php endif; ?>
             <div class="qa-form-field flex flex-col">
-                <label for="qa_question" class="yekan-18 color-black-80">سوال شما <span class="required">*</span></label>
+                <label for="qa_question" class="yekan-18 color-black-80">سوال شما <span class="required">(اجباری)</span></label>
                 <textarea id="qa_question" name="qa_question" cols="45" rows="6" required></textarea>
             </div>
             <div class="form-submit">

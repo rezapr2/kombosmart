@@ -25,12 +25,35 @@ class Frontend
 		// Woo single product script is heavy and we have custom UI; keep it dequeued.
 		add_action('wp_enqueue_scripts', function(){ if (is_product()) { wp_dequeue_script('wc-single-product'); } }, 100);
 
+		// Allow product reviews without requiring email (only affects product comments submission).
+		add_filter('pre_option_require_name_email', [$this, 'maybe_disable_name_email_requirement']);
+
 		// Capture product option adjustments and apply to cart item price
 		add_filter('woocommerce_add_cart_item_data', [$this, 'capture_product_option_adjustments'], 10, 3);
 		add_action('woocommerce_before_calculate_totals', [$this, 'apply_product_option_adjustments'], 10);
 		add_filter('woocommerce_get_item_data', [$this, 'render_cart_item_option_data'], 10, 2);
 		add_action('woocommerce_checkout_create_order_line_item', [$this, 'add_order_item_meta'], 10, 4);
 
+	}
+
+	/**
+	 * Disable WordPress name/email requirement for product reviews only.
+	 * This avoids server-side validation errors after removing the email field from the review form.
+	 *
+	 * @param mixed $pre The short-circuit value for the option.
+	 * @return mixed '0' to disable requirement during product review submission, or original $pre otherwise.
+	 */
+	public function maybe_disable_name_email_requirement($pre)
+	{
+		if (isset($_POST['comment_post_ID'])) {
+			$post_id = absint($_POST['comment_post_ID']);
+			if ($post_id && get_post_type($post_id) === 'product') {
+				// Return '0' to tell WP that name/email is NOT required for this submission.
+				return '0';
+			}
+		}
+		// Fall back to the actual option value for non-product contexts.
+		return $pre;
 	}
 
 	public function enqueue_scripts()
