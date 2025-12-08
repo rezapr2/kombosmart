@@ -78,34 +78,6 @@
             "append": ""
         },
         {
-            "key": "field_693533a9ae8fc",
-            "label": "ایمیل کاربر",
-            "name": "customer_email",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_693529b22e934",
-                        "operator": "==empty"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
             "key": "field_693533ee918c1",
             "label": "پاسخ این پرسش",
             "name": "answer_text",
@@ -146,5 +118,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1765094412
+    "modified": 1765213979
 }

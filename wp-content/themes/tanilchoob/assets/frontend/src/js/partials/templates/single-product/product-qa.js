@@ -22,7 +22,6 @@
             return {
                 product_id: $form.find('input[name="product_id"]').val(),
                 qa_name: $form.find('input[name="qa_name"]').val(),
-                qa_email: $form.find('input[name="qa_email"]').val(),
                 qa_question: $form.find('textarea[name="qa_question"]').val()
             };
         }

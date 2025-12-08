@@ -98,15 +98,10 @@ $questions = $questions_query->posts;
                     </div>
                 </div>
                 <input type="hidden" name="qa_name" value="<?php echo esc_attr( $display_name ); ?>" />
-                <input type="hidden" name="qa_email" value="<?php echo esc_attr( $user_email ); ?>" />
             <?php else : ?>
                 <div class="qa-form-field flex flex-col">
                     <label for="qa_name" class="yekan-18 color-black-80">نام <span class="required">*</span></label>
                     <input id="qa_name" name="qa_name" type="text" autocomplete="name" required />
-                </div>
-                <div class="qa-form-field flex flex-col">
-                    <label for="qa_email" class="yekan-18 color-black-80">ایمیل</label>
-                    <input id="qa_email" name="qa_email" type="email" autocomplete="email" />
                 </div>
             <?php endif; ?>
             <div class="qa-form-field flex flex-col">

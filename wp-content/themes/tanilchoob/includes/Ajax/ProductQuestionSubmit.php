@@ -18,11 +18,9 @@ class ProductQuestionSubmit extends AjaxHandler
 
         $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
         $author     = isset($_POST['qa_name']) ? sanitize_text_field($_POST['qa_name']) : '';
-        $email      = isset($_POST['qa_email']) ? sanitize_email($_POST['qa_email']) : '';
         $current_user = wp_get_current_user();
         if ($current_user && $current_user->ID) {
             $author = $current_user->display_name ?: $current_user->user_login;
-            $email  = $current_user->user_email;
         }
         $question   = isset($_POST['qa_question']) ? sanitize_textarea_field($_POST['qa_question']) : '';
 
@@ -66,9 +64,6 @@ class ProductQuestionSubmit extends AjaxHandler
 
         if (!empty($author)) {
             update_field( 'customer_name', $author, $question_post_id );
-        }
-        if (!empty($email)) {
-            update_field( 'customer_email', $email, $question_post_id );
         }
         if ($current_user && $current_user->ID) {
             update_field( 'customer', $current_user->ID, $question_post_id );
