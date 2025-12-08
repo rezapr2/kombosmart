@@ -58,12 +58,16 @@ if(!$testimonials_customers) {
 
       </div>
         <?php 
+        $customer_videos_gallery = get_field('customer_videos_gallery', $post_id);
         $customer_images = get_field('customer_images', $post_id);
         if($customer_images):
       ?>
       <div class="customer_images grid gap-07">
         <?php 
         $images_count = count($customer_images);
+        if($customer_videos_gallery){
+          $images_count += count($customer_videos_gallery);
+        }
         $limit = $images_count > 3 ? 3 : $images_count;
         $more_count = $images_count > 3 ? ($images_count - 3) : 0;
 
@@ -76,6 +80,17 @@ if(!$testimonials_customers) {
               'full' => esc_url($img['url']),
               'thumb' => esc_url($img['url']),
             );
+          }
+        }
+        if($customer_videos_gallery){
+          foreach ($customer_videos_gallery as $video) {
+            if (!empty($video['video_url'])) {
+              $lightbox_items[] = array(
+                'type' => 'video',
+                'video_url' => esc_url($video['video_url']),
+                'thumb' => esc_url($video['video_cover_image']['url']),
+              );
+            }
           }
         }
         $lightbox_json = wp_json_encode($lightbox_items);
