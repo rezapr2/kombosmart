@@ -425,7 +425,7 @@ $product_id = $product->get_id();
 								<a href="<?php echo isset($sub_product['link']['url']) ? $sub_product['link']['url'] : '#'; ?>" class="sub-product-info flex items-center flex-col">
 									<?php if ($sub_product['purchasable']) : ?>
 										<div class="sub-product-name yekan-18 color-black-80"><?php echo $sub_product['title']; ?></div>
-										<div class="sub-product-price yekan-16 color-primary"><?php echo $sub_product['price']; ?></div>
+                                        <div class="sub-product-price yekan-16 color-primary"><?php echo wp_kses_post( wc_price( $sub_product['price'] ) ); ?></div>
 									<?php else : ?>
 										<div class="sub-product-name yekan-18 color-black-50 text-center">غیر قابل فروش به صورت تکی</div>
 									<?php endif; ?>

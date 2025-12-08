@@ -88,11 +88,13 @@
                         '      <div class="product-gallery-main">',
                         '        <div class="swiper-container h-100 gallery-lightbox-main overflow-hidden">',
                         '          <div class="swiper-wrapper h-100"></div>',
+                        '          <div class="swiper-pagination gallery-lightbox-main-pagination"></div>',
                         '        </div>',
                         '      </div>',
                         '      <div class="product-gallery-thumbs">',
                         '        <div class="swiper-container h-100 gallery-lightbox-thumbs overflow-hidden">',
                         '          <div class="swiper-wrapper h-100"></div>',
+                        '          <div class="swiper-pagination gallery-lightbox-thumbs-pagination"></div>',
                         '        </div>',
                         '      </div>',
                         '    </div>',
@@ -161,6 +163,11 @@
                         watchSlidesProgress: true,
                         // Mousewheel control
                         mousewheel: { enabled: true },
+                        // Progress pagination to indicate available slide range
+                        pagination: {
+                            el: '#gallery-lightbox-modal .gallery-lightbox-thumbs-pagination',
+                            type: 'progressbar'
+                        },
                     });
                     $modal.data('thumbsSwiper', modalThumbs);
                 }
@@ -172,7 +179,11 @@
                         slidesPerView: 1,
                         spaceBetween: 10,
                         thumbs: { swiper: modalThumbs },
-                        zoom: { maxRatio: 2, toggle: true }
+                        zoom: { maxRatio: 2, toggle: true },
+                        pagination: {
+                            el: '#gallery-lightbox-modal .gallery-lightbox-main-pagination',
+                            type: 'fraction'
+                        }
                     });
                     $modal.data('mainSwiper', modalMain);
                 }

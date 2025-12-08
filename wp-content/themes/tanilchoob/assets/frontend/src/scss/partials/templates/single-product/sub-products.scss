@@ -32,5 +32,9 @@
                 filter: grayscale(100%);
             }
         }
+        .woocommerce-Price-currencySymbol{
+            opacity: .25;
+            margin-right: .6rem;
+        }
     }
 }
