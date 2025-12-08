@@ -127,7 +127,7 @@
                         mainHtml += '</div></div>';
                         $mainWrapper.append(mainHtml);
 
-                        var thumbHtml = '<div class="swiper-slide"><div class="thumb-item video-thumb">';
+                        var thumbHtml = '<div class="swiper-slide"><div class="thumb-item flex relative video-thumb">';
                         if (thumb) {
                             thumbHtml += '<img src="' + thumb + '" alt="" />';
                         }
@@ -142,7 +142,7 @@
                         $thumbWrapper.append(thumbHtml);
                     } else {
                         $mainWrapper.append('<div class="swiper-slide"><img src="' + full + '" alt="" /></div>');
-                        $thumbWrapper.append('<div class="swiper-slide"><div class="thumb-item"><img src="' + (thumb || full) + '" alt="" /></div></div>');
+                        $thumbWrapper.append('<div class="swiper-slide"><div class="thumb-item flex relative"><img src="' + (thumb || full) + '" alt="" /></div></div>');
                     }
                 });
 
@@ -159,6 +159,8 @@
                         direction: 'vertical',
                         watchSlidesVisibility: true,
                         watchSlidesProgress: true,
+                        // Mousewheel control
+                        mousewheel: { enabled: true },
                     });
                     $modal.data('thumbsSwiper', modalThumbs);
                 }
