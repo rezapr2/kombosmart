@@ -6,16 +6,8 @@ $description = $ctx['description'] ?? '';
 $has_specs = !empty($ctx['has_specs']);
 $product_review = $ctx['product_review'] ?? '';
 
-$product_cat = $ctx['product_cat'] ?? null;
-$product_style = $ctx['product_style'] ?? null;
-$product_group = $ctx['product_group'] ?? null;
-$usage_material = $ctx['usage_material'] ?? null;
-$material_of_bases = $ctx['material_of_bases'] ?? null;
-$coating_material = $ctx['coating_material'] ?? null;
-$wood_color = $ctx['wood_color'] ?? null;
-$fabric_type = $ctx['fabric_type'] ?? null;
-$fabric_color = $ctx['fabric_color'] ?? null;
-$drawers_type = $ctx['drawers_type'] ?? null;
+// get product categories
+$product_cats = get_the_terms(get_the_ID(), 'product_cat');
 
 
 $product_size_images = $ctx['product_size_images'] ?? [];
@@ -91,13 +83,13 @@ $play_icon_src = function_exists('get_theme_file_uri')
             if ($has_specs) : ?>
                 <div id="tab-specs-content" class="tab-content-item py-20">
                     <div class="items grid grid-cols-2 gap-07">
-                        <?php if ($product_cat) : ?>
+                        <?php if ($product_cats) : ?>
                             <div class="spec-item flex flex-col py-20 px-40 bg-black-03">
                                 <div class="spec-name yekan-20 color-black-80">دسته بندی محصول</div>
                                 <div class="spec-value yekan-18 color-black-50">
                                     <?php
                                     $cat_names = array();
-                                    foreach ($product_cat as $cat) {
+                                    foreach ($product_cats as $cat) {
                                         $cat_names[] = $cat->name;
                                     }
                                     echo implode(' | ', $cat_names);
@@ -105,124 +97,43 @@ $play_icon_src = function_exists('get_theme_file_uri')
                                 </div>
                             </div>
                         <?php endif; ?>
-                        <?php if ($product_style) : ?>
-                            <div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-                                <div class="spec-name yekan-20 color-black-80">سبک محصول</div>
-                                <div class="spec-value yekan-18 color-black-50">
+                        <?php 
+                        $product = function_exists('wc_get_product') ? wc_get_product(get_the_ID()) : null;
+                        if ($product) {
+                            $attributes = $product->get_attributes();
+                            if (!empty($attributes)) {
+                                foreach ($attributes as $attribute) {
+                                    if (!is_object($attribute) || !method_exists($attribute, 'get_visible') || !$attribute->get_visible()) {
+                                        continue;
+                                    }
+
+                                    $label = function_exists('wc_attribute_label') ? wc_attribute_label($attribute->get_name()) : $attribute->get_name();
+                                    $valueParts = [];
+
+                                    if ($attribute->is_taxonomy()) {
+                                        $terms = wc_get_product_terms($product->get_id(), $attribute->get_name(), ['fields' => 'names']);
+                                        if (!empty($terms)) {
+                                            foreach ($terms as $t) { $valueParts[] = esc_html($t); }
+                                        }
+                                    } else {
+                                        $options = $attribute->get_options();
+                                        if (!empty($options)) {
+                                            foreach ($options as $opt) { $valueParts[] = esc_html(wc_clean($opt)); }
+                                        }
+                                    }
+
+                                    if (empty($valueParts)) { continue; }
+                                    $valueStr = implode(' | ', $valueParts);
+                                    ?>
+                                    <div class="spec-item flex flex-col py-20 px-40 bg-black-03">
+                                        <div class="spec-name yekan-20 color-black-80"><?php echo esc_html($label); ?></div>
+                                        <div class="spec-value yekan-18 color-black-50"><?php echo esc_html($valueStr); ?></div>
+                                    </div>
                                     <?php
-                                    $cat_names = array();
-                                    foreach ($product_style as $cat) {
-                                        $cat_names[] = $cat->name;
-                                    }
-                                    echo implode(' | ', $cat_names);
-                                    ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($product_group) : ?>
-                            <div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-                                <div class="spec-name yekan-20 color-black-80">گروه محصول</div>
-                                <div class="spec-value yekan-18 color-black-50"><?php echo $product_group; ?></div>
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($usage_material) : ?>
-                            <div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-                                <div class="spec-name yekan-20 color-black-80">متریال مصرفی</div>
-                                <div class="spec-value yekan-18 color-black-50">
-                                    <?php
-                                    $cat_names = array();
-                                    foreach ($usage_material as $cat) {
-                                        $cat_names[] = $cat->name;
-                                    }
-                                    echo implode(' | ', $cat_names);
-                                    ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($material_of_bases) : ?>
-                            <div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-                                <div class="spec-name yekan-20 color-black-80">جنس پایه‌ها (و ستون‌ها)</div>
-                                <div class="spec-value yekan-18 color-black-50">
-                                    <?php
-                                    $cat_names = array();
-                                    foreach ($material_of_bases as $cat) {
-                                        $cat_names[] = $cat->name;
-                                    }
-                                    echo implode(' | ', $cat_names);
-                                    ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($coating_material) : ?>
-                            <div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-                                <div class="spec-name yekan-20 color-black-80">جنس روکش</div>
-                                <div class="spec-value yekan-18 color-black-50">
-                                    <?php
-                                    $cat_names = array();
-                                    foreach ($coating_material as $cat) {
-                                        $cat_names[] = $cat->name;
-                                    }
-                                    echo implode(' | ', $cat_names);
-                                    ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($wood_color) : ?>
-                            <div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-                                <div class="spec-name yekan-20 color-black-80">رنگ چوب</div>
-                                <div class="spec-value yekan-18 color-black-50">
-                                    <?php
-                                    $cat_names = array();
-                                    foreach ($wood_color as $cat) {
-                                        $cat_names[] = $cat->name;
-                                    }
-                                    echo implode(' | ', $cat_names);
-                                    ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($fabric_type) : ?>
-                            <div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-                                <div class="spec-name yekan-20 color-black-80">جنس پارچه</div>
-                                <div class="spec-value yekan-18 color-black-50">
-                                    <?php
-                                    $cat_names = array();
-                                    foreach ($fabric_type as $cat) {
-                                        $cat_names[] = $cat->name;
-                                    }
-                                    echo implode(' | ', $cat_names);
-                                    ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($fabric_color) : ?>
-                            <div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-                                <div class="spec-name yekan-20 color-black-80">رنگ پارچه</div>
-                                <div class="spec-value yekan-18 color-black-50">
-                                    <?php
-                                    $cat_names = array();
-                                    foreach ($fabric_color as $cat) {
-                                        $cat_names[] = $cat->name;
-                                    }
-                                    echo implode(' | ', $cat_names);
-                                    ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($drawers_type) : ?>
-                            <div class="spec-item flex flex-col py-20 px-40 bg-black-03">
-                                <div class="spec-name yekan-20 color-black-80">نوع کشوها</div>
-                                <div class="spec-value yekan-18 color-black-50">
-                                    <?php
-                                    $cat_names = array();
-                                    foreach ($drawers_type as $cat) {
-                                        $cat_names[] = $cat->name;
-                                    }
-                                    echo implode(' | ', $cat_names);
-                                    ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
+                                }
+                            }
+                        }
+                        ?>
                     </div>
 
                 </div>
