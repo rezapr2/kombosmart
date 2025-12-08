@@ -59,8 +59,8 @@ $play_icon_src = function_exists('get_theme_file_uri')
                     } else { ?>
                         <div class="desc-readmore slide-down-wrapper flex flex-col gap-10">
                             <div class="desc-full yekan-18 color-black-60"><?php echo nl2br($desc_text); ?></div>
-                            <div class="desc-toggle desc-toggle-more slide-down-trigger yekan-16 color-primary cursor-pointer" role="button" aria-expanded="false">نمایش بیشتر متن</div>
-                            <div class="desc-toggle desc-toggle-less slide-down-trigger yekan-16 color-primary cursor-pointer" role="button" aria-expanded="true">نمایش کمتر متن</div>
+                            <div class="desc-toggle desc-toggle-more slide-down-trigger yekan-16 color-primary pointer transition items-center" role="button" aria-expanded="false">نمایش بیشتر متن</div>
+                            <div class="desc-toggle desc-toggle-less slide-down-trigger yekan-16 color-primary pointer transition items-center" role="button" aria-expanded="true">نمایش کمتر متن</div>
                         </div>
                     <?php }
                     ?>

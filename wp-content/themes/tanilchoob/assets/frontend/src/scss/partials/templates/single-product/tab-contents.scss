@@ -60,9 +60,11 @@
     /* Toggle visibility of controls */
     .desc-readmore .desc-toggle {
         display: inline-flex;
-        align-items: center;
         gap: 6px;
         margin: 0 auto;
+        &:hover {
+            transform: scale(1.07);
+        }
     }
     .desc-readmore.active .desc-toggle-more {
         display: none;

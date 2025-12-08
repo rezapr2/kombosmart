@@ -187,8 +187,8 @@ if ($term_id) {
                     <div class="desc-full yekan-18 color-black-60">
                         <?php echo $desc_text; ?>
                     </div>
-                    <div class="desc-toggle desc-toggle-more slide-down-trigger yekan-16 color-primary cursor-pointer" role="button" aria-expanded="false">نمایش بیشتر متن</div>
-                    <div class="desc-toggle desc-toggle-less slide-down-trigger yekan-16 color-primary cursor-pointer" role="button" aria-expanded="true">نمایش کمتر متن</div>
+                    <div class="desc-toggle desc-toggle-more slide-down-trigger yekan-16 color-primary pointer transition items-center" role="button" aria-expanded="false">نمایش بیشتر متن</div>
+                    <div class="desc-toggle desc-toggle-less slide-down-trigger yekan-16 color-primary pointer transition items-center" role="button" aria-expanded="true">نمایش کمتر متن</div>
                 </div>
                 <?php
             }
