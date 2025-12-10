@@ -29,13 +29,46 @@ $questions_query = new WP_Query([
 
 $questions = $questions_query->posts;
 ?>
-<div class="product-qa flex flex-col items-center">
+<div class="product-qa flex flex-col items-center parent-wrapper">
     <div class="submit-question flex items-center justify-between w-full">
         <div class="flex flex-col">
             <h3 class="yekan-18 color-black-60">سوالتان درباره این محصول را بپرسید.</h3>
             <p class="yekan-18 color-black-40">بدون نیاز به ورود، سوالات خود را ثبت کنید و پاسخ‌ها را مشاهده کنید.</p>
         </div>
-        <a href="#qa_form_wrapper" class="submit-button yekan-18 color-white bg-black">ثبت پرسش</a>
+        <div id="submit-question" class="qa-submit submit-button yekan-18 color-white bg-black pointer">ثبت پرسش</div>
+    </div>
+
+    <div id="qa_form_wrapper" class="submit-form mt-40 hidden">
+        <form id="product-qa-form" class="qa-form">
+            <input type="hidden" name="product_id" value="<?php echo (int) $post_id; ?>" />
+            <?php if ( is_user_logged_in() ) :
+                $current_user = wp_get_current_user();
+                $display_name = $current_user->display_name ?: $current_user->user_login;
+                $user_email   = $current_user->user_email;
+            ?>
+                <div class="qa-form-field flex flex-col">
+                    <label class="yekan-18 color-black-80">ارسال با حساب</label>
+                    <div class="yekan-18 color-black-60">
+                        <?php echo esc_html( $display_name ); ?>
+                        <span class="yekan-16 color-black-40">(<?php echo esc_html( $user_email ); ?>)</span>
+                    </div>
+                </div>
+                <input type="hidden" name="qa_name" value="<?php echo esc_attr( $display_name ); ?>" />
+            <?php else : ?>
+                <div class="qa-form-field flex flex-col">
+                    <label for="qa_name" class="yekan-18 color-black-80">نام <span class="required">(اجباری)</span></label>
+                    <input id="qa_name" name="qa_name" type="text" autocomplete="name" required />
+                </div>
+            <?php endif; ?>
+            <div class="qa-form-field flex flex-col">
+                <label for="qa_question" class="yekan-18 color-black-80">سوال شما <span class="required">(اجباری)</span></label>
+                <textarea id="qa_question" name="qa_question" cols="45" rows="6" required></textarea>
+            </div>
+            <div class="form-submit">
+                <button type="submit" class="submit yekan-18">ثبت پرسش</button>
+            </div>
+            <div class="qa-form-message yekan-16" style="margin-top:0.8rem;"></div>
+        </form>
     </div>
 
     <div class="qa_list w-full">
@@ -82,38 +115,7 @@ $questions = $questions_query->posts;
         <?php endif; ?>
     </div>
 
-    <div id="qa_form_wrapper">
-        <form id="product-qa-form" class="qa-form">
-            <input type="hidden" name="product_id" value="<?php echo (int) $post_id; ?>" />
-            <?php if ( is_user_logged_in() ) :
-                $current_user = wp_get_current_user();
-                $display_name = $current_user->display_name ?: $current_user->user_login;
-                $user_email   = $current_user->user_email;
-            ?>
-                <div class="qa-form-field flex flex-col">
-                    <label class="yekan-18 color-black-80">ارسال با حساب</label>
-                    <div class="yekan-18 color-black-60">
-                        <?php echo esc_html( $display_name ); ?>
-                        <span class="yekan-16 color-black-40">(<?php echo esc_html( $user_email ); ?>)</span>
-                    </div>
-                </div>
-                <input type="hidden" name="qa_name" value="<?php echo esc_attr( $display_name ); ?>" />
-            <?php else : ?>
-                <div class="qa-form-field flex flex-col">
-                    <label for="qa_name" class="yekan-18 color-black-80">نام <span class="required">(اجباری)</span></label>
-                    <input id="qa_name" name="qa_name" type="text" autocomplete="name" required />
-                </div>
-            <?php endif; ?>
-            <div class="qa-form-field flex flex-col">
-                <label for="qa_question" class="yekan-18 color-black-80">سوال شما <span class="required">(اجباری)</span></label>
-                <textarea id="qa_question" name="qa_question" cols="45" rows="6" required></textarea>
-            </div>
-            <div class="form-submit">
-                <button type="submit" class="submit yekan-18">ثبت پرسش</button>
-            </div>
-            <div class="qa-form-message yekan-16" style="margin-top:0.8rem;"></div>
-        </form>
-    </div>
+    
 
     <div class="clear"></div>
 </div>

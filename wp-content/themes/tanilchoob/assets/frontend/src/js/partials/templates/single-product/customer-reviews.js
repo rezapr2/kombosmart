@@ -2,6 +2,14 @@
 
 (function ($) {
     jQuery(document).ready(function ($) {
+
+        // submit-button click event
+        $('.qa-submit.submit-button, .reviews-submit.submit-button').on('click', function (e) {
+            e.preventDefault();
+            var $parentWrapper = $(this).closest('.parent-wrapper');
+            $parentWrapper.find('.submit-form').removeClass('hidden');
+        });
+
         var $container = $('#respond .comment-form-rating p.stars');
         if (!$container.length) return;
 

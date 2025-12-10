@@ -24,44 +24,16 @@ if ( ! comments_open() ) {
 }
 
 ?>
-<div id="reviews" class="woocommerce-Reviews customer-reviews flex flex-col items-center">
+<div id="reviews" class="woocommerce-Reviews customer-reviews flex flex-col items-center parent-wrapper">
 	<div class="submit-review flex items-center justify-between w-full">
 		<div class="flex flex-col">
 			<h3 class="yekan-18 color-black-60">شما هم درباره این کالا دیدگاه ثبت کنید.</h3>
 			<p class="yekan-18 color-black-40">بدون نیاز به وارد شدن به حساب کاربری، نظر خود را در رابطه بااین کالا ثبت کنید و به نظرات دیگران امتیاز دهید.</p>
 		</div>
-		<div class="submit-button yekan-18 color-white bg-black">ثبت دیدگاه</div>
+		<div id="submit-review" class="reviews-submit submit-button yekan-18 color-white bg-black pointer">ثبت دیدگاه</div>
 	</div>
-	<div id="comments" class="reviews_list w-full">
-		
-		<?php if ( have_comments() ) : ?>
-			<ul class="commentlist">
-				<?php wp_list_comments( apply_filters( 'woocommerce_product_review_list_args', array( 'callback' => 'woocommerce_comments' ) ) ); ?>
-			</ul>
-
-			<?php
-			if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
-				echo '<nav class="woocommerce-pagination">';
-				paginate_comments_links(
-					apply_filters(
-						'woocommerce_comment_pagination_args',
-						array(
-							'prev_text' => is_rtl() ? '&rarr;' : '&larr;',
-							'next_text' => is_rtl() ? '&larr;' : '&rarr;',
-							'type'      => 'list',
-						)
-					)
-				);
-				echo '</nav>';
-			endif;
-			?>
-		<?php else : ?>
-			<p class="woocommerce-noreviews yekan-18 color-black-60 w-full"><?php esc_html_e( 'There are no reviews yet.', 'woocommerce' ); ?></p>
-		<?php endif; ?>
-	</div>
-
 	<?php if ( get_option( 'woocommerce_review_rating_verification_required' ) === 'no' || wc_customer_bought_product( '', get_current_user_id(), $product->get_id() ) ) : ?>
-		<div id="review_form_wrapper">
+		<div id="review_form_wrapper" class="submit-form mt-40 hidden">
 			<div id="review_form">
 				<?php
 				$commenter    = wp_get_current_commenter();
@@ -136,6 +108,35 @@ if ( ! comments_open() ) {
 	<?php else : ?>
 		<p class="woocommerce-verification-required"><?php esc_html_e( 'Only logged in customers who have purchased this product may leave a review.', 'woocommerce' ); ?></p>
 	<?php endif; ?>
+	<div id="comments" class="reviews_list w-full">
+		
+		<?php if ( have_comments() ) : ?>
+			<ul class="commentlist">
+				<?php wp_list_comments( apply_filters( 'woocommerce_product_review_list_args', array( 'callback' => 'woocommerce_comments' ) ) ); ?>
+			</ul>
+
+			<?php
+			if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
+				echo '<nav class="woocommerce-pagination">';
+				paginate_comments_links(
+					apply_filters(
+						'woocommerce_comment_pagination_args',
+						array(
+							'prev_text' => is_rtl() ? '&rarr;' : '&larr;',
+							'next_text' => is_rtl() ? '&larr;' : '&rarr;',
+							'type'      => 'list',
+						)
+					)
+				);
+				echo '</nav>';
+			endif;
+			?>
+		<?php else : ?>
+			<p class="woocommerce-noreviews yekan-18 color-black-60 w-full"><?php esc_html_e( 'There are no reviews yet.', 'woocommerce' ); ?></p>
+		<?php endif; ?>
+	</div>
+
+	
 
 	<div class="clear"></div>
 </div>
