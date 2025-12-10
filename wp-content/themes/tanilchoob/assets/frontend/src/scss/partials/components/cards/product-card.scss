@@ -47,6 +47,11 @@
   
   &__title {    
     a {
+      width: 88%;
+      overflow: hidden;
+      display: flex;
+      text-wrap-mode: nowrap;
+      white-space: nowrap;
       &:hover {
         color: #666;
       }

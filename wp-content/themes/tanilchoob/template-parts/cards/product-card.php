@@ -28,6 +28,25 @@ $average_rating = $product->get_average_rating();
 $rating_count = $product->get_rating_count();
 $on_sale = $product->is_on_sale();
 
+// If product is variable, show default variation price instead of price range
+if ($product->is_type('variable')) {
+    $attributes = $product->get_default_attributes();
+    if (!empty($attributes)) {
+        foreach ( $attributes as $key => $value ) { 
+            $attributes[ 'attribute_' . $key ] = $value;
+            unset( $attributes[ $key ] );
+        }
+        $data_store = \WC_Data_Store::load('product');
+        $default_variation_id = $data_store->find_matching_product_variation($product, $attributes);
+        if ($default_variation_id) {
+            $default_variation = wc_get_product($default_variation_id);
+            if ($default_variation && $default_variation->get_price_html()) {
+                $price_html = $default_variation->get_price_html();
+            }
+        }
+    }
+}
+
 // Calculate discount percentage if on sale
 $discount_percentage = 0;
 if ($on_sale && $regular_price > 0) {
