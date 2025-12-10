@@ -61,6 +61,21 @@ function scssBuild(done) {
   )
 }
 
+// Build standalone CSS bundles for page templates (do not merge into main styles)
+function scssPageTemplatesBuild(done) {
+  return (
+      src("./assets/frontend/src/scss/partials/page-templates/*.scss")
+          .pipe(plumber({errorHandler: onError}))
+          .pipe(sassGlob())
+          .pipe(sourcemaps.init())
+          .pipe(sass(sassOptions))
+          .pipe(sourcemaps.write())
+          .pipe(prefix(prefixerOptions))
+          .pipe(cssmin({zindex: false}))
+          .pipe(dest("./assets/frontend/dist/css/page-templates"))
+  )
+}
+
 function cssConcat(done) {
   // An array of the two temp (concatenated) files.
   const files = ["./tmp/main.deps.css", "./tmp/main.build.css"]
@@ -169,7 +184,7 @@ task('fonts', function () {
       .pipe(dest('./assets/frontend/dist/fonts'));
 });
 
-task('styles', series(parallel(cssDeps, scssBuild), cssConcat, cssClean, function (cb) {
+task('styles', series(parallel(cssDeps, scssBuild, scssPageTemplatesBuild), cssConcat, cssClean, function (cb) {
   cb()
 }));
 
@@ -180,6 +195,7 @@ task('scripts', series(parallel(jsDeps, jsBuild), jsConcat, jsClean, function (c
 task('watch', series(function (cb) {
   watch(['./assets/frontend/src/vendors/css/**/*.css'], series('styles'));
   watch(['./assets/frontend/src/scss/**/*.scss'], series('styles'));
+  watch(['./assets/frontend/src/scss/partials/page-templates/*.scss'], series(scssPageTemplatesBuild));
   watch(['./assets/frontend/src/vendors/js/**/*.js'], series('scripts'));
   watch(['./assets/frontend/src/js/partials/**/*.js'], series('scripts'));
   watch(['./assets/frontend/src/images'], series('images'));

@@ -69,6 +69,19 @@ class Frontend
 
 			wp_enqueue_style('tanilchoob', get_template_directory_uri() . $css_relative_path, [], $css_version);
 
+			// Conditionally enqueue standalone CSS for specific page templates
+			$template_slug = function_exists('get_page_template_slug') ? get_page_template_slug() : '';
+			if ($template_slug) {
+				// Expect template slugs like 'page-templates/contact-us.php'
+				$basename = basename($template_slug, '.php');
+				$pt_css_rel = '/assets/frontend/dist/css/page-templates/' . $basename . '.css';
+				$pt_css_abs = get_theme_file_path($pt_css_rel);
+				if (file_exists($pt_css_abs)) {
+					$pt_ver = filemtime($pt_css_abs);
+					wp_enqueue_style('tanilchoob-' . $basename, get_template_directory_uri() . $pt_css_rel, ['tanilchoob'], $pt_ver);
+				}
+			}
+
 			wp_enqueue_script('scripts', get_template_directory_uri() . $js_relative_path, ['jquery'], $js_version);
 			wp_localize_script('scripts', 'tanilchoob', [
 				'ajax' => [
