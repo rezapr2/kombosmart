@@ -55,4 +55,13 @@
             color: #d10000;
         }
     }
+    .address-item{
+        .address-text, .address-on-apps{
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 1rem 2.5rem;
+        }
+        .address-on-apps{
+            width: 52%;
+        }
+    }
 }
