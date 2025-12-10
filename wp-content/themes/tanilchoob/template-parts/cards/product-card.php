@@ -6,8 +6,6 @@
  * @package TanilChoob
  */
 
-use TanilChoob\Theme\Helper;
-
 // Get product data if not provided
 $product_id = isset($args['product_id']) ? $args['product_id'] : get_the_ID();
 $product = wc_get_product($product_id);
