@@ -54,8 +54,12 @@
             for (var key in variationAttrs) {
                 if (!variationAttrs.hasOwnProperty(key)) continue;
                 var vVal = normalize(variationAttrs[key]);
+                // Treat empty variation attribute as wildcard (no constraint)
+                if (!vVal) {
+                    continue;
+                }
                 var sVal = normalize(selections[key]);
-                // Must have a concrete selection and match the variation's attribute value
+                // Must have a concrete selection and match the variation's non-empty attribute value
                 if (!sVal || sVal !== vVal) {
                     return false;
                 }
@@ -103,6 +107,9 @@
                     break;
                 }
             }
+            console.log('variations', variations);
+            console.log('selections', selections);
+            console.log('match', match);
 
             var $priceBox = $form.find('.tanil-variation-price');
             if ($priceBox.length) {
