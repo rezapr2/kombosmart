@@ -3,12 +3,20 @@
 $ctx = get_query_var('product_tabs');
 
 $description = $ctx['description'] ?? '';
-$has_specs = !empty($ctx['has_specs']);
-$product_review = $ctx['product_review'] ?? '';
 
 // get product categories
 $product_cats = get_the_terms(get_the_ID(), 'product_cat');
 
+
+$has_specs = false;
+
+$product = function_exists('wc_get_product') ? wc_get_product(get_the_ID()) : null;
+$attributes = $product->get_attributes();
+if (($product && (!empty($attributes)) || $product_cats)) {
+    $has_specs = true;
+}
+
+$product_review = $ctx['product_review'] ?? '';
 
 $product_size_images = $ctx['product_size_images'] ?? [];
 $product_maintenance = $ctx['product_maintenance'] ?? '';
@@ -98,9 +106,7 @@ $play_icon_src = function_exists('get_theme_file_uri')
                             </div>
                         <?php endif; ?>
                         <?php 
-                        $product = function_exists('wc_get_product') ? wc_get_product(get_the_ID()) : null;
                         if ($product) {
-                            $attributes = $product->get_attributes();
                             if (!empty($attributes)) {
                                 foreach ($attributes as $attribute) {
                                     if (!is_object($attribute) || !method_exists($attribute, 'get_visible') || !$attribute->get_visible()) {

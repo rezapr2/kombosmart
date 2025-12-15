@@ -445,36 +445,7 @@ $product_id = $product->get_id();
 	// Prepare tabs context and include template part.
 	$description = $product->get_description();
 
-	$product_cat = get_field('product_cat');
-	$product_style = get_field('product_style');
-	$product_group = get_field('product_group');
-	$usage_material = get_field('usage_material');
-	$material_of_bases = get_field('material_of_bases');
-	$coating_material = get_field('coating_material');
-	$wood_color = get_field('wood_color');
-	$fabric_color = get_field('fabric_color');
-	$fabric_type = get_field('fabric_type');
-	$drawers_type = get_field('drawers_type');
 
-	$specs_fields = array(
-		$product_cat,
-		$product_style,
-		$product_group,
-		$usage_material,
-		$material_of_bases,
-		$coating_material,
-		$wood_color,
-		$fabric_color,
-		$fabric_type,
-		$drawers_type
-	);
-	$has_specs = false;
-	foreach ($specs_fields as $spec) {
-		if (!empty($spec)) {
-			$has_specs = true;
-			break;
-		}
-	}
 
 
 
@@ -487,18 +458,7 @@ $product_id = $product->get_id();
 
 	$__product_tabs_ctx = array(
 		'description' => $description,
-		'has_specs' => $has_specs,
 		'product_review' => $product_review,
-		'product_cat' => $product_cat,
-		'product_style' => $product_style,
-		'product_group' => $product_group,
-		'usage_material' => $usage_material,
-		'material_of_bases' => $material_of_bases,
-		'coating_material' => $coating_material,
-		'wood_color' => $wood_color,
-		'fabric_type' => $fabric_type,
-		'fabric_color' => $fabric_color,
-		'drawers_type' => $drawers_type,
 		'product_size_images' => $product_size_images,
 		'product_maintenance' => $product_maintenance,
 		'production_process_video_link' => $production_process_video_link,
