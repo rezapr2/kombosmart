@@ -1,0 +1,37 @@
+.page-template-about-us {
+    .content-box{
+        border: .6rem solid #F5F3FE;
+        &.tanil-story{
+            background-color: #F5F3FE;
+            .image-box{
+                width: 45%;
+            }
+        }
+        .image-box{
+            width: 40%;
+        }
+        .story-box{
+            padding: 2rem 3rem;
+        }
+    }
+    .positive_items_list{
+        .positive_item{
+            padding: 2.4rem 0;
+            border-bottom: .25rem solid rgba(0, 0, 0, 0.1);
+        }
+    }
+    .honors_items_list{
+        .honor_item{
+            border: .25rem solid rgba(0, 0, 0, 0.15);
+            padding: 1.2rem;
+            .image{
+                height: 18rem;
+                width: 100%;
+                object-fit: cover;
+                img{
+                    aspect-ratio: 1.3;
+                }
+            }
+        }
+    }
+}
