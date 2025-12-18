@@ -1,0 +1,77 @@
+.page-template-purchase-conditions {
+    .hero {
+        .title {
+            background: #7aca8b;
+            font-size: 4.8rem;
+            transform: rotate(-1.61deg);
+            &::before,
+            &::after {
+                content: '';
+                position: absolute;
+                background: url(../../images/light_lines.svg) no-repeat 50%;
+                background-size: cover;
+                width: 3.8rem;
+                height: 4.2rem;
+                top: -3rem;
+            }
+            &::before {
+                left: -3rem;
+            }
+            &::after {
+                right: -3rem;
+                transform: rotate(100deg);
+            }
+        }
+        .line {
+            margin-top: 12rem;
+        }
+    }
+    .why_tanil{
+        margin-top: 8rem;
+        .description{
+            width: 80%;
+        }
+        .cards{
+            .card{
+                padding: 2rem 0;
+            }
+            .card:nth-child(1) {
+                .title { color: #5D0E87; }
+            }
+            .card:nth-child(2) {
+                .title { color: #0C6FFF; }
+            }
+            .card:nth-child(3) {
+                .title { color: #FF6200; }
+            }
+        }
+    }
+    .compare_purchase-conditions {
+        .conditions-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+        .conditions-table {
+            width: 100%;
+            border-collapse: collapse;
+            direction: rtl;
+            thead tr th {
+                background: rgba(93, 14, 135, 0.1);
+                color: #5D0E87;
+                padding: 2.3rem 1.6rem;
+                text-align: center;
+                font-size: 1.8rem;
+                font-weight: 400;
+            }
+            tbody tr td {
+                padding: 1rem 1.6rem;
+                text-align: center;
+                border-top: 1px solid rgba(0,0,0,0.08);
+                font-size: 1.6rem;
+                color: #1F1F1F;
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+            }
+        }
+    }
+}
+
