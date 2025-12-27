@@ -64,7 +64,7 @@ $add_to_cart_text = isset($args['add_to_cart_text']) ? $args['add_to_cart_text']
                 </div>
             <?php endif; ?>
             <a href="<?php echo esc_url($permalink); ?>">
-                <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
+                <img class="object-cover" src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
             </a>
         </div>
         <div class="product-card__content flex flex-col justify-between">

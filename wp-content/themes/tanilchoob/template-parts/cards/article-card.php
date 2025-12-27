@@ -19,7 +19,7 @@ $read_more_text = isset($args['read_more_text']) ? $args['read_more_text'] : 'ا
     <div class="article-card__inner flex">
         <?php if ($image_url): ?>
         <div class="article-card__image relative overflow-hidden h-auto flex-shrink-0 transition">
-            <img class="transition" src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
+            <img class="transition object-cover" src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
         </div>
         <?php endif; ?>
         <div class="article-card__content flex flex-col gap-07">
