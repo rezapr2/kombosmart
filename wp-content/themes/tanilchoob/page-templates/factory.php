@@ -21,7 +21,6 @@ if (function_exists('woocommerce_breadcrumb')) {
 $page_id = get_queried_object_id();
 
 $about_factory_text = get_field('about_factory_text', $page_id);
-$tanilchoob_story_image = get_field('tanilchoob_story_image', $page_id);
 $about_factory_video_poster = get_field('about_factory_video_poster', $page_id);
 $about_factory_video_url = get_field('about_factory_video_url', $page_id);
 $page_blocks = get_field('page_blocks', $page_id);

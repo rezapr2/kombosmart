@@ -1,0 +1,61 @@
+.page-template-material {
+    .hero {
+        background-color: #FDFAFF;
+        padding-top: 4rem;
+        padding-bottom: 6rem;
+
+        .title {
+            font-size: 4.2rem;
+        }
+
+        .line {
+            margin-top: 12rem;
+        }
+    }
+
+    .page_blocks_title {
+        background-color: rgba($color: #5D0E87, $alpha: 0.03);
+        padding: 1.5rem;
+    }
+
+    .why_material{
+        .image-box{
+            width: 40%;
+            margin-right: 2rem;
+        }
+    }
+
+    .content-box {
+
+        .image-box {
+            width: 30%;
+            &::after{
+                content: '';
+                position: absolute;
+                background: linear-gradient(270deg, #F7F7F7 0%, rgba(247, 247, 247, 0) 100%);
+                height: 100%;
+                right: 0;
+                width: 100%;
+                top: 0;
+            }
+        }
+        .features{
+            li{
+                background-color: rgba($color: #5D0E87, $alpha: 0.08);
+                padding: 1rem 2.5rem;
+                border-radius: 5rem;
+            }
+        }
+
+    }
+    .call-us{
+        background-color: rgba($color: #5D0E87, $alpha: 0.1);
+        padding: 4rem;
+        .button{
+            a{
+                padding: 1rem 6rem;
+            }
+        }
+    }
+
+}
