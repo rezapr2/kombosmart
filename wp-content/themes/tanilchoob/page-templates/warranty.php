@@ -50,6 +50,25 @@ $boxes = isset($top_boxes['boxes']) ? $top_boxes['boxes'] : [];
                 <?php echo get_field('warranty_terms', $page_id) ?: ''; ?>
             </div>
         </div>
+
+    </section>
+    <section >
+       
+
+        <div class="warranty_gallery mt-30">
+            <?php if (get_field('warranty_gallery', $page_id)) : ?>
+                <div class="swiper">
+				<div class="swiper-wrapper">
+					<?php foreach (get_field('warranty_gallery', $page_id) as $image) : ?>
+							<div class="swiper-slide">
+								<img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>">
+							</div>
+							<?php endforeach; ?>
+		    				</div>
+
+					</div>
+            <?php endif; ?>
+        </div>
     </section>
     <?php
     $form_id = get_field('form_id', $page_id) ?: [];
