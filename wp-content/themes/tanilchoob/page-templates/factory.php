@@ -43,7 +43,7 @@ $page_blocks = get_field('page_blocks', $page_id);
                 <div class="dark-overlay z-index-1"></div>
                 <a class=" relative video-lightbox" data-video-url="<?php echo esc_url($about_factory_video_url); ?>">
                     <img class="poster object-cover flex w-100" src="<?php echo esc_url($about_factory_video_poster['url']); ?>"
-                        alt="<?php echo esc_attr($page_title); ?>">
+                        alt="<?php the_title(); ?>">
                     <div class="absolute center z-index-5">
                         <img class="" src="<?php echo Helper::getAssetUri('images/play_icon.svg'); ?>" alt="Play Icon">
                     </div>
