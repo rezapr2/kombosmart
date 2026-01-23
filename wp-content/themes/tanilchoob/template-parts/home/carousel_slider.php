@@ -31,24 +31,24 @@ $carousel_slider_card = isset($args['card']) ? $args['card'] : 'article-card';
       <?php endif; ?>
       <?php if (isset($args['end_off_sale'])): ?>
         <div class="countdown-timer regular color-primary" data-end-date="<?php echo esc_attr($args['end_off_sale']); ?>">
-          <div class="countdown-timer__time flex items-center gap-10">
-            <span class="countdown-timer__seconds yekan-26 circle-radius">00</span>:
-            <span class="countdown-timer__minutes yekan-26 circle-radius">00</span>:
-            <span class="countdown-timer__hours yekan-26 circle-radius">00</span>:
-            <span class="countdown-timer__days yekan-26 circle-radius">00</span>
+          <div class="countdown-timer__time flex items-center gap-05 md:gap-10">
+            <span class="countdown-timer__seconds yekan-14 md:yekan-26 circle-radius">00</span>:
+            <span class="countdown-timer__minutes yekan-14 md:yekan-26 circle-radius">00</span>:
+            <span class="countdown-timer__hours yekan-14 md:yekan-26 circle-radius">00</span>:
+            <span class="countdown-timer__days yekan-14 md:yekan-26 circle-radius">00</span>
           </div>
         </div>
       <?php endif; ?>
       <div class="flex gap-10">
         <!-- Navigation buttons -->
-        <div class="button-prev circle-radius <?php echo $color; ?> flex item-center pointer transition">
+        <div class="button-prev circle-radius <?php echo $color; ?> hidden md:flex item-center pointer transition">
           <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-right.svg')); ?>
         </div>
-        <div class="button-next circle-radius <?php echo $color; ?> flex item-center pointer transition">
+        <div class="button-next circle-radius <?php echo $color; ?> hidden md:flex item-center pointer transition">
           <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-right.svg')); ?>
         </div>
         <?php if (isset($args['button_link'])): ?>
-          <a href="<?php echo $args['button_link']; ?>" class="<?php echo ($color === 'white' ? 'color-white ' : 'color-black-80 '); echo $color; ?> archive-btn transition yekan-20 regular  flex items-center gap-10">
+          <a href="<?php echo $args['button_link']; ?>" class="<?php echo ($color === 'white' ? 'color-white ' : 'color-black-80 '); echo $color; ?> archive-btn transition yekan-14 md:yekan-20 regular  flex items-center gap-10">
             <?php echo isset($args['button_text']) ? $args['button_text'] : 'مشاهده همه'; ?>
             <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-circle.svg')); ?>
           </a>

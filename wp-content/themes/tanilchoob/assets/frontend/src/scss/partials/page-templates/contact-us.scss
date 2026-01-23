@@ -36,6 +36,15 @@
                 }
             }
         }
+            @media (max-width: 768px) {
+                width: 100%;
+                .wpcf7-form {
+                    font-size: 1.4rem;
+                    .wpcf7-submit {
+                        width: 100%;
+                    }
+                }
+            }
     }
     .contact-info {
         border: 1px solid rgba(0, 0, 0, 0.05);
@@ -51,6 +60,9 @@
         border: 1px solid rgba(0, 0, 0, 0.05);
         padding: 2rem 1.5rem;
         color: #734b6c;
+        @media (max-width: 768px) {
+            padding: 1rem .5rem;
+        }
         a {
             color: #d10000;
         }
@@ -62,6 +74,15 @@
         }
         .address-on-apps{
             width: 52%;
+        }
+        @media (max-width: 768px) {
+            .address-text, .address-on-apps{
+                padding: 1rem;
+            }
+            .address-on-apps{
+                width: 100%;
+                box-sizing: border-box;
+            }
         }
     }
 }

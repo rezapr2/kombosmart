@@ -7,7 +7,7 @@ $header_logo = get_field('header_logo', 'options');
 <header id="main_header" class="header">
     <div class="top-row flex items-center justify-between container">
         <div class="top-row__right flex items-center">
-            <a class="logo" href="<?php echo home_url(); ?>">
+            <a class="logo hidden md:flex" href="<?php echo home_url(); ?>">
                 <img src="<?php echo isset($header_logo['url']) ? $header_logo['url'] : ''; ?>"
                     alt="<?php bloginfo('name'); ?>">
             </a>
@@ -20,7 +20,7 @@ $header_logo = get_field('header_logo', 'options');
                 </form>
             </div>
         </div>
-        <div class="top-row__left flex">
+        <div class="top-row__left hidden md:flex ">
             <div class="bascket-btn flex item-center transition pointer">
                 <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/shopping-cart.svg')); ?>
             </div>
@@ -30,7 +30,7 @@ $header_logo = get_field('header_logo', 'options');
         </div>
 
     </div>
-    <div class="header__menu flex items-center container">
+    <div class="header__menu hidden md:flex items-center container">
         <div class="products-menu-dropdown flex items-center">
             <div class="burger-menu-btn">
                 <div class="btn btn--primary">

@@ -26,15 +26,15 @@ $about_factory_video_url = get_field('about_factory_video_url', $page_id);
 $page_blocks = get_field('page_blocks', $page_id);
 ?>
 <div id="page-factory" class="page-template-factory">
-    <section class="hero container flex flex-col items-center">
+    <section class="hero container flex flex-col gap-10 items-center">
         <h1 class="title color-primary bold relative"><?php the_title(); ?></h1>
-        <div class="hero_subtitle color-black-70 yekan-20"><?php echo get_field('hero_subtitle', $page_id) ?: ''; ?></div>
+        <div class="hero_subtitle color-black-70 yekan-12 md:yekan-20 text-center"><?php echo get_field('hero_subtitle', $page_id) ?: ''; ?></div>
     </section>
     <section class="flex flex-col gap-07">
-        <div class="content-box tanil-story flex items-center gap-20">
+        <div class="content-box tanil-story flex flex-col-reverse md:flex-row items-center gap-20">
             <div class="story-box flex-1 flex flex-col gap-07">
-                <h2 class="title color-black regular yekan-28 ">درباره کارخانه تانیل چوب</h2>
-                <div class="description yekan-18 color-black-50">
+                <h2 class="title color-black regular yekan-22 md:yekan-28 text-center md:text-right">درباره کارخانه تانیل چوب</h2>
+                <div class="description yekan-14 md:yekan-18 color-black-50 text-center md:text-right">
                     <?php echo $about_factory_text ? $about_factory_text : ''; ?>
                 </div>
             </div>
@@ -54,7 +54,7 @@ $page_blocks = get_field('page_blocks', $page_id);
         
     </section>
     <section class="container flex flex-col gap-20">
-        <div class="page_blocks_title text-center yekan-28 bold color-primary mt-30">
+        <div class="page_blocks_title text-center yekan-18 md:yekan-28 bold color-primary mt-30">
             بخش هاى مختلف كارخانه تانيل چوب
         </div>
         <?php
@@ -62,10 +62,10 @@ $page_blocks = get_field('page_blocks', $page_id);
             foreach ($page_blocks as $index => $block) :
                 // Apply reverse flex direction on odd items (1-based indexing)
                 $is_odd = (($index + 1) % 2 === 1);
-                $reverse_class = $is_odd ? 'flex-row-reverse' : ''; ?>
-                <div class="content-box flex items-center gap-20 <?php echo $reverse_class; ?>">
+                $reverse_class = $is_odd ? 'md:flex-row-reverse' : 'md:flex-row'; ?>
+                <div class="content-box flex items-center gap-20 flex-col-reverse <?php echo $reverse_class; ?>">
                     <div class="story-box flex-1 flex flex-col gap-07">
-                        <h2 class="title color-primary yekan-25 ">
+                        <h2 class="title color-primary yekan-22 md:yekan-25 text-center md:text-right">
                             <?php
                             if (isset($block['title_url'])) {
                                 echo '<a class="color-primary" href="' . $block['title_url'] . '" target="_blank">' . $block['title'] . '</a>';
@@ -74,7 +74,7 @@ $page_blocks = get_field('page_blocks', $page_id);
                             }
                             ?>
                         </h2>
-                        <div class="description yekan-16 color-black-70">
+                        <div class="description yekan-16 color-black-70 text-center md:text-right">
                             <?php echo $block['text'] ?: ''; ?>
                         </div>
                     </div>
@@ -89,19 +89,19 @@ $page_blocks = get_field('page_blocks', $page_id);
         ?>
     </section>
     <section class="container flex flex-col gap-20">
-        <div class="page_blocks_title text-center yekan-28 bold color-primary mt-30">
+        <div class="page_blocks_title text-center yekan-18 md:yekan-28 bold color-primary mt-30">
             ارتباط با کارخانه
         </div>
         <?php
         $address = get_field('factory_address', $page_id);
         ?>
-        <div class="flex gap-20">
-                <div class="address-text yekan-18 color-black-80">
+        <div class="flex flex-col md:flex-row gap-20">
+                <div class="address-text yekan-14 md:yekan-18 color-black-80">
                     <?php echo $address['address']; ?>
                 </div>
                 <div class="address-on-apps flex flex-shrink-0 items-center gap-30">
-                    <label class="yekan-18 color-black-80 flex-shrink-0" for="address-on-apps">مسیریابی با:</label>
-                    <div class="apps flex items-center justify-between w-100">
+                    <label class="yekan-14 md:yekan-18 color-black-80 flex-shrink-0" for="address-on-apps">مسیریابی با:</label>
+                    <div class="apps flex gap-10 items-center justify-between w-100">
                         <?php if($address['google_map']): ?>
                         <a href="<?php echo $address['google_map']; ?>" target="_blank" class="app-item">
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/frontend/dist/images/icon_googlemaps.png" alt="Google Maps">

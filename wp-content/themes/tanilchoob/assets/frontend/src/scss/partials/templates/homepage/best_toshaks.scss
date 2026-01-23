@@ -17,4 +17,19 @@
             width: 13.5rem;
         }
     }
+    @media (max-width: 768px) {
+        .description{
+            width: 100%;
+        }
+        .bottom-row{
+            padding: 2rem 1rem;
+        }
+        .brands{
+            gap: 2rem;
+            margin-top: 2rem;
+            img{
+                width: 100%;
+            }
+        }
+    }
 }

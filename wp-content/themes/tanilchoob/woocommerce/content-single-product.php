@@ -25,12 +25,13 @@ if (post_password_required()) {
 }
 
 $product_id = $product->get_id();
+$product_status = get_post_meta($product_id, '_product_status', true);
 ?>
 <div id="product-<?php $product_id; ?>" <?php wc_product_class('', $product); ?>>
-	<div class="product-container container flex gap-15 mt-40 mb-40">
+	<div class="product-container md:container flex flex-col-reverse md:flex-row gap-15 mt-10 md:mt-40 mb-40">
 		<div class="product-summary flex flex-col gap-04">
-			<h1 class="product-title"><?php the_title(); ?></h1>
-			<ul class="product-comments-ratings flex items-center yekan-16 gap-10">
+			<h1 class="product-title hidden md:flex"><?php the_title(); ?></h1>
+			<ul class="product-comments-ratings flex items-center yekan-12 md:yekan-16 gap-10 justify-center md:justify-content-start">
 				<li class="product-comments">
 					<?php
 					// Display average rating and count in the desired format: "3.1 ⭐ (15نفر)"
@@ -88,10 +89,9 @@ $product_id = $product->get_id();
 				</div>
 
 			<?php endif; ?>
-			<div class="product-status flex gap-10 px-25 items-center">
-				<span class="yekan-18">وضعیت محصول :</span>
+			<div class="product-status flex gap-10 px-25 items-center <?php echo $product_status; ?>">
+				<span class="yekan-12 md:yekan-18">وضعیت محصول :</span>
 				<?php
-				$product_status = get_post_meta($product_id, '_product_status', true);
 				$status_labels = array(
 					'in_stock' => __('موجود و آماده ارسال', 'tanilchoob'),
 					'in_produce' => __('در حال تولید', 'tanilchoob'),
@@ -100,7 +100,7 @@ $product_id = $product->get_id();
 				);
 				$status_label = isset($status_labels[$product_status]) ? $status_labels[$product_status] : $status_labels['in_stock'];
 				?>
-				<span class="yekan-20 color-primary bold"><?php echo esc_html($status_label); ?></span>
+				<span class="yekan-12 md:yekan-20 color-primary bold product-status-label"><?php echo esc_html($status_label); ?></span>
 			</div>
 			<?php
 			$product_components_text = get_field('product_components_text', $product_id);
@@ -108,7 +108,7 @@ $product_id = $product->get_id();
 			?>
 				<div class="accordion-box slide-down-wrapper flex flex-col gap-10">
 					<div class="box-title flex items-center justify-between">
-						<span class="yekan-18 color-black-60">اجزای محصول:</span>
+						<span class="yekan-14 md:yekan-18 color-black-60">اجزای محصول:</span>
 						<div class="slide-down-trigger transition" role="button" aria-expanded="false">
 							<svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M0.75 6L6.01498 0.749929L11.28 6" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -116,7 +116,7 @@ $product_id = $product->get_id();
 						</div>
 
 					</div>
-					<div class="content slide-down-content yekan-18 color-primary"><?php echo $product_components_text; ?></div>
+					<div class="content slide-down-content yekan-14 md:yekan-18 color-primary"><?php echo $product_components_text; ?></div>
 				</div>
 			<?php endif; ?>
 
@@ -135,7 +135,7 @@ $product_id = $product->get_id();
 			if (!empty($adjustment_options)) : ?>
 				<div class="accordion-box slide-down-wrapper flex flex-col gap-10">
 					<div class="box-title flex items-center justify-between">
-						<span class="yekan-18 color-black-60">تغییر در متعلقات ست:</span>
+						<span class="yekan-14 md:yekan-18 color-black-60">تغییر در متعلقات ست:</span>
 						<div class="slide-down-trigger transition" role="button" aria-expanded="false">
 							<svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M0.75 6L6.01498 0.749929L11.28 6" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -143,7 +143,7 @@ $product_id = $product->get_id();
 						</div>
 
 					</div>
-					<div class="content slide-down-content yekan-18 color-primary">
+					<div class="content slide-down-content yekan-14 md:yekan-18 color-primary">
 						<div class="product-options flex flex-col gap-07">
 							<ul class="adjustments-list flex flex-col gap-07">
 								<?php foreach ($adjustment_options as $opt) :
@@ -156,9 +156,9 @@ $product_id = $product->get_id();
 									<li class="flex items-center justify-between gap-10 py-12 px-16">
 										<label class="flex items-center gap-10">
 											<input type="checkbox" class="adj-checkbox" data-id="<?php echo esc_attr($opt_id); ?>" data-label="<?php echo esc_attr($opt_label); ?>" data-amount="<?php echo esc_attr($opt_amt); ?>">
-											<span class="yekan-16 color-black-60"><?php echo esc_html($opt_label); ?></span>
+											<span class="yekan-12 md:yekan-16 color-black-60"><?php echo esc_html($opt_label); ?></span>
 										</label>
-										<span class="yekan-16 price-diff" style="color: <?php echo $is_plus ? '#16a34a' : '#dc2626'; ?>;">
+										<span class="yekan-12 md:yekan-16 price-diff" style="color: <?php echo $is_plus ? '#16a34a' : '#dc2626'; ?>;">
 											 <?php echo esc_html($amt_display); ?> <?php echo $is_plus ? '+' : '-'; ?>
 										</span>
 									</li>
@@ -191,11 +191,11 @@ $product_id = $product->get_id();
 
 		</div>
 		<div class="product-images flex-shrink-0">
-			<div class="product-gallery-container flex gap-10">
+			<div class="product-gallery-container flex flex-col md:flex-row gap-10">
 
 				<!-- Swiper Main -->
 				<div class="product-gallery-main flex relative">
-					<div class="gallery-buttons flex flex-col gap-10 absolute z-index-5 items-start">
+					<div class="gallery-buttons flex flex-row md:flex-col gap-10 absolute z-index-5 items-start">
 						<div class="button flex item-center pointer share-button" data-share-url="<?php echo esc_url(get_permalink()); ?>" data-share-title="<?php echo esc_attr(get_the_title()); ?>">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M16.9609 6.16992C18.9609 7.55992 20.3409 9.76992 20.6209 12.3199" stroke="#484848" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -260,6 +260,9 @@ $product_id = $product->get_id();
 							}
 							?>
 						</div>
+						<!-- Pagination -->
+    					<div class="swiper-pagination md:hidden"></div>
+
 					</div>
 				</div>
 				<!-- Swiper Thumbs -->
@@ -404,6 +407,7 @@ $product_id = $product->get_id();
 				</div>
 			</div>
 		</div>
+		<div class="product-title container yekan-20 md:hidden"><?php the_title(); ?></div>
 	</div>
 	<?php
 	$full_product_image = get_field('full_product_image');
@@ -418,16 +422,16 @@ $product_id = $product->get_id();
 			<?php endif; ?>
 			<?php if ($sub_products) : ?>
 				<div class="sub-products swiper-container flex gap-10 overflow-hidden">
-					<div class="swiper-wrapper gap-40">
+					<div class="swiper-wrapper gap-30 md:gap-40">
 						<?php foreach ($sub_products as $sub_product) : ?>
 							<div class="swiper-slide sub-product h-auto flex flex-col justify-content-end items-center relative gap-20 <?php if (!$sub_product['purchasable']) echo 'not-purchasable'; ?>  ">
 								<?php echo wp_get_attachment_image($sub_product['image']['ID'], 'thumbnail'); ?>
 								<a href="<?php echo isset($sub_product['link']['url']) ? $sub_product['link']['url'] : '#'; ?>" class="sub-product-info flex items-center flex-col">
 									<?php if ($sub_product['purchasable']) : ?>
-										<div class="sub-product-name yekan-18 color-black-80"><?php echo $sub_product['title']; ?></div>
-                                        <div class="sub-product-price yekan-16 color-primary"><?php echo wp_kses_post( wc_price( $sub_product['price'] ) ); ?></div>
+										<div class="sub-product-name yekan-14 md:yekan-18 color-black-80"><?php echo $sub_product['title']; ?></div>
+                                        <div class="sub-product-price yekan-12 md:yekan-16 color-primary"><?php echo wp_kses_post( wc_price( $sub_product['price'] ) ); ?></div>
 									<?php else : ?>
-										<div class="sub-product-name yekan-18 color-black-50 text-center">غیر قابل فروش به صورت تکی</div>
+										<div class="sub-product-name yekan-14 md:yekan-18 color-black-50 text-center">غیر قابل فروش به صورت تکی</div>
 									<?php endif; ?>
 								</a>
 							</div>
@@ -480,7 +484,7 @@ $product_id = $product->get_id();
 	<?php get_template_part('template-parts/product/help-cta'); ?>
 
 	<div class="container mb-25 mt-25">
-		<div class="flex justify-between gap-20">
+		<div class="flex flex-col md:flex-row justify-between gap-10 md:gap-20">
 			<?php
 
 			get_template_part('template-parts/product/consult-cta', null, array(
@@ -511,7 +515,7 @@ $product_id = $product->get_id();
 	<?php get_template_part('template-parts/product/products-suggustions'); ?>
 
 	<div class="container mb-25 mt-25">
-		<div class="flex justify-between gap-20">
+		<div class="flex flex-col md:flex-row justify-between gap-10 md:gap-20">
 			<?php
 
 			get_template_part('template-parts/product/consult-cta', null, array(

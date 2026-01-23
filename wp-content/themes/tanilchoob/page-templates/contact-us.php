@@ -22,13 +22,13 @@ $form = get_field('form', $page_id);
 
 ?>
 <div id="page-contact-us" class="container page-template-contact-us ">
-    <div class="bg-black-03 py-25 px-30 mb-25">
+    <div class="bg-black-03 py-25 md:px-30 md:mb-25">
         <div class="contact-hero flex">
-            <h1 class="yekan-34 color-black bold"><?php the_title(); ?></h1>
+            <h1 class="yekan-28 md:yekan-34 color-black bold text-center md:text-right w-100"><?php the_title(); ?></h1>
         </div>
-        <div class="flex gap-20">
+        <div class="flex flex-col md:flex-row gap-20">
             <div class="flex flex-col gap-20">
-                <div class="contact-info grid grid-cols-2">
+                <div class="contact-info hidden md:grid grid-cols-2">
                     <?php
                     $working_hours = get_field('working_hours', $page_id);
                     if ($working_hours):
@@ -67,7 +67,7 @@ $form = get_field('form', $page_id);
                 $boxarea_text = get_field('boxarea_text', $page_id);
                 if ($boxarea_text):
                 ?>
-                    <div class="contact-desc yekan-20 text-center">
+                    <div class="contact-desc yekan-14 md:yekan-20 text-center">
                         <?php echo $boxarea_text; ?>
                     </div>
                 <?php endif; ?>
@@ -94,23 +94,23 @@ $form = get_field('form', $page_id);
             </div>
         </div>
     </div>
-    <div class="bg-black-03 py-25 px-30 mb-25">
+    <div class="bg-black-03 py-25 md:px-30 mb-25">
         <div class="contact-hero flex">
-            <h1 class="yekan-34 color-black bold">آدرس های ما</h1>
+            <h1 class="yekan-28 md:yekan-34 color-black bold text-center md:text-right w-100">آدرس های ما</h1>
         </div>
         <?php
             $our_addresses = get_field('our_addresses', $page_id);
             if($our_addresses):
                 foreach($our_addresses as $address):
         ?>
-        <div class="address-item flex flex-col items-center mb-40">
-            <div class="address-title yekan-28 color-black-80 mb-40"><?php echo $address['title']; ?></div>
-            <div class="flex gap-20">
-                <div class="address-text yekan-22 color-black-80">
+        <div class="address-item flex flex-col items-center mb-25 md:mb-40">
+            <div class="address-title yekan-22 md:yekan-28 color-black-80 mb-10 md:mb-40 text-center md:text-right"><?php echo $address['title']; ?></div>
+            <div class="flex flex-col md:flex-row gap-10 md:gap-20">
+                <div class="address-text yekan-14 md:yekan-22 color-black-80 text-center md:text-right">
                     <?php echo $address['address']; ?>
                 </div>
                 <div class="address-on-apps flex items-center gap-30">
-                    <label class="yekan-22 color-black-80 flex-shrink-0" for="address-on-apps">مسیریابی با:</label>
+                    <label class="yekan-14 md:yekan-22 color-black-80 flex-shrink-0" for="address-on-apps">مسیریابی با:</label>
                     <div class="apps flex items-center justify-between w-100">
                         <?php if($address['google_map']): ?>
                         <a href="<?php echo $address['google_map']; ?>" target="_blank" class="app-item">

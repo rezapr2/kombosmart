@@ -5,16 +5,16 @@ $faqs = isset($faqs) ? $faqs : get_query_var('faqs');
 ?>
 <?php if ($faqs) : ?>
 <div class="product-faqs flex flex-col gap-20 mb-40">
-	<div class="container flex justify-between">
+	<div class="container flex flex-col-reverse md:flex-row justify-between">
 		<div class="faq-items-wrapper flex flex-col gap-20">
-			<div class="faq-title yekan-28 bold color-primary">سوالات متداول</div>
+			<div class="faq-title yekan-28 bold color-primary text-center md:text-right">سوالات متداول</div>
 			<div class="faq-items flex flex-col gap-10">
 				<?php foreach ($faqs as $faq) : ?>
 					<div class="faq-item slide-down-wrapper flex flex-col">
-						<div class="faq-question slide-down-trigger yekan-20 color-black-80 flex justify-between items-center cursor-pointer">
+						<div class="faq-question slide-down-trigger yekan-16 md:yekan-20 color-black-80 flex justify-between items-center cursor-pointer">
 							<span><?php echo $faq['question']; ?></span>
 						</div>
-						<div class="faq-answer slide-down-content yekan-20 color-black" style="display: none;"><?php echo $faq['answer']; ?></div>
+						<div class="faq-answer slide-down-content yekan-14 md:yekan-20 text-center md:text-right color-black" style="display: none;"><?php echo $faq['answer']; ?></div>
 					</div>
 				<?php endforeach; ?>
 			</div>

@@ -22,12 +22,13 @@ $tanilchoob_story = get_field('tanilchoob_story', $page_id);
 $tanilchoob_story_image = get_field('tanilchoob_story_image', $page_id);
 $page_blocks = get_field('page_blocks', $page_id);
 ?>
-<div id="page-about-us" class="container page-template-about-us mt-30">
-    <section class="flex flex-col gap-07">
-        <div class="content-box tanil-story flex items-center gap-20">
+<div id="page-about-us" class="page-template-about-us md:mt-30">
+    <div class="container">
+<section class="flex flex-col gap-07 md:gap-20">
+        <div class="content-box tanil-story flex flex-col-reverse md:flex-row items-center gap-20 md:gap-07">
             <div class="story-box flex-1 flex flex-col gap-07">
-                <h2 class="title color-primary yekan-26 ">داستان تانیل چوپ</h2>
-                <div class="description yekan-18 color-black-80">
+                <h2 class="title color-primary yekan-26 text-center md:text-right">داستان تانیل چوپ</h2>
+                <div class="description yekan-18 color-black-80 text-center md:text-right">
                     <?php echo $tanilchoob_story ? $tanilchoob_story : ''; ?>
                 </div>
             </div>
@@ -42,10 +43,10 @@ $page_blocks = get_field('page_blocks', $page_id);
             foreach ($page_blocks as $index => $block) :
                 // Apply reverse flex direction on odd items (1-based indexing)
                 $is_odd = (($index + 1) % 2 === 1);
-                $reverse_class = $is_odd ? 'flex-row-reverse' : ''; ?>
-                <div class="content-box flex items-center gap-20 <?php echo $reverse_class; ?>">
+                $reverse_class = $is_odd ? 'md:flex-row-reverse' : 'md:flex-row'; ?>
+                <div class="content-box flex flex-col-reverse items-center md:gap-20 <?php echo $reverse_class; ?>">
                     <div class="story-box flex-1 flex flex-col gap-07">
-                        <h2 class="title color-primary yekan-25 ">
+                        <h2 class="title color-primary yekan-25 text-center md:text-right">
                             <?php
                             if (isset($block['title_url'])) {
                                 echo '<a class="color-primary" href="' . $block['title_url'] . '" target="_blank">' . $block['title'] . '</a>';
@@ -54,7 +55,7 @@ $page_blocks = get_field('page_blocks', $page_id);
                             }
                             ?>
                         </h2>
-                        <div class="description yekan-16 color-black-70">
+                        <div class="description yekan-16 color-black-70 text-center md:text-right">
                             <?php echo $block['text'] ?: ''; ?>
                         </div>
                     </div>
@@ -68,14 +69,14 @@ $page_blocks = get_field('page_blocks', $page_id);
         endif;
         ?>
     </section>
-    <section class="container positive_of_tanil flex flex-col mt-60">
-        <div class="title yekan-24 color-black thin text-center color-black-80">
+    <section class="positive_of_tanil flex flex-col mt-60 md:px-80">
+        <div class="title yekan-22 md:yekan-24 color-black thin text-center color-black-80">
             <strong class="color-primary">ویژگی های مثبت </strong> تانیل چوب
         </div>
         <?php
         $positive_subtitle_text = get_field('positive_subtitle_text', $page_id);
         ?>
-        <div class="description yekan-16 color-black-60 text-center">
+        <div class="description yekan-14 md:yekan-16 color-black-60 text-center">
             <?php echo $positive_subtitle_text ? $positive_subtitle_text : ''; ?>
         </div>
         <div class="positive_items_list flex flex-col mt-30">
@@ -85,7 +86,7 @@ $page_blocks = get_field('page_blocks', $page_id);
                 foreach ($positive_items_list as $item) :
             ?>
                     <div class="positive_item flex items-center justify-between">
-                        <div class="title yekan-30 color-black-70">
+                        <div class="title yekan-14 md:yekan-30 color-black-70">
                             <?php echo $item['title'] ?: ''; ?>
                         </div>
                         <div class="icon">
@@ -100,17 +101,17 @@ $page_blocks = get_field('page_blocks', $page_id);
             ?>
         </div>
     </section>
-    <section class="container honors_of_tanil flex flex-col mt-60">
-        <div class="title yekan-24 color-black thin text-center color-black-80">
+    <section class="honors_of_tanil flex flex-col mt-60 md:px-80">
+        <div class="title yekan-22 md:yekan-24 color-black thin text-center color-black-80">
             <strong class="color-primary">افتخارات و گواهی های </strong> تانیل چوب
         </div>
         <?php
         $honors_subtitle_text = get_field('honors_subtitle_text', $page_id);
         ?>
-        <div class="description yekan-16 color-black-60 text-center">
+        <div class="description yekan-14 md:yekan-16 color-black-60 text-center">
             <?php echo $honors_subtitle_text ? $honors_subtitle_text : ''; ?>
         </div>
-        <div class="honors_items_list flex gap-15 mt-30">
+        <div class="honors_items_list flex gap-05 md:gap-15 mt-30">
             <?php
             $honors = get_field('honors', $page_id);
             if ($honors) :
@@ -123,7 +124,7 @@ $page_blocks = get_field('page_blocks', $page_id);
                                 <img class="block object-cover" src="<?php echo $item['image']['url']; ?>" alt="<?php echo $item['image']['alt'] ?: 'tanil choob positive item image'; ?>">
                             <?php endif; ?>
                         </div>
-                        <div class="title yekan-22 color-black-70 text-center mb-10">
+                        <div class="title hidden md:flex yekan-22 color-black-70 text-center mb-10">
                             <?php echo $item['title'] ?: ''; ?>
                         </div>
 
@@ -133,14 +134,17 @@ $page_blocks = get_field('page_blocks', $page_id);
             ?>
         </div>
     </section>
+    </div>
+        <div class="container-right md:container">
+
     <section class="top_products_of_tanil flex flex-col mt-60">
-        <div class="title yekan-24 color-black thin text-center color-black-80">
+        <div class="title yekan-22 md:yekan-24 color-black thin text-center color-black-80">
             <strong class="color-primary">محصولات برتر </strong> تانیل چوب
         </div>
         <?php
         $top_products_subtitle_text = get_field('top_products_subtitle_text', $page_id);
         ?>
-        <div class="description yekan-16 color-black-60 text-center">
+        <div class="description yekan-14 md:yekan-16 color-black-60 text-center">
             <?php echo $top_products_subtitle_text ? $top_products_subtitle_text : ''; ?>
         </div>
         <div class="top_products_items_list mt-30">
@@ -165,8 +169,7 @@ $page_blocks = get_field('page_blocks', $page_id);
             <?php endif; ?>
         </div>
     </section>
-
-
+            </div>
 </div>
 <?php
 get_footer();

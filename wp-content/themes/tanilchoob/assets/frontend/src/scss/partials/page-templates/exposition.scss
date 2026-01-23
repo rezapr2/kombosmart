@@ -3,6 +3,11 @@
         img.poster{
             height: 55rem;
         }
+        @media (max-width: 768px) {
+           img.poster{
+                height: 25rem;
+            } 
+        }
     }
     .content_boxes{
         .content-box{
@@ -11,6 +16,14 @@
                 background-color: rgba($color: #000000, $alpha: 0.15);
                 height: 1.5px;
                 width: 60%;
+            }
+        }
+        @media (max-width: 768px) {
+            .content-box{
+                padding: 2rem;
+                .divider{
+                    width: 100%;
+                }
             }
         }
     }
@@ -37,6 +50,21 @@
                         color: #fff;
                     }
                 }
+            }
+            @media (max-width: 768px) {
+                .title{
+                padding: 2.5rem 1.5rem;
+            }
+            .content-box{
+                padding-left: 1.2rem;
+                .box-image{
+                    width: 100%;
+                }
+                .link{
+                    padding: 1rem 2rem;
+                    align-self: center;
+                }
+            }
             }
         }
     }

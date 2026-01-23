@@ -68,5 +68,9 @@
     .button-next{
         transform: rotate(180deg);
     }
-    
+    @media (max-width: 768px) {
+        .title_btn{
+            padding: .9rem 1.2rem;
+        }
+    }
 }

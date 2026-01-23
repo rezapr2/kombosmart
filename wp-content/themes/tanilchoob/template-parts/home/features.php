@@ -10,10 +10,10 @@ $features = get_field('features', $page_id);
                     <div class="icon">
                         <img src="<?php echo ($item['image']['url'] ?: '') ?>" alt="<?php echo ($item['title'] ?: $item['image']['alt']); ?>">
                     </div>
-                    <div class="title yekan-22 color-black text-center">
+                    <div class="title yekan-7 md:yekan-22 color-black text-center">
                         <?php echo ($item['title'] ?: ''); ?>
                     </div>
-                    <div class="description yekan-16 opacity-5 text-center">
+                    <div class="description hidden md:flex yekan-16 opacity-5 text-center">
                         <?php echo ($item['description'] ?: ''); ?>
                     </div>
                 </div>

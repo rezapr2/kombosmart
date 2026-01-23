@@ -1,10 +1,10 @@
 <div class="consult-cta w-full bg-white flex items-center justify-between gap-10">
 	<div class="flex items-center gap-10">
-		<div class="divider bg-black"></div>
+		<div class="divider bg-black hidden md:flex"></div>
 		<?php if (isset($args['icon'])) {
 			echo $args['icon'];
 		} ?>
-		<span class="color-black yekan-24"><?php echo $args['label']; ?></span>
+		<span class="color-black yekan-16 md:yekan-24"><?php echo $args['label']; ?></span>
 	</div>
 
 	<!-- Click CTA -->

@@ -7,6 +7,9 @@
             color: #000;
             background-color: rgba(0, 0, 0, 0.03);
         }
+        @media (max-width: 768px) {
+            padding: 1rem 1rem;
+        }
     }
     .tab-content-item {
         display: none;

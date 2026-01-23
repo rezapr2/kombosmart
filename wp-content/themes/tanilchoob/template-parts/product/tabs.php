@@ -78,11 +78,11 @@ $play_icon_src = function_exists('get_theme_file_uri')
                     if ($product_id) {
                         $tag_list = wc_get_product_tag_list($product_id, '');
                         if (!empty($tag_list)) {
-                            echo '<div class="product-tags yekan-14 flex gap-10 mt-25"><span class="yekan-16 color-black">برچسب‌ها: </span>' . $tag_list . '</div>';
+                            echo '<div class="product-tags yekan-12 md:yekan-14 flex flex-wrap gap-10 mt-25"><span class="yekan-16 color-black">برچسب‌ها: </span>' . $tag_list . '</div>';
                         }
                         $cat_list = wc_get_product_category_list($product_id, '');
                         if (!empty($cat_list)) {
-                            echo '<div class="product-cats yekan-14 flex gap-10 mt-10"><span class="yekan-16 color-black">دسته‌ها: </span>' . $cat_list . '</div>';
+                            echo '<div class="product-cats yekan-12 md:yekan-14 flex flex-wrap gap-10 mt-10"><span class="yekan-16 color-black">دسته‌ها: </span>' . $cat_list . '</div>';
                         }
                     }
                     ?>

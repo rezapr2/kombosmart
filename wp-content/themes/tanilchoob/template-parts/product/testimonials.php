@@ -8,14 +8,14 @@ if(!$testimonials_customers) {
 ?>
 <div class="testimonials mb-40">
   <div class="container">
-    <div class="title yekan-24 color-black thin text-center color-black-80">
+    <div class="title yekan-16 md:yekan-24 color-black thin text-center color-black-80">
       <strong class="color-primary">تجربه خرید </strong> مشتریان
     </div>
-    <div class="description yekan-16 color-black-60 text-center">
+    <div class="description yekan-12 md:yekan-16 color-black-60 text-center">
       توضیحات درمورد بخش بهترین تشک ها
     </div>
 
-    <div class="mt-25 flex gap-10">
+    <div class="mt-25 flex flex-col md:flex-row gap-10">
       <div class="testimonial-slider swiper relative flex flex-1 flex-col gap-15">
         <div class="swiper-wrapper">
           <?php if ($testimonials_customers):
@@ -27,12 +27,12 @@ if(!$testimonials_customers) {
                     <img src="<?php echo $testimonial_customer['image']['url']; ?>" alt="<?php echo $testimonial_customer['customer_name']; ?>">
                   </div>
                   <div class="flex flex-col gap-04">
-                    <div class="yekan-18 color-black"><?php echo $testimonial_customer['customer_name']; ?></div>
-                    <div class="color-black-30 yekan-14"><?php echo $testimonial_customer['date']; ?></div>
+                    <div class="yekan-14 md:yekan-18 color-black"><?php echo $testimonial_customer['customer_name']; ?></div>
+                    <div class="color-black-30 yekan-12 md:yekan-14"><?php echo $testimonial_customer['date']; ?></div>
                   </div>
                 </div>
 
-                <p class="yekan-18 color-black-70">
+                <p class="yekan-14 md:yekan-18 color-black-70">
                   <?php echo $testimonial_customer['description']; ?>
                 </p>
               </div>

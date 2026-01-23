@@ -17,13 +17,13 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
 
 ?>
 <section class="home-product-categories flex flex-col container">
-    <div class="title yekan-24 color-black thin text-center color-black-80">
+    <div class="title yekan-18 md:yekan-24 color-black thin text-center color-black-80">
         <strong class="color-primary">دسته بندی</strong> محصولات
     </div>
-    <div class="description yekan-16 color-black-60 text-center">
+    <div class="description yekan-12 md:yekan-16 color-black-60 text-center">
         دسته بندی محصولات توضیحات اضافی
     </div>
-    <div class="categories gap-07 flex">
+    <div class="categories gap-07 flex flex-col-reverse md:flex-row">
         <div class="category-pack gap-07 flex flex-col">
             <div class="row gap-07 flex h-100">
                 <?php
@@ -37,8 +37,8 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                     }
                     ?>
                     <div class="content">
-                        <div class="title yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'انواع کمد' ?></div>
-                        <div class="more w-fit yekan-15 color-white flex items-center transition"> بیشتر
+                        <div class="title yekan-14 md:yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'انواع کمد' ?></div>
+                        <div class="more w-fit yekan-15 color-white hidden md:flex items-center transition"> بیشتر
                             <div class="arrow flex">
                                 <?php echo $arrow; ?>
                             </div>
@@ -56,8 +56,8 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                     }
                     ?>
                     <div class="content">
-                        <div class="title yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'مبلمان' ?></div>
-                        <div class="more w-fit yekan-15 color-white flex items-center transition"> بیشتر
+                        <div class="title yekan-14 md:yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'مبلمان' ?></div>
+                        <div class="more w-fit yekan-15 color-white hidden md:flex items-center transition"> بیشتر
                             <div class="arrow flex">
                                 <?php echo $arrow; ?>
                             </div>
@@ -76,8 +76,8 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                 }
                 ?>
                 <div class="content">
-                    <div class="title yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'tv desk' ?></div>
-                    <div class="more w-fit yekan-15 color-white flex items-center transition"> بیشتر
+                    <div class="title yekan-14 md:yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'tv desk' ?></div>
+                    <div class="more w-fit yekan-15 color-white hidden md:flex items-center transition"> بیشتر
                         <div class="arrow flex">
                             <?php echo $arrow; ?>
                         </div>
@@ -97,8 +97,8 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                 }
                 ?>
                 <div class="content">
-                    <div class="title yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'console desk' ?></div>
-                    <div class="more w-fit yekan-15 color-white flex items-center transition"> بیشتر
+                    <div class="title yekan-14 md:yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'console desk' ?></div>
+                    <div class="more w-fit yekan-15 color-white hidden md:flex items-center transition"> بیشتر
                         <div class="arrow flex">
                             <?php echo $arrow; ?>
                         </div>
@@ -119,8 +119,8 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                     }
                     ?>
                     <div class="content">
-                        <div class="title yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'sleep pack' ?></div>
-                        <div class="more w-fit yekan-15 color-white flex items-center transition"> بیشتر
+                        <div class="title yekan-14 md:yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'sleep pack' ?></div>
+                        <div class="more w-fit yekan-15 color-white hidden md:flex items-center transition"> بیشتر
                             <div class="arrow flex">
                                 <?php echo $arrow; ?>
                             </div>
@@ -138,8 +138,8 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                     }
                     ?>
                     <div class="content">
-                        <div class="title yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'sleep pack' ?></div>
-                        <div class="more w-fit yekan-15 color-white flex items-center transition"> بیشتر
+                        <div class="title yekan-14 md:yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'sleep pack' ?></div>
+                        <div class="more w-fit yekan-15 color-white hidden md:flex items-center transition"> بیشتر
                             <div class="arrow flex">
                                 <?php echo $arrow; ?>
                             </div>
@@ -159,8 +159,8 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                     }
                     ?>
                     <div class="content">
-                        <div class="title yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'food products' ?></div>
-                        <div class="more w-fit yekan-15 color-white flex items-center transition"> بیشتر
+                        <div class="title yekan-14 md:yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'food products' ?></div>
+                        <div class="more w-fit yekan-15 color-white hidden md:flex items-center transition"> بیشتر
                             <div class="arrow flex">
                                 <?php echo $arrow; ?>
                             </div>
@@ -178,8 +178,8 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                     }
                     ?>
                     <div class="content">
-                        <div class="title yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'soffa desk' ?></div>
-                        <div class="more w-fit yekan-15 color-white flex items-center transition"> بیشتر
+                        <div class="title yekan-14 md:yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'soffa desk' ?></div>
+                        <div class="more w-fit yekan-15 color-white hidden md:flex items-center transition"> بیشتر
                             <div class="arrow flex">
                                 <?php echo $arrow; ?>
                             </div>

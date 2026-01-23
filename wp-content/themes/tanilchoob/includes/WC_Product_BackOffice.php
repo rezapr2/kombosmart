@@ -12,7 +12,7 @@ class WC_Product_BackOffice
 	public function __construct()
 	{
 		// Add product status field to general tab
-		add_action('woocommerce_product_options_general_product_data', array($this, 'add_product_status_field'));
+		add_action('woocommerce_product_options_inventory_product_data', array($this, 'add_product_status_field'));
 		
 		// Save product status field
 		add_action('woocommerce_process_product_meta', array($this, 'save_product_status_field'));

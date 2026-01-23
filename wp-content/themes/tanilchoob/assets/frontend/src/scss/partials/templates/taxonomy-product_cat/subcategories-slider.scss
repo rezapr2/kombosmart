@@ -63,5 +63,10 @@
                 }
             }
         }
+        @media (max-width: 768px) {
+            img {
+                aspect-ratio: 1;
+            }
+        }
     }
 }

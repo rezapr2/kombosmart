@@ -13,5 +13,19 @@
                 height: calcRem(146);
             }
         }
+        @media (max-width: 768px) {
+           padding: 0 0;
+            padding-bottom: 0;
+            gap: calcRem(3);
+            .feature-item{
+                background-color: #00000005;
+                width: 100%;
+                padding-bottom: 1rem;
+                .icon{
+                    width: calcRem(50);
+                    height: calcRem(50);
+                }
+            } 
+        }
     }
 }

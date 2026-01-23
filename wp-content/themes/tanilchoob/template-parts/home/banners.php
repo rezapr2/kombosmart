@@ -4,7 +4,7 @@ if (empty($banners)) {
     return;
 }
 ?>
-<div class="banners flex flex-row gap-20 py-40 container">
+<div class="banners flex flex-col md:flex-row gap-10 md:gap-20 py-40 container">
     <?php foreach ($banners as $banner) : ?>
         <div class="banner-item flex-1">
             <?php
@@ -15,7 +15,7 @@ if (empty($banners)) {
                 $img = $mobile_image;
             }
             if ($img) {
-                echo '<a href="' . $link['url'] . '" target="_blank" rel="noopener noreferrer">';
+                echo '<a class="flex" href="' . $link['url'] . '" target="_blank" rel="noopener noreferrer">';
                 echo '<img class="w-full" src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'banner') . '" />';
                 echo '</a>';
             }

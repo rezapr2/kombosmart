@@ -28,3 +28,21 @@
 .mb-40{
     margin-bottom: 4rem;
 }
+@media (min-width: 768px) {
+    
+    .md\:mt-30{
+        margin-top: 3rem;
+    }
+    .md\:mt-40{
+        margin-top: 4rem;
+    }
+    .md\:mb-0{
+        margin-bottom: 0;
+    }
+    .md\:mb-25{
+        margin-bottom: 2.5rem;
+    }
+    .md\:mb-40{
+        margin-bottom: 4rem;
+    }
+}

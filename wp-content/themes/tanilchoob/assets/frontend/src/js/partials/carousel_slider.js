@@ -43,8 +43,8 @@
                     },
 
                     // Use the data attribute value or default
-                    slidesPerView: slidesPerView,
-                    spaceBetween: spaceBetween,
+                    slidesPerView: 1.3,
+                    spaceBetween: 10,
 
                     // Touch settings
                     touchRatio: 1,
@@ -56,6 +56,12 @@
                         loadPrevNext: true,
                         loadPrevNextAmount: 1,
                     },
+                    breakpoints: {
+                        768: {
+                            slidesPerView: slidesPerView,
+                            spaceBetween: spaceBetween,
+                        }
+                    }
                 });
             });
         }

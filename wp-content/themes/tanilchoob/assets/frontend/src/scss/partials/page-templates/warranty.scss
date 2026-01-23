@@ -93,4 +93,34 @@
             }
         }
     }
+    @media (max-width: 768px) {
+        .hero {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+            .title {
+                font-size: 2rem;
+            }
+        }
+        .page_blocks_title {
+            padding: 2.5rem 1.5rem;
+        }
+        .contact-form {
+            .wpcf7-form {
+                font-size: 1.4rem;
+                input.wpcf7-text,
+                select.wpcf7-select,
+                textarea.wpcf7-textarea {
+                    font-size: 1.4rem;
+                }
+                .wpcf7-submit {
+                    width: 100%;
+                }
+            }
+        }
+        .warranty_faqs{
+            .faq-item{
+                padding: 2rem 1rem;
+            }
+        }
+    }
 }

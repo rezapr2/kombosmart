@@ -19,6 +19,9 @@ $title = $product->get_name();
 $permalink = $product->get_permalink();
 $image_id = $product->get_image_id();
 $image_url = $image_id ? wp_get_attachment_image_url($image_id, 'medium') : wc_placeholder_img_src('medium');
+
+$product_status = get_post_meta($product_id, '_product_status', true);
+
 $regular_price = $product->get_regular_price();
 $sale_price = $product->get_sale_price();
 $price_html = $product->get_price_html();
@@ -53,6 +56,7 @@ if ($on_sale && $regular_price > 0) {
 
 // Add to cart text
 $add_to_cart_text = isset($args['add_to_cart_text']) ? $args['add_to_cart_text'] : 'اضافه به سبد خرید';
+
 ?>
 
 <div class="product-card swiper-slide transition h-100">
@@ -69,7 +73,7 @@ $add_to_cart_text = isset($args['add_to_cart_text']) ? $args['add_to_cart_text']
         </div>
         <div class="product-card__content flex flex-col justify-between">
             <h3 class="product-card__title">
-                <a class="yekan-20 regular color-black-80" href="<?php echo esc_url($permalink); ?>"><?php echo esc_html($title); ?></a>
+                <a class="yekan-14 md:yekan-20 regular color-black-80" href="<?php echo esc_url($permalink); ?>"><?php echo esc_html($title); ?></a>
             </h3>
             <div class="flex justify-between">
                 <div class="product-card__rating flex">
@@ -97,8 +101,22 @@ $add_to_cart_text = isset($args['add_to_cart_text']) ? $args['add_to_cart_text']
 
                     <?php endif; ?>
                 </div>
-                <div class="product-card__price yekan-22 bold flex flex-col-reverse items-end color-primary self-end relative">
-                    <?php echo $price_html; ?>
+                <div class="product-card__price yekan-16 md:yekan-22 bold flex flex-col-reverse items-end color-primary self-end relative <?php echo $product_status; ?>">
+                    <?php
+                        if($product_status === 'in_stock' && $price_html){
+                            echo $price_html;
+                        }
+                        else{
+                            $status_labels = array(
+                                'in_stock' => __('موجود و آماده ارسال', 'tanilchoob'),
+                                'in_produce' => __('در حال تولید', 'tanilchoob'),
+                                'out_of_stock_temporary' => __('توقف موقت تولید', 'tanilchoob'),
+                                'out_of_stock' => __('توقف کامل تولید', 'tanilchoob'),
+                            );
+                            $status_label = isset($status_labels[$product_status]) ? $status_labels[$product_status] : $status_labels['in_stock'];
+                            echo $status_label;
+                        }
+                    ?>
                 </div>
             </div>
 
@@ -111,7 +129,7 @@ $add_to_cart_text = isset($args['add_to_cart_text']) ? $args['add_to_cart_text']
                         <path d="M7.3776 18.3333C7.9529 18.3333 8.41927 17.867 8.41927 17.2917C8.41927 16.7164 7.9529 16.25 7.3776 16.25C6.80231 16.25 6.33594 16.7164 6.33594 17.2917C6.33594 17.867 6.80231 18.3333 7.3776 18.3333Z" stroke="black" stroke-opacity="0.8" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                         <path d="M8 6.6665H18" stroke="black" stroke-opacity="0.8" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <span class="yekan-16 color-black-80"><?php echo esc_html($add_to_cart_text); ?></span>
+                    <span class="yekan-12 md:yekan-16 color-black-80"><?php echo esc_html($add_to_cart_text); ?></span>
                 </a>
             </div>
         </div>

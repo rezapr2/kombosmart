@@ -22,11 +22,11 @@ $compare_purchase_conditions = get_field('compare_purchase-conditions', $page_id
 $form_id = get_field('form_id', $page_id);
 
 ?>
-<div id="page-purchase-conditions" class="container page-template-purchase-conditions mt-30">
+<div id="page-purchase-conditions" class="container page-template-purchase-conditions mt-60">
     <section class="hero flex flex-col items-center gap-20">
         <h1 class="title color-white bold relative"><?php the_title(); ?></h1>
-        <div class="hero_subtitle color-black-80 yekan-34"><?php echo get_field('hero_subtitle', $page_id) ?: ''; ?></div>
-        <div class="line">
+        <div class="hero_subtitle color-black-80 yekan-20 md:yekan-34 text-center"><?php echo get_field('hero_subtitle', $page_id) ?: ''; ?></div>
+        <div class="line hidden md:flex">
             <svg width="256" height="9" viewBox="0 0 256 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M254.354 5.29782C203.929 0.62909 152.651 3.21143 102.1 2.37081C68.6723 1.80839 35.2424 0.453704 1.83921 0.00013565C0.837726 -0.0119595 0.0140726 0.786298 0.000163192 1.7902C-0.0131415 2.7941 0.788758 3.61659 1.78963 3.62868C35.1892 4.08225 68.6154 5.43694 102.039 5.99936C152.5 6.83998 203.681 4.25158 254.015 8.91427C255.013 9.00498 255.896 8.27325 255.992 7.27539C256.083 6.27754 255.345 5.39458 254.354 5.29782Z" fill="#F0DBF8" />
             </svg>
@@ -47,22 +47,22 @@ $form_id = get_field('form_id', $page_id);
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M16.7188 9.86356C15.8514 9.82443 15.0296 9.76572 14.1818 9.6418C13.4644 9.53746 12.8057 10.0331 12.7014 10.744C12.597 11.4549 13.0926 12.1201 13.8035 12.2244C14.7426 12.3614 15.6492 12.4266 16.6014 12.4657C17.3188 12.4983 17.9318 11.944 17.9579 11.2201C17.9905 10.5027 17.4362 9.89617 16.7188 9.86356Z" fill="#6A7BCC" />
                 </svg>
 
-                <div class="yekan-30 color-black">
+                <div class="yekan-20 md:yekan-30 color-black">
                     چرا تانيل چوب را انتخاب كنيد؟
                 </div>
             </div>
             <?php
             if ($why_tanil['description']) {
-                echo '<p class="description yekan-20 color-black-80 text-center">' . $why_tanil['description'] . '</p>';
+                echo '<p class="description yekan-14 md:yekan-20 color-black-80 text-center">' . $why_tanil['description'] . '</p>';
             }
 
             if ($why_tanil['cards']) {
-                echo '<div class="cards flex justify-center gap-20 mt-30">';
+                echo '<div class="cards flex flex-col-reverse md:flex-row justify-center gap-20 mt-30">';
                 foreach ($why_tanil['cards'] as $card) {
                     echo '<div class="card flex flex-col items-center gap-10 bg-black-03">';
                     echo isset($card['icon']) ? '<img src="' . $card['icon']['url'] . '" alt="' . $card['title'] . '" />' : '';
-                    echo isset($card['title']) ? '<div class="title yekan-24 bold">' . $card['title'] . '</div>' : '';
-                    echo isset($card['description']) ? '<div class="description yekan-20 color-black-70 text-center">' . $card['description'] . '</div>' : '';
+                    echo isset($card['title']) ? '<div class="title yekan-18 md:yekan-24 bold">' . $card['title'] . '</div>' : '';
+                    echo isset($card['description']) ? '<div class="description yekan-14 md:yekan-20 color-black-70 text-center">' . $card['description'] . '</div>' : '';
                     echo '</div>';
                 }
                 echo '</div>';
@@ -73,8 +73,13 @@ $form_id = get_field('form_id', $page_id);
             <div class="banner">
                 <?php if (isset($why_tanil['banner_link']['url'])): ?>
                     <a href="<?php echo $why_tanil['banner_link']['url']; ?>" target="_blank">
+                    <?php endif; 
+                    $banner_image_mobile = isset($why_tanil['banner_image_mobile']['url']);
+                    ?>
+                    <img <?php if ($banner_image_mobile){echo 'class="hidden md:flex"';} ?> src="<?php echo $why_tanil['banner_image']['url']; ?>" alt="<?php echo $why_tanil['banner_image']['alt'] ?: $why_tanil['title']; ?>" />
+                    <?php if ($banner_image_mobile): ?>
+                    <img class="md:hidden" src="<?php echo $why_tanil['banner_image_mobile']['url']; ?>" alt="<?php echo $why_tanil['banner_image_mobile']['alt'] ?: $why_tanil['title']; ?>" />
                     <?php endif; ?>
-                    <img src="<?php echo $why_tanil['banner_image']['url']; ?>" alt="<?php echo $why_tanil['banner_image']['alt'] ?: $why_tanil['title']; ?>" />
                     <?php if (isset($why_tanil['banner_link']['url'])): ?>
                     </a>
                 <?php endif; ?>
@@ -82,7 +87,7 @@ $form_id = get_field('form_id', $page_id);
         <?php endif; ?>
     </section>
     <section class="compare_purchase-conditions flex flex-col items-center gap-20 mt-30">
-        <div class="flex flex-col items-center gap-20">
+        <div class="flex flex-col items-center md:gap-20">
             <div class="title flex items-center gap-10">
                 <svg width="30" height="28" viewBox="0 0 30 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M13.3256 10.2929C10.5408 8.00374 8.28434 5.27766 6.58869 2.10157C6.24956 1.46896 5.46046 1.22765 4.82133 1.56678C4.18872 1.90591 3.94737 2.69506 4.2865 3.33419C6.15172 6.81027 8.61698 9.79724 11.6692 12.3081C12.2235 12.7646 13.0517 12.6864 13.5082 12.132C13.9648 11.5711 13.88 10.7494 13.3256 10.2929Z" fill="#6A7BCC" />
@@ -96,7 +101,7 @@ $form_id = get_field('form_id', $page_id);
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M16.7188 9.86356C15.8514 9.82443 15.0296 9.76572 14.1818 9.6418C13.4644 9.53746 12.8057 10.0331 12.7014 10.744C12.597 11.4549 13.0926 12.1201 13.8035 12.2244C14.7426 12.3614 15.6492 12.4266 16.6014 12.4657C17.3188 12.4983 17.9318 11.944 17.9579 11.2201C17.9905 10.5027 17.4362 9.89617 16.7188 9.86356Z" fill="#6A7BCC" />
                 </svg>
 
-                <div class="yekan-30 color-black">
+                <div class="yekan-20 md:yekan-30 color-black">
                     مقايسه سريع شرايط خريد
                 </div>
             </div>
@@ -150,12 +155,12 @@ $form_id = get_field('form_id', $page_id);
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M16.7188 9.86356C15.8514 9.82443 15.0296 9.76572 14.1818 9.6418C13.4644 9.53746 12.8057 10.0331 12.7014 10.744C12.597 11.4549 13.0926 12.1201 13.8035 12.2244C14.7426 12.3614 15.6492 12.4266 16.6014 12.4657C17.3188 12.4983 17.9318 11.944 17.9579 11.2201C17.9905 10.5027 17.4362 9.89617 16.7188 9.86356Z" fill="#6A7BCC" />
                     </svg>
 
-                    <div class="yekan-30 color-black">
+                    <div class="yekan-20 md:yekan-30 color-black">
                         پرسش سریع درباره شرایط پرداخت
                     </div>
                 </div>
                 <div class="form-area bg-black-03 mt-30 w-100">
-                    <div class="flex items-center w-100 justify-between">
+                    <div class="flex flex-col md:flex-row items-center w-100 justify-between">
                         <div class="contact-form">
                             <?php
                             if ($form_id && shortcode_exists('contact-form-7')) {
@@ -164,13 +169,13 @@ $form_id = get_field('form_id', $page_id);
                             ?>
                         </div>
                         <div class="text-area flex flex-col items-center">
-                            <div class="yekan-30 color-primary bold">
+                            <div class="yekan-20 md:yekan-30 color-primary bold">
                                 سؤالى درباره پرداختها داريد؟
                             </div>
-                            <div class="yekan-18 color-black-80">
+                            <div class="yekan-14 md:yekan-18 text-center md:text-right color-black-80">
                                 با ما تماس بگيريد تا مشاوران فروش تانيل چوب شما را راهنمايى كنند.
                             </div>
-                            <a class="button yekan-18 color-black mt-25" href="#">
+                            <a class="button yekan-14 md:yekan-18 color-black mt-25" href="#">
                                 تماس با مشاور فروش
                             </a>
 

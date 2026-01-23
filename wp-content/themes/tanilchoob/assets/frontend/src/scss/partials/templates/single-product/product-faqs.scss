@@ -1,18 +1,18 @@
-.product-faqs{
+.product-faqs {
     background-color: rgba(93, 14, 135, 0.07);
     padding: 4rem 0;
-    .faq-items-wrapper{
+    .faq-items-wrapper {
         width: 55%;
     }
-    .faq-items{
-        .faq-item{
+    .faq-items {
+        .faq-item {
             padding: 2.4rem 4rem;
             border: 1px solid rgba(0, 0, 0, 0.2);
-            &.active{
-                border-color: #5D0E87;
+            &.active {
+                border-color: #5d0e87;
             }
             .faq-question {
-                &::after{
+                &::after {
                     content: '+';
                     font-size: 3rem;
                     line-height: 0;
@@ -22,21 +22,44 @@
             .faq-answer {
                 padding-top: 2rem;
             }
-            
+
             &.active {
                 .faq-question {
-                    &::after{
+                    &::after {
                         content: '-';
                     }
                 }
             }
         }
     }
-    .faqs-desc{
+    .faqs-desc {
         width: 24%;
         margin-left: 5%;
-        .faq-icon-text{
+        .faq-icon-text {
             text-align: justify;
+        }
+    }
+    @media (max-width: 768px) {
+        .faq-items-wrapper {
+            width: 100%;
+        }
+        .faq-items {
+            .faq-item {
+                padding: 2rem 1rem;
+                .faq-question {
+                    &::after {
+                        content: '+';
+                        font-size: 3rem;
+                    }
+                }
+            }
+        }
+        .faqs-desc {
+            width: 100%;
+            margin-bottom: 3rem;
+            .faq-icon-text {
+                text-align: center;
+            }
         }
     }
 }

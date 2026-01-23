@@ -1,9 +1,9 @@
-<div class="container mb-25">
-	<div class="cta help-cta py-40 px-40">
-		<div class="flex justify-between items-center">
+<div class="md:container mb-25">
+	<div class="cta help-cta py-40 px-25 md:px-40">
+		<div class="flex flex-col md:flex-row justify-between items-center">
 			<div class="flex flex-col">
-				<div class="yekan-34 color-white">برای خرید به مشاوره نیاز داری؟</div>
-				<div class="yekan-34 color-white">درمورد این محصول سوالی دارید؟</div>
+				<div class="yekan-22 md:yekan-34 text-center md:text-right color-white">برای خرید به مشاوره نیاز داری؟</div>
+				<div class="yekan-22 md:yekan-34 text-center md:text-right color-white mb-25 md:mb-0">درمورد این محصول سوالی دارید؟</div>
 			</div>
 			<div class="flex flex-col gap-04">
 				<a href="#" class="btn flex items-center gap-10 yekan-22 color-white">

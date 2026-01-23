@@ -35,7 +35,7 @@ get_header(); ?>
     $special_offers_term = get_field('special_offers_term', $page_id);
     $end_off_sale = get_field('end_off_sale', $page_id);
     $args = [
-        'title' => '<span class="yekan-20 color-white"><strong>فروش </strong><span class="thin">ویژه</span></span>',
+        'title' => '<span class="yekan-14 md:yekan-20 color-white"><strong>فروش </strong><span class="thin">ویژه</span></span>',
         'button_link' => '#',
         'card' => 'product-card',
         'wrapper_class' => 'mb-40',
@@ -68,7 +68,7 @@ get_header(); ?>
     /* Soffa Products Slider */
     $soffa_term = get_field('soffa_term', $page_id);
     $args = [
-        'title' => '<span class="yekan-20 color-black-80"><strong>مبلمان</strong></span>',
+        'title' => '<span class="yekan-14 md:yekan-20 color-black-80"><strong>مبلمان</strong></span>',
         'button_link' => '#',
         'card' => 'product-card',
         'wrapper_class' => 'mb-40',
@@ -98,7 +98,7 @@ get_header(); ?>
     /* Sleep Pack Products Slider */
     $sleep_pack_term = get_field('sleep_pack_term', $page_id);
     $args = [
-        'title' => '<span class="yekan-20 color-black-80"><strong>سرویس </strong><span class="thin">خواب</span></span>',
+        'title' => '<span class="yekan-14 md:yekan-20 color-black-80"><strong>سرویس </strong><span class="thin">خواب</span></span>',
         'button_link' => '#',
         'card' => 'product-card',
         'wrapper_class' => 'mb-40',
@@ -127,7 +127,7 @@ get_header(); ?>
 
     /* Article Slider */
     $args = [
-        'title' => '<span class="yekan-20 color-black-80"><strong>جدیدترین </strong><span class="thin">مقاله</span></span>',
+        'title' => '<span class="yekan-14 md:yekan-20 color-black-80"><strong>جدیدترین </strong><span class="thin">مقاله</span></span>',
         'button_link' => '#',
         'card' => 'article-card',
         'slidesPerView' => 2.2,

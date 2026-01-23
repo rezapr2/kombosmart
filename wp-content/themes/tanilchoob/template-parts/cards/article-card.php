@@ -16,7 +16,7 @@ $read_more_text = isset($args['read_more_text']) ? $args['read_more_text'] : 'ا
 ?>
 
 <article class="article-card swiper-slide">
-    <div class="article-card__inner flex">
+    <div class="article-card__inner flex flex-col md:flex-row">
         <?php if ($image_url): ?>
         <div class="article-card__image relative overflow-hidden h-auto flex-shrink-0 transition">
             <img class="transition object-cover" src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">

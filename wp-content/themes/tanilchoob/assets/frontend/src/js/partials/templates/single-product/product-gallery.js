@@ -7,9 +7,14 @@
             // Initialize thumbnail slider
             var galleryThumbs = new Swiper('.gallery-thumbs', {
                 slidesPerView: 'auto',
-                direction: 'vertical',
+                direction: 'horizontal',
                 watchSlidesVisibility: true,
                 watchSlidesProgress: true,
+                breakpoints: {
+                    768: {
+                        direction: 'vertical',
+                    }
+                }
             });
             
             // Initialize main slider
@@ -22,6 +27,10 @@
                 zoom: {
                     maxRatio: 2,
                     toggle: true
+                },
+                pagination: {
+                    el: '.gallery-main .swiper-pagination',
+                    clickable: true
                 }
             });
             

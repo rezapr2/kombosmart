@@ -13,3 +13,14 @@
 .grid{
     display: grid;
 }
+@media (min-width: 768px) {
+    .md\:flex {
+        display: flex;
+    }
+    .md\:grid {
+        display: grid;
+    }
+    .md\:none, .md\:hidden{
+        display: none;
+    }
+}

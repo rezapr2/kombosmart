@@ -19,7 +19,7 @@ use TanilChoob\Theme\Helper;
 ?>
 <footer id="main_footer" class="footer">
     <div class="container">
-        <div class="flex justify-between">
+        <div class="flex flex-col md:flex-row gap-20 justify-between">
             <div class="flex flex-col gap-07">
                 <div class="flex">
                     <?php $img = get_field('footer_logo', 'options');
@@ -27,7 +27,7 @@ use TanilChoob\Theme\Helper;
                     ?>
                         <img class="footer_logo h-auto" src="<?php echo $img['url']; ?>" alt="<?php echo $img['alt']; ?>">
                     <?php endif; ?>
-                    <div class="footer_socials flex">
+                    <div class="footer_socials hidden md:flex">
                         <?php $socials = get_field('social_networks', 'options');
                         if ($socials):
                             foreach ($socials as $key => $social):
@@ -39,13 +39,13 @@ use TanilChoob\Theme\Helper;
                         endif; ?>
                     </div>
                 </div>
-                <div class="description border yekan-18 color-white-70 text-justify">
+                <div class="description border yekan-14 md:yekan-18 color-white-70 text-center md:text-justify">
                     <?php echo get_field('about_tanil', 'options'); ?>
                 </div>
             </div>
             <div class="flex flex-col list list_1 border">
                 <?php $list_1 = get_field('list_1', 'options'); ?>
-                <div class="title color-white-80 yekan-22 text-center">
+                <div class="title color-white-80 yekan-18 md:yekan-22 text-center">
                     <?php echo (isset($list_1['title']) ? $list_1['title'] : ''); ?>
                 </div>
                 <ul class="items flex flex-col gap-10">
@@ -53,7 +53,7 @@ use TanilChoob\Theme\Helper;
                     $list = (isset($list_1['list']) ? $list_1['list'] : []);
                     foreach ($list as $item) {
                         $link = $item['link'];
-                        echo '<li><a class="color-white-50 yekan-20" href="' . $link['url'] . '">' . $link['title'] . '</a></li>';
+                        echo '<li><a class="color-white-50 yekan-16 md:yekan-20" href="' . $link['url'] . '">' . $link['title'] . '</a></li>';
                     }
                     ?>
 
@@ -61,7 +61,7 @@ use TanilChoob\Theme\Helper;
             </div>
             <div class="flex flex-col list list_2 border">
                 <?php $list_2 = get_field('list_2', 'options'); ?>
-                <div class="title color-white-80 yekan-22 text-center">
+                <div class="title color-white-80 yekan-18 md:yekan-22 text-center">
                     <?php echo (isset($list_2['title']) ? $list_2['title'] : ''); ?>
                 </div>
                 <ul class="items flex flex-col gap-10">
@@ -69,7 +69,7 @@ use TanilChoob\Theme\Helper;
                     $list = (isset($list_2['list']) ? $list_2['list'] : []);
                     foreach ($list as $item) {
                         $link = $item['link'];
-                        echo '<li><a class="color-white-50 yekan-20" href="' . $link['url'] . '">' . $link['title'] . '</a></li>';
+                        echo '<li><a class="color-white-50 yekan-16 md:yekan-20" href="' . $link['url'] . '">' . $link['title'] . '</a></li>';
                     }
                     ?>
 
@@ -102,7 +102,7 @@ use TanilChoob\Theme\Helper;
                 </div>
             </div>
         </div>
-        <div class="copyright flex justify-center yekan-13 color-white-30">
+        <div class="copyright flex justify-center yekan-11 md:yekan-13 color-white-30">
             <?php echo get_field('footer_copyright_text', 'options'); ?>
         </div>
     </div>

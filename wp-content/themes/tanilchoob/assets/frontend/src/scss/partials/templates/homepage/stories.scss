@@ -25,6 +25,20 @@
             }
             
         }
+        @media (max-width: 768px) {
+            margin-right: 0;
+            gap: calcRem(18);
+            .story-item{
+                gap: calcRem(8);
+                .story-image-wrapper {
+                    img{
+                        width: calcRem(72);
+                        height: calcRem(72);
+                    }
+                }
+                
+            }
+        }
     }
 }
 

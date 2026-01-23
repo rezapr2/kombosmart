@@ -19,7 +19,7 @@ if ($hero_slider) {
                                         <?php echo $item['description']; ?>
                                     </div>
                                     <?php if ($item['link']) { ?>
-                                        <a href="<?php echo $item['link']['url']; ?>" class="btn color-primary yekan-18 bg-white-30 w-fit transition">
+                                        <a href="<?php echo $item['link']['url']; ?>" class="btn color-primary yekan-7 md:yekan-18 bg-white-30 w-fit transition">
                                             <?php echo $item['link']['title']; ?>
                                         </a>
                                     <?php } ?>
@@ -36,7 +36,7 @@ if ($hero_slider) {
                     </div>
                 <?php } ?>
 
-                <div class="container swiper-navigation absolute flex items-center gap-10">
+                <div class="container swiper-navigation absolute hidden md:flex items-center gap-10">
                     <!-- Add navigation buttons -->
                     <div class="swiper-button-prev circle-radius transition flex item-center">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

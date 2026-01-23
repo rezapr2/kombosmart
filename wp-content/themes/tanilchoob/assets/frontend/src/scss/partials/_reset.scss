@@ -17,7 +17,6 @@ body, input, textarea, button {
     padding: 0;
     direction: rtl;
 }
-
 *,
 *:focus,
 *:hover {
@@ -70,6 +69,12 @@ button{
         padding-right: 10vw;
     }
     .container-right{
+        padding-right: 10vw;
+    }
+}
+@media (min-width: 768px) {
+    .md\:container{
+        padding-left: 10vw;
         padding-right: 10vw;
     }
 }

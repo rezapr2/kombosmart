@@ -24,17 +24,17 @@ $why_material_image = get_field('why_material_image', $page_id);
 $page_blocks = get_field('page_blocks', $page_id);
 ?>
 <div id="page-material" class="page-template-material">
-    <section class="hero container flex flex-col items-center">
+    <section class="hero container flex flex-col gap-10 items-center">
         <h1 class="title color-primary bold relative"><?php the_title(); ?></h1>
-        <div class="hero_subtitle color-black-70 yekan-20"><?php echo get_field('hero_subtitle', $page_id) ?: ''; ?></div>
+        <div class="hero_subtitle color-black-70 yekan-12 md:yekan-20 text-center"><?php echo get_field('hero_subtitle', $page_id) ?: ''; ?></div>
     </section>
     <section class="container flex flex-col gap-20">
-        <div class="page_blocks_title text-center yekan-28 bold color-primary mt-30">
+        <div class="page_blocks_title text-center yekan-18 md:yekan-28 bold color-primary mt-30">
             چرا متريال اهميت دارد؟
         </div>
 
-        <div class="why_material flex items-center gap-20">
-                <div class="text color-black-70 yekan-22">
+        <div class="why_material flex flex-col-reverse md:flex-row items-center gap-20">
+                <div class="text color-black-70 yekan-14 md:yekan-22 text-center md:text-right">
                     <?php echo $why_material_text ?: ''; ?>
                 </div>
                 <div class="image-box flex-shrink-0">
@@ -50,10 +50,10 @@ $page_blocks = get_field('page_blocks', $page_id);
         if ($page_blocks) :
             foreach ($page_blocks as $index => $block) : ?>
                 <div class="content-box bg-black-03">
-                    <div class="container flex items-center gap-20">
+                    <div class="container flex flex-col-reverse md:flex-row items-center md:gap-20">
                         <div class="story-box flex-1 flex flex-col gap-20">
-                            <div class="title_wrapper flex items-center gap-07">
-                                <h2 class="title color-primary yekan-28 ">
+                            <div class="title_wrapper flex items-center gap-07 flex-col md:flex-row">
+                                <h2 class="title color-primary yekan-22 md:yekan-28 ">
                                     <?php
                                     if (isset($block['title_url'])) {
                                         echo '<a class="color-primary" href="' . $block['title_url'] . '" target="_blank">' . $block['title'] . '</a>';
@@ -65,24 +65,24 @@ $page_blocks = get_field('page_blocks', $page_id);
                                     ?>
                                 </h2>
                                 <?php if(isset($block['subtitle'])) { ?>
-                                    <span class="color-primary yekan-28">|</span>
-                                    <div class="subtitle yekan-18 color-black-60">
+                                    <span class="color-primary yekan-28 hidden md:flex">|</span>
+                                    <div class="subtitle yekan-14 md:yekan-18 color-black-60">
                                         <?php echo $block['subtitle'] ?: ''; ?>
                                     </div>
                                 <?php } ?>
                             </div>
                             
-                            <div class="description yekan-24 color-black-70">
+                            <div class="description yekan-16 md:yekan-24 text-center md:text-right color-black-70">
                                 <?php echo $block['text'] ?: ''; ?>
                             </div>
 
                                 <?php
                                 $features = isset($block['features']) ? $block['features'] : [];
                                 if ($features) : ?>
-                                    <div class="features mt-25">
-                                        <ul class="flex items-center gap-10">
+                                    <div class="features mt-25 mb-10">
+                                        <ul class="flex items-center flex-wrap gap-10">
                                             <?php foreach ($features as $feature) : ?>
-                                                <li class="feature yekan-14 color-primary"><?php echo $feature['item_text'] ?: ''; ?></li>
+                                                <li class="feature yekan-12 md:yekan-14 color-primary"><?php echo $feature['item_text'] ?: ''; ?></li>
                                             <?php endforeach; ?>
                                         </ul>
                                     </div>
@@ -100,14 +100,14 @@ $page_blocks = get_field('page_blocks', $page_id);
         ?>
     </section>
     <section class="call-us flex flex-col items-center mt-40">
-        <div class="title yekan-30 bold color-primary">
+        <div class="title yekan-16 md:yekan-30 text-center bold color-primary">
             برای انتخاب بهتر، با مشاوران ما تماس بکیريد
         </div>
-        <div class="subtitle yekan-24 color-black-60">
+        <div class="subtitle yekan-14 md:yekan-24 text-center color-black-60">
             ما آماده ايم تا متريال هاى مختلف را به شما نشان دهيم ودر انتخاب بهترين كزينه راهنمایى تان كنيم.
         </div>
         <div class="button mt-25">
-            <a href="<?php echo get_field('button_url', $page_id) ?: '#'; ?>" class="yekan-20 color-white bg-primary block">
+            <a href="<?php echo get_field('button_url', $page_id) ?: '#'; ?>" class="yekan-14 md:yekan-20 color-white bg-primary block">
                 <?php echo get_field('button_text', $page_id) ?: 'تماس با ما'; ?>
             </a>
         </div>

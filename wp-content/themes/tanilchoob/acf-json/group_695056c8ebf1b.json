@@ -108,7 +108,7 @@
         },
         {
             "key": "field_695056c8ec7f7",
-            "label": "بخش هاى مختلف كارخانه تانيل چوب",
+            "label": "بخش هاى مختلف متریال",
             "name": "page_blocks",
             "aria-label": "",
             "type": "repeater",
@@ -151,28 +151,6 @@
                     "parent_repeater": "field_695056c8ec7f7"
                 },
                 {
-                    "key": "field_69505831293b0",
-                    "label": "عنوان فرعی",
-                    "name": "subtitle",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_695056c8ec7f7"
-                },
-                {
                     "key": "field_695056c8ee922",
                     "label": "لینک عنوان",
                     "name": "title_url",
@@ -192,6 +170,28 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
+                    "parent_repeater": "field_695056c8ec7f7"
+                },
+                {
+                    "key": "field_69505831293b0",
+                    "label": "عنوان فرعی",
+                    "name": "subtitle",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0,
                     "parent_repeater": "field_695056c8ec7f7"
                 },
                 {
@@ -311,5 +311,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1766873489
+    "modified": 1768687644
 }

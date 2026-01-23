@@ -1,3 +1,9 @@
+.yekan-7{
+    font-size: calcRem(7);
+}
+.yekan-11{
+    font-size: calcRem(11);
+}
 .yekan-12{
     font-size: calcRem(12);
 }
@@ -57,4 +63,51 @@
 }
 .text-justify{
     text-align: justify;
+}
+@media (min-width: 768px) {
+    .md\:yekan-13{
+        font-size: calcRem(13);
+    }
+    .md\:yekan-14{
+        font-size: calcRem(14);
+    }
+    .md\:yekan-16{
+        font-size: calcRem(16);
+    }
+    .md\:yekan-18{
+        font-size: calcRem(18);
+    }
+    .md\:yekan-20{
+        font-size: calcRem(20);
+    }
+    .md\:yekan-22{
+        font-size: calcRem(22);
+    }
+    .md\:yekan-24{
+        font-size: calcRem(24);
+    }
+    .md\:yekan-25{
+        font-size: calcRem(25);
+    }
+    .md\:yekan-26{
+        font-size: calcRem(26);
+    }
+    .md\:yekan-28{
+        font-size: calcRem(28);
+    }
+    .md\:yekan-30{
+        font-size: calcRem(30);
+    }
+    .md\:yekan-34{
+        font-size: calcRem(34);
+    }
+    .md\:text-right {
+        text-align: center;
+    }
+    .md\:text-right {
+        text-align: right;
+    }
+    .md\:text-justify{
+        text-align: justify;
+    }
 }

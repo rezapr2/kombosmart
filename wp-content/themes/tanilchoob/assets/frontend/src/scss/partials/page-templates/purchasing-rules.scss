@@ -1,6 +1,6 @@
 .page-template-purchasing-rules {
     .hero {
-        background-color: #FDFAFF;
+        background-color: #fdfaff;
         padding-top: 4rem;
         padding-bottom: 6rem;
         .title {
@@ -13,16 +13,29 @@
     .content_boxes_wrapper {
         .content_box {
             padding: 3.5rem 5.5rem;
-            .content_box_content{
-                ul{
+            .content_box_content {
+                ul {
                     list-style: disc;
                     padding-right: 2rem;
                 }
-                ol{
+                ol {
                     padding: 0;
                     margin: 0;
                     padding-right: 2rem;
                 }
+            }
+        }
+    }
+    @media (max-width: 768px) {
+        .hero {
+            .title {
+                font-size: 2.2rem;
+                padding: 1rem;
+            }
+        }
+        .content_boxes_wrapper {
+            .content_box {
+                padding: 3rem 2rem;
             }
         }
     }

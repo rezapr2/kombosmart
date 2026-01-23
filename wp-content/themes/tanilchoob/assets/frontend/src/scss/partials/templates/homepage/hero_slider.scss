@@ -29,6 +29,22 @@
                 }
             }
         }
+        @media (max-width: 768px) {
+            .slide-content{
+                padding: calcRem(50) calcRem(15);
+            }
+            .slide-img{
+                height: calcRem(100);
+            }
+            .hero-slider-content{
+                .title{
+                    font-size: calcRem(18);
+                }
+                .description{
+                    font-size: calcRem(11);
+                }
+            }
+        }
     }
     .swiper-navigation{
         left: 0;

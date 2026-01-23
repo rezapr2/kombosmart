@@ -67,4 +67,32 @@
             width: 24%;
         }
     }
+    @media (max-width: 768px) {
+        .hero {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+            .title {
+                font-size: 2rem;
+            }
+        }
+        .inventory-status_wrapper{
+            .inventory-status_list{
+                gap: 1rem 1rem;
+                .inventory-status_item{
+                    .inventory-status_item_description{
+                        padding: 0 1rem 1rem 1rem;
+                    }
+                }
+            }
+        }
+        .delivery_methods{
+            .delivery_methods_item_title{
+                padding: .8rem 0;
+                width: 100%;
+            }
+            .delivery_methods_item_description{
+                padding: 0 2rem;
+            }
+        }
+    }
 }

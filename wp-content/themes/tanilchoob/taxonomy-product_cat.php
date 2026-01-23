@@ -27,21 +27,7 @@ $title       = single_term_title('', false);
 $description = term_description($term);
 $thumb_id    = $term_id ? get_term_meta($term_id, 'thumbnail_id', true) : '';
 $thumb_url   = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'large') : '';
-?>
 
-<div class="container mt-25 mb-25">
-    <div class="category-hero flex gap-20 items-center justify-center">
-        <a class="back-btn circle-radius bg-black-03 flex item-center" href="<?php echo esc_url(home_url('/shop/')); ?>">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0.75 7.75H14.75M14.75 7.75L7.75 0.75M14.75 7.75L7.75 14.75" stroke="#909090" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-        </a>
-        <h1 class="yekan-28 color-black bold"><?php echo esc_html($title); ?></h1>
-    </div>
-</div>
-
-
-<?php
 // If this category has child categories, show a slider of subcategories
 $subcategories = array();
 if ($term_id) {
@@ -53,7 +39,36 @@ if ($term_id) {
         'order'      => 'ASC',
     ]);
 }
+
+$product_cat_slug = get_query_var('product_cat'); // گرفتن اسلاگ دسته بندی محصول
+
 ?>
+
+<div class="container mt-25 mb-25">
+    <div class="category-hero flex gap-20 items-center justify-center">
+        <?php
+            if ($product_cat_slug) {
+                $term = get_term_by('slug', $product_cat_slug, 'product_cat');
+
+                if ($term) {
+                    if ($term->parent): 
+                    $parent_link = get_term_link($term->parent, 'product_cat'); ?>
+                    <a class="back-btn circle-radius bg-black-03 flex item-center" href="<?php echo esc_url($parent_link); ?>">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.75 7.75H14.75M14.75 7.75L7.75 0.75M14.75 7.75L7.75 14.75" stroke="#909090" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </a>                    
+                <?php endif; 
+                }
+            }
+        ?>
+        
+        <h1 class="yekan-28 color-black bold"><?php echo esc_html($title); ?></h1>
+    </div>
+</div>
+
+
+
 <?php if (!is_wp_error($subcategories) && !empty($subcategories)) : ?>
     <div class="container-right mb-25">
         <div class="carousel_slider-wrapper subcategories-slider" data-slidesPerView="auto" data-spaceBetween="8">
@@ -71,8 +86,8 @@ if ($term_id) {
                                 <div class="relative overflow-hidden">
                                     <img src="<?php echo esc_url($sub_thumb_url); ?>" alt="<?php echo esc_attr($sub_name); ?>">
                                     <div class="content">
-                                        <div class="title yekan-20 color-white-80 bold"><?php echo esc_html($sub_name); ?></div>
-                                        <div class="more w-fit yekan-13 color-white flex items-center transition"> بیشتر
+                                        <div class="title yekan-18 md:yekan-20 color-white-80 bold"><?php echo esc_html($sub_name); ?></div>
+                                        <div class="more w-fit yekan-13 color-white hidden md:flex items-center transition"> بیشتر
                                             <div class="arrow flex">
                                                 <svg viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M8 4H2m2-3L1 4l3 3" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -136,7 +151,7 @@ if ($term_id) {
     </div>
 </div>
 <div class="container mt-10">
-    <div class="category-products grid grid-cols-4 gap-30" id="category-products">
+    <div class="category-products grid grid-cols-1 md:grid-cols-4 gap-30" id="category-products">
 <?php if (woocommerce_product_loop()) : ?>
     <?php while (have_posts()) : the_post(); ?>
         <?php get_template_part('template-parts/cards/product-card', null, ['post_id' => get_the_ID()]); ?>

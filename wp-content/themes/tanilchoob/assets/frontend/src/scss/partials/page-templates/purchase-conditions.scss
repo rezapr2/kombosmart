@@ -132,4 +132,56 @@
             }
         }
     }
+    @media (max-width: 768px) {
+        .hero {
+            .title {
+                font-size: 2.2rem;
+                padding: 1rem;
+            }
+        }
+        .why_tanil {
+            margin-top: 4rem;
+            .description {
+                width: 100%;
+            }
+            .cards {
+                margin: 0 2rem;
+            }
+        }
+        .compare_purchase-conditions {
+            .conditions-table {
+                width: 100%;
+                min-width: 100%;
+                border-collapse: collapse;
+                table-layout: fixed;
+                direction: rtl;
+                thead tr th {
+                    padding: 1rem 1rem;
+                    font-size: 1rem;
+                }
+                tbody tr td {
+                    padding: 1rem 1rem;
+                    font-size: 1rem;
+                }
+            }
+        }
+        .form-area {
+            padding: 5rem 3.2rem;
+            .contact-form {
+                width: 100%;
+                margin-bottom: 5rem;
+                .wpcf7-form {
+                    font-size: 1.4rem;
+                    input.wpcf7-text,
+                    select.wpcf7-select,
+                    textarea.wpcf7-textarea {
+                        font-size: 1.4rem;
+                    }
+                    .wpcf7-submit {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
 }

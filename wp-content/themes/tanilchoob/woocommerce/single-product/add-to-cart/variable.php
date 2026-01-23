@@ -37,7 +37,7 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 
 			<div class="accordion-box variation-box slide-down-wrapper flex flex-col gap-10">
 				<div class="box-title flex items-center justify-between">
-					<div class="label yekan-18 color-black-60"><label for="<?php echo esc_attr(sanitize_title($attribute_name)); ?>"><?php echo wc_attribute_label($attribute_name); // WPCS: XSS ok. 
+					<div class="label yekan-14 md:yekan-18 color-black-60"><label for="<?php echo esc_attr(sanitize_title($attribute_name)); ?>"><?php echo wc_attribute_label($attribute_name); // WPCS: XSS ok. 
 																																		?>:</label></div>
 					<div class="slide-down-trigger transition" role="button" aria-expanded="false">
 						<svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +46,7 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 					</div>
 
 				</div>
-				<div class="content slide-down-content yekan-18 color-primary">
+				<div class="content slide-down-content yekan-14 md:yekan-18 color-primary">
 					<?php
 					// Render radios for this attribute and keep a hidden select for WooCommerce JS compatibility.
 					$sanitized_attr = sanitize_title($attribute_name);
@@ -113,7 +113,7 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 								<?php if (isset($item['patern_image']) && $item['patern_image']) { ?>
 									<img class="patern-image circle-radius" src="<?php echo $item['patern_image']['url']; ?>" alt="<?php echo $item['label']; ?>" />
 								<?php } ?>
-								<span class="yekan-18 color-black-50"><?php echo esc_html($item['label']); ?></span>
+								<span class="yekan-14 md:yekan-18 color-black-50"><?php echo esc_html($item['label']); ?></span>
 							</label>
 						<?php endforeach; ?>
 					</div>
@@ -141,7 +141,7 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 		<div class="reset_variations_alert screen-reader-text" role="alert" aria-live="polite" aria-relevant="all"></div>
 		<?php do_action('woocommerce_after_variations_table'); ?>
 
-		<div class="single_variation_wrap buttons-wrapper flex flex-row-reverse gap-07">
+		<div class="single_variation_wrap buttons-wrapper flex flex-col md:flex-row-reverse gap-07">
 			<div class="tanil-variation-price product-price h-100 px-20 flex items-center justify-center flex-1 yekan-22 color-primary bold">
 				<?php
 

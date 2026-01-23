@@ -70,6 +70,22 @@
                 }
             }
         }
+        @media (max-width: 768px) {
+            &__right {
+                .search {
+                    form {
+                        input[type='text'] {
+                            min-width: 12rem;
+                        }
+
+                        button {
+                            padding: 0 2rem;
+                            margin-right: -6rem;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     .header__menu {

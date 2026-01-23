@@ -61,4 +61,13 @@
     .border {
         border: 1px solid rgba(255, 255, 255, 0.08);
     }
+    @media (max-width: 768px) {
+        .footer_logo {
+            margin: 0 auto;
+            margin-bottom: 2rem;
+        }
+        .description {
+            width: 100%;
+        }
+    }
 }
