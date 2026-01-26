@@ -37,6 +37,66 @@
             "bidirectional_target": []
         },
         {
+            "key": "field_697534e990b02",
+            "label": "برچسب های داغ",
+            "name": "hot_tags",
+            "aria-label": "",
+            "type": "taxonomy",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "post_tag",
+            "add_term": 1,
+            "save_terms": 1,
+            "load_terms": 0,
+            "return_format": "id",
+            "field_type": "multi_select",
+            "allow_null": 1,
+            "allow_in_bindings": 0,
+            "bidirectional": 0,
+            "multiple": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_69750da3fe662",
+            "label": "پست های منتخب سردبیر",
+            "name": "selected_posts",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "post"
+            ],
+            "post_status": [
+                "publish"
+            ],
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "return_format": "id",
+            "min": "",
+            "max": "",
+            "allow_in_bindings": 0,
+            "elements": "",
+            "bidirectional": 0,
+            "bidirectional_target": []
+        },
+        {
             "key": "field_69627066577f0",
             "label": "تبلیغات بالای صفحه",
             "name": "top_ads",
@@ -77,7 +137,7 @@
                         {
                             "key": "field_6962708e577f2",
                             "label": "تصویر",
-                            "name": "ads",
+                            "name": "image",
                             "aria-label": "",
                             "type": "image",
                             "instructions": "",
@@ -230,5 +290,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1768062161
+    "modified": 1769372696
 }

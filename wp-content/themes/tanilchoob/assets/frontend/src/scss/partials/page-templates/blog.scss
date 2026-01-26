@@ -1,0 +1,117 @@
+.page-template-blog-archive {
+    .top_posts {
+        .post {
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.05);
+                z-index: 1;
+                background: linear-gradient(
+                    0deg,
+                    #000000 0%,
+                    rgba(0, 0, 0, 0) 145.06%
+                );
+                transform: matrix(-1, 0, 0, 1, 0, 0);
+                transition: all 0.35s ease-in-out;
+            }
+            h2, h3 {
+                position: absolute;
+                bottom: 2rem;
+                right: 3rem;
+                z-index: 2;
+                font-weight: 400;
+            }
+            &:hover {
+                &::after {
+                    height: 20%;
+                    bottom: 0;
+                    top: 80%;
+                    background: linear-gradient(
+                        0deg,
+                        #000000 0%,
+                        rgba(0, 0, 0, 0) 100%
+                    );
+                }
+            }
+        }
+    }
+
+    .hot_tags {
+        .tags_list {
+            &::-webkit-scrollbar {
+                display: none;
+            }
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .tag_item {
+            background-color: #F8F8F8;
+            padding: 0.5rem 1rem;
+            color: #808080;
+            white-space: nowrap;
+            
+            &:hover {
+                background-color: #000;
+                color: #fff;
+            }
+            
+            &.active {
+                background-color: #333;
+                color: #fff;
+            }
+        }
+    }
+
+    .sidebar {
+        .widget {
+            background: #fff;
+            padding: 1.5rem;
+            border: 1px solid #eee;
+
+            .widget-title {
+                border-bottom: 1px solid #eee;
+                padding-bottom: 1rem;
+            }
+
+            .categories-list {
+                li {
+                    a {
+                        &:hover {
+                            color: rgba(0, 0, 0, 0.8);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .main_posts {
+        .blog-card {
+            .image-box {
+                aspect-ratio: 16/10;
+                img {
+                    transition: transform 0.5s ease;
+                }
+            }
+            
+            &:hover {
+                border-color: #c89a58;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+                
+                .image-box {
+                    img {
+                        transform: scale(1.05);
+                    }
+                }
+
+                .read-more {
+                    gap: 10px;
+                }
+            }
+        }
+    }
+}
