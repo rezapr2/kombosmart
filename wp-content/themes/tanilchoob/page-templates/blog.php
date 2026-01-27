@@ -22,7 +22,9 @@ $page_id = get_queried_object_id();
 $top_posts = get_field('top_posts', $page_id);
 $hot_tags = get_field('hot_tags', $page_id);
 $top_ads = get_field('top_ads', $page_id);
-$sidebar_ads = get_field('sidebar_ads', $page_id);
+$most_popular_posts = get_field('most_popular_posts', $page_id);
+$sidebar_ads = get_field('sidebar_ads', 'option');
+$bottom_tabs = get_field('bottom_tabs', $page_id);
 ?>
 <div id="page-blog-archive" class="page-template-blog-archive">
     <?php if($top_posts) : 
@@ -79,89 +81,148 @@ $sidebar_ads = get_field('sidebar_ads', $page_id);
         </div>
     </section>
     <?php endif;  ?>
-    <?php if(isset($top_ads['ads'])): ?>
-    <section class="top_ads container flex items-center gap-20 mt-30">
-        <?php foreach( $top_ads['ads'] as $ad ) : ?>
-                        <?php if(isset($ad['link']['url'])): ?>
-                        <a href="<?php echo esc_url( $ad['link']['url'] ); ?>" target="_blank" class="block w-full h-200 object-cover rounded-10 transition hover-shadow">
-                        <?php endif; if(isset($ad['image']['url'])): ?>    
-                        <img src="<?php echo esc_url( $ad['image']['url'] ); ?>" alt="<?php echo esc_attr( $ad['image']['title'] ); ?>">
-                        <?php endif; if(isset($ad['link']['url'])): ?> </a><?php endif; ?> 
-        <?php endforeach; ?>
-    </section>
+    <?php if($top_ads): ?>
+        <section class="top_ads container flex items-center gap-20 mt-30">
+            <?php foreach( $top_ads['ads'] as $ad ) : ?>
+                            <?php if(isset($ad['link']['url'])): ?>
+                            <a href="<?php echo esc_url( $ad['link']['url'] ); ?>" target="_blank" class="flex w-full object-cover">
+                            <?php endif; if(isset($ad['image']['url'])): ?>    
+                            <img src="<?php echo esc_url( $ad['image']['url'] ); ?>" alt="<?php echo esc_attr( $ad['image']['title'] ); ?>">
+                            <?php endif; if(isset($ad['link']['url'])): ?> </a><?php endif; ?> 
+            <?php endforeach; ?>
+        </section>
     <?php endif; ?>
     <section class="flex container gap-10 mt-40">
-        
-        <main class="main_posts w-75 flex flex-col gap-20">
-            <?php
-            $recent_posts = new WP_Query(array(
-                'post_type' => 'post',
-                'posts_per_page' => 4,
-                'post_status' => 'publish',
-                'orderby' => 'date',
-                'order' => 'DESC'
-            ));
-
-            if ($recent_posts->have_posts()) :
-                while ($recent_posts->have_posts()) : $recent_posts->the_post();
-                    $post_id = get_the_ID();
-                    $title = get_the_title();
-                    $excerpt = get_the_excerpt();
-                    $permalink = get_permalink();
-                    $image_url = get_the_post_thumbnail_url($post_id, 'medium');
-                    $author_name = get_the_author();
-                    $date = get_the_date('j F Y');
-                    $read_time = '5 دقیقه مطالعه'; // Static for now or use a helper if available
-            ?>
-            <article class="blog-card flex flex-col md:flex-row gap-20 bg-white p-15 rounded-15 border border-gray-100 transition hover-shadow">
-                <?php if($image_url): ?>
-                <a href="<?php echo esc_url($permalink); ?>" class="image-box relative overflow-hidden rounded-10 flex-shrink-0 w-100 md:w-30">
-                    <img class="w-100 h-100 object-cover absolute inset-0 transition" src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
-                </a>
-                <?php endif; ?>
-                <div class="content flex flex-col justify-between flex-grow-1 gap-10">
-                    <div class="top-content flex flex-col gap-10">
-                        <div class="meta flex items-center gap-15 color-black-40 yekan-12">
-                            <span class="author flex items-center gap-5">
-                                <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/user.svg')); ?>
-                                <?php echo esc_html($author_name); ?>
-                            </span>
-                            <span class="date flex items-center gap-5">
-                                <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/calendar.svg')); ?>
-                                <?php echo esc_html($date); ?>
-                            </span>
-                        </div>
-                        <h2 class="title yekan-18 md:yekan-22 bold color-black-80">
-                            <a href="<?php echo esc_url($permalink); ?>" class="transition hover-color-primary">
-                                <?php echo esc_html($title); ?>
-                            </a>
-                        </h2>
-                        <div class="excerpt yekan-14 color-black-60 text-justify line-clamp-2">
-                            <?php echo wp_kses_post($excerpt); ?>
-                        </div>
-                    </div>
-                    <div class="bottom-content flex items-center justify-between border-t border-gray-100 pt-15 mt-5">
-                         <span class="read-time color-black-40 yekan-12 flex items-center gap-5">
-                            <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/clock.svg')); ?>
-                            <?php echo esc_html($read_time); ?>
-                         </span>
-                         <a href="<?php echo esc_url($permalink); ?>" class="read-more color-primary yekan-14 flex items-center gap-5 transition hover-gap-10">
-                            ادامه مطلب
-                            <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-primary.svg')); ?>
-                         </a>
-                    </div>
-                </div>
-            </article>
-            <?php 
-                endwhile;
-                wp_reset_postdata();
-            else: 
-            ?>
-            <div class="no-posts yekan-16 color-black-60 text-center py-20">
-                هیچ مقاله ای یافت نشد.
+        <div class="tab-contents w-75">
+            <div class="tabs flex w-full">
+                    <div id="tab-recent" class="tab-item yekan-14 color-black-30 pointer active">جدیدترین مطالب</div>
+                    <?php if($most_popular_posts): ?>
+                        <div id="tab-popular" class="tab-item yekan-14 color-black-30 pointer">پربازدیدترین</div>
+                    <?php endif; ?>
             </div>
-            <?php endif; ?>
-        </main>
+            <div class="tab-content flex flex-col gap-20">
+                    <div id="tab-recent-content" class="tab-content-item yekan-18 color-black-60 active">
+                        <main class="main_posts  flex flex-col gap-20">
+                            <?php
+                            $recent_posts = new WP_Query(array(
+                                'post_type' => 'post',
+                                'posts_per_page' => 4,
+                                'post_status' => 'publish',
+                                'orderby' => 'date',
+                                'order' => 'DESC'
+                            ));
+
+                            if ($recent_posts->have_posts()) :
+                                while ($recent_posts->have_posts()) : $recent_posts->the_post();
+                                    $post_id = get_the_ID();
+                                    $title = get_the_title();
+                                    $excerpt = get_the_excerpt();
+                                    $permalink = get_permalink();
+                                    $image_url = get_the_post_thumbnail_url($post_id, 'medium');
+                            ?>
+                            <article class="blog-card flex flex-col md:flex-row gap-20 bg-black-03 transition">
+                                <?php if($image_url): ?>
+                                <a href="<?php echo esc_url($permalink); ?>" class="image-box relative flex-shrink-0">
+                                    <img class="w-100 h-100 object-cover absolute inset-0 transition" src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
+                                </a>
+                                <?php endif; ?>
+                                <a href="<?php echo esc_url($permalink); ?>" class="content flex flex-col justify-between flex-grow-1 gap-10">
+                                    <div class="top-content flex flex-col gap-10">
+                                        <h2 class="title yekan-18 md:yekan-28 color-black">
+                                            <?php echo esc_html($title); ?>
+                                        </h2>
+                                        <div class="excerpt yekan-20 color-black-50">
+                                            <?php echo wp_kses_post($excerpt); ?>
+                                        </div>
+                                    </div>
+                                    <div class="bottom-content flex items-center">
+                                        <span class="date color-black-50 yekan-16 flex items-center gap-10">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12Z" stroke="black" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M15.7109 15.1798L12.6109 13.3298C12.0709 13.0098 11.6309 12.2398 11.6309 11.6098V7.50977" stroke="black" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <?php echo human_time_diff(get_the_time('U'), current_time('timestamp')) . ' پیش'; ?>
+                                        </span>
+                                    </div>
+                                </a>
+                            </article>
+                            <?php 
+                                endwhile;
+                                wp_reset_postdata();
+                            else: 
+                            ?>
+                            <div class="no-posts yekan-16 color-black-60 text-center py-20">
+                                هیچ مقاله ای یافت نشد.
+                            </div>
+                            <?php endif; ?>
+                            <div class="load-more-container flex justify-center mt-20">
+                                <button id="load-more-posts" class="yekan-18 transition color-black-80 flex items-center gap-10" data-page="1" data-max="<?php echo $recent_posts->max_num_pages; ?>">
+                                    مشاهده بیشتر
+                                    <span class="spinner hidden"></span>
+                                </button>
+                            </div>
+                        </main>
+                    </div>
+                    <?php if($most_popular_posts): ?>
+
+                    <div id="tab-popular-content" class="tab-content-item">
+                        <main class="main_posts  flex flex-col gap-20">
+                            <?php
+                            $most_popular_posts_loop = new WP_Query(array(
+                                'post_type' => 'post',
+                                'posts_per_page' => count($most_popular_posts),
+                                'post_status' => 'publish',
+                                'post__in' => $most_popular_posts,
+                                'orderby' => 'post__in'
+                            ));
+
+                            if ($most_popular_posts_loop->have_posts()) :
+                                while ($most_popular_posts_loop->have_posts()) : $most_popular_posts_loop->the_post();
+                                    $post_id = get_the_ID();
+                                    $title = get_the_title();
+                                    $excerpt = get_the_excerpt();
+                                    $permalink = get_permalink();
+                                    $image_url = get_the_post_thumbnail_url($post_id, 'medium');
+                            ?>
+                            <article class="blog-card flex flex-col md:flex-row gap-20 bg-black-03 transition">
+                                <?php if($image_url): ?>
+                                <a href="<?php echo esc_url($permalink); ?>" class="image-box relative flex-shrink-0">
+                                    <img class="w-100 h-100 object-cover absolute inset-0 transition" src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
+                                </a>
+                                <?php endif; ?>
+                                <a href="<?php echo esc_url($permalink); ?>" class="content flex flex-col justify-between flex-grow-1 gap-10">
+                                    <div class="top-content flex flex-col gap-10">
+                                        <h2 class="title yekan-18 md:yekan-28 color-black">
+                                            <?php echo esc_html($title); ?>
+                                        </h2>
+                                        <div class="excerpt yekan-20 color-black-50">
+                                            <?php echo wp_kses_post($excerpt); ?>
+                                        </div>
+                                    </div>
+                                    <div class="bottom-content flex items-center">
+                                        <span class="date color-black-50 yekan-16 flex items-center gap-10">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12Z" stroke="black" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M15.7109 15.1798L12.6109 13.3298C12.0709 13.0098 11.6309 12.2398 11.6309 11.6098V7.50977" stroke="black" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <?php echo human_time_diff(get_the_time('U'), current_time('timestamp')) . ' پیش'; ?>
+                                        </span>
+                                    </div>
+                                </a>
+                            </article>
+                            <?php 
+                                endwhile;
+                                wp_reset_postdata();
+                            ?>
+                            
+                            <?php endif; ?>
+                        </main>
+                    </div>
+                                        <?php endif; ?>
+
+            </div>
+        </div>
+        
         <aside class="sidebar w-25 flex flex-col gap-20">
             <div class="widget categories-widget flex flex-col gap-15">
                 <h3 class="widget-title yekan-20 color-black-80 relative">دسته بندی مقالات</h3>
@@ -181,7 +242,7 @@ $sidebar_ads = get_field('sidebar_ads', $page_id);
             <?php if($sidebar_ads) : ?>
             <div class="widget ads-widget flex flex-col gap-15">
                 <div class="ads-list flex flex-col gap-10">
-                    <?php foreach( $sidebar_ads as $ad ) : ?>
+                    <?php foreach( $sidebar_ads['ads'] as $ad ) : ?>
                         <?php if(isset($ad['link']['url'])): ?>
                         <a href="<?php echo esc_url( $ad['link']['url'] ); ?>" target="_blank" class="block w-full h-200 object-cover rounded-10 transition hover-shadow">
                         <?php endif; if(isset($ad['image']['url'])): ?>    
@@ -192,6 +253,77 @@ $sidebar_ads = get_field('sidebar_ads', $page_id);
             </div>
             <?php endif; ?>
         </aside>
+    </section>
+    <section class="flex container mt-40">
+        <div class="tab-contents w-full">
+            <div class="tabs flex w-full">
+                    <?php if(isset($bottom_tabs['new_posts'])): ?>
+                    <div id="tab-mp" class="tab-item yekan-14 color-black-30 pointer active">جدیدترین مطالب</div>
+                    <?php endif; ?>
+                    <?php if(isset($bottom_tabs['selected_posts'])): ?>
+                        <div id="tab-selected" class="tab-item yekan-14 color-black-30 pointer">منتخب سردبیر</div>
+                    <?php endif; ?>
+                    <?php if(isset($bottom_tabs['most_popular'])): ?>
+                        <div id="tab-views" class="tab-item yekan-14 color-black-30 pointer">پربازدیدترین</div>
+                    <?php endif; ?>
+            </div>
+            <div class="tab-content flex flex-col gap-20 mt-30">
+                    <?php if(isset($bottom_tabs['new_posts'])): ?>
+                    <div id="tab-mp-content" class="tab-content-item yekan-18 color-black-60 active">
+                        <section class="top_posts flex flex-col items-center">
+                            <div class="flex w-100 gap-20">
+                                <div class="highted_post post relative w-100">
+                                    <?php
+                                        $h_img = get_the_post_thumbnail_url($highlighted_post_id, 'large');
+                                        $h_title = get_the_title($highlighted_post_id);
+                                        $h_link = get_permalink($highlighted_post_id);
+                                    ?>
+                                    <a href="<?php echo esc_url($h_link); ?>" class="flex flex-col gap-10">
+                                        <?php if($h_img): ?>
+                                            <img class="transition object-cover w-100 h-auto" src="<?php echo esc_url($h_img); ?>" alt="<?php echo esc_attr($h_title); ?>">
+                                        <?php endif; ?>
+                                            <h2 class="yekan-16 md:yekan-24 color-white">
+                                                <?php echo esc_html($h_title); ?>
+                                            </h2>
+                                    </a>
+                                </div>
+                                <div class="grid grid-cols-2 w-100 gap-20">
+                                    <?php foreach($grid_post_ids as $pid): 
+                                        $p_img = get_the_post_thumbnail_url($pid, 'medium');
+                                        $p_title = get_the_title($pid);
+                                        $p_link = get_permalink($pid);
+                                    ?>
+                                    <a href="<?php echo esc_url($p_link); ?>" class="post relative flex flex-col gap-10">
+                                        <?php if($p_img): ?>
+                                            <img class="transition object-cover w-100 h-100 absolute inset-0" src="<?php echo esc_url($p_img); ?>" alt="<?php echo esc_attr($p_title); ?>">
+                                        <?php endif; ?>
+                                        <h3 class="yekan-16 md:yekan-24 color-white" >
+                                            <?php echo esc_html($p_title); ?>
+                                        </h3>
+                                    </a>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    
+                    <?php endif; ?>
+                    <?php if(isset($bottom_tabs['selected_posts'])): ?>
+
+                    <div id="tab-selected-content" class="tab-content-item">
+                       
+                    </div>
+                    <?php endif; ?>
+                    <?php if(isset($bottom_tabs['most_popular'])): ?>
+
+                    <div id="tab-views-content" class="tab-content-item">
+                       
+                    </div>
+                    <?php endif; ?>
+
+            </div>
+        </div>
+        
     </section>
 </div>
 <?php

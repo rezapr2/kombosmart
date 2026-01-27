@@ -18,7 +18,8 @@
                 transform: matrix(-1, 0, 0, 1, 0, 0);
                 transition: all 0.35s ease-in-out;
             }
-            h2, h3 {
+            h2,
+            h3 {
                 position: absolute;
                 bottom: 2rem;
                 right: 3rem;
@@ -49,23 +50,32 @@
             scrollbar-width: none;
         }
         .tag_item {
-            background-color: #F8F8F8;
+            background-color: #f8f8f8;
             padding: 0.5rem 1rem;
             color: #808080;
             white-space: nowrap;
-            
+
             &:hover {
                 background-color: #000;
                 color: #fff;
             }
-            
+
             &.active {
                 background-color: #333;
                 color: #fff;
             }
         }
     }
-
+    .top_ads{
+        > img, a{
+            width: 50%;
+        }
+        a{
+            img{
+                height: 100%;
+            }
+        }
+    }
     .sidebar {
         .widget {
             background: #fff;
@@ -91,27 +101,42 @@
 
     .main_posts {
         .blog-card {
+            padding: 1rem;
+            border: rgba(0, 0, 0, 0.03) 2px solid;
             .image-box {
                 aspect-ratio: 16/10;
+                width: 36rem;
+                height: 100%;
                 img {
                     transition: transform 0.5s ease;
                 }
             }
-            
-            &:hover {
-                border-color: #c89a58;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-                
-                .image-box {
-                    img {
-                        transform: scale(1.05);
+            .content {
+                padding: 2.5rem 0;
+            }
+            .bottom-content {
+                .date {
+                    padding: 0.5rem 0.8rem;
+
+                    border: 1px solid rgba(0, 0, 0, 0.1);
+                    svg {
+                        width: 2.4rem;
                     }
                 }
+            }
+            &:hover {
+                border-color: #5d0e87;
 
                 .read-more {
                     gap: 10px;
                 }
             }
+        }
+        #load-more-posts{
+            padding: 1rem 1.5rem;
+            box-sizing: border-box;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            background-color: #fff;
         }
     }
 }

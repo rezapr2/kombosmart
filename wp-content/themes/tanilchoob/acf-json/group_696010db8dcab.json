@@ -37,6 +37,40 @@
             "bidirectional_target": []
         },
         {
+            "key": "field_69791ed810dee",
+            "label": "پربازدیدترین مطالب",
+            "name": "most_popular_posts",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "post"
+            ],
+            "post_status": [
+                "publish"
+            ],
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "return_format": "id",
+            "min": "",
+            "max": "",
+            "allow_in_bindings": 0,
+            "elements": "",
+            "bidirectional": 0,
+            "bidirectional_target": []
+        },
+        {
             "key": "field_697534e990b02",
             "label": "برچسب های داغ",
             "name": "hot_tags",
@@ -184,9 +218,9 @@
             ]
         },
         {
-            "key": "field_69627cc085105",
-            "label": "تبلیغات سایدبار",
-            "name": "sidebar_ads",
+            "key": "field_697926372216b",
+            "label": "تب های پایین صفحه",
+            "name": "bottom_tabs",
             "aria-label": "",
             "type": "group",
             "instructions": "",
@@ -200,11 +234,11 @@
             "layout": "block",
             "sub_fields": [
                 {
-                    "key": "field_69627cc085106",
-                    "label": "بنر ها",
-                    "name": "ads",
+                    "key": "field_6979284751542",
+                    "label": "جدیدترین مطالب",
+                    "name": "new_posts",
                     "aria-label": "",
-                    "type": "repeater",
+                    "type": "relationship",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -213,60 +247,87 @@
                         "class": "",
                         "id": ""
                     },
-                    "layout": "table",
-                    "pagination": 0,
-                    "min": 0,
-                    "max": 0,
-                    "collapsed": "",
-                    "button_label": "سطر جدید",
-                    "rows_per_page": 20,
-                    "sub_fields": [
-                        {
-                            "key": "field_69627cc085107",
-                            "label": "تصویر",
-                            "name": "ads",
-                            "aria-label": "",
-                            "type": "image",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "return_format": "array",
-                            "library": "all",
-                            "min_width": "",
-                            "min_height": "",
-                            "min_size": "",
-                            "max_width": "",
-                            "max_height": "",
-                            "max_size": "",
-                            "mime_types": "",
-                            "allow_in_bindings": 0,
-                            "preview_size": "medium",
-                            "parent_repeater": "field_69627cc085106"
-                        },
-                        {
-                            "key": "field_69627cc085108",
-                            "label": "لینک",
-                            "name": "link",
-                            "aria-label": "",
-                            "type": "link",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "return_format": "array",
-                            "allow_in_bindings": 0,
-                            "parent_repeater": "field_69627cc085106"
-                        }
-                    ]
+                    "post_type": [
+                        "post"
+                    ],
+                    "post_status": [
+                        "publish"
+                    ],
+                    "taxonomy": "",
+                    "filters": [
+                        "search"
+                    ],
+                    "return_format": "id",
+                    "min": "",
+                    "max": "",
+                    "allow_in_bindings": 0,
+                    "elements": "",
+                    "bidirectional": 0,
+                    "bidirectional_target": []
+                },
+                {
+                    "key": "field_6979288751543",
+                    "label": "منتخب سردبیر",
+                    "name": "selected_posts",
+                    "aria-label": "",
+                    "type": "relationship",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "post"
+                    ],
+                    "post_status": [
+                        "publish"
+                    ],
+                    "taxonomy": "",
+                    "filters": [
+                        "search"
+                    ],
+                    "return_format": "id",
+                    "min": "",
+                    "max": "",
+                    "allow_in_bindings": 0,
+                    "elements": "",
+                    "bidirectional": 0,
+                    "bidirectional_target": []
+                },
+                {
+                    "key": "field_6979288951544",
+                    "label": "پربازدیدترین",
+                    "name": "most_popular",
+                    "aria-label": "",
+                    "type": "relationship",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "post"
+                    ],
+                    "post_status": [
+                        "publish"
+                    ],
+                    "taxonomy": "",
+                    "filters": [
+                        "search"
+                    ],
+                    "return_format": "id",
+                    "min": "",
+                    "max": "",
+                    "allow_in_bindings": 0,
+                    "elements": "",
+                    "bidirectional": 0,
+                    "bidirectional_target": []
                 }
             ]
         }
@@ -290,5 +351,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1769372696
+    "modified": 1769547974
 }
