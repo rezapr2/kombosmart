@@ -23,7 +23,7 @@ $top_posts = get_field('top_posts', $page_id);
 $hot_tags = get_field('hot_tags', $page_id);
 $top_ads = get_field('top_ads', $page_id);
 $most_popular_posts = get_field('most_popular_posts', $page_id);
-$sidebar_ads = get_field('sidebar_ads', 'option');
+$sidebar_ads = get_field('sidebar_ads', $page_id);
 $bottom_tabs = get_field('bottom_tabs', $page_id);
 ?>
 <div id="page-blog-archive" class="page-template-blog-archive">
@@ -67,17 +67,17 @@ $bottom_tabs = get_field('bottom_tabs', $page_id);
         </div>
     </section>
     <?php endif; if($hot_tags): ?>
-    <section class="hot_tags container flex items-center gap-10 mt-40">
-        <span class="tags_label yekan-14 md:yekan-16 color-black flex-shrink-0">برچسب های داغ:</span>
-        <div class="tags_list flex items-center gap-10 overflow-x-auto no-scrollbar flex-grow-1">
-            <?php  foreach($hot_tags as $tag_id): 
-                $tag = get_term($tag_id);
-                if(!$tag || is_wp_error($tag)) continue;
-            ?>
-                <a href="<?php echo get_term_link($tag); ?>" class="tag_item yekan-14 color-black-60 transition">
-                    <?php echo esc_html($tag->name); ?>
-                </a>
-            <?php endforeach; ?>
+    <section class="hot_tags container mt-40">
+        <div class="wrapper flex flex-col gap-10">
+            <span class="tags_label yekan-14 md:yekan-16 color-black flex-shrink-0">برچسب های داغ:</span>
+            <div class="tags_list flex items-center gap-10 overflow-x-auto no-scrollbar flex-grow-1">
+                <?php  foreach($hot_tags as $tag): 
+                ?>
+                    <a href="<?php echo esc_url($tag['tag']['url']); ?>" class="tag_item yekan-14 color-black-60 bg-black-03 transition">
+                        <?php echo esc_html($tag['tag']['title']); ?>
+                    </a>
+                <?php endforeach; ?>
+            </div>
         </div>
     </section>
     <?php endif;  ?>
@@ -94,7 +94,7 @@ $bottom_tabs = get_field('bottom_tabs', $page_id);
     <?php endif; ?>
     <section class="flex container gap-10 mt-40">
         <div class="tab-contents w-75">
-            <div class="tabs flex w-full">
+            <div class="tabs flex w-full relative mb-10">
                     <div id="tab-recent" class="tab-item yekan-14 color-black-30 pointer active">جدیدترین مطالب</div>
                     <?php if($most_popular_posts): ?>
                         <div id="tab-popular" class="tab-item yekan-14 color-black-30 pointer">پربازدیدترین</div>
@@ -256,7 +256,7 @@ $bottom_tabs = get_field('bottom_tabs', $page_id);
     </section>
     <section class="flex container mt-40">
         <div class="tab-contents w-full">
-            <div class="tabs flex w-full">
+            <div class="tabs flex w-full relative">
                     <?php if(isset($bottom_tabs['new_posts'])): ?>
                     <div id="tab-mp" class="tab-item yekan-14 color-black-30 pointer active">جدیدترین مطالب</div>
                     <?php endif; ?>
@@ -272,8 +272,18 @@ $bottom_tabs = get_field('bottom_tabs', $page_id);
                         $highlighted_post_id = $bottom_tabs['new_posts'][0];
                         $grid_post_ids = array_slice($bottom_tabs['new_posts'], 1, 4);
                     ?>
-                    <div id="tab-mp-content" class="tab-content-item yekan-18 color-black-60 active">
-                        <div class="top_posts flex flex-col items-center">
+                    <div id="tab-mp-content" class="tab-content-item yekan-18 color-black-60 relative active">
+                        <?php if(isset($bottom_tabs['new_posts_all'])): ?>
+                            <a href="<?php echo esc_url($bottom_tabs['new_posts_all']); ?>" class="flex items-center gap-20 all-link absolute">
+                                <span class="yekan-20 color-black-50">
+                                مشاهده همه 
+                                </span>
+                                <svg width="6" height="12" viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5.19531 10.6699L1.11211 6.58672C0.629893 6.1045 0.629893 5.31542 1.11211 4.8332L5.19531 0.75" stroke="black" stroke-opacity="0.5" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        <?php endif; ?>
+                        <div class="top_posts video_posts flex flex-col items-center">
                             <div class="flex w-100 gap-20">
                                 <div class="highted_post post relative w-100">
                                     <?php
@@ -316,8 +326,18 @@ $bottom_tabs = get_field('bottom_tabs', $page_id);
                         $grid_post_ids = array_slice($bottom_tabs['selected_posts'], 1, 4);
                     ?>
 
-                    <div id="tab-selected-content" class="tab-content-item">
-                       <div class="top_posts flex flex-col items-center">
+                    <div id="tab-selected-content" class="tab-content-item relative">
+                        <?php if(isset($bottom_tabs['selected_posts_all'])): ?>
+                            <a href="<?php echo esc_url($bottom_tabs['selected_posts_all']); ?>" class="flex items-center gap-20 all-link absolute">
+                                <span class="yekan-20 color-black-50">
+                                مشاهده همه 
+                                </span>
+                                <svg width="6" height="12" viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5.19531 10.6699L1.11211 6.58672C0.629893 6.1045 0.629893 5.31542 1.11211 4.8332L5.19531 0.75" stroke="black" stroke-opacity="0.5" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        <?php endif; ?>
+                       <div class="top_posts video_posts flex flex-col items-center">
                             <div class="flex w-100 gap-20">
                                 <div class="highted_post post relative w-100">
                                     <?php
@@ -358,8 +378,18 @@ $bottom_tabs = get_field('bottom_tabs', $page_id);
                         $highlighted_post_id = $bottom_tabs['most_popular'][0];
                         $grid_post_ids = array_slice($bottom_tabs['most_popular'], 1, 4);
                     ?>
-                    <div id="tab-views-content" class="tab-content-item">
-                       <div class="top_posts flex flex-col items-center">
+                    <div id="tab-views-content" class="tab-content-item relative">
+                        <?php if(isset($bottom_tabs['selected_posts_all'])): ?>
+                            <a href="<?php echo esc_url($bottom_tabs['selected_posts_all']); ?>" class="flex items-center gap-20 all-link absolute">
+                                <span class="yekan-20 color-black-50">
+                                مشاهده همه 
+                                </span>
+                                <svg width="6" height="12" viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5.19531 10.6699L1.11211 6.58672C0.629893 6.1045 0.629893 5.31542 1.11211 4.8332L5.19531 0.75" stroke="black" stroke-opacity="0.5" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        <?php endif; ?>
+                       <div class="top_posts video_posts flex flex-col items-center">
                             <div class="flex w-100 gap-20">
                                 <div class="highted_post post relative w-100">
                                     <?php

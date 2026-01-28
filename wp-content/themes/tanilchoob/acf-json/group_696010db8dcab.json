@@ -75,7 +75,7 @@
             "label": "برچسب های داغ",
             "name": "hot_tags",
             "aria-label": "",
-            "type": "taxonomy",
+            "type": "repeater",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -84,51 +84,33 @@
                 "class": "",
                 "id": ""
             },
-            "taxonomy": "post_tag",
-            "add_term": 1,
-            "save_terms": 1,
-            "load_terms": 0,
-            "return_format": "id",
-            "field_type": "multi_select",
-            "allow_null": 1,
-            "allow_in_bindings": 0,
-            "bidirectional": 0,
-            "multiple": 0,
-            "bidirectional_target": []
-        },
-        {
-            "key": "field_69750da3fe662",
-            "label": "پست های منتخب سردبیر",
-            "name": "selected_posts",
-            "aria-label": "",
-            "type": "relationship",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "post_type": [
-                "post"
-            ],
-            "post_status": [
-                "publish"
-            ],
-            "taxonomy": "",
-            "filters": [
-                "search",
-                "post_type",
-                "taxonomy"
-            ],
-            "return_format": "id",
-            "min": "",
-            "max": "",
-            "allow_in_bindings": 0,
-            "elements": "",
-            "bidirectional": 0,
-            "bidirectional_target": []
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "سطر جدید",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_697a396fe5c40",
+                    "label": "برچسب",
+                    "name": "tag",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "allow_in_bindings": 0,
+                    "parent_repeater": "field_697534e990b02"
+                }
+            ]
         },
         {
             "key": "field_69627066577f0",
@@ -218,6 +200,93 @@
             ]
         },
         {
+            "key": "field_697a3935d9422",
+            "label": "تبلیغات سایدبار",
+            "name": "sidebar_ads",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_697a3935d9423",
+                    "label": "بنر ها",
+                    "name": "ads",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "table",
+                    "pagination": 0,
+                    "min": 0,
+                    "max": 0,
+                    "collapsed": "",
+                    "button_label": "سطر جدید",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_697a3935d9424",
+                            "label": "تصویر",
+                            "name": "image",
+                            "aria-label": "",
+                            "type": "image",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "library": "all",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": "",
+                            "mime_types": "",
+                            "allow_in_bindings": 0,
+                            "preview_size": "medium",
+                            "parent_repeater": "field_697a3935d9423"
+                        },
+                        {
+                            "key": "field_697a3935d9425",
+                            "label": "لینک",
+                            "name": "link",
+                            "aria-label": "",
+                            "type": "link",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "allow_in_bindings": 0,
+                            "parent_repeater": "field_697a3935d9423"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "key": "field_697926372216b",
             "label": "تب های پایین صفحه",
             "name": "bottom_tabs",
@@ -233,6 +302,24 @@
             },
             "layout": "block",
             "sub_fields": [
+                {
+                    "key": "field_697a60c25ad4a",
+                    "label": "جدیدترین مطالب",
+                    "name": "",
+                    "aria-label": "",
+                    "type": "tab",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "placement": "top",
+                    "endpoint": 0,
+                    "selected": 0
+                },
                 {
                     "key": "field_6979284751542",
                     "label": "جدیدترین مطالب",
@@ -264,6 +351,45 @@
                     "elements": "",
                     "bidirectional": 0,
                     "bidirectional_target": []
+                },
+                {
+                    "key": "field_697a62d6118dd",
+                    "label": "لینک مشاهده همه",
+                    "name": "new_posts_all",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_697a60d75ad4b",
+                    "label": "منتخب سردبیر",
+                    "name": "",
+                    "aria-label": "",
+                    "type": "tab",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "placement": "top",
+                    "endpoint": 0,
+                    "selected": 0
                 },
                 {
                     "key": "field_6979288751543",
@@ -298,6 +424,45 @@
                     "bidirectional_target": []
                 },
                 {
+                    "key": "field_697a62d5118dc",
+                    "label": "لینک مشاهده همه",
+                    "name": "selected_posts_all",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_697a61115ad4c",
+                    "label": "پربازدیدترین",
+                    "name": "",
+                    "aria-label": "",
+                    "type": "tab",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "placement": "top",
+                    "endpoint": 0,
+                    "selected": 0
+                },
+                {
                     "key": "field_6979288951544",
                     "label": "پربازدیدترین",
                     "name": "most_popular",
@@ -328,6 +493,27 @@
                     "elements": "",
                     "bidirectional": 0,
                     "bidirectional_target": []
+                },
+                {
+                    "key": "field_697a62b3118db",
+                    "label": "لینک مشاهده همه",
+                    "name": "most_popular_all",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
                 }
             ]
         }
@@ -351,5 +537,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1769547974
+    "modified": 1769628417
 }
