@@ -268,9 +268,12 @@ $bottom_tabs = get_field('bottom_tabs', $page_id);
                     <?php endif; ?>
             </div>
             <div class="tab-content flex flex-col gap-20 mt-30">
-                    <?php if(isset($bottom_tabs['new_posts'])): ?>
+                    <?php if(isset($bottom_tabs['new_posts'])): 
+                        $highlighted_post_id = $bottom_tabs['new_posts'][0];
+                        $grid_post_ids = array_slice($bottom_tabs['new_posts'], 1, 4);
+                    ?>
                     <div id="tab-mp-content" class="tab-content-item yekan-18 color-black-60 active">
-                        <section class="top_posts flex flex-col items-center">
+                        <div class="top_posts flex flex-col items-center">
                             <div class="flex w-100 gap-20">
                                 <div class="highted_post post relative w-100">
                                     <?php
@@ -304,20 +307,93 @@ $bottom_tabs = get_field('bottom_tabs', $page_id);
                                     <?php endforeach; ?>
                                 </div>
                             </div>
-                        </section>
+                        </div>
                     </div>
                     
                     <?php endif; ?>
-                    <?php if(isset($bottom_tabs['selected_posts'])): ?>
+                    <?php if(isset($bottom_tabs['selected_posts'])): 
+                        $highlighted_post_id = $bottom_tabs['selected_posts'][0];
+                        $grid_post_ids = array_slice($bottom_tabs['selected_posts'], 1, 4);
+                    ?>
 
                     <div id="tab-selected-content" class="tab-content-item">
-                       
+                       <div class="top_posts flex flex-col items-center">
+                            <div class="flex w-100 gap-20">
+                                <div class="highted_post post relative w-100">
+                                    <?php
+                                        $h_img = get_the_post_thumbnail_url($highlighted_post_id, 'large');
+                                        $h_title = get_the_title($highlighted_post_id);
+                                        $h_link = get_permalink($highlighted_post_id);
+                                    ?>
+                                    <a href="<?php echo esc_url($h_link); ?>" class="flex flex-col gap-10">
+                                        <?php if($h_img): ?>
+                                            <img class="transition object-cover w-100 h-auto" src="<?php echo esc_url($h_img); ?>" alt="<?php echo esc_attr($h_title); ?>">
+                                        <?php endif; ?>
+                                            <h2 class="yekan-16 md:yekan-24 color-white">
+                                                <?php echo esc_html($h_title); ?>
+                                            </h2>
+                                    </a>
+                                </div>
+                                <div class="grid grid-cols-2 w-100 gap-20">
+                                    <?php foreach($grid_post_ids as $pid): 
+                                        $p_img = get_the_post_thumbnail_url($pid, 'medium');
+                                        $p_title = get_the_title($pid);
+                                        $p_link = get_permalink($pid);
+                                    ?>
+                                    <a href="<?php echo esc_url($p_link); ?>" class="post relative flex flex-col gap-10">
+                                        <?php if($p_img): ?>
+                                            <img class="transition object-cover w-100 h-100 absolute inset-0" src="<?php echo esc_url($p_img); ?>" alt="<?php echo esc_attr($p_title); ?>">
+                                        <?php endif; ?>
+                                        <h3 class="yekan-16 md:yekan-24 color-white" >
+                                            <?php echo esc_html($p_title); ?>
+                                        </h3>
+                                    </a>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <?php endif; ?>
-                    <?php if(isset($bottom_tabs['most_popular'])): ?>
-
+                    <?php if(isset($bottom_tabs['most_popular'])): 
+                        $highlighted_post_id = $bottom_tabs['most_popular'][0];
+                        $grid_post_ids = array_slice($bottom_tabs['most_popular'], 1, 4);
+                    ?>
                     <div id="tab-views-content" class="tab-content-item">
-                       
+                       <div class="top_posts flex flex-col items-center">
+                            <div class="flex w-100 gap-20">
+                                <div class="highted_post post relative w-100">
+                                    <?php
+                                        $h_img = get_the_post_thumbnail_url($highlighted_post_id, 'large');
+                                        $h_title = get_the_title($highlighted_post_id);
+                                        $h_link = get_permalink($highlighted_post_id);
+                                    ?>
+                                    <a href="<?php echo esc_url($h_link); ?>" class="flex flex-col gap-10">
+                                        <?php if($h_img): ?>
+                                            <img class="transition object-cover w-100 h-auto" src="<?php echo esc_url($h_img); ?>" alt="<?php echo esc_attr($h_title); ?>">
+                                        <?php endif; ?>
+                                            <h2 class="yekan-16 md:yekan-24 color-white">
+                                                <?php echo esc_html($h_title); ?>
+                                            </h2>
+                                    </a>
+                                </div>
+                                <div class="grid grid-cols-2 w-100 gap-20">
+                                    <?php foreach($grid_post_ids as $pid): 
+                                        $p_img = get_the_post_thumbnail_url($pid, 'medium');
+                                        $p_title = get_the_title($pid);
+                                        $p_link = get_permalink($pid);
+                                    ?>
+                                    <a href="<?php echo esc_url($p_link); ?>" class="post relative flex flex-col gap-10">
+                                        <?php if($p_img): ?>
+                                            <img class="transition object-cover w-100 h-100 absolute inset-0" src="<?php echo esc_url($p_img); ?>" alt="<?php echo esc_attr($p_title); ?>">
+                                        <?php endif; ?>
+                                        <h3 class="yekan-16 md:yekan-24 color-white" >
+                                            <?php echo esc_html($p_title); ?>
+                                        </h3>
+                                    </a>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <?php endif; ?>
 
