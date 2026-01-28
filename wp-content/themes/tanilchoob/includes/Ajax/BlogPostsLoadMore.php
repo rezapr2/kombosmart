@@ -34,7 +34,7 @@ class BlogPostsLoadMore extends AjaxHandler
             while ($recent_posts->have_posts()) : $recent_posts->the_post();
                 $post_id = get_the_ID();
                 $title = get_the_title();
-                $excerpt = get_the_excerpt();
+                $excerpt = wp_trim_words(get_the_excerpt(), 30, '...');
                 $permalink = get_permalink();
                 $image_url = get_the_post_thumbnail_url($post_id, 'medium');
         ?>

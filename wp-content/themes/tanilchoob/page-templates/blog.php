@@ -116,7 +116,7 @@ $bottom_tabs = get_field('bottom_tabs', $page_id);
                                 while ($recent_posts->have_posts()) : $recent_posts->the_post();
                                     $post_id = get_the_ID();
                                     $title = get_the_title();
-                                    $excerpt = get_the_excerpt();
+                                    $excerpt = wp_trim_words(get_the_excerpt(), 45, '...');
                                     $permalink = get_permalink();
                                     $image_url = get_the_post_thumbnail_url($post_id, 'medium');
                             ?>
@@ -180,7 +180,7 @@ $bottom_tabs = get_field('bottom_tabs', $page_id);
                                 while ($most_popular_posts_loop->have_posts()) : $most_popular_posts_loop->the_post();
                                     $post_id = get_the_ID();
                                     $title = get_the_title();
-                                    $excerpt = get_the_excerpt();
+                                    $excerpt = wp_trim_words(get_the_excerpt(), 45, '...');
                                     $permalink = get_permalink();
                                     $image_url = get_the_post_thumbnail_url($post_id, 'medium');
                             ?>

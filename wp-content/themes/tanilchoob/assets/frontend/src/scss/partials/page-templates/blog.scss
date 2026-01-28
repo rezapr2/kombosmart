@@ -150,8 +150,8 @@
             padding: 1rem;
             border: rgba(0, 0, 0, 0.03) 2px solid;
             .image-box {
-                aspect-ratio: 16/10;
-                width: 36rem;
+                aspect-ratio: 39 / 24;
+                width: 39rem;
                 height: 100%;
                 img {
                     transition: transform 0.5s ease;
@@ -159,6 +159,12 @@
             }
             .content {
                 padding: 2.5rem 0;
+                .excerpt {
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
             }
             .bottom-content {
                 .date {
