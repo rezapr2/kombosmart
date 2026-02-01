@@ -8,6 +8,9 @@ html{
         font-size: 0.52084vw;
     }
 }
+body{
+    scroll-behavior: smooth;
+}
 
 body, input, textarea, button {
     line-height: 1.4;

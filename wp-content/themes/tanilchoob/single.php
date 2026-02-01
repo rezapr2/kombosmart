@@ -221,31 +221,32 @@ if(!$sidebar_ads) {
                     if(empty($readable_posts)){
                         $readable_posts = get_field('readable_posts', 'option');
                     }
-                    
-                    $sidebar_posts = new WP_Query([
-                        'post_type' => 'post',
-                        'posts_per_page' => count($readable_posts),
-                        'post__not_in' => [get_the_ID()],
-                        'post__in' => $readable_posts,
-                    ]);
-                    if($sidebar_posts->have_posts()):
-                        while($sidebar_posts->have_posts()): $sidebar_posts->the_post();
-                    ?>
-                        <a href="<?php the_permalink(); ?>" class="sidebar-post-item flex items-start gap-15">
-                            
-                            <div class="content flex flex-col gap-5">
-                                <h4 class="yekan-20 color-black-70 transition"><?php the_title(); ?></h4>
-                                <span class="date yekan-20 color-black-30"><?php echo human_time_diff(get_the_time('U'), current_time('timestamp')) . ' پیش'; ?></span>
-                            </div>
-                            <?php if(has_post_thumbnail()): ?>
-                                <div class="thumb w-60 h-60 flex-shrink-0 rounded-10 overflow-hidden relative">
-                                    <img src="<?php the_post_thumbnail_url('thumbnail'); ?>" class="w-100 h-100 object-cover transition group-hover:scale-110" alt="<?php the_title(); ?>">
+                    if(!empty($readable_posts)):
+                        $sidebar_posts = new WP_Query([
+                            'post_type' => 'post',
+                            'posts_per_page' => count($readable_posts),
+                            'post__not_in' => [get_the_ID()],
+                            'post__in' => $readable_posts,
+                        ]);
+                        if($sidebar_posts->have_posts()):
+                            while($sidebar_posts->have_posts()): $sidebar_posts->the_post();
+                        ?>
+                            <a href="<?php the_permalink(); ?>" class="sidebar-post-item flex items-start gap-15">
+                                
+                                <div class="content flex flex-col gap-5">
+                                    <h4 class="yekan-20 color-black-70 transition"><?php the_title(); ?></h4>
+                                    <span class="date yekan-20 color-black-30"><?php echo human_time_diff(get_the_time('U'), current_time('timestamp')) . ' پیش'; ?></span>
                                 </div>
-                            <?php endif; ?>
-                        </a>
+                                <?php if(has_post_thumbnail()): ?>
+                                    <div class="thumb w-60 h-60 flex-shrink-0 rounded-10 overflow-hidden relative">
+                                        <img src="<?php the_post_thumbnail_url('thumbnail'); ?>" class="w-100 h-100 object-cover transition group-hover:scale-110" alt="<?php the_title(); ?>">
+                                    </div>
+                                <?php endif; ?>
+                            </a>
                     <?php
-                        endwhile;
-                        wp_reset_postdata();
+                            endwhile;
+                            wp_reset_postdata();
+                        endif;
                     endif;
                     ?>
                 </div>
