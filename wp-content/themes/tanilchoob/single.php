@@ -43,7 +43,7 @@ if(!$sidebar_ads) {
     <div class="container flex flex-col md:flex-row gap-10 mt-40 items-start">
         
         <!-- Main Content -->
-        <main class="main-content">
+        <main class="main-content overflow-hidden">
             <?php 
                 // Get content and filter it
                 $content = get_the_content();
@@ -122,23 +122,42 @@ if(!$sidebar_ads) {
 
                     if( !empty($related_products) ): 
                     ?>
-                    <div class="related-products mb-40">
-                        <div class="section-title bg-gray-100 p-15 rounded-10 mb-20 flex items-center justify-between border-r-4 border-primary">
-                             <h3 class="yekan-18 color-black m-0">محصولات مرتبط مقاله</h3>
-                             <?php if(function_exists('wc_get_page_id')): ?>
-                             <a href="<?php echo get_permalink( wc_get_page_id( 'shop' ) ); ?>" class="yekan-14 color-primary">مشاهده همه</a>
-                             <?php endif; ?>
+                    <div class="related-products mb-40 relative w-100">
+                        
+                        <?php
+
+                        $query_args = [
+                            'post_type'           => 'product',
+                            'post_status'         => 'publish',
+                            'posts_per_page'      => count($related_products),
+                            'ignore_sticky_posts' => true,
+                            'post__in'            => $related_products,
+                        ];
+
+                        $args = [
+                            'card'          => 'product-card',
+                            'slidesPerView' => 2.5,
+                            'query'         => $query_args,
+                        ];
+                        ?>
+                        <div class="carousel_slider-wrapper z-index-1 relative" data-slidesPerView="<?php echo isset($args['slidesPerView']) ? $args['slidesPerView'] : 1; ?>">
+                        <div class="slider_header flex justify-between items-center m-0">
+                            <div class="title_btn flex items-center">
+                                <h3 class="title yekan-26 regular color-white m-0">محصولات مرتبط با مقاله</h3>
+                            </div>
+                        <div class="flex gap-10">
+                            <!-- Navigation buttons -->
+                            <div class="button-prev circle-radius <?php echo $color; ?> hidden md:flex item-center pointer transition">
+                            <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-right.svg')); ?>
+                            </div>
+                            <div class="button-next circle-radius <?php echo $color; ?> hidden md:flex item-center pointer transition">
+                            <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-right.svg')); ?>
+                            </div>
                         </div>
-                        <div class="products-grid grid grid-cols-2 md:grid-cols-3 gap-20">
-                            <?php 
-                            foreach($related_products as $post_object): // Using post_object variable name for setup_postdata compatibility if needed, though setup_postdata expects global $post
-                                global $post;
-                                $post = $post_object;
-                                setup_postdata($post);
-                                get_template_part('template-parts/cards/product-card');
-                            endforeach; 
-                            wp_reset_postdata();
-                            ?>
+                        </div>
+                        <?php
+                            get_template_part('template-parts/slider/carousel_slider', null, $args);
+                        ?>
                         </div>
                     </div>
                     <?php endif; ?>
@@ -148,11 +167,11 @@ if(!$sidebar_ads) {
                         if ( ! empty( $categories ) ) :
                     ?>
                         <div class="post-categories flex items-center gap-10 mt-30 mb-30">
-                            <span class="yekan-16 color-black-80 bold">دسته بندی:</span>
+                            <span class="yekan-16 color-black">دسته بندی:</span>
                             <div class="flex flex-wrap gap-10">
                                 <?php foreach ( $categories as $category ) : ?>
                                     <a href="<?php echo esc_url( get_category_link( $category->term_id ) ); ?>" 
-                                       class="tag yekan-14 transition">
+                                       class="tag yekan-14 transition bg-black-03 color-black-60">
                                         <?php echo esc_html( $category->name ); ?>
                                     </a>
                                 <?php endforeach; ?>
@@ -165,11 +184,11 @@ if(!$sidebar_ads) {
                         if ( ! empty( $tags ) ) :
                     ?>
                         <div class="post-tags flex items-center gap-10 mt-30 mb-30">
-                            <span class="yekan-16 color-black-80 bold">تگ:</span>
+                            <span class="yekan-16 color-black">تگ:</span>
                             <div class="flex flex-wrap gap-10">
                                 <?php foreach ( $tags as $tag ) : ?>
                                     <a href="<?php echo esc_url( get_tag_link( $tag->term_id ) ); ?>" 
-                                       class="tag yekan-14 transition">
+                                       class="tag yekan-14 transition bg-black-03 color-black-60">
                                         <?php echo esc_html( $tag->name ); ?>
                                     </a>
                                 <?php endforeach; ?>
@@ -191,18 +210,23 @@ if(!$sidebar_ads) {
         </main>
 
         <!-- Sidebar -->
-        <aside class="sidebar flex flex-col gap-20">
+        <aside class="sidebar flex flex-col flex-shrink-0 gap-20">
             
             <!-- Readable Articles -->
             <div class="widget related-posts-widget bg-white border">
                 <h3 class="widget-title yekan-30 color-black mb-25">مطالب خواندنی</h3>
                 <div class="flex flex-col gap-30">
                     <?php
+                    $readable_posts = get_field('readable_posts');
+                    if(empty($readable_posts)){
+                        $readable_posts = get_field('readable_posts', 'option');
+                    }
+                    
                     $sidebar_posts = new WP_Query([
                         'post_type' => 'post',
-                        'posts_per_page' => 5,
+                        'posts_per_page' => count($readable_posts),
                         'post__not_in' => [get_the_ID()],
-                        'orderby' => 'rand' 
+                        'post__in' => $readable_posts,
                     ]);
                     if($sidebar_posts->have_posts()):
                         while($sidebar_posts->have_posts()): $sidebar_posts->the_post();
@@ -292,7 +316,7 @@ if(!$sidebar_ads) {
                 <article class="related-post-card flex flex-col gap-10 bg-black-03">
                     <a href="<?php the_permalink(); ?>" class="thumb w-100 relative overflow-hidden block">
                         <?php if(has_post_thumbnail()): ?>
-                        <img src="<?php the_post_thumbnail_url('medium'); ?>" class="w-100 h-100 object-cover transition group-hover:scale-110" alt="<?php the_title(); ?>">
+                        <img src="<?php the_post_thumbnail_url('medium'); ?>" class="w-100 h-100 object-cover transition" alt="<?php the_title(); ?>">
                         <?php endif; ?>
                     </a>
                     <div class="content flex flex-col gap-10">
