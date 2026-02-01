@@ -147,10 +147,10 @@ if(!$sidebar_ads) {
                             </div>
                         <div class="flex gap-10">
                             <!-- Navigation buttons -->
-                            <div class="button-prev circle-radius <?php echo $color; ?> hidden md:flex item-center pointer transition">
+                            <div class="button-prev circle-radius white hidden md:flex item-center pointer transition">
                             <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-right.svg')); ?>
                             </div>
-                            <div class="button-next circle-radius <?php echo $color; ?> hidden md:flex item-center pointer transition">
+                            <div class="button-next circle-radius white hidden md:flex item-center pointer transition">
                             <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-right.svg')); ?>
                             </div>
                         </div>
@@ -183,7 +183,7 @@ if(!$sidebar_ads) {
                         $tags = get_the_tags();
                         if ( ! empty( $tags ) ) :
                     ?>
-                        <div class="post-tags flex items-center gap-10 mt-30 mb-30">
+                        <div class="post-tags flex items-center gap-10 mt-10 mb-30">
                             <span class="yekan-16 color-black">تگ:</span>
                             <div class="flex flex-wrap gap-10">
                                 <?php foreach ( $tags as $tag ) : ?>

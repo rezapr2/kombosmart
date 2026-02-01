@@ -495,20 +495,6 @@
                         padding: 0;
                         border: none;
                     }
-                    .button-next, .button-prev {
-                        border-color: rgba(255, 255, 255, 0.3);
-                        svg{
-                            path{
-                                stroke: rgba(255, 255, 255, 0.8);
-                            }
-                        }
-                        &:hover {
-                            border-color: rgba(255, 255, 255, 1);
-                            svg path{
-                                stroke: rgba(255, 255, 255, 1);
-                            }
-                        }
-                    }
                 }
             }
 
