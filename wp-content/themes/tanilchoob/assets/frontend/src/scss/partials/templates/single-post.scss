@@ -528,14 +528,20 @@
             }
 
             .comments-wrapper {
-                margin-top: 40px;
-
+                margin-top: 4rem;
+                .comment-respond{
+                    margin-top: 3rem;
+                }
                 .comments-area {
                     .comment-list {
+                        .comment{
+                            border-bottom: 1px solid rgba(0, 0, 0, .15);
+                            padding-bottom: 1.5rem;
+                        }
                         .children {
                             list-style: none;
-                            padding-right: 40px; // RTL indentation
-                            margin: 20px 0 0 0;
+                            padding-right: 4rem; // RTL indentation
+                            margin: 2rem 0 0 0;
                             border-right: 2px solid #f0f0f0;
 
                             @media (max-width: 768px) {
@@ -547,7 +553,7 @@
                     .comment-form {
                         textarea {
                             resize: vertical;
-                            min-height: 150px;
+                            min-height: 15rem;
                         }
                     }
                 }
@@ -555,9 +561,9 @@
         }
     }
     .comments-area {
-        .comment-list {
-            border-top: 1px solid rgba(0, 0, 0, 0.15);
-            padding-top: 1.5rem;
+        .comments-title-wrapper {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+            padding-bottom: 1.5rem;
         }
         button.submit {
             padding: 1.3rem 6rem;

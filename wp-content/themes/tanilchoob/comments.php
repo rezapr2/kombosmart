@@ -20,20 +20,22 @@ if ( post_password_required() ) {
 
 <div id="comments" class="comments-area">
 
+	<div class="comments-title-wrapper flex flex-col gap-10 mb-25">
+			<h2 class="comments-title yekan-20 regular color-black">
+				
+				<?php
+				$tanilchoob_comment_count = get_comments_number();
 
-	<h2 class="comments-title yekan-20 regular color-black mb-10">
-			
-			<?php
-			$tanilchoob_comment_count = get_comments_number();
-
-			echo "نظرات کاربران ({$tanilchoob_comment_count} نفر)";
-			
-			
-			?>
-		</h2><!-- .comments-title -->
-		<?php if(!have_comments()): ?>
-			<p class="no-comments yekan-16 color-black-70">هیچ دیدگاهی برای این مطلب نوشته نشده است.</p>
-		<?php endif; ?>
+				echo "نظرات کاربران ({$tanilchoob_comment_count} نفر)";
+				
+				
+				?>
+			</h2><!-- .comments-title -->
+			<?php if(!have_comments()): ?>
+				<p class="no-comments yekan-16 color-black-70">هیچ دیدگاهی برای این مطلب نوشته نشده است.</p>
+			<?php endif; ?>
+	</div>
+	
 	<?php
 	// You can start editing here -- including this comment!
 	if ( have_comments() ) :
@@ -42,7 +44,7 @@ if ( post_password_required() ) {
 
 		<?php the_comments_navigation(); ?>
 
-		<ul class="comment-list p-0 m-0 mt-30 flex flex-col gap-40">
+		<ul class="comment-list p-0 m-0 flex flex-col gap-20">
 			<?php
 			wp_list_comments(
 				array(
