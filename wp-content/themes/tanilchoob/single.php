@@ -43,7 +43,7 @@ if(!$sidebar_ads) {
     <div class="container flex flex-col md:flex-row gap-10 mt-40 items-start">
         
         <!-- Main Content -->
-        <main class="main-content overflow-hidden">
+        <main class="main-content overflow-hidden w-100">
             <?php 
                 // Get content and filter it
                 $content = get_the_content();
