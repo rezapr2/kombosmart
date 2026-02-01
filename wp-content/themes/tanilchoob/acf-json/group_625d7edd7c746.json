@@ -548,6 +548,38 @@
                     ]
                 }
             ]
+        },
+        {
+            "key": "field_697f825c229d9",
+            "label": "مطالب خواندنی",
+            "name": "readable_posts",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "post"
+            ],
+            "post_status": [
+                "publish"
+            ],
+            "taxonomy": "",
+            "filters": [
+                "search"
+            ],
+            "return_format": "id",
+            "min": "",
+            "max": "",
+            "allow_in_bindings": 0,
+            "elements": "",
+            "bidirectional": 0,
+            "bidirectional_target": []
         }
     ],
     "location": [
@@ -569,5 +601,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1769542832
+    "modified": 1769964246
 }
