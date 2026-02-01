@@ -18,7 +18,7 @@ if ( post_password_required() ) {
 }
 ?>
 
-<div id="comments" class="comments-area bg-white rounded-10 p-30 border border-gray-200">
+<div id="comments" class="comments-area">
 
 
 	<h2 class="comments-title yekan-20 regular color-black mb-10">
@@ -83,7 +83,7 @@ if ( post_password_required() ) {
 				)
 			);
 			?>
-		</ol><!-- .comment-list -->
+		</ul><!-- .comment-list -->
 
 		<?php
 		the_comments_navigation();
