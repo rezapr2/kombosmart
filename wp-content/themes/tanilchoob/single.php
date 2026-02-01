@@ -82,7 +82,7 @@ if(!$sidebar_ads) {
                         <path d="M16.59 0.75L10.07 7.27C9.3 8.04 8.04 8.04 7.27 7.27L0.75 0.75" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <ul class="headings-list flex flex-col gap-10 list-none m-0 p-0">
+                <ul class="headings-list flex flex-col gap-10 m-0 p-0">
                     <?php foreach($headings as $heading): ?>
                     <li class="flex items-center gap-10">
                          <a href="#<?php echo esc_attr($heading['id']); ?>" class="yekan-18 color-white-50 transition">

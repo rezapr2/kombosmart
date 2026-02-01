@@ -535,7 +535,13 @@
             }
         }
     }
-
+    .comment-list{
+        border-top: 1px solid rgba(0, 0, 0, 0.15);
+        padding-top: 1.5rem;
+        button.submit{
+            padding: 1.3rem 6rem;
+        }
+    }
     .bottom-related-posts {
         .related-post-card {
             border: 1px solid rgba(0, 0, 0, 0.03);
