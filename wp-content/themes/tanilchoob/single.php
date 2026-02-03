@@ -25,8 +25,8 @@ if(!$sidebar_ads) {
             <!-- Post Header -->
             <header class="post-header relative overflow-hidden flex items-end">
                         <div class="post-title-wrapper z-index-1 relative flex flex-col gap-10">
-                            <h1 class="yekan-16 md:yekan-34 color-white"><?php the_title(); ?></h1>
-                            <div class="post-meta flex items-center">
+                            <h1 class="yekan-24 md:yekan-34 color-white"><?php the_title(); ?></h1>
+                            <div class="post-meta hidden md:flex items-center">
                                 <span class="date yekan-18 color-black-80">
                                     <?php echo get_the_date(); ?>
                                 </span>
@@ -40,7 +40,7 @@ if(!$sidebar_ads) {
                         <?php endif; ?>
             </header>
     
-    <div class="container flex flex-col md:flex-row gap-10 mt-40 items-start">
+    <div class="container flex flex-col md:flex-row gap-20 md:gap-10 mt-20 md:mt-40 items-start">
         
         <!-- Main Content -->
         <main class="main-content overflow-hidden w-100">
@@ -77,7 +77,7 @@ if(!$sidebar_ads) {
             <?php if(!empty($headings)): ?>
             <div class="post-headings flex flex-col mb-10">
                 <div class="title-wrapper flex items-center justify-between">
-                    <p class="yekan-24 color-white">فهرست مطالب</p>
+                    <p class="yekan-18 md:yekan-24 color-white">فهرست مطالب</p>
                     <svg  viewBox="0 0 18 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16.59 0.75L10.07 7.27C9.3 8.04 8.04 8.04 7.27 7.27L0.75 0.75" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -112,7 +112,7 @@ if(!$sidebar_ads) {
             <?php while ( have_posts() ) : the_post(); ?>
                 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                     <!-- Post Content -->
-                    <div class="post-content yekan-22 color-black-70">
+                    <div class="post-content yekan-18 md:yekan-22 color-black-70">
                         <?php echo $content_with_ids; ?>
                     </div>
 
@@ -143,7 +143,7 @@ if(!$sidebar_ads) {
                         <div class="carousel_slider-wrapper z-index-1 relative" data-slidesPerView="<?php echo isset($args['slidesPerView']) ? $args['slidesPerView'] : 1; ?>">
                         <div class="slider_header flex justify-between items-center m-0">
                             <div class="title_btn flex items-center">
-                                <h3 class="title yekan-26 regular color-white m-0">محصولات مرتبط با مقاله</h3>
+                                <h3 class="title yekan-18 md:yekan-26 regular color-white m-0">محصولات مرتبط با مقاله</h3>
                             </div>
                         <div class="flex gap-10">
                             <!-- Navigation buttons -->
@@ -166,12 +166,12 @@ if(!$sidebar_ads) {
                         $categories = get_the_category();
                         if ( ! empty( $categories ) ) :
                     ?>
-                        <div class="post-categories flex items-center gap-10 mt-30 mb-30">
-                            <span class="yekan-16 color-black">دسته بندی:</span>
-                            <div class="flex flex-wrap gap-10">
+                        <div class="post-categories mt-30 mb-30">
+                            <div class="flex flex-wrap items-center gap-10 gap-10">
+                                <span class="yekan-14 md:yekan-16 color-black">دسته بندی:</span>
                                 <?php foreach ( $categories as $category ) : ?>
                                     <a href="<?php echo esc_url( get_category_link( $category->term_id ) ); ?>" 
-                                       class="tag yekan-14 transition bg-black-03 color-black-60">
+                                       class="tag yekan-12 md:yekan-14 transition bg-black-03 color-black-60">
                                         <?php echo esc_html( $category->name ); ?>
                                     </a>
                                 <?php endforeach; ?>
@@ -183,9 +183,9 @@ if(!$sidebar_ads) {
                         $tags = get_the_tags();
                         if ( ! empty( $tags ) ) :
                     ?>
-                        <div class="post-tags flex items-center gap-10 mt-10 mb-30">
-                            <span class="yekan-16 color-black">تگ:</span>
-                            <div class="flex flex-wrap gap-10">
+                        <div class="post-tags mt-10 mb-30">
+                            <div class="flex flex-wrap items-center gap-10">
+                                <span class="yekan-14 md:yekan-16 color-black">تگ:</span>
                                 <?php foreach ( $tags as $tag ) : ?>
                                     <a href="<?php echo esc_url( get_tag_link( $tag->term_id ) ); ?>" 
                                        class="tag yekan-14 transition bg-black-03 color-black-60">
@@ -214,7 +214,7 @@ if(!$sidebar_ads) {
             
             <!-- Readable Articles -->
             <div class="widget related-posts-widget bg-white border">
-                <h3 class="widget-title yekan-30 color-black mb-25">مطالب خواندنی</h3>
+                <h3 class="widget-title yekan-20 md:yekan-30 color-black mb-25">مطالب خواندنی</h3>
                 <div class="flex flex-col gap-30">
                     <?php
                     $readable_posts = get_field('readable_posts');
@@ -234,8 +234,8 @@ if(!$sidebar_ads) {
                             <a href="<?php the_permalink(); ?>" class="sidebar-post-item flex items-start gap-15">
                                 
                                 <div class="content flex flex-col gap-5">
-                                    <h4 class="yekan-20 color-black-70 transition"><?php the_title(); ?></h4>
-                                    <span class="date yekan-20 color-black-30"><?php echo human_time_diff(get_the_time('U'), current_time('timestamp')) . ' پیش'; ?></span>
+                                    <h4 class="yekan-16 md:yekan-20 regular color-black-70 transition"><?php the_title(); ?></h4>
+                                    <span class="date yekan-12 md:yekan-20 color-black-30"><?php echo human_time_diff(get_the_time('U'), current_time('timestamp')) . ' پیش'; ?></span>
                                 </div>
                                 <?php if(has_post_thumbnail()): ?>
                                     <div class="thumb w-60 h-60 flex-shrink-0 rounded-10 overflow-hidden relative">
@@ -276,7 +276,7 @@ if(!$sidebar_ads) {
     <!-- Bottom Related Posts -->
     <section class="bottom-related-posts container mt-40">
          <div class="section-header mb-25">
-             <h3 class="section-title yekan-30 color-black">مطالب مرتبط</h3>
+             <h3 class="section-title yekan-20 md:yekan-30 color-black">مطالب مرتبط</h3>
          </div>
          <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
             <?php

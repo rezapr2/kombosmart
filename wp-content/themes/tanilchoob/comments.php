@@ -59,8 +59,8 @@ if ( post_password_required() ) {
 									<div class="author-info flex items-center">
 										
 										<div class="flex flex-col">
-											<div class="fn yekan-20 color-black-80"><?php echo get_comment_author(); ?></div>
-											<span class="date yekan-14 color-black-50">
+											<div class="fn yekan-16 md:yekan-20 color-black-80"><?php echo get_comment_author(); ?></div>
+											<span class="date yekan-10 md:yekan-14 color-black-50">
 												<?php
 													/* translators: 1: date, 2: time */
 													printf( esc_html__( '%1$s در %2$s', 'tanilchoob' ), get_comment_date(), get_comment_time() );
@@ -75,7 +75,7 @@ if ( post_password_required() ) {
 								<p class="comment-awaiting-moderation yekan-14 color-primary"><?php esc_html_e( 'دیدگاه شما در انتظار بررسی است.', 'tanilchoob' ); ?></p>
 								<?php endif; ?>
 
-								<div class="comment-content yekan-18 color-black-70">
+								<div class="comment-content yekan-14 md:yekan-18 color-black-70">
 									<?php comment_text(); ?>
 								</div>
 							</div>

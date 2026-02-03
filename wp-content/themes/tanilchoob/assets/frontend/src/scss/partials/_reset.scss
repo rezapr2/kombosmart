@@ -74,10 +74,14 @@ button{
     .container-right{
         padding-right: 10vw;
     }
-}
-@media (min-width: 768px) {
     .md\:container{
         padding-left: 10vw;
         padding-right: 10vw;
+    }
+}
+@media (min-width: 768px) {
+    .md\:container{
+        padding-left: 5vw;
+        padding-right: 5vw;
     }
 }

@@ -67,6 +67,11 @@
                 }
             }
         }
+        @media screen and (max-width: 768px) {
+            width: 100%;
+            padding: 0;
+            border: none;
+        }
     }
     .post-header {
         height: 38rem;
@@ -100,6 +105,12 @@
                 object-position: center;
             }
         }
+        @media screen and (max-width: 768px) {
+            height: 27.8rem;
+            .post-title-wrapper {
+                padding: 1.7rem 2rem;
+            }
+        }
     }
     .post-headings {
         background: linear-gradient(87.57deg, #5d0e87 0%, #170321 100%);
@@ -116,6 +127,14 @@
                 &:hover {
                     color: #fff;
                 }
+            }
+        }
+        @media screen and (max-width: 768px) {
+            .title-wrapper {
+                padding: 2.4rem 2rem;
+            }
+            .headings-list {
+                padding: 2rem;
             }
         }
     }
@@ -557,6 +576,12 @@
                         }
                     }
                 }
+            }
+            @media screen and (max-width: 768px) {
+                padding: 1.4rem .9rem;
+                 .post-content{
+                    text-align: center;
+                 }
             }
         }
     }

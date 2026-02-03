@@ -1,5 +1,71 @@
 .page-template-blog-archive {
     .top_posts {
+        .blog-top-posts-slider {
+            @media (min-width: 768px) {
+                // Restore Grid Layout
+                .swiper-wrapper {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    grid-template-rows: repeat(2, 200px);
+                    gap: 2rem;
+                    transform: none !important;
+                    width: 100% !important;
+                    box-sizing: border-box;
+                }
+                
+                .swiper-slide {
+                    width: auto !important;
+                    height: auto !important;
+                    margin-right: 0 !important;
+                }
+
+                .highted_post {
+                    grid-column: span 2;
+                    grid-row: span 2;
+                    height: 100% !important;
+                    
+                    a {
+                        height: 100%;
+                    }
+                }
+
+                .post:not(.highted_post) {
+                    grid-column: span 1;
+                    height: 100% !important;
+                }
+
+            }
+
+            @media (max-width: 767px) {
+                .swiper-slide {
+                    height: 36rem;
+                    overflow: hidden;
+                    
+                    img {
+                        height: 100%;
+                        width: 100%;
+                        object-fit: cover;
+                    }
+                    
+                    h2, h3 {
+                        bottom: 3rem !important;
+                        right: 1rem !important;
+                    }
+                }
+
+                .swiper-pagination {
+                    bottom: 1.6rem !important;
+                    .swiper-pagination-bullet {
+                        width: .6rem;
+                        height: .6rem;
+                        background: rgba(255, 255, 255, 0.36);
+                        &.swiper-pagination-bullet-active {
+                            background: var(--color-white);
+                        }
+                    }
+                }
+            }
+        }
         .post {
             &::after {
                 content: '';
@@ -91,6 +157,11 @@
                 color: #fff;
             }
         }
+        @media screen and (min-width: 768px) {
+            .wrapper{
+                padding-bottom: 2rem;
+            }
+        }
     }
     .top_ads {
         > img,
@@ -169,7 +240,6 @@
             .bottom-content {
                 .date {
                     padding: 0.5rem 0.8rem;
-
                     border: 1px solid rgba(0, 0, 0, 0.1);
                     svg {
                         width: 2.4rem;
@@ -183,12 +253,45 @@
                     gap: 10px;
                 }
             }
+            @media screen and (max-width: 768px) {
+                padding: 1rem .6rem;
+                border: rgba(0, 0, 0, 0.03) 2px solid;
+                .image-box {
+                    aspect-ratio: 39 / 24;
+                    width: 100%;
+                    height: auto;
+                }
+                .content {
+                    padding-top: 0;
+                    padding-bottom: 1.5rem;
+                    padding-left: 1rem;
+                    padding-right: 1rem;
+                }
+                .bottom-content {
+                    justify-content: flex-end;
+                    .date {
+                        svg {
+                            width: 1.6rem;
+                        }
+                    }
+                }
+            }
         }
         #load-more-posts {
             padding: 1rem 1.5rem;
             box-sizing: border-box;
             border: 1px solid rgba(0, 0, 0, 0.2);
             background-color: #fff;
+        }
+    }
+    @media screen and (max-width: 768px) {
+        .grid-posts {
+            height: 26rem;
+            .post:before {
+                width: 2.6rem !important;
+                height: 2.6rem !important;
+                background-size: 1rem !important;
+            }
         }
     }
 }
