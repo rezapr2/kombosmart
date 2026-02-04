@@ -280,11 +280,12 @@ if(!$sidebar_ads) {
     </div>
 
     <!-- Bottom Related Posts -->
-    <section class="bottom-related-posts container mt-40">
+    <section class="bottom-related-posts container-right md:container mt-40">
          <div class="section-header mb-25">
              <h3 class="section-title yekan-20 md:yekan-30 color-black">مطالب مرتبط</h3>
          </div>
-         <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+         <div class="related-posts-slider swiper w-100">
+            <div class="swiper-wrapper w-100">
             <?php
 
             $related_posts = get_field('ralated_posts');
@@ -304,7 +305,7 @@ if(!$sidebar_ads) {
                     'post__in' => $related_posts,
                     'post__not_in' => [get_the_ID()],
                     'post_status' => 'publish',
-                    'posts_per_page' => 4
+                    'posts_per_page' => count( $related_posts )
                 ]);
             }
             
@@ -320,7 +321,7 @@ if(!$sidebar_ads) {
             if($related_query->have_posts()):
                 while($related_query->have_posts()): $related_query->the_post();
             ?>
-                <article class="related-post-card flex flex-col gap-10 bg-black-03">
+                <article class="swiper-slide related-post-card border-box flex flex-col gap-10 bg-black-03">
                     <a href="<?php the_permalink(); ?>" class="thumb w-100 relative overflow-hidden block">
                         <?php if(has_post_thumbnail()): ?>
                         <img src="<?php the_post_thumbnail_url('medium'); ?>" class="w-100 h-100 object-cover transition" alt="<?php the_title(); ?>">
@@ -340,6 +341,7 @@ if(!$sidebar_ads) {
                 wp_reset_postdata();
             endif;
             ?>
+            </div>
          </div>
     </section>
 
