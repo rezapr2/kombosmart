@@ -25,7 +25,7 @@
                 success: function (response) {
                     if (response) {
                         button.data('page', next_page);
-                        $('.main_posts article:last').after(response);
+                        button.closest('.main_posts').find('article:last').after(response);
                         button.find('.spinner').addClass('hidden');
 
                         if (next_page >= max) {
