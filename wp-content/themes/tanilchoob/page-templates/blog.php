@@ -73,7 +73,7 @@ $bottom_tabs = get_field('bottom_tabs', $page_id);
     <section class="hot_tags container mt-20 md:mt-40">
         <div class="wrapper">
             <div class="tags_list flex items-center gap-05 md:gap-10 flex-wrap">
-                <span class="tags_label yekan-14 md:yekan-16 color-black flex-shrink-0 md:w-100">برچسب های داغ:</span>
+                <span class="tags_label yekan-14 md:yekan-16 color-black flex-shrink-0">برچسب های داغ:</span>
                 <?php  foreach($hot_tags as $tag): 
                 ?>
                     <a href="<?php echo esc_url($tag['tag']['url']); ?>" class="tag_item yekan-12 md:yekan-14 color-black-60 bg-black-03 transition">
