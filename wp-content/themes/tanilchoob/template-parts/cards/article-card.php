@@ -29,7 +29,7 @@ $read_more_text = isset($args['read_more_text']) ? $args['read_more_text'] : 'ا
             <div class="article-card__excerpt yekan-16 color-black-50 text-justify">
                 <?php echo wp_kses_post($excerpt); ?>
             </div>
-            <a href="<?php echo esc_url($permalink); ?>" class="article-card__read-more transition w-fit color-white yekan-14 flex items-center gap-10">
+            <a href="<?php echo esc_url($permalink); ?>" class="article-card__read-more transition w-fit md:w-100 color-white yekan-14 flex items-center gap-10">
                 <span class="read-more-text"><?php echo esc_html($read_more_text); ?></span>
                 <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left.svg')); ?>
             </a>
