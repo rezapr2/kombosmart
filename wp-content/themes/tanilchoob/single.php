@@ -33,7 +33,13 @@ if(!$sidebar_ads) {
                             </div>
                         </div>
 
-                        <?php if ( has_post_thumbnail() ) : ?>
+                        <?php 
+                        $header_image = get_field('header_image', $page_id);
+                        if( $header_image ): ?>
+                                <div class="post-thumbnail">
+                                    <img src="<?php echo $header_image['url']; ?>" alt="<?php echo $header_image['alt']; ?>" class="w-100 h-auto object-cover">
+                                </div>
+                        <?php elseif ( has_post_thumbnail() ) : ?>
                             <div class="post-thumbnail">
                                 <?php the_post_thumbnail('full', ['class' => 'w-100 h-auto object-cover']); ?>
                             </div>
