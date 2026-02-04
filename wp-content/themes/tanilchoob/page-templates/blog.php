@@ -158,12 +158,14 @@ $bottom_tabs = get_field('bottom_tabs', $page_id);
                                 هیچ مقاله ای یافت نشد.
                             </div>
                             <?php endif; ?>
+                            <?php if ( $recent_posts->max_num_pages > 1 ) : ?>
                             <div class="load-more-container flex justify-center mt-20">
                                 <button id="load-more-posts" class="yekan-18 transition color-black-80 flex items-center gap-10" data-page="1" data-max="<?php echo $recent_posts->max_num_pages; ?>">
                                     مشاهده بیشتر
                                     <span class="spinner hidden"></span>
                                 </button>
                             </div>
+                            <?php endif; ?>
                         </main>
                     </div>
                     <?php if($most_popular_posts): ?>
