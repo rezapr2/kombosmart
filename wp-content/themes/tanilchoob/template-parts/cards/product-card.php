@@ -103,7 +103,7 @@ $add_to_cart_text = isset($args['add_to_cart_text']) ? $args['add_to_cart_text']
                 </div>
                 <div class="product-card__price yekan-16 md:yekan-22 bold flex flex-col-reverse items-end color-primary self-end relative <?php echo $product_status; ?>">
                     <?php
-                        if($product_status === 'in_stock' && $price_html){
+                        if(($product_status === 'in_stock' || $product_status === 'in_produce') && $price_html){
                             echo $price_html;
                         }
                         else{
