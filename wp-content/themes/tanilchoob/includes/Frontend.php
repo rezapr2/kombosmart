@@ -71,6 +71,11 @@ class Frontend
 
 			// Conditionally enqueue standalone CSS for specific page templates
 			$template_slug = function_exists('get_page_template_slug') ? get_page_template_slug() : '';
+
+			if (is_category()) {
+				$template_slug = 'blog.php';
+			}
+
 			if ($template_slug) {
 				// Expect template slugs like 'page-templates/contact-us.php'
 				$basename = basename($template_slug, '.php');
