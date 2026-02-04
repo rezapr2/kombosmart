@@ -62,26 +62,9 @@
         .star {
             color: #2f2f2f;
             margin-right: 2.5px;
-
-            &--full:before {
-                content: '★';
-            }
-
-            &--half:before {
-                content: '★';
-                position: relative;
-
-                &:after {
-                    content: '☆';
-                    position: absolute;
-                    left: 0;
-                    width: 50%;
-                    overflow: hidden;
-                }
-            }
-
-            &--empty:before {
-                content: '☆';
+            svg{
+                width: 1rem;
+                height: 1rem;
             }
         }
     }
