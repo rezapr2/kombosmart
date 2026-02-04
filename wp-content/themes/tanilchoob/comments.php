@@ -17,119 +17,141 @@ if ( post_password_required() ) {
 	return;
 }
 ?>
+<?php
+/**
+ * Display single product reviews (comments)
+ *
+ * This template can be overridden by copying it to yourtheme/woocommerce/single-product-reviews.php.
+ *
+ * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * (the theme developer) will need to copy the new files to your theme to
+ * maintain compatibility. We try to do this as little as possible, but it does
+ * happen. When this occurs the version of the template file will be bumped and
+ * the readme will list any important changes.
+ *
+ * @see     https://woocommerce.com/document/template-structure/
+ * @package WooCommerce\Templates
+ * @version 9.7.0
+ */
 
-<div id="comments" class="comments-area">
+defined( 'ABSPATH' ) || exit;
 
-	<div class="comments-title-wrapper flex flex-col gap-10 mb-25">
-			<h2 class="comments-title yekan-20 regular color-black">
-				
-				<?php
-				$tanilchoob_comment_count = get_comments_number();
+global $product;
 
-				echo "نظرات کاربران ({$tanilchoob_comment_count} نفر)";
-				
-				
-				?>
-			</h2><!-- .comments-title -->
-			<?php if(!have_comments()): ?>
-				<p class="no-comments yekan-16 color-black-70">هیچ دیدگاهی برای این مطلب نوشته نشده است.</p>
-			<?php endif; ?>
+if ( ! comments_open() ) {
+	return;
+}
+
+?>
+<div id="reviews" class="comments-area customer-reviews flex flex-col items-center parent-wrapper">
+	<div class="submit-review flex flex-col gap-20 items-center justify-between w-full">
+		<div class="flex flex-col">
+			<h3 class="yekan-18 color-black-60">شما هم درباره این کالا دیدگاه ثبت کنید.</h3>
+			<p class="yekan-18 color-black-40">بدون نیاز به وارد شدن به حساب کاربری، نظر خود را در رابطه بااین کالا ثبت کنید و به نظرات دیگران امتیاز دهید.</p>
+		</div>
+		<div id="submit-review" class="reviews-submit submit-button self-end yekan-18 color-white bg-black pointer">ثبت دیدگاه</div>
+		<div class="comments-title-wrapper w-100 flex flex-col gap-10">
+				<h2 class="comments-title yekan-20 regular color-black">
+					
+					<?php
+					$tanilchoob_comment_count = get_comments_number();
+
+					echo "نظرات کاربران ({$tanilchoob_comment_count} نفر)";
+					
+					
+					?>
+				</h2><!-- .comments-title -->
+				<?php if(!have_comments()): ?>
+					<p class="no-comments yekan-16 color-black-70">هیچ دیدگاهی برای این مطلب نوشته نشده است.</p>
+				<?php endif; ?>
+		</div>
 	</div>
-	
-	<?php
-	// You can start editing here -- including this comment!
-	if ( have_comments() ) :
-		?>
-		
+		<div id="review_form_wrapper" class="submit-form mt-40 hidden">
+			<div id="review_form">
+				<?php
+				$commenter    = wp_get_current_commenter();
+				$comment_form = array(
+					/* translators: %s is product title */
+					'title_reply'         => have_comments() ? esc_html__( 'Add a review', 'woocommerce' ) : sprintf( esc_html__( 'Be the first to review &ldquo;%s&rdquo;', 'woocommerce' ), get_the_title() ),
+					/* translators: %s is product title */
+					'title_reply_to'      => esc_html__( 'Leave a Reply to %s', 'woocommerce' ),
+					'title_reply_before'  => '<span id="reply-title" class="comment-reply-title yekan-24 color-black-80 text-center" role="heading" aria-level="3">',
+					'title_reply_after'   => '</span>',
+					'comment_notes_after' => '',
+					'label_submit'        => 'ثبت نظر',
+					'logged_in_as'        => '',
+					'comment_field'       => '',
+				);
 
-		<?php the_comments_navigation(); ?>
+				$name_email_required = (bool) get_option( 'require_name_email', 1 );
+                // Remove email field from the review form; keep author only.
+                $fields              = array(
+                    'author' => array(
+                        'label'        => __( 'Name', 'woocommerce' ),
+                        'type'         => 'text',
+                        'value'        => $commenter['comment_author'],
+                        'required'     => $name_email_required,
+                        'autocomplete' => 'name',
+                    ),
+                );
 
-		<ul class="comment-list p-0 m-0 flex flex-col gap-20">
-			<?php
-			wp_list_comments(
-				array(
-					'style'      => 'ul',
-					'short_ping' => true,
-					'callback'   => function($comment, $args, $depth) {
-						$GLOBALS['comment'] = $comment;
-						?>
-						<li <?php comment_class('flex flex-col gap-10 bg-gray-50 p-20 rounded-10'); ?> id="li-comment-<?php comment_ID(); ?>">
-							<div class="comment-body flex flex-col gap-15 w-100">
-								<div class="comment-meta flex items-center justify-between">
-									<div class="author-info flex items-center">
-										
-										<div class="flex flex-col">
-											<div class="fn yekan-16 md:yekan-20 color-black-80"><?php echo get_comment_author(); ?></div>
-											<span class="date yekan-10 md:yekan-14 color-black-50">
-												<?php
-													/* translators: 1: date, 2: time */
-													printf( esc_html__( '%1$s در %2$s', 'tanilchoob' ), get_comment_date(), get_comment_time() );
-												?>
-											</span>
-										</div>
-									</div>
-									
-								</div>
+				$comment_form['fields'] = array();
 
-								<?php if ( '0' == $comment->comment_approved ) : ?>
-								<p class="comment-awaiting-moderation yekan-14 color-primary"><?php esc_html_e( 'دیدگاه شما در انتظار بررسی است.', 'tanilchoob' ); ?></p>
-								<?php endif; ?>
+				foreach ( $fields as $key => $field ) {
+					$field_html  = '<div class="comment-form-field flex flex-col comment-form-' . esc_attr( $key ) . '">';
+					$field_html .= '<label for="' . esc_attr( $key ) . '" class="yekan-18 color-black-80">' . esc_html( $field['label'] );
 
-								<div class="comment-content yekan-14 md:yekan-18 color-black-70">
-									<?php comment_text(); ?>
-								</div>
-							</div>
-						<!-- </li> is closed by WordPress -->
-						<?php
+					if ( $field['required'] ) {
+						$field_html .= '&nbsp;<span class="required">(اجباری)</span>';
 					}
-				)
-			);
-			?>
-		</ul><!-- .comment-list -->
 
-		<?php
-		the_comments_navigation();
+					$field_html .= '</label><input id="' . esc_attr( $key ) . '" name="' . esc_attr( $key ) . '" type="' . esc_attr( $field['type'] ) . '" autocomplete="' . esc_attr( $field['autocomplete'] ) . '" value="' . esc_attr( $field['value'] ) . '" size="30" ' . ( $field['required'] ? 'required' : '' ) . ' /></div>';
 
-		// If comments are closed and there are comments, let's leave a little note, shall we?
-		if ( ! comments_open() ) :
-			?>
-			<p class="no-comments yekan-14 color-black-40 text-center mt-20"><?php esc_html_e( 'دیدگاه‌ها بسته شده‌اند.', 'tanilchoob' ); ?></p>
+					$comment_form['fields'][ $key ] = $field_html;
+				}
+
+				$account_page_url = wc_get_page_permalink( 'myaccount' );
+				if ( $account_page_url ) {
+					/* translators: %s opening and closing link tags respectively */
+					$comment_form['must_log_in'] = '<p class="must-log-in">' . sprintf( esc_html__( 'You must be %1$slogged in%2$s to post a review.', 'woocommerce' ), '<a href="' . esc_url( $account_page_url ) . '">', '</a>' ) . '</p>';
+				}
+
+
+				$comment_form['comment_field'] .= '<div class="comment-form-field flex flex-col comment-form-comment"><label for="comment" class="yekan-18 color-black-80">' . 'دیدگاه شما' . '&nbsp;<span class="required">(اجباری)</span></label><textarea id="comment" name="comment" cols="45" rows="8" required></textarea></div>';
+
+				comment_form( apply_filters( 'woocommerce_product_review_comment_form_args', $comment_form ) );
+				?>
+			</div>
+		</div>
+	<div id="comments" class="reviews_list w-full">
+		
+		<?php if ( have_comments() ) : ?>
+			<ul class="commentlist">
+				<?php wp_list_comments( apply_filters( 'woocommerce_product_review_list_args', array( 'callback' => 'woocommerce_comments' ) ) ); ?>
+			</ul>
+
 			<?php
-		endif;
+			if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
+				echo '<nav class="woocommerce-pagination">';
+				paginate_comments_links(
+					apply_filters(
+						'woocommerce_comment_pagination_args',
+						array(
+							'prev_text' => is_rtl() ? '&rarr;' : '&larr;',
+							'next_text' => is_rtl() ? '&larr;' : '&rarr;',
+							'type'      => 'list',
+						)
+					)
+				);
+				echo '</nav>';
+			endif;
+			?>
+		<?php else : ?>
+			<p class="woocommerce-noreviews yekan-18 color-black-60 w-full"><?php esc_html_e( 'There are no reviews yet.', 'woocommerce' ); ?></p>
+		<?php endif; ?>
+	</div>
 
-	endif; // Check for have_comments().
+	
 
-	$commenter = wp_get_current_commenter();
-	$req = get_option( 'require_name_email' );
-	$aria_req = ( $req ? " aria-required='true'" : '' );
-
-	$fields =  array(
-		'author' =>
-			'<div class="comment-form-author flex flex-col gap-5 w-100 md:w-50">' .
-			'<label for="author" class="yekan-14 color-black-60">' . __( 'نام', 'tanilchoob' ) . ( $req ? ' <span class="required">*</span>' : '' ) . '</label> ' .
-			'<input id="author" name="author" type="text" class="w-100 border border-gray-200 rounded-5 p-10 yekan-14 focus-border-primary transition" value="' . esc_attr( $commenter['comment_author'] ) .
-			'" size="30"' . $aria_req . ' /></div>',
-
-		'email' =>
-			'<div class="comment-form-email flex flex-col gap-5 w-100 md:w-50">' .
-			'<label for="email" class="yekan-14 color-black-60">' . __( 'ایمیل', 'tanilchoob' ) . ( $req ? ' <span class="required">*</span>' : '' ) . '</label> ' .
-			'<input id="email" name="email" type="text" class="w-100 border border-gray-200 rounded-5 p-10 yekan-14 focus-border-primary transition" value="' . esc_attr(  $commenter['comment_author_email'] ) .
-			'" size="30"' . $aria_req . ' /></div>',
-	);
-
-	comment_form( array(
-		'fields' => $fields,
-		'class_form' => 'comment-form flex flex-wrap gap-20 mt-20',
-		'title_reply' => '<span class="yekan-20 color-black">' . __( 'ارسال دیدگاه', 'tanilchoob' ) . '</span>',
-		'title_reply_before' => '<h3 id="reply-title" class="comment-reply-title w-100 mb-20 border-b border-gray-100 pb-15">',
-		'title_reply_after' => '</h3>',
-		'comment_field' => '<div class="comment-form-comment w-100 flex flex-col gap-5">' .
-			'<label for="comment" class="yekan-14 color-black-60">' . _x( 'دیدگاه', 'noun', 'tanilchoob' ) . '</label>' .
-			'<textarea id="comment" name="comment" cols="45" rows="8" class="w-100 border border-gray-200 rounded-5 p-10 yekan-14 focus-border-primary transition" aria-required="true"></textarea>' .
-			'</div>',
-		'submit_button' => '<button name="%1$s" type="submit" id="%2$s" class="%3$s bg-black color-white yekan-18 pointer  transition mt-10">%4$s</button>',
-		'class_submit' => 'submit',
-	) );
-	?>
-
-</div><!-- #comments -->
+	<div class="clear"></div>
+</div>
