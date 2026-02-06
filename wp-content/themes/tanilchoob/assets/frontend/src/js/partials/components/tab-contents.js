@@ -21,5 +21,25 @@
             // Show the selected tab content
             $('#' + contentId).addClass('active').fadeIn();
         });
+
+        // Mobile Accordion functionality
+        $('.accordion-tab-trigger').on('click', function() {
+            const targetId = $(this).data('target');
+            const $target = $('#' + targetId);
+            const $container = $(this).closest('.tab-contents');
+            
+            if ($(this).hasClass('active')) {
+                $(this).removeClass('active');
+                $target.slideUp().removeClass('active');
+            } else {
+                // Close others
+                $container.find('.accordion-tab-trigger').removeClass('active');
+                $container.find('.tab-content-item').slideUp().removeClass('active');
+                
+                // Open this one
+                $(this).addClass('active');
+                $target.slideDown().addClass('active');
+            }
+        });
     });
 })(jQuery);

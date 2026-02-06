@@ -97,6 +97,7 @@
                 border: 1px solid rgba(0, 0, 0, 0.15);
                 aspect-ratio: 1.4;
                 .swiper-slide {
+                    position: relative;
                     img {
                         height: 100%;
                         width: 100%;
@@ -203,6 +204,9 @@
         .product-gallery-thumbs {
             width: 10%;
             height: 90vh;
+            .swiper-slide{
+                height: auto !important;
+            }
             .thumb-item {
                 max-height: 100%;
                 aspect-ratio: 1;
@@ -220,9 +224,13 @@
         }
         .gallery-lightbox-main .swiper-slide img {
             width: auto;
-            height: 100%;
-            margin: 0 auto;
+            height: auto;
+            margin: auto;
             display: block;
+            max-height: 100%;
+            top: 50%;
+            position: relative;
+            transform: translateY(-50%);
         }
         .gallery-lightbox-main .swiper-slide .video-wrapper {
             width: 100%;

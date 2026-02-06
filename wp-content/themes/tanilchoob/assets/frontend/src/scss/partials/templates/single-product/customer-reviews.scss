@@ -170,5 +170,8 @@
                 font-size: 1.8rem;
             }
         }
+        @media screen and (max-width: 768px) {
+            width: 100%;
+        }
     }
 }

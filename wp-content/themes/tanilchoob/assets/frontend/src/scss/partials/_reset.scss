@@ -20,6 +20,10 @@ body, input, textarea, button {
     padding: 0;
     direction: rtl;
 }
+
+*{
+    box-sizing: border-box;
+}
 *,
 *:focus,
 *:hover {

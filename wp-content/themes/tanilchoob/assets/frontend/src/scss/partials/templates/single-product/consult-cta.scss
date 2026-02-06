@@ -1,5 +1,5 @@
 .consult-cta {
-    padding: 14px 0;
+    padding: 1.4rem 0;
     border: 1px solid rgba($color: #000000, $alpha: 0.1);
     .divider {
         width: 0.6rem;
@@ -15,6 +15,12 @@
         .more-btn {
             color: #fff;
             background-color: #5d0e87;
+        }
+    }
+    @media screen and (max-width: 768px) {
+        padding: .45rem .95rem .45rem .55rem;
+        .more-btn {
+            padding: 1.2rem 1.5rem;
         }
     }
 }

@@ -25,10 +25,10 @@ if ( ! comments_open() ) {
 
 ?>
 <div id="reviews" class="woocommerce-Reviews customer-reviews flex flex-col items-center parent-wrapper">
-	<div class="submit-review flex items-center justify-between w-full">
+	<div class="submit-review flex flex-col md:flex-row gap-20 items-center justify-between w-full">
 		<div class="flex flex-col">
-			<h3 class="yekan-18 color-black-60">شما هم درباره این کالا دیدگاه ثبت کنید.</h3>
-			<p class="yekan-18 color-black-40">بدون نیاز به وارد شدن به حساب کاربری، نظر خود را در رابطه بااین کالا ثبت کنید و به نظرات دیگران امتیاز دهید.</p>
+			<h3 class="yekan-16 md:yekan-18 color-black-60">شما هم درباره این کالا دیدگاه ثبت کنید.</h3>
+			<p class="yekan-16 md:yekan-18 color-black-40">بدون نیاز به وارد شدن به حساب کاربری، نظر خود را در رابطه بااین کالا ثبت کنید و به نظرات دیگران امتیاز دهید.</p>
 		</div>
 		<div id="submit-review" class="reviews-submit submit-button yekan-18 color-white bg-black pointer">ثبت دیدگاه</div>
 	</div>

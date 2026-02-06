@@ -30,7 +30,7 @@ $questions_query = new WP_Query([
 $questions = $questions_query->posts;
 ?>
 <div class="product-qa flex flex-col items-center parent-wrapper">
-    <div class="submit-question flex items-center justify-between w-full">
+    <div class="submit-question flex flex-col md:flex-row gap-20 items-center justify-between w-full">
         <div class="flex flex-col">
             <h3 class="yekan-18 color-black-60">سوالتان درباره این محصول را بپرسید.</h3>
             <p class="yekan-18 color-black-40">بدون نیاز به ورود، سوالات خود را ثبت کنید و پاسخ‌ها را مشاهده کنید.</p>
