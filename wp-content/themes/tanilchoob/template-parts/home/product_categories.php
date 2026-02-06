@@ -17,15 +17,15 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
 
 ?>
 <section class="home-product-categories flex flex-col container">
-    <div class="title yekan-18 md:yekan-24 color-black thin text-center color-black-80">
+    <div class="title yekan-16 md:yekan-24 color-black thin text-center color-black-80">
         <strong class="color-primary">دسته بندی</strong> محصولات
     </div>
     <div class="description yekan-12 md:yekan-16 color-black-60 text-center">
         دسته بندی محصولات توضیحات اضافی
     </div>
-    <div class="categories gap-07 flex flex-col-reverse md:flex-row">
-        <div class="category-pack gap-07 flex flex-col">
-            <div class="row gap-07 flex h-100">
+    <div class="categories gap-04 md:gap-07 flex flex-col-reverse md:flex-row">
+        <div class="category-pack gap-04 md:gap-07 flex flex-col">
+            <div class="row gap-04 md:gap-07 flex h-100">
                 <?php
                 $img = $comod_types['image'] ?: null;
                 $link = $comod_types['link'] ?: null;
@@ -33,7 +33,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                 <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                     <?php
                     if ($img) {
-                        echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'انواع کمد') . '" />';
+                        echo '<img class="w-100 h-100 object-cover" src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'انواع کمد') . '" />';
                     }
                     ?>
                     <div class="content">
@@ -52,7 +52,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                 <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                     <?php
                     if ($img) {
-                        echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'soffa') . '" />';
+                        echo '<img class="w-100 h-100 object-cover" src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'soffa') . '" />';
                     }
                     ?>
                     <div class="content">
@@ -65,6 +65,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                     </div>
                 </a>
             </div>
+            <div class="row gap-04 md:gap-07 flex flex-row-reverse md:flex-row h-100">
             <?php
             $img = $tv_desk['image'] ?: null;
             $link = $tv_desk['link'] ?: null;
@@ -72,7 +73,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
             <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                 <?php
                 if ($img) {
-                    echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'tv desk') . '" />';
+                    echo '<img class="w-100 h-100 object-cover" src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'tv desk') . '" />';
                 }
                 ?>
                 <div class="content">
@@ -84,16 +85,36 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                     </div>
                 </div>
             </a>
+            <?php
+            $img = $console_desk['image'] ?: null;
+            $link = $console_desk['link'] ?: null;
+            ?>
+            <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item md:hidden relative" >
+                <?php
+                if ($img) {
+                    echo '<img class="w-100 h-100 object-cover" src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'console desk') . '" />';
+                }
+                ?>
+                <div class="content">
+                    <div class="title yekan-14 md:yekan-20 color-white-80 bold"><?php echo $link['title'] ?: 'console desk' ?></div>
+                    <div class="more w-fit yekan-15 color-white hidden md:flex items-center transition"> بیشتر
+                        <div class="arrow flex">
+                            <?php echo $arrow; ?>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            </div>
         </div>
         <?php
         $img = $console_desk['image'] ?: null;
         $link = $console_desk['link'] ?: null;
         ?>
-        <div class="category-pack gap-07 flex flex-wrap">
+        <div class="category-pack gap-07 hidden md:flex flex-wrap">
             <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative" >
                 <?php
                 if ($img) {
-                    echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'console desk') . '" />';
+                    echo '<img class="w-100 h-100 object-cover" src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'console desk') . '" />';
                 }
                 ?>
                 <div class="content">
@@ -110,12 +131,12 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
         $img = $sleep_products['image'] ?: null;
         $link = $sleep_products['link'] ?: null;
         ?>
-        <div class="category-pack gap-07 flex flex-col">
-            <div class="row gap-07 flex h-100">
+        <div class="category-pack gap-04 md:gap-07 flex flex-col">
+            <div class="row gap-04 md:gap-07 flex h-100">
                 <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                     <?php
                     if ($img) {
-                        echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'sleep products') . '" />';
+                        echo '<img class="w-100 h-100 object-cover" src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'sleep products') . '" />';
                     }
                     ?>
                     <div class="content">
@@ -134,7 +155,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                 <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                     <?php
                     if ($img) {
-                        echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'sleep pack') . '" />';
+                        echo '<img class="w-100 h-100 object-cover" src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'sleep pack') . '" />';
                     }
                     ?>
                     <div class="content">
@@ -151,11 +172,11 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
             $img = $food_products['image'] ?: null;
             $link = $food_products['link'] ?: null;
             ?>
-            <div class="row gap-07 flex h-100">
+            <div class="row gap-04 md:gap-07 flex flex-row-reverse md:flex-row h-100">
                 <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                     <?php
                     if ($img) {
-                        echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'food products') . '" />';
+                        echo '<img class="w-100 h-100 object-cover" src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'food products') . '" />';
                     }
                     ?>
                     <div class="content">
@@ -174,7 +195,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                 <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                     <?php
                     if ($img) {
-                        echo '<img src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'soffa desk') . '" />';
+                        echo '<img class="w-100 h-100 object-cover" src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'soffa desk') . '" />';
                     }
                     ?>
                     <div class="content">

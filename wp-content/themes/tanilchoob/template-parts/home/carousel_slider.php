@@ -48,7 +48,7 @@ $carousel_slider_card = isset($args['card']) ? $args['card'] : 'article-card';
           <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-right.svg')); ?>
         </div>
         <?php if (isset($args['button_link'])): ?>
-          <a href="<?php echo $args['button_link']; ?>" class="<?php echo ($color === 'white' ? 'color-white ' : 'color-black-80 '); echo $color; ?> archive-btn transition yekan-14 md:yekan-20 regular  flex items-center gap-10">
+          <a href="<?php echo $args['button_link']; ?>" class="<?php echo ($color === 'white' ? 'color-white ' : 'color-black-80 '); echo $color; ?> archive-btn transition yekan-10 md:yekan-20 regular  flex items-center gap-10">
             <?php echo isset($args['button_text']) ? $args['button_text'] : 'مشاهده همه'; ?>
             <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-circle.svg')); ?>
           </a>

@@ -35,10 +35,10 @@ get_header(); ?>
     $special_offers_term = get_field('special_offers_term', $page_id);
     $end_off_sale = get_field('end_off_sale', $page_id);
     $args = [
-        'title' => '<span class="yekan-14 md:yekan-20 color-white"><strong>فروش </strong><span class="thin">ویژه</span></span>',
+        'title' => '<span class="yekan-12 md:yekan-20 color-white"><strong>فروش </strong><span class="thin">ویژه</span></span>',
         'button_link' => '#',
         'card' => 'product-card',
-        'wrapper_class' => 'mb-40',
+        'wrapper_class' => 'md:mb-40',
         'slidesPerView' => 4.5,
         'type' => 'special_offers',
         'end_off_sale' => $end_off_sale,

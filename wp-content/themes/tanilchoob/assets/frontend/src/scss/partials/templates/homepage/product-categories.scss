@@ -1,8 +1,8 @@
-.home-product-categories{
-    .categories{
+.home-product-categories {
+    .categories {
         margin-top: calcRem(30);
-        .category-item{
-            &::after{
+        .category-item {
+            &::after {
                 content: '';
                 position: absolute;
                 top: 0;
@@ -11,46 +11,72 @@
                 height: 100%;
                 background-color: rgba(0, 0, 0, 0.05);
                 z-index: 1;
-                background: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 145.06%);
+                background: linear-gradient(
+                    0deg,
+                    #000000 0%,
+                    rgba(0, 0, 0, 0) 145.06%
+                );
                 transform: matrix(-1, 0, 0, 1, 0, 0);
-                transition: all .35s ease-in-out;
+                transition: all 0.35s ease-in-out;
             }
-            img{
-                height: 100%;
-            }
-            .content{
+            .content {
                 position: absolute;
                 bottom: calcRem(30);
                 right: calcRem(30);
                 z-index: 2;
-                .more{
+                .more {
                     margin-top: calcRem(10);
                     background-color: rgba(217, 217, 217, 0.24);
                     padding: calcRem(5) calcRem(14);
-                    .arrow{
+                    .arrow {
                         margin-right: calcRem(9);
-                        svg{
-                          width: calcRem(9);  
-                          path{
-                            stroke: #fff;
-                          }
+                        svg {
+                            width: calcRem(9);
+                            path {
+                                stroke: #fff;
+                            }
                         }
                     }
                 }
             }
-            &:hover{
-                &::after{
-                height: 20%;
-                bottom: 0;
-                top: 80%;
-                background: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
-            }
-                .more{
+            &:hover {
+                &::after {
+                    height: 20%;
+                    bottom: 0;
+                    top: 80%;
+                    background: linear-gradient(
+                        0deg,
+                        #000000 0%,
+                        rgba(0, 0, 0, 0) 100%
+                    );
+                }
+                .more {
                     background-color: #fff;
                     color: #000;
-                    svg path{
+                    svg path {
                         stroke: #000 !important;
                     }
+                }
+            }
+        }
+        @media screen and (max-width: 768px) {
+            margin-top: 1.5rem;
+            .category-pack{
+                height: 24rem;
+                .row{
+                    height: calc(50% - .2rem) !important;
+                    .category-item{
+                        &:first-child{
+                            flex-basis: 60%;
+                        }
+                        flex-basis: 40%;
+                    }
+                }
+            }
+            .category-item {
+                .content {
+                    bottom: calcRem(15);
+                    right: calcRem(15);
                 }
             }
         }

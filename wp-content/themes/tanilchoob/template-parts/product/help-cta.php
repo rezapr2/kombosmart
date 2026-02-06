@@ -1,5 +1,5 @@
 <div class="md:container mb-25">
-	<div class="cta help-cta py-40 px-25 md:px-40">
+	<div class="cta help-cta py-20 md:py-40 px-25 md:px-40">
 		<div class="flex flex-col md:flex-row justify-between items-center">
 			<div class="flex flex-col">
 				<div class="yekan-22 md:yekan-34 text-center md:text-right color-white">برای خرید به مشاوره نیاز داری؟</div>
