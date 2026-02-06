@@ -62,7 +62,7 @@
         .star {
             color: #2f2f2f;
             margin-right: 2.5px;
-            svg{
+            svg {
                 width: 1rem;
                 height: 1rem;
             }
@@ -130,6 +130,11 @@
         }
         &__content {
             padding-bottom: 0.5rem;
+        }
+        &__price {
+            .woocommerce-Price-currencySymbol {
+                font-size: 0.8rem;
+            }
         }
     }
 }

@@ -73,7 +73,7 @@ $add_to_cart_text = isset($args['add_to_cart_text']) ? $args['add_to_cart_text']
         </div>
         <div class="product-card__content flex flex-col justify-between">
             <h3 class="product-card__title">
-                <a class="yekan-14 md:yekan-20 regular color-black-80" href="<?php echo esc_url($permalink); ?>"><?php echo esc_html($title); ?></a>
+                <a class="yekan-12 md:yekan-20 regular color-black-80" href="<?php echo esc_url($permalink); ?>"><?php echo esc_html($title); ?></a>
             </h3>
             <div class="flex justify-between">
                 <div class="product-card__rating flex">
@@ -109,7 +109,7 @@ $add_to_cart_text = isset($args['add_to_cart_text']) ? $args['add_to_cart_text']
 
                     <?php endif; ?>
                 </div>
-                <div class="product-card__price yekan-16 md:yekan-22 bold flex flex-col-reverse items-end color-primary self-end relative <?php echo $product_status; ?>">
+                <div class="product-card__price yekan-12 md:yekan-22 bold flex flex-col-reverse items-end color-primary self-end relative <?php echo $product_status; ?>">
                     <?php
                         if(($product_status === 'in_stock' || $product_status === 'in_produce') && $price_html){
                             echo $price_html;

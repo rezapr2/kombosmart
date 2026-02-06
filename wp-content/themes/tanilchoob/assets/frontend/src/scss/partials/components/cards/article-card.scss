@@ -44,7 +44,12 @@
         padding: 2rem;
         flex: 1; /* Make content take remaining space */
     }
-    
+    &__excerpt{
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
     &__read-more {
         background-color: #4D4D4D;
         padding: .7rem 1.4rem;

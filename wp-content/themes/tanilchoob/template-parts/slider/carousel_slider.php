@@ -4,7 +4,7 @@ if(!isset($args['query'])){
 }
 ?>
   <div class="swiper carousel_slider">
-    <div class="swiper-wrapper">
+    <div class="swiper-wrapper items-stretch">
       <?php
       $query = new WP_Query($args['query']);
 

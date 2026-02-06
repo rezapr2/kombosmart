@@ -11,16 +11,16 @@ $carousel_slider_card = isset($args['card']) ? $args['card'] : 'article-card';
 
     <div class="slider_header flex justify-between items-center">
       <?php if (isset($args['title'])): ?>
-        <div class="title_btn <?php echo $color; ?> flex items-center gap-10">
+        <div class="title_btn <?php echo $color; ?> flex items-center gap-04 md:gap-10">
           <?php if ($type == 'special_offers'): ?>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8.57031 15.2704L15.1103 8.73047" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
               <path d="M8.98001 10.3701C9.65932 10.3701 10.21 9.81948 10.21 9.14017C10.21 8.46086 9.65932 7.91016 8.98001 7.91016C8.3007 7.91016 7.75 8.46086 7.75 9.14017C7.75 9.81948 8.3007 10.3701 8.98001 10.3701Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
               <path d="M15.519 16.0899C16.1984 16.0899 16.7491 15.5392 16.7491 14.8599C16.7491 14.1806 16.1984 13.6299 15.519 13.6299C14.8397 13.6299 14.2891 14.1806 14.2891 14.8599C14.2891 15.5392 14.8397 16.0899 15.519 16.0899Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
               <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           <?php else: ?>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M3 7H21" stroke="black" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round" />
               <path d="M6 12H18" stroke="black" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round" />
               <path d="M10 17H14" stroke="black" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round" />

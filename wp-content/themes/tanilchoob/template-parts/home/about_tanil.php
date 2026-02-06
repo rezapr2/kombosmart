@@ -19,7 +19,7 @@ $cta_text = 'آشنایی بیشتر';
 $cta_url = $about_tanil['more_btn_link'] ?: '#';
 ?>
 
-<section class="about-tanil mb-40">
+<section class="about-tanil mb-20 md:mb-40">
     <div class="about-tanil__inner flex flex-col-reverse md:flex-row justify-between items-center">
         <div class="about-tanil__content flex flex-col flex-shrink-0">
             <div class="about-tanil__header flex flex-col md:flex-row items-center gap-10">
@@ -30,10 +30,10 @@ $cta_url = $about_tanil['more_btn_link'] ?: '#';
                     ?>
                 </div>
                 <span class="div hidden md:flex"></span>
-                <p class="about-tanil__title yekan-26"><?php echo ($title); ?></p>
+                <p class="about-tanil__title yekan-24 md:yekan-26"><?php echo ($title); ?></p>
             </div>
 
-            <div class="about-tanil__description yekan-18 color-black-50 text-center md:text-justify">
+            <div class="about-tanil__description yekan-16 md:yekan-18 color-black-50 text-center md:text-justify">
                 <?php echo wp_kses_post($description); ?>
             </div>
             <div class="flex flex-col md:flex-row justify-between items-center">
