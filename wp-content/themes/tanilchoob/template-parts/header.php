@@ -41,8 +41,8 @@ $header_logo = get_field('header_logo', 'options');
                     </svg>
                 </div>
             </div>
-            <div class="products-menu-dropdown__title">
-                <a href="<?php echo home_url(); ?>/products">محصولات</a>
+            <div class="products-menu-dropdown__title yekan-16 color-black">
+                دسته بندی محصولات
             </div>
             <div class="arrow">
                 <svg width="9" height="6" viewBox="0 0 9 6" fill="none" xmlns="http://www.w3.org/2000/svg">
