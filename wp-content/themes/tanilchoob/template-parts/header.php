@@ -31,24 +31,32 @@ $header_logo = get_field('header_logo', 'options');
 
     </div>
     <div class="header__menu hidden md:flex items-center container">
-        <div class="products-menu-dropdown flex items-center">
-            <div class="burger-menu-btn">
-                <div class="btn btn--primary">
-                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3.06055 7H21.0605" stroke="#6F6F6F" stroke-width="1.5" stroke-linecap="round" />
-                        <path d="M3.06055 12H21.0605" stroke="#6F6F6F" stroke-width="1.5" stroke-linecap="round" />
-                        <path d="M3.06055 17H21.0605" stroke="#6F6F6F" stroke-width="1.5" stroke-linecap="round" />
-                    </svg>
-                </div>
+        <div class="products-menu-dropdown flex items-center relative pointer">
+            <div class="icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 7H21" stroke="#292D32" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M3 12H21" stroke="#292D32" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M3 17H21" stroke="#292D32" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
             </div>
             <div class="products-menu-dropdown__title yekan-16 color-black">
                 دسته بندی محصولات
             </div>
-            <div class="arrow">
-                <svg width="9" height="6" viewBox="0 0 9 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 1.24023L4.53 4.76023L8.06 1.24023" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <div class="arrow transition">
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1L5 5L9 1" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-
+            </div>
+            
+            <div class="products-menu-dropdown__content">
+                <?php 
+                wp_nav_menu([
+                    'theme_location' => 'product_categories_menu', 
+                    'menu_class' => 'flex flex-col m-0 p-0',
+                    'container' => false,
+                    'walker' => new \TanilChoob\Theme\Walker_Nav_Menu_Custom()
+                ]); 
+                ?>
             </div>
         </div>
         <nav class="menu">

@@ -31,8 +31,17 @@ class Walker_Nav_Menu_Custom extends \Walker_Nav_Menu
         $item_output = isset($args->before) ? $args->before : '';
         $item_output .= '<a class="flex items-center" ' . $attributes . '>';
 
-        // Get SVG icon based on menu item classes
-        $svg_icon = $this->get_svg_by_class($classes);
+        // Get SVG icon from ACF field
+        $svg_icon = get_field('menu_item_svg_icon', $item);
+
+        // Fallback to class-based SVG if ACF field is empty
+        if (!$svg_icon) {
+            $svg_icon = $this->get_svg_by_class($classes);
+        }
+        else{
+            $svg_icon = '<img src="'.$svg_icon['url'].'" alt="'.$item->title.'" />';
+        }
+
         if ($svg_icon) {
             $item_output .= $svg_icon;
         }
@@ -42,6 +51,11 @@ class Walker_Nav_Menu_Custom extends \Walker_Nav_Menu
         // Show text unless it's an icon-only menu item
         if (! $this->is_icon_only($classes)) {
             $item_output .= apply_filters('the_title', $item->title, $item->ID);
+        }
+
+        // Add arrow icon if item has submenu
+        if (in_array('menu-item-has-children', $classes)) {
+            $item_output .= '<svg viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 7.75L0.75 4.25L3.75 0.75" stroke="black" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
         }
 
         $item_output .= isset($args->link_after) ? $args->link_after : '';

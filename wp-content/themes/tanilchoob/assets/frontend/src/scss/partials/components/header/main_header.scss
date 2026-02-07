@@ -94,18 +94,190 @@
         padding-top: calcRem(10);
         padding-bottom: calcRem(10);
         .products-menu-dropdown {
-            background-color: rgba(0, 0, 0, 0.05);
+            background-color: #f2f2f2;
             padding: calcRem(17) calcRem(15);
             width: fit-content;
-            .burger-menu-btn {
+            .icon{
                 margin-left: calcRem(15);
             }
-
             &__title {
                 margin-left: calcRem(10);
             }
             .arrow {
                 margin-right: calcRem(10);
+                svg {
+                    transition: transform 0.3s ease;
+                }
+            }
+
+            &__content {
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background-color: #f2f2f2;
+                min-width: 100%;
+                z-index: 50;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(10px);
+                transition: all 0.3s ease;
+
+                ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                    display: flex;
+                    flex-direction: column;
+                    gap: calcRem(15);
+                    
+                    li {
+                        position: relative;
+
+                        ul.sub-menu {
+                            position: absolute;
+                            top: 0;
+                            right: 100%;
+                            width: max-content;
+                            min-width: calcRem(220);
+                            background-color: #f2f2f2;
+                            opacity: 0;
+                            visibility: hidden;
+                            transform: translateX(10px);
+                            transition: all 0.3s ease;
+                            z-index: 100;
+                            margin-right: calcRem(10);
+                            
+                            li {
+                                a {
+                                    padding: calcRem(18) calcRem(15);
+                                    font-size: calcRem(16);
+                                    color: var(--color-primary-dark);
+                                    &:hover {
+                                        background-color: var(--color-primary-dark);
+                                        color: var(--color-white);
+                                    }
+                                }
+                            }
+
+                            // Mega Menu Layout (Triggered if sub-menu has nested sub-menus)
+                            &:has(> li > ul.sub-menu) {
+                                display: grid;
+                                grid-template-columns: repeat(auto-fill, minmax(calcRem(200), 1fr));
+                                width: max-content;
+                                max-width: 80vw;
+                                min-width: calcRem(500);
+                                padding: calcRem(20);
+                                gap: calcRem(30);
+                                background-color: #f2f2f2;
+
+                                > li {
+                                    width: auto;
+                                    display: flex;
+                                    flex-direction: column;
+                                    
+                                    // Column Header
+                                    > a {
+                                        font-weight: 700;
+                                        font-size: calcRem(16);
+                                        color: var(--color-primary-dark);
+                                        padding: 0 0 calcRem(10) 0;
+                                        border-bottom: 1px solid #e5e7eb;
+                                        margin-bottom: calcRem(10);
+                                        background: none;
+                                        pointer-events: none; // Make header non-clickable if desired, or keep generic
+                                        
+                                        
+                                    }
+                                    
+                                    // Nested Sub-menu (Level 2)
+                                    > ul.sub-menu {
+                                        position: static;
+                                        opacity: 1;
+                                        visibility: visible;
+                                        transform: none;
+                                        box-shadow: none;
+                                        background: transparent;
+                                        margin: 0;
+                                        padding: 0;
+                                        min-width: 0;
+                                        display: flex;
+                                        flex-direction: column;
+                                        gap: calcRem(2);
+                                        
+                                        li {
+                                            a {
+                                                padding: calcRem(6) 0;
+                                                font-size: calcRem(14);
+                                                color: #6b7280;
+                                                border-bottom: none;
+                                                pointer-events: auto;
+                                                
+                                                &:hover {
+                                                    color: var(--color-primary);
+                                                    background: none;
+                                                    transform: translateX(calcRem(-5));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        &:hover {
+                            > ul.sub-menu {
+                                opacity: 1;
+                                visibility: visible;
+                                transform: translateX(0);
+                            }
+                        }
+
+                        a {
+                            display: flex;
+                            align-items: center;
+                            padding: calcRem(20) calcRem(12);
+                            gap: 1rem;
+                            color: var(--color-primary-dark);
+                            text-decoration: none;
+                            transition: all 0.2s;
+                            font-size: calcRem(16);
+                            img{
+                                width: 3rem;
+                            }
+                            svg {
+                                width: calcRem(5);
+                                path {
+                                    transition: all 0.2s ease;
+                                }
+                            }
+
+                            &:hover {
+                                color: var(--color-white);
+                                background-color: var(--color-primary-dark);
+                                img{
+                                    filter: invert(1);
+                                }
+                                svg path {
+                                    stroke: var(--color-white);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.active {
+                background-color: rgba(0, 0, 0, 0.08);
+                
+                .products-menu-dropdown__content {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: translateY(0);
+                }
+                
+                .arrow svg {
+                    transform: rotate(180deg);
+                }
             }
         }
         .menu {

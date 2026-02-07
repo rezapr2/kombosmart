@@ -37,6 +37,7 @@ class Setup {
 		register_nav_menus(
 			[
 				'main_menu'   => __( 'Header main menu', 'tanilchoob' ),
+				'product_categories_menu'   => __( 'Product Categories Menu', 'tanilchoob' ),
 			]
 		);
 
