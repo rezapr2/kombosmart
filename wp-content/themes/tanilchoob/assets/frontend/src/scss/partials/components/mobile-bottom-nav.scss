@@ -161,7 +161,7 @@
                 width: 100%;
                 background: transparent;
                 padding: 0;
-                display: block !important;
+                display: none;
                 padding-right: calcRem(30);
 
                 li {
@@ -178,6 +178,12 @@
                         }
                     }
                 }
+            }
+            &.open > .sub-menu {
+                display: block;
+            }
+            &.open > a svg {
+                transform: rotate(0deg);
             }
         }
     }
