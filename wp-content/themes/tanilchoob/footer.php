@@ -108,6 +108,8 @@ use TanilChoob\Theme\Helper;
     </div>
 </footer>
 
+<?php get_template_part('template-parts/mobile-bottom-nav'); ?>
+
 <?php
 wp_footer();
 ?>
