@@ -1,4 +1,6 @@
 #main_header {
+    position: relative;
+    z-index: 100;
     .top-row {
         padding-top: calcRem(20);
         padding-bottom: calcRem(20);
@@ -142,11 +144,20 @@
                             background-color: #f2f2f2;
                             opacity: 0;
                             visibility: hidden;
-                            transform: translateX(10px);
-                            transition: all 0.3s ease;
+                            transform: translateX(300%);
+                            transition: opacity 0.3s ease, visibility 0.3s ease;
                             z-index: 100;
-                            margin-right: calcRem(10);
-                            
+                            .menu-parent-link{
+                                width: 100% !important;
+                                margin-bottom: -1rem;
+                                a{
+                                    color: var(--color-primary) !important;
+                                    border-bottom: 1px solid #dadada;
+                                    &:hover{
+                                        color: var(--color-white) !important;
+                                    }
+                                }
+                            }
                             li {
                                 a {
                                     padding: calcRem(18) calcRem(15);
@@ -161,10 +172,10 @@
 
                             // Mega Menu Layout (Triggered if sub-menu has nested sub-menus)
                             &:has(> li > ul.sub-menu) {
-                                display: grid;
-                                grid-template-columns: repeat(auto-fill, minmax(calcRem(200), 1fr));
-                                width: max-content;
-                                max-width: 80vw;
+                                display: flex;
+                                flex-direction: row;
+                                flex-wrap: wrap;
+                                max-width: 72vw;
                                 min-width: calcRem(500);
                                 padding: calcRem(20);
                                 gap: calcRem(30);
@@ -174,7 +185,12 @@
                                     width: auto;
                                     display: flex;
                                     flex-direction: column;
-                                    
+                                    width: 30rem;
+                                    &.menu-parent-link{
+                                        a{
+                                            border-bottom: none !important;
+                                        }
+                                    }
                                     // Column Header
                                     > a {
                                         font-size: calcRem(16);
@@ -222,7 +238,7 @@
                                 }
                             }
                         }
-
+                        
                         &:hover {
                             > ul.sub-menu {
                                 opacity: 1;
@@ -375,5 +391,22 @@
                 }
             }
         }
+    }
+}
+
+.products-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 90;
+}
+
+body.products-menu-open {
+    .products-menu-overlay {
+        opacity: 1;
+        visibility: visible;
     }
 }

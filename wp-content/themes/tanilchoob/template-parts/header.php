@@ -4,7 +4,7 @@ use TanilChoob\Theme\Helper;
 
 $header_logo = get_field('header_logo', 'options');
 ?>
-<header id="main_header" class="header">
+<header id="main_header" class="header bg-white">
     <div class="top-row flex items-center justify-between container">
         <div class="top-row__right flex items-center">
             <a class="logo hidden md:flex" href="<?php echo home_url(); ?>">
@@ -70,3 +70,4 @@ $header_logo = get_field('header_logo', 'options');
         </nav>
     </div>
 </header>
+<div class="products-menu-overlay"></div>

@@ -4,6 +4,7 @@ namespace TanilChoob\Theme;
 
 class Walker_Nav_Menu_Custom extends \Walker_Nav_Menu
 {
+    private $parent_items = [];
 
     /**
      * Start the element output.
@@ -14,6 +15,7 @@ class Walker_Nav_Menu_Custom extends \Walker_Nav_Menu
 
         $classes = empty($item->classes) ? array() : (array) $item->classes;
         $classes[] = 'menu-item-' . $item->ID;
+        $this->parent_items[$depth] = $item;
 
         $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args));
         $class_names = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
@@ -63,6 +65,39 @@ class Walker_Nav_Menu_Custom extends \Walker_Nav_Menu
         $item_output .= isset($args->after) ? $args->after : '';
 
         $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
+    }
+
+    public function start_lvl( &$output, $depth = 0, $args = null ) {
+        if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
+            $t = '';
+            $n = '';
+        } else {
+            $t = "\t";
+            $n = "\n";
+        }
+        $indent = str_repeat( $t, $depth );
+
+        $classes = array( 'sub-menu' );
+        $class_names = implode( ' ', apply_filters( 'nav_menu_submenu_css_class', $classes, $args, $depth ) );
+
+        $atts          = array();
+        $atts['class'] = ! empty( $class_names ) ? $class_names : '';
+
+        $attributes = '';
+        foreach ( $atts as $attr => $value ) {
+            if ( is_scalar( $value ) && '' !== $value && false !== $value ) {
+                $value       = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
+                $attributes .= ' ' . $attr . '="' . $value . '"';
+            }
+        }
+
+        $output .= "{$n}{$indent}<ul{$attributes}>{$n}";
+
+        $parent = $this->parent_items[$depth] ?? null;
+        if ( 0 === (int) $depth && $parent && ! empty( $parent->url ) ) {
+            $link_text = sprintf( 'همه محصولات %s', esc_html( $parent->title ) );
+            $output .= $indent . $t . '<li class="menu-parent-link"><a class="menu-parent-link__anchor" href="' . esc_url( $parent->url ) . '">' . esc_html( $link_text ) . '</a></li>' . $n;
+        }
     }
 
     /**
