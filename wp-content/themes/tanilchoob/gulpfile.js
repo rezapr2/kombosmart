@@ -71,7 +71,6 @@ function scssPageTemplatesBuild(done) {
           .pipe(sass(sassOptions))
           .pipe(sourcemaps.write())
           .pipe(prefix(prefixerOptions))
-          .pipe(cssmin({zindex: false}))
           .pipe(dest("./assets/frontend/dist/css/page-templates"))
   )
 }

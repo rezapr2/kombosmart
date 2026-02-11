@@ -24,7 +24,7 @@ $form = get_field('form', $page_id);
 <div id="page-contact-us" class="container page-template-contact-us ">
     <div class="bg-black-03 py-25 md:px-30 md:mb-25">
         <div class="contact-hero flex">
-            <h1 class="yekan-28 md:yekan-34 color-black bold text-center md:text-right w-100"><?php the_title(); ?></h1>
+            <h1 class="yekan-20 md:yekan-34 color-black bold text-center md:text-right w-100 mb-10 md:mb-0"><?php the_title(); ?></h1>
         </div>
         <div class="flex flex-col md:flex-row gap-20">
             <div class="flex flex-col gap-20">
@@ -94,52 +94,54 @@ $form = get_field('form', $page_id);
             </div>
         </div>
     </div>
-    <div class="bg-black-03 py-25 md:px-30 mb-25">
+    <div class="bg-black-03 md:py-25 md:px-30">
         <div class="contact-hero flex">
-            <h1 class="yekan-28 md:yekan-34 color-black bold text-center md:text-right w-100">آدرس های ما</h1>
+            <h1 class="yekan-20 md:yekan-34 color-black bold text-center md:text-right w-100">آدرس های ما</h1>
         </div>
-        <?php
-            $our_addresses = get_field('our_addresses', $page_id);
-            if($our_addresses):
-                foreach($our_addresses as $address):
-        ?>
-        <div class="address-item flex flex-col items-center mb-25 md:mb-40">
-            <div class="address-title yekan-22 md:yekan-28 color-black-80 mb-10 md:mb-40 text-center md:text-right"><?php echo $address['title']; ?></div>
-            <div class="flex flex-col md:flex-row gap-10 md:gap-20">
-                <div class="address-text yekan-14 md:yekan-22 color-black-80 text-center md:text-right">
-                    <?php echo $address['address']; ?>
-                </div>
-                <div class="address-on-apps flex items-center gap-30">
-                    <label class="yekan-14 md:yekan-22 color-black-80 flex-shrink-0" for="address-on-apps">مسیریابی با:</label>
-                    <div class="apps flex items-center justify-between w-100">
-                        <?php if($address['google_map']): ?>
-                        <a href="<?php echo $address['google_map']; ?>" target="_blank" class="app-item">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/frontend/dist/images/icon_googlemaps.png" alt="Google Maps">
-                        </a>
-                        <?php endif; 
-                        if($address['neshan']):
-                        ?>
-                        <a href="<?php echo $address['neshan']; ?>" target="_blank" class="app-item">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/frontend/dist/images/icon_neshan.png" alt="Neshan">
-                        </a>
-                        <?php endif; 
-                        if($address['waze']):
-                        ?>
-                        <a href="<?php echo $address['waze']; ?>" target="_blank" class="app-item">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/frontend/dist/images/icon_waze.png" alt="Waze">
-                        </a>
-                        <?php endif; 
-                        if($address['balad']):
-                        ?>
-                        <a href="<?php echo $address['balad']; ?>" target="_blank" class="app-item">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/frontend/dist/images/icon_balad.png" alt="Balad">
-                        </a>
-                        <?php endif; ?>
+        <div class="flex flex-col gap-10 md:gap-40">
+            <?php
+                $our_addresses = get_field('our_addresses', $page_id);
+                if($our_addresses):
+                    foreach($our_addresses as $address):
+            ?>
+            <div class="address-item flex flex-col items-center">
+                <div class="address-title yekan-16 md:yekan-28 color-black-80 mb-10 md:mb-40 text-center md:text-right"><?php echo $address['title']; ?></div>
+                <div class="flex flex-col md:flex-row gap-10 md:gap-20">
+                    <div class="address-text yekan-14 md:yekan-22 color-black-80 text-center md:text-right">
+                        <?php echo $address['address']; ?>
+                    </div>
+                    <div class="address-on-apps flex items-center gap-30">
+                        <label class="yekan-14 md:yekan-22 color-black-80 flex-shrink-0" for="address-on-apps">مسیریابی با:</label>
+                        <div class="apps flex items-center justify-between gap-07 md:gap-10 w-100">
+                            <?php if($address['google_map']): ?>
+                            <a href="<?php echo $address['google_map']; ?>" target="_blank" class="app-item">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/frontend/dist/images/icon_googlemaps.png" alt="Google Maps">
+                            </a>
+                            <?php endif; 
+                            if($address['neshan']):
+                            ?>
+                            <a href="<?php echo $address['neshan']; ?>" target="_blank" class="app-item">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/frontend/dist/images/icon_neshan.png" alt="Neshan">
+                            </a>
+                            <?php endif; 
+                            if($address['waze']):
+                            ?>
+                            <a href="<?php echo $address['waze']; ?>" target="_blank" class="app-item">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/frontend/dist/images/icon_waze.png" alt="Waze">
+                            </a>
+                            <?php endif; 
+                            if($address['balad']):
+                            ?>
+                            <a href="<?php echo $address['balad']; ?>" target="_blank" class="app-item">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/frontend/dist/images/icon_balad.png" alt="Balad">
+                            </a>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
             </div>
+            <?php endforeach; endif; ?>
         </div>
-        <?php endforeach; endif; ?>
     </div>
 </div>
 <?php

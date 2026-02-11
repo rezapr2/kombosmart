@@ -75,7 +75,12 @@ $page_blocks = get_field('page_blocks', $page_id);
                             ?>
                         </h2>
                         <div class="description yekan-16 color-black-70 text-center md:text-right">
-                            <?php echo $block['text'] ?: ''; ?>
+                            <div class="about-desc-readmore">
+                                <div class="about-desc-content">
+                                    <?php echo $block['text'] ?: ''; ?>
+                                </div>
+                                <div class="about-desc-toggle yekan-14 color-primary pointer transition">نمایش بیشتر</div>
+                            </div>
                         </div>
                     </div>
                     <div class="image-box">
