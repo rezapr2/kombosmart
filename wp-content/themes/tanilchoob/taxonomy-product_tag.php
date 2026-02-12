@@ -196,7 +196,7 @@ if ($term_id) {
             } else {
                 ?>
                 <div class="desc-readmore slide-down-wrapper flex flex-col gap-10">
-                    <div class="desc-full yekan-18 color-black-60">
+                    <div class="desc-full yekan-16 md:yekan-18 text-justify color-black-60">
                         <?php echo $desc_text; ?>
                     </div>
                     <div class="desc-toggle desc-toggle-more slide-down-trigger yekan-16 color-primary pointer transition items-center" role="button" aria-expanded="false">نمایش بیشتر متن</div>

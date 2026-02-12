@@ -65,16 +65,20 @@ if(!$sidebar_ads) {
                             </article>
                             <?php endwhile; ?>
                             
-                            <!-- Pagination -->
-                            <div class="pagination flex justify-center mt-20">
-                                <?php
-                                echo paginate_links(array(
-                                    'prev_text' => '<span class="yekan-14 bg-black-03 rounded-5 px-15 py-5 transition hover-bg-primary hover-color-white">قبلی</span>',
-                                    'next_text' => '<span class="yekan-14 bg-black-03 rounded-5 px-15 py-5 transition hover-bg-primary hover-color-white">بعدی</span>',
-                                    'type'      => 'plain',
-                                ));
-                                ?>
+                            <?php
+                                global $wp_query;
+                                $current_paged = max(1, (int) get_query_var('paged'));
+                                $max_pages     = isset($wp_query->max_num_pages) ? (int) $wp_query->max_num_pages : 1;
+                            ?>
+                            <?php if ($max_pages > $current_paged) : ?>
+                            <div class="load-more-container flex justify-center mt-20">
+                                <button id="load-more-category-posts" class="loadmore-btn yekan-18 transition color-black-80 flex items-center gap-10" data-page="<?php echo esc_attr($current_paged); ?>" data-max="<?php echo esc_attr($max_pages); ?>">
+                                    مشاهده بیشتر
+                                    <span class="spinner hidden"></span>
+                                </button>
                             </div>
+                            
+                            <?php endif; ?>
 
                         <?php else : ?>
                             <div class="no-posts yekan-16 color-black-60 text-center py-20">
