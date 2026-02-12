@@ -36,7 +36,7 @@ $thumb_url   = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'large') : '';
                 <path d="M0.75 7.75H14.75M14.75 7.75L7.75 0.75M14.75 7.75L7.75 14.75" stroke="#909090" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
         </a>
-        <h1 class="yekan-28 color-black bold"><?php echo esc_html($title); ?></h1>
+        <h1 class="yekan-16 md:yekan-28 color-black bold"><?php echo esc_html($title); ?></h1>
     </div>
 </div>
 
@@ -119,7 +119,7 @@ if ($term_id) {
                 </svg>
             </div>
             <span class="yekan-14 color-black-60">مرتب سازی بر اساس:</span>
-            <div class="flex items-center gap-20">
+            <div class="hidden md:flex items-center gap-20">
                 <?php foreach ($sort_options as $orderby => $label):
                     // Build link preserving existing query args while setting orderby
                     $url = add_query_arg(array('orderby' => $orderby));
@@ -129,6 +129,18 @@ if ($term_id) {
                         <?php echo esc_html($label); ?>
                     </a>
                 <?php endforeach; ?>
+            </div>
+            <div class="md:hidden">
+                <div class="sort-select-wrapper">
+                    <select aria-label="مرتب سازی" onchange="if(this.value){window.location.href=this.value;}" class="sort-select yekan-14 color-black-80">
+                        <?php foreach ($sort_options as $orderby => $label):
+                            $url = add_query_arg(array('orderby' => $orderby));
+                            $is_active = ($current_orderby === $orderby);
+                        ?>
+                            <option value="<?php echo esc_url($url); ?>" <?php echo $is_active ? 'selected' : ''; ?>><?php echo esc_html($label); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
             </div>
             <div class="flex-grow"></div>
             

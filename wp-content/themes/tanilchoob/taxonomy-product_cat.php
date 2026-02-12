@@ -63,7 +63,7 @@ $product_cat_slug = get_query_var('product_cat'); // گرفتن اسلاگ دس�
             }
         ?>
         
-        <h1 class="yekan-28 color-black bold"><?php echo esc_html($title); ?></h1>
+        <h1 class="yekan-16 md:yekan-28 color-black bold"><?php echo esc_html($title); ?></h1>
     </div>
 </div>
 
@@ -86,7 +86,7 @@ $product_cat_slug = get_query_var('product_cat'); // گرفتن اسلاگ دس�
                                 <div class="relative overflow-hidden">
                                     <img src="<?php echo esc_url($sub_thumb_url); ?>" alt="<?php echo esc_attr($sub_name); ?>">
                                     <div class="content">
-                                        <div class="title yekan-18 md:yekan-20 color-white-80 bold"><?php echo esc_html($sub_name); ?></div>
+                                        <div class="title yekan-12 md:yekan-20 color-white-80 bold"><?php echo esc_html($sub_name); ?></div>
                                         <div class="more w-fit yekan-13 color-white hidden md:flex items-center transition"> بیشتر
                                             <div class="arrow flex">
                                                 <svg viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -134,7 +134,7 @@ $product_cat_slug = get_query_var('product_cat'); // گرفتن اسلاگ دس�
                 </svg>
             </div>
             <span class="yekan-14 color-black-60">مرتب سازی بر اساس:</span>
-            <div class="flex items-center gap-20">
+            <div class="hidden md:flex items-center gap-20">
                 <?php foreach ($sort_options as $orderby => $label):
                     // Build link preserving existing query args while setting orderby
                     $url = add_query_arg(array('orderby' => $orderby));
@@ -144,6 +144,18 @@ $product_cat_slug = get_query_var('product_cat'); // گرفتن اسلاگ دس�
                         <?php echo esc_html($label); ?>
                     </a>
                 <?php endforeach; ?>
+            </div>
+            <div class="md:hidden">
+                <div class="sort-select-wrapper">
+                    <select aria-label="مرتب سازی" onchange="if(this.value){window.location.href=this.value;}" class="sort-select yekan-14 color-black-80">
+                        <?php foreach ($sort_options as $orderby => $label):
+                            $url = add_query_arg(array('orderby' => $orderby));
+                            $is_active = ($current_orderby === $orderby);
+                        ?>
+                            <option value="<?php echo esc_url($url); ?>" <?php echo $is_active ? 'selected' : ''; ?>><?php echo esc_html($label); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
             </div>
             <div class="flex-grow"></div>
             
