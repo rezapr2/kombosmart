@@ -4,7 +4,7 @@ if (empty($banners)) {
     return;
 }
 ?>
-<div class="banners flex flex-col md:flex-row gap-06 md:gap-10 md:gap-20 py-20 md:py-40 container">
+<div class="banners flex flex-col md:flex-row gap-07 md:gap-20 py-20 md:py-40 container">
     <?php foreach ($banners as $banner) : ?>
         <div class="banner-item flex-1">
             <?php

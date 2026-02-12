@@ -63,6 +63,8 @@
         }
         @media screen and (max-width: 768px) {
             .spec-item {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                padding-bottom: 1rem;
                 .spec-name,
                 .spec-value {
                     padding: 0;
