@@ -44,6 +44,9 @@
                         background-color: rgba(220, 39, 36, 0.1);
                         color: #DC2624;
                     }
+                    @media screen and (max-width: 768px) {
+                        width: 50%;
+                    }
                 }
                 .inventory-status_item_description{
                     padding: 1.7rem 3rem;

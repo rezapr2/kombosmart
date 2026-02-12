@@ -27,7 +27,7 @@ $types_productshipping_delivery_methods = get_field('types_productshipping_deliv
     </section>
     <?php if ($types_product_inventory_status): ?>
         <section class="inventory-status_wrapper container mt-30">
-            <div class="inventory-status_title yekan-16 md:yekan-30 flex items-center">انواع وضعيت موجودى محصولات</div>
+            <h2 class="inventory-status_title yekan-16 md:yekan-30 flex items-center regular">انواع وضعيت موجودى محصولات</h2>
             <div class="inventory-status_list grid grid-cols-1 md:grid-cols-2 mt-30">
             <?php foreach ($types_product_inventory_status as $item): ?>
                 <div class="inventory-status_item flex flex-col items-start gap-10">
@@ -40,7 +40,7 @@ $types_productshipping_delivery_methods = get_field('types_productshipping_deliv
     <?php endif; ?>
     <?php if ($types_productshipping_delivery_methods): ?>
         <section class="delivery_methods container mt-30">
-            <div class="delivery_methods_title yekan-16 md:yekan-30 flex items-center">نحوه ارسال و تحویل محصولات</div>
+            <h2 class="delivery_methods_title yekan-16 md:yekan-30 flex items-center regular">نحوه ارسال و تحویل محصولات</h2>
             <div class="delivery_methods_list flex flex-col gap-10 mt-30">
             <?php foreach ($types_productshipping_delivery_methods as $item): ?>
                 <div class="delivery_methods_item flex flex-col md:flex-row items-center gap-07 md:gap-15">
