@@ -62,13 +62,47 @@
         border: 1px solid rgba(255, 255, 255, 0.08);
     }
     @media (max-width: 768px) {
-        margin-bottom: 2rem;
+        margin-bottom: 0;
+        padding-top: 4rem;
+        margin-top: 2rem;
         .footer_logo {
             margin: 0 auto;
             margin-bottom: 2rem;
+            width: 14rem;
         }
         .description {
             width: 100%;
+            padding: 1rem 1.7rem;
+        }
+        .desc_col{
+            order: 0;
+        }
+        .tanil-address{
+            order: 1;
+            margin: 0 auto;
+            width: 30rem;
+        }
+        .list .title, .list_1, .list_2{
+            border: none;
+        }
+        .list .title{
+            text-align: right;
+        }
+        .list_1, .list_2{
+            width: 48%;
+            margin-top: 2rem;
+        }
+        .list_1{
+            order: 2;
+        }
+        .list_2{
+            order: 3;
+        }
+        .footer_socials{
+            order: 4;
+            margin: 0 auto;
+            transform: scale(0.7);
+            margin-top: 2rem;
         }
     }
 }

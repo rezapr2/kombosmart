@@ -79,6 +79,9 @@
     .md\:flex-row-reverse{
         flex-direction: row-reverse;
     }
+    .md\:flex-nowrap{
+        flex-wrap: nowrap;
+    }
     .md\:grid-cols-2{
         grid-template-columns: repeat(2, 1fr);
     }

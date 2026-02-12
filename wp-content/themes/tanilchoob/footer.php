@@ -19,8 +19,8 @@ use TanilChoob\Theme\Helper;
 ?>
 <footer id="main_footer" class="footer">
     <div class="container">
-        <div class="flex flex-col md:flex-row gap-20 justify-between">
-            <div class="flex flex-col gap-07">
+        <div class="flex flex-row gap-10 md:gap-20 justify-between flex-wrap md:flex-nowrap">
+            <div class="flex flex-col gap-07 desc_col">
                 <div class="flex">
                     <?php $img = get_field('footer_logo', 'options');
                     if ($img):
@@ -39,13 +39,13 @@ use TanilChoob\Theme\Helper;
                         endif; ?>
                     </div>
                 </div>
-                <div class="description border yekan-14 md:yekan-18 color-white-70 text-center md:text-justify">
+                <div class="description border yekan-12 md:yekan-18 color-white-70 text-center md:text-justify">
                     <?php echo get_field('about_tanil', 'options'); ?>
                 </div>
             </div>
             <div class="flex flex-col list list_1 border">
                 <?php $list_1 = get_field('list_1', 'options'); ?>
-                <div class="title color-white-80 yekan-18 md:yekan-22 text-center">
+                <div class="title color-white-80 yekan-14 md:yekan-22 text-center">
                     <?php echo (isset($list_1['title']) ? $list_1['title'] : ''); ?>
                 </div>
                 <ul class="items flex flex-col gap-10">
@@ -53,7 +53,7 @@ use TanilChoob\Theme\Helper;
                     $list = (isset($list_1['list']) ? $list_1['list'] : []);
                     foreach ($list as $item) {
                         $link = $item['link'];
-                        echo '<li><a class="color-white-50 yekan-16 md:yekan-20" href="' . $link['url'] . '">' . $link['title'] . '</a></li>';
+                        echo '<li><a class="color-white-50 yekan-12 md:yekan-20" href="' . $link['url'] . '">' . $link['title'] . '</a></li>';
                     }
                     ?>
 
@@ -61,7 +61,7 @@ use TanilChoob\Theme\Helper;
             </div>
             <div class="flex flex-col list list_2 border">
                 <?php $list_2 = get_field('list_2', 'options'); ?>
-                <div class="title color-white-80 yekan-18 md:yekan-22 text-center">
+                <div class="title color-white-80 yekan-14 md:yekan-22 text-center">
                     <?php echo (isset($list_2['title']) ? $list_2['title'] : ''); ?>
                 </div>
                 <ul class="items flex flex-col gap-10">
@@ -69,18 +69,29 @@ use TanilChoob\Theme\Helper;
                     $list = (isset($list_2['list']) ? $list_2['list'] : []);
                     foreach ($list as $item) {
                         $link = $item['link'];
-                        echo '<li><a class="color-white-50 yekan-16 md:yekan-20" href="' . $link['url'] . '">' . $link['title'] . '</a></li>';
+                        echo '<li><a class="color-white-50 yekan-12 md:yekan-20" href="' . $link['url'] . '">' . $link['title'] . '</a></li>';
                     }
                     ?>
 
                 </ul>
+            </div>
+            <div class="footer_socials flex md:hidden">
+                        <?php $socials = get_field('social_networks', 'options');
+                        if ($socials):
+                            foreach ($socials as $key => $social):
+                        ?>
+                                <a class="footer_social transition border flex item-center" href="<?php echo $social; ?>" target="_blank">
+                                    <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/' . $key . '.svg')); ?>
+                                </a>
+                        <?php endforeach;
+                        endif; ?>
             </div>
             <div class="flex flex-col tanil-address flex-shrink-0 gap-07 text-justify">
                 <div class="item flex phone_numbers gap-05">
                     <div class="icon border flex item-center flex-shrink-0 h-100">
                         <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/call.svg')); ?>
                     </div>
-                    <div class="text border flex item-center yekan-18 color-white-70 w-full">
+                    <div class="text border flex item-center yekan-13 md:yekan-18 color-white-70 w-full">
                         <?php echo get_field('phone_numbers', 'options'); ?>
                     </div>
                 </div>
@@ -88,7 +99,7 @@ use TanilChoob\Theme\Helper;
                     <div class="icon border flex item-center flex-shrink-0 h-100">
                         <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/location.svg')); ?>
                     </div>
-                    <a class="text border flex item-center yekan-16 color-white-70 w-full" href="<?php echo get_field('location', 'options'); ?>">
+                    <a class="text border flex item-center yekan-13 mdyekan-16 color-white-70 w-full" href="<?php echo get_field('location', 'options'); ?>">
                         لوكيشن شعب وكارخانه
                     </a>
                 </div>
@@ -96,7 +107,7 @@ use TanilChoob\Theme\Helper;
                     <div class="icon border flex item-center flex-shrink-0 h-100">
                         <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/map.svg')); ?>
                     </div>
-                    <div class="text border yekan-15 color-white-70 w-full">
+                    <div class="text border yekan-13 md:yekan-15 color-white-70 w-full">
                         <?php echo get_field('footer_address', 'options'); ?>
                     </div>
                 </div>
