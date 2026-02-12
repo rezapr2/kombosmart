@@ -64,6 +64,22 @@ $product_status = get_post_meta($product_id, '_product_status', true);
 			<!-- Product offer countdown -->
 			<?php
 			$sale_end_date = $product->get_date_on_sale_to();
+			if ($product && $product->is_type('variable')) {
+				$children = $product->get_children();
+				$earliest = null;
+				foreach ($children as $vid) {
+					$v = wc_get_product($vid);
+					$v_end = $v ? $v->get_date_on_sale_to() : null;
+					if ($v_end && $v_end > new DateTime()) {
+						if (!$earliest || $v_end < $earliest) {
+							$earliest = $v_end;
+						}
+					}
+				}
+				if ($earliest) {
+					$sale_end_date = $earliest;
+				}
+			}
 			if ($sale_end_date && $sale_end_date > new DateTime()): ?>
 				<div class="product-offer-countdown ">
 					<div class="countdown-timer regular" data-end-date="<?php echo esc_attr($sale_end_date->date('Y-m-d H:i:s')); ?>">
@@ -185,6 +201,10 @@ $product_status = get_post_meta($product_id, '_product_status', true);
 					)
 				);
 			}
+			if ($product && $product->is_type('simple')) {
+				wc_get_template('single-product/add-to-cart/simple.php');
+			}
+			
 			?>
 
 
