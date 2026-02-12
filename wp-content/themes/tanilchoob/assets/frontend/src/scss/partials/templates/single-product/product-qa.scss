@@ -24,6 +24,20 @@
                 }
             }
         }
+        @media screen and (max-width: 768px) {
+            .qa-list {
+                .qa-item{
+                    padding: 0;
+                    min-height: 4.4rem;
+                    .qa-question-icon, .qa-answer-icon{
+                        width: 4.4rem;
+                        svg{
+                            width: 2.2rem;
+                        }
+                    }
+                }
+            }
+        }
     }
     #qa_form_wrapper {
         padding: 5.2rem;
@@ -72,6 +86,10 @@
             &.error {
                 color: #b00020;
             }
+        }
+        @media screen and (max-width: 768px) {
+            width: 100%;
+            padding: 2rem;
         }
     }
 }

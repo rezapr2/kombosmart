@@ -24,7 +24,7 @@ $faqs = isset($faqs) ? $faqs : get_query_var('faqs');
 			$faq_icon = Helper::getAssetUri('/images/faq_icon.png');
 			echo '<img src="' . esc_url($faq_icon) . '" alt="FAQ Icon" />';
 			?>
-			<div class="faq-icon-text yekan-26 color-black-80">شما عزیزان می توانید با مراجعه به بخش <a href="#faq-items" class="color-white bg-black px-25 inline-block">( پرسش های متدوال)</a> بخش تمامی سوالات احتمالی خود را دریافت کنید</div>
+			<div class="faq-icon-text yekan-22 md:yekan-26 color-black-80">شما عزیزان می توانید با مراجعه به بخش <a href="#faq-items" class="color-white bg-black px-25 inline-block">( پرسش های متدوال)</a> بخش تمامی سوالات احتمالی خود را دریافت کنید</div>
 		</div>
 	</div>
 

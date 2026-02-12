@@ -15,6 +15,9 @@
         .more-btn {
             color: #fff;
             background-color: #5d0e87;
+            svg path{
+                stroke: #fff;
+            }
         }
     }
     @media screen and (max-width: 768px) {

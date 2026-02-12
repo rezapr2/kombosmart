@@ -85,20 +85,20 @@ $product_status = get_post_meta($product_id, '_product_status', true);
 					<div class="countdown-timer regular" data-end-date="<?php echo esc_attr($sale_end_date->date('Y-m-d H:i:s')); ?>">
 						<div class="countdown-timer__time flex  w-full h-100 justify-evenly">
 							<div class="flex flex-col text-center">
-								<div class="countdown-timer__seconds yekan-30">00</div>
-								<div class="countdown-timer__label yekan-18">ثانیه</div>
+								<div class="countdown-timer__seconds yekan-18 md:yekan-30">00</div>
+								<div class="countdown-timer__label yekan-12 md:yekan-18">ثانیه</div>
 							</div>
 							<div class="flex flex-col text-center">
-								<div class="countdown-timer__minutes yekan-30">00</div>
-								<div class="countdown-timer__label yekan-18">دقیقه</div>
+								<div class="countdown-timer__minutes yekan-18 md:yekan-30">00</div>
+								<div class="countdown-timer__label yekan-12 md:yekan-18">دقیقه</div>
 							</div>
 							<div class="flex flex-col text-center">
-								<div class="countdown-timer__hours yekan-30">00</div>
-								<div class="countdown-timer__label yekan-18">ساعت</div>
+								<div class="countdown-timer__hours yekan-18 md:yekan-30">00</div>
+								<div class="countdown-timer__label yekan-12 md:yekan-18">ساعت</div>
 							</div>
 							<div class="flex flex-col text-center">
-								<div class="countdown-timer__days yekan-30">00</div>
-								<div class="countdown-timer__label yekan-18">روز</div>
+								<div class="countdown-timer__days yekan-18 md:yekan-30">00</div>
+								<div class="countdown-timer__label yekan-12 md:yekan-18">روز</div>
 							</div>
 						</div>
 					</div>

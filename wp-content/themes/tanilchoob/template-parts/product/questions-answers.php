@@ -83,10 +83,10 @@ $questions = $questions_query->posts;
                                 <path d="M16.9949 19.4788H17.0077" stroke="#5D0E87" stroke-width="2.125" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
-                        <div class="qa-question flex-1 flex items-center yekan-18 color-black-70">
+                        <div class="qa-question flex-1 flex items-center yekan-16 md:yekan-18 color-black-70">
                             <?php echo wp_kses_post($question->post_content); ?>
                         </div>
-                        <div class="yekan-14 flex items-center color-black-40 qa-date px-25">
+                        <div class="yekan-12 md:yekan-14 flex items-center color-black-40 qa-date px-25">
                             <?php echo esc_html(get_the_date('', $question)); ?>
                         </div>
                     </li>
@@ -101,7 +101,7 @@ $questions = $questions_query->posts;
                                 <path d="M11.6875 30.2504C14.8362 29.3566 18.1637 29.3566 21.3125 30.2504" stroke="black" stroke-width="2.0625" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
-                        <div class="qa-question flex-1 flex items-center yekan-18 color-black-50">
+                        <div class="qa-question flex-1 flex items-center yekan-16 md:yekan-18 color-black-50">
                             <?php echo wp_kses_post($answer_text); ?>
                         </div>
                         <div class="px-25">
