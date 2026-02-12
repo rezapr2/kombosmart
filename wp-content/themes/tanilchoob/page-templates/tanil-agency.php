@@ -31,9 +31,9 @@ $page_id = get_queried_object_id();
         if( $get_branch_rules ):
     ?>
     <section class="container flex flex-col gap-20 items-center">
-        <div class="page_blocks_title text-center yekan-18 md:yekan-28 bold color-primary mt-40 w-100">
+        <h2 class="page_blocks_title text-center yekan-18 md:yekan-28 bold color-primary mt-40 w-100">
             شرایط اخذ نمایندگی
-        </div>
+        </h2>
 
         <div class="get_branch_rules flex flex-col gap-20 w-100">
             <?php 
@@ -42,10 +42,10 @@ $page_id = get_queried_object_id();
                     $i++;
                 ?>
                 <div class="rule flex flex-col md:flex-row items-center md:items-start gap-10">
-                    <div class="index yekan-28 color-black-80 bg-black-05 flex flex-shrink-0 item-center"><?php echo $i; ?></div>
+                    <div class="index yekan-16 md:yekan-28 color-black-80 bg-black-05 flex flex-shrink-0 item-center"><?php echo $i; ?></div>
                     <div class="flex flex-col">
-                        <div class="title yekan-20 md:yekan-24 text-center md:text-right color-black-80"><?php echo $branch_rule['title']; ?></div>
-                        <div class="description yekan-14 md:yekan-20 text-center md:text-right color-black-50"><?php echo $branch_rule['description']; ?></div>
+                        <div class="title yekan-18 md:yekan-24 text-center md:text-right color-black-80"><?php echo $branch_rule['title']; ?></div>
+                        <div class="description yekan-12 md:yekan-20 text-center md:text-right color-black-50"><?php echo $branch_rule['description']; ?></div>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -76,9 +76,9 @@ $page_id = get_queried_object_id();
         if( $get_branch_steps ):
     ?>
     <section class="container flex flex-col gap-20">
-        <div class="page_blocks_title text-center yekan-18 md:yekan-28 bold color-primary mt-40 w-100">
+        <h2 class="page_blocks_title text-center yekan-18 md:yekan-28 bold color-primary mt-40 w-100">
             مسیر اخذ نمایندگی تانیل چوب
-        </div>
+        </h2>
 
         <div class="get_branch_steps flex flex-col md:flex-row items-center md:items-start gap-50 md:gap-20 justify-between relative">
             <?php 
@@ -135,19 +135,19 @@ $page_id = get_queried_object_id();
     if ($faqs):
         ?>
         <section class="container flex flex-col gap-20">
-            <div class="page_blocks_title text-center yekan-18 md:yekan-28 bold color-primary mt-40">
+            <h2 class="page_blocks_title text-center yekan-18 md:yekan-28 bold color-primary mt-40">
                 سوالات متداول 
-            </div>
+            </h2>
 
             <div class="faqs flex flex-col gap-20">
                 <?php foreach ($faqs as $faq): ?>
                     <div class="faq-item slide-down-wrapper flex flex-col gap-20">
                         <div
-                            class="faq-question slide-down-trigger yekan-16 md:yekan-24 color-black-80 flex justify-between items-center cursor-pointer">
-                            <span><?php echo $faq['question']; ?></span>
+                            class="faq-question slide-down-trigger  flex justify-between items-center cursor-pointer">
+                            <h3 class="yekan-14 md:yekan-24 color-black-80 regular"><?php echo $faq['question']; ?></h3>
                         </div>
-                        <div class="faq-answer slide-down-content yekan-14 md:yekan-24 text-center md:text-right color-black-70" style="display: none;">
-                            <?php echo $faq['answer']; ?>
+                        <div class="faq-answer slide-down-content yekan-12 md:yekan-24 text-center md:text-right color-black-70" style="display: none;">
+                            <p><?php echo $faq['answer']; ?></p>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -174,8 +174,8 @@ $page_id = get_queried_object_id();
                                 <img src="<?php echo $branch_benefit['image']['url']; ?>" alt="<?php echo $branch_benefit['image']['alt']; ?>">
                             </div>
                         <?php endif; ?>
-                        <div class="title yekan-20 bold color-primary text-center mt-10"><?php echo $branch_benefit['title']; ?></div>
-                        <div class="description yekan-16 color-black-70 text-center"><?php echo $branch_benefit['description']; ?></div>
+                        <div class="title yekan-14 md:yekan-20 bold color-primary text-center mt-10"><?php echo $branch_benefit['title']; ?></div>
+                        <div class="description yekan-12 md:yekan-16 color-black-70 text-center"><?php echo $branch_benefit['description']; ?></div>
                     </div>
             <?php endforeach; ?>
         </div>
