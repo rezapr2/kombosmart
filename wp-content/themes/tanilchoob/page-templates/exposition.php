@@ -29,7 +29,7 @@ $ad_banner = get_field('ad_banner', $page_id);
 ?>
 <div id="page-exposition" class="page-template-exposition mt-25">
     <section class="flex flex-col">
-        <h1 class="yekan-22 md:yekan-34 bold text-center color-black-80"><?php echo $page_title ? $page_title : ''; ?></h1>
+        <h1 class="yekan-22 md:yekan-34 bold text-center color-primary"><?php echo $page_title ? $page_title : ''; ?></h1>
         <?php if (isset($top_video['video_link'])): ?>
             <div class="hero_video relative mt-25 w-100">
                 <div class="dark-overlay z-index-1"></div>

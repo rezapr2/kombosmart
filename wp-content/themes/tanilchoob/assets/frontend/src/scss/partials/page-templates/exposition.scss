@@ -60,6 +60,12 @@
                 .box-image{
                     width: 100%;
                 }
+                .content{
+                    display: -webkit-box;
+                    -webkit-line-clamp: 4;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
                 .link{
                     padding: 1rem 2rem;
                     align-self: center;
