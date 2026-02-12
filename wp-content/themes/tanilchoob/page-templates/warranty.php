@@ -41,9 +41,9 @@ $boxes = isset($top_boxes['boxes']) ? $top_boxes['boxes'] : [];
         </div>
     </section>
     <section class="container flex flex-col gap-20">
-        <div class="page_blocks_title text-center yekan-18 md:yekan-28 bold color-primary mt-40">
+        <h2 class="page_blocks_title text-center yekan-18 md:yekan-28 bold color-primary mt-40">
             شرایط استفاده از گارانتی
-        </div>
+        </h2>
 
         <div class="warranty_terms flex items-center gap-20 yekan-16 text-center md:text-right md:yekan-22">
             <div class="text color-black-70">
@@ -61,7 +61,21 @@ $boxes = isset($top_boxes['boxes']) ? $top_boxes['boxes'] : [];
 				<div class="swiper-wrapper">
 					<?php foreach (get_field('warranty_gallery', $page_id) as $image) : ?>
 							<div class="swiper-slide">
-								<img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>">
+								<?php
+									$img_url   = isset($image['url']) ? $image['url'] : '';
+									$img_alt   = isset($image['alt']) ? $image['alt'] : '';
+									$thumb_url = isset($image['sizes']['thumbnail']) ? $image['sizes']['thumbnail'] : $img_url;
+									$story_payload = array(
+										'title'         => $img_alt,
+										'subtitle'      => '',
+										'content_type'  => 'image',
+										'image'         => array('url' => $img_url),
+										'thumbnail_url' => $thumb_url,
+									);
+								?>
+								<a href="#" class="story-item" data-story-content="<?php echo esc_attr(wp_json_encode($story_payload)); ?>">
+									<img src="<?php echo esc_url($img_url); ?>" alt="<?php echo esc_attr($img_alt); ?>">
+								</a>
 							</div>
 							<?php endforeach; ?>
 		    				</div>
@@ -75,9 +89,9 @@ $boxes = isset($top_boxes['boxes']) ? $top_boxes['boxes'] : [];
     if ($form_id):
         ?>
         <section class="container flex flex-col gap-20">
-            <div class="page_blocks_title text-center yekan-18 md:yekan-28 bold color-primary mt-40">
+            <h2 class="page_blocks_title text-center yekan-18 md:yekan-28 bold color-primary mt-40">
                 فرم ثبت درخواست گارانتی
-            </div>
+            </h2>
             <div class="contact-form">
                 <?php
                 if (shortcode_exists('contact-form-7')) {
@@ -93,19 +107,19 @@ $boxes = isset($top_boxes['boxes']) ? $top_boxes['boxes'] : [];
     if ($warranty_faqs):
         ?>
         <section class="container flex flex-col gap-20">
-            <div class="page_blocks_title text-center yekan-18 md:yekan-28 bold color-primary mt-40">
+            <h2 class="page_blocks_title text-center yekan-18 md:yekan-28 bold color-primary mt-20 md:mt-40">
                 سوالات متداول درباره گارانتی
-            </div>
+            </h2>
 
             <div class="warranty_faqs flex flex-col gap-20">
                 <?php foreach ($warranty_faqs as $faq): ?>
-                    <div class="faq-item slide-down-wrapper flex flex-col gap-20">
+                    <div class="faq-item slide-down-wrapper flex flex-col gap-04 md:gap-20">
                         <div
-                            class="faq-question slide-down-trigger yekan-16 md:yekan-24 color-black-80 flex justify-between items-center cursor-pointer">
-                            <span><?php echo $faq['question']; ?></span>
+                            class="faq-question slide-down-trigger  flex justify-between items-center cursor-pointer">
+                            <h3 class="regular yekan-14 md:yekan-24 color-black-80"><?php echo $faq['question']; ?></h3>
                         </div>
-                        <div class="faq-answer slide-down-content yekan-14 md:yekan-20 text-center md:text-right color-black-70" style="display: none;">
-                            <?php echo $faq['answer']; ?>
+                        <div class="faq-answer slide-down-content yekan-12 md:yekan-20 text-center md:text-right color-black-70" style="display: none;">
+                            <p><?php echo $faq['answer']; ?></p>
                         </div>
                     </div>
                 <?php endforeach; ?>
