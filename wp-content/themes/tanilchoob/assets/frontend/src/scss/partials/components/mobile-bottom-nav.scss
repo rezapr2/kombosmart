@@ -188,3 +188,28 @@
         }
     }
 }
+
+#mobile-main-menu-drawer {
+    .drawer-header {
+        padding: calcRem(16);
+        background-color: #f5f5f5;
+        border-bottom: 1px solid #eee;
+    }
+    .drawer-content .mobile-drawer-menu > li > a {
+        width: 100%;
+        flex-direction: row;
+        justify-content: flex-start;
+        text-align: right;
+        gap: calcRem(10);
+        padding: calcRem(14) calcRem(16);
+        font-size: calcRem(16);
+        color: #2F2F2F;
+    }
+    .drawer-content .mobile-drawer-menu > li > ul.sub-menu {
+        position: static;
+        width: 100%;
+        height: auto;
+        right: auto;
+        padding: 0 calcRem(16);
+    }
+}

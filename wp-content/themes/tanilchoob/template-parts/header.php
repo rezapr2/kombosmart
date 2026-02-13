@@ -2,14 +2,19 @@
 
 use TanilChoob\Theme\Helper;
 
-$header_logo = get_field('header_logo', 'options');
+$header_logo = get_field('header_logo', 'option');
+$header_logo_mobile = get_field('header_logo_mobile', 'option');
 ?>
 <header id="main_header" class="header bg-white">
     <div class="top-row flex items-center justify-between container">
-        <div class="top-row__right flex items-center">
-            <a class="logo hidden md:flex" href="<?php echo home_url(); ?>">
-                <img src="<?php echo isset($header_logo['url']) ? $header_logo['url'] : ''; ?>"
+        <div class="top-row__right flex flex-row-reverse md:flex-row items-center">
+            <a class="logo" href="<?php echo home_url(); ?>">
+                <img class="hidden md:flex" src="<?php echo isset($header_logo['url']) ? $header_logo['url'] : ''; ?>"
                     alt="<?php bloginfo('name'); ?>">
+                <?php if (isset($header_logo_mobile['url']) && $header_logo_mobile['url'] !== '') : ?>
+                <img class="flex md:hidden" src="<?php echo isset($header_logo_mobile['url']) ? $header_logo_mobile['url'] : ''; ?>"
+                    alt="<?php bloginfo('name'); ?>">
+                <?php endif; ?>
             </a>
             <div class="search">
                 <form class="search-form flex items-center" action="<?php echo home_url(); ?>" method="get">
@@ -19,6 +24,14 @@ $header_logo = get_field('header_logo', 'options');
                     </button>
                 </form>
             </div>
+
+            <button id="mobile-main-menu-trigger" class="md:hidden flex items-center justify-center bg-black-03 rounded-5 px-12 py-08 ml-10" type="button" aria-label="باز کردن منو">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.5 5.83301H17.5" stroke="#5D5D5D" stroke-width="1.2" stroke-linecap="round"/>
+                    <path d="M2.5 10H17.5" stroke="#5D5D5D" stroke-width="1.2" stroke-linecap="round"/>
+                    <path d="M2.5 14.167H17.5" stroke="#5D5D5D" stroke-width="1.2" stroke-linecap="round"/>
+                </svg>
+            </button>
         </div>
         <div class="top-row__left hidden md:flex ">
             <div class="bascket-btn flex item-center transition pointer">
@@ -71,3 +84,25 @@ $header_logo = get_field('header_logo', 'options');
     </div>
 </header>
 <div class="products-menu-overlay"></div>
+<div id="mobile-main-menu-drawer" class="mobile-drawer fixed inset-0 bg-white z-[1000] hidden flex flex-col w-full h-full">
+    <div class="drawer-header flex items-center gap-15">
+        <div id="close-mobile-main-menu" class="p-5">
+           <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+             <path d="M0.75 12.7514L6.73371 6.7507L0.75 0.75" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <form class="search-form flex items-center flex-1" action="<?php echo home_url(); ?>" method="get">
+            <input class="transition w-full" type="text" name="s" placeholder="جستجو در تانیل چوب">
+        </form>
+    </div>
+    <div class="drawer-content flex flex-1 overflow-auto h-full relative">
+        <?php 
+        wp_nav_menu([
+            'theme_location' => 'main_menu', 
+            'menu_class' => 'mobile-drawer-menu relative flex flex-col w-full h-full m-0 p-0',
+            'container' => false,
+            'walker' => new \TanilChoob\Theme\Walker_Nav_Menu_Custom()
+        ]); 
+        ?>
+    </div>
+</div>

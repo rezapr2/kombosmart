@@ -47,6 +47,32 @@
             "preview_size": "medium"
         },
         {
+            "key": "field_698e5b9f97433",
+            "label": "لوگو موبایل",
+            "name": "header_logo_mobile",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
+        },
+        {
             "key": "field_68e6f0344e83f",
             "label": "فوتر",
             "name": "",
@@ -601,5 +627,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1769964246
+    "modified": 1770937264
 }
