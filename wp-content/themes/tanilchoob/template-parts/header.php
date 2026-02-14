@@ -25,12 +25,10 @@ $header_logo_mobile = get_field('header_logo_mobile', 'option');
                 </form>
             </div>
 
-            <button id="mobile-main-menu-trigger" class="md:hidden flex items-center justify-center bg-black-03 rounded-5 px-12 py-08 ml-10" type="button" aria-label="باز کردن منو">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2.5 5.83301H17.5" stroke="#5D5D5D" stroke-width="1.2" stroke-linecap="round"/>
-                    <path d="M2.5 10H17.5" stroke="#5D5D5D" stroke-width="1.2" stroke-linecap="round"/>
-                    <path d="M2.5 14.167H17.5" stroke="#5D5D5D" stroke-width="1.2" stroke-linecap="round"/>
-                </svg>
+            <button id="mobile-main-menu-trigger" class="hamburger md:hidden flex flex-col items-center justify-between bg-black-05" type="button" aria-label="باز کردن منو">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
             </button>
         </div>
         <div class="top-row__left hidden md:flex ">
@@ -84,22 +82,12 @@ $header_logo_mobile = get_field('header_logo_mobile', 'option');
     </div>
 </header>
 <div class="products-menu-overlay"></div>
-<div id="mobile-main-menu-drawer" class="mobile-drawer fixed inset-0 bg-white z-[1000] hidden flex flex-col w-full h-full">
-    <div class="drawer-header flex items-center gap-15">
-        <div id="close-mobile-main-menu" class="p-5">
-           <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-             <path d="M0.75 12.7514L6.73371 6.7507L0.75 0.75" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </div>
-        <form class="search-form flex items-center flex-1" action="<?php echo home_url(); ?>" method="get">
-            <input class="transition w-full" type="text" name="s" placeholder="جستجو در تانیل چوب">
-        </form>
-    </div>
-    <div class="drawer-content flex flex-1 overflow-auto h-full relative">
+<div id="mobile-main-menu-dropdown" class="mobile-main-menu-dropdown md:hidden">
+    <div class="mobile-main-menu-dropdown__content">
         <?php 
         wp_nav_menu([
             'theme_location' => 'main_menu', 
-            'menu_class' => 'mobile-drawer-menu relative flex flex-col w-full h-full m-0 p-0',
+            'menu_class' => 'mobile-main-menu-list m-0 p-0',
             'container' => false,
             'walker' => new \TanilChoob\Theme\Walker_Nav_Menu_Custom()
         ]); 
