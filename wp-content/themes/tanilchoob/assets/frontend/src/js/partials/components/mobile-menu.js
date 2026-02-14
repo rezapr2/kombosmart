@@ -35,12 +35,14 @@
                 var isOpen = $mainDropdown.hasClass(dropdownOpenClass);
                 $mainDropdown.toggleClass(dropdownOpenClass, !isOpen);
                 $mainOpenBtn.toggleClass('active', !isOpen);
+                $('body').toggleClass('mobile-main-menu-open', !isOpen);
             });
             $(document).on('click', function(e){
                 if (!$mainDropdown.hasClass(dropdownOpenClass)) return;
                 if ($(e.target).closest('#mobile-main-menu-dropdown, #mobile-main-menu-trigger').length) return;
                 $mainDropdown.removeClass(dropdownOpenClass);
                 $mainOpenBtn.removeClass('active');
+                $('body').removeClass('mobile-main-menu-open');
             });
         }
 

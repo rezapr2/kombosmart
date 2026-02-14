@@ -80,9 +80,7 @@ $header_logo_mobile = get_field('header_logo_mobile', 'option');
             ?>
         </nav>
     </div>
-</header>
-<div class="products-menu-overlay"></div>
-<div id="mobile-main-menu-dropdown" class="mobile-main-menu-dropdown md:hidden">
+    <div id="mobile-main-menu-dropdown" class="mobile-main-menu-dropdown bg-white transition absolute md:hidden">
     <div class="mobile-main-menu-dropdown__content">
         <?php 
         wp_nav_menu([
@@ -94,3 +92,6 @@ $header_logo_mobile = get_field('header_logo_mobile', 'option');
         ?>
     </div>
 </div>
+</header>
+<div class="products-menu-overlay"></div>
+
