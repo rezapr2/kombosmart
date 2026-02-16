@@ -244,6 +244,16 @@
                 object-fit: contain;
             }
         }
+        @media screen and (max-width: 768px) {
+           .product-gallery-main {
+                width: 100%;
+                height: 70vh;
+            } 
+            .product-gallery-thumbs {
+                width: 100%;
+                height: 14vh;
+            }
+        }
     }
 }
 

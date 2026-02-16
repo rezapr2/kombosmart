@@ -93,7 +93,7 @@
                         '<div id="gallery-lightbox-modal" class="gallery-lightbox-modal items-center justify-center" role="dialog" aria-modal="true" aria-label="نمایش همه تصاویر">',
                         '  <div class="gallery-lightbox-content relative bg-white">',
                         '    <button type="button" class="gallery-lightbox-close absolute pointer color-white yekan-34" aria-label="بستن">×</button>',
-                        '    <div class="gallery-lightbox-body flex">',
+                        '    <div class="gallery-lightbox-body flex flex-col md:flex-row">',
                         '      <div class="product-gallery-main">',
                         '        <div class="swiper-container h-100 gallery-lightbox-main overflow-hidden">',
                         '          <div class="swiper-wrapper h-100"></div>',
@@ -165,18 +165,22 @@
                     modalThumbs.update();
                 } else {
                     modalThumbs = new Swiper('#gallery-lightbox-modal .gallery-lightbox-thumbs', {
-                        slidesPerView: 6,
+                        slidesPerView: 4,
                         spaceBetween: 10,
-                        direction: 'vertical',
+                        direction: 'horizontal',
                         watchSlidesVisibility: true,
                         watchSlidesProgress: true,
-                        // Mousewheel control
                         mousewheel: { enabled: true },
-                        // Progress pagination to indicate available slide range
                         pagination: {
                             el: '#gallery-lightbox-modal .gallery-lightbox-thumbs-pagination',
                             type: 'progressbar'
                         },
+                        breakpoints: {
+                            768: {
+                                slidesPerView: 6,
+                                direction: 'vertical'
+                            }
+                        }
                     });
                     $modal.data('thumbsSwiper', modalThumbs);
                 }
