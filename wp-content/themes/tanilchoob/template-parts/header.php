@@ -36,7 +36,7 @@ $header_logo_mobile = get_field('header_logo_mobile', 'option');
                 <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/shopping-cart.svg')); ?>
             </div>
             <div class="sign-up-btn flex items-center transition pointer">
-                <div href="<?php echo home_url(); ?>/sign-up" class="btn btn--primary color-primary">ورود/ثبت نام</div>
+                <a href="<?php echo esc_url(get_permalink(get_option('woocommerce_myaccount_page_id'))); ?>" class="btn btn--primary color-primary">ورود/ثبت نام</a>
             </div>
         </div>
 
@@ -94,4 +94,3 @@ $header_logo_mobile = get_field('header_logo_mobile', 'option');
 </div>
 </header>
 <div class="products-menu-overlay"></div>
-

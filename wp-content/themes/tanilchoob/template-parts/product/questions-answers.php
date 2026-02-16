@@ -104,8 +104,6 @@ $questions = $questions_query->posts;
                         <div class="qa-question flex-1 flex items-center yekan-16 md:yekan-18 color-black-50">
                             <?php echo wp_kses_post($answer_text); ?>
                         </div>
-                        <div class="px-25">
-                        </div>
                     </li>
                     <?php endif; ?>
                 <?php endforeach; ?>
