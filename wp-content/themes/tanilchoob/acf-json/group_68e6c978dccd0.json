@@ -1365,9 +1365,51 @@
                     "parent_repeater": "field_68ec14637d8a4"
                 },
                 {
-                    "key": "field_68f61ffbe1102",
-                    "label": "تصویر در موبایل",
-                    "name": "mobile_image",
+                    "key": "field_68ec14637d8a6",
+                    "label": "لینک",
+                    "name": "link",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "allow_in_bindings": 0,
+                    "parent_repeater": "field_68ec14637d8a4"
+                }
+            ]
+        },
+        {
+            "key": "field_699380b51ade2",
+            "label": "بنر های بعد از مبلمان موبایل",
+            "name": "banners_after_soffa_products_mobile",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "سطر جدید",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_699380b51ade3",
+                    "label": "تصویر",
+                    "name": "image",
                     "aria-label": "",
                     "type": "image",
                     "instructions": "",
@@ -1389,10 +1431,10 @@
                     "mime_types": "",
                     "allow_in_bindings": 0,
                     "preview_size": "medium",
-                    "parent_repeater": "field_68ec14637d8a4"
+                    "parent_repeater": "field_699380b51ade2"
                 },
                 {
-                    "key": "field_68ec14637d8a6",
+                    "key": "field_699380b51ade5",
                     "label": "لینک",
                     "name": "link",
                     "aria-label": "",
@@ -1407,7 +1449,7 @@
                     },
                     "return_format": "array",
                     "allow_in_bindings": 0,
-                    "parent_repeater": "field_68ec14637d8a4"
+                    "parent_repeater": "field_699380b51ade2"
                 }
             ]
         },
@@ -1479,9 +1521,51 @@
                     "parent_repeater": "field_68ec134e7d89f"
                 },
                 {
-                    "key": "field_68f6201be1103",
-                    "label": "تصویر در موبایل",
-                    "name": "mobile_image",
+                    "key": "field_68ec134e7d8a1",
+                    "label": "لینک",
+                    "name": "link",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "",
+                    "allow_in_bindings": 0,
+                    "parent_repeater": "field_68ec134e7d89f"
+                }
+            ]
+        },
+        {
+            "key": "field_699380ea1ade6",
+            "label": "بنر های بعد از فروش ویژه موبایل",
+            "name": "banners_after_offer_sales_mobile",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "سطر جدید",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_699380ea1ade7",
+                    "label": "تصویر",
+                    "name": "image",
                     "aria-label": "",
                     "type": "image",
                     "instructions": "",
@@ -1503,10 +1587,10 @@
                     "mime_types": "",
                     "allow_in_bindings": 0,
                     "preview_size": "medium",
-                    "parent_repeater": "field_68ec134e7d89f"
+                    "parent_repeater": "field_699380ea1ade6"
                 },
                 {
-                    "key": "field_68ec134e7d8a1",
+                    "key": "field_699380ea1ade9",
                     "label": "لینک",
                     "name": "link",
                     "aria-label": "",
@@ -1519,9 +1603,9 @@
                         "class": "",
                         "id": ""
                     },
-                    "return_format": "",
+                    "return_format": "array",
                     "allow_in_bindings": 0,
-                    "parent_repeater": "field_68ec134e7d89f"
+                    "parent_repeater": "field_699380ea1ade6"
                 }
             ]
         },
@@ -1593,9 +1677,51 @@
                     "parent_repeater": "field_68e6e4f31fa9b"
                 },
                 {
-                    "key": "field_68f62025e1104",
-                    "label": "تصویر در موبایل",
-                    "name": "mobile_image",
+                    "key": "field_68e6e54f1fa9d",
+                    "label": "لینک",
+                    "name": "link",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "allow_in_bindings": 0,
+                    "parent_repeater": "field_68e6e4f31fa9b"
+                }
+            ]
+        },
+        {
+            "key": "field_699380fe1adea",
+            "label": "بنر های بعد از دسته بندی موبایل",
+            "name": "banners_after_categories_mobile",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "سطر جدید",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_699380fe1adeb",
+                    "label": "تصویر",
+                    "name": "image",
                     "aria-label": "",
                     "type": "image",
                     "instructions": "",
@@ -1617,10 +1743,10 @@
                     "mime_types": "",
                     "allow_in_bindings": 0,
                     "preview_size": "medium",
-                    "parent_repeater": "field_68e6e4f31fa9b"
+                    "parent_repeater": "field_699380fe1adea"
                 },
                 {
-                    "key": "field_68e6e54f1fa9d",
+                    "key": "field_699380fe1aded",
                     "label": "لینک",
                     "name": "link",
                     "aria-label": "",
@@ -1635,7 +1761,7 @@
                     },
                     "return_format": "array",
                     "allow_in_bindings": 0,
-                    "parent_repeater": "field_68e6e4f31fa9b"
+                    "parent_repeater": "field_699380fe1adea"
                 }
             ]
         }
@@ -1659,5 +1785,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1762276166
+    "modified": 1771274529
 }

@@ -28,6 +28,7 @@ get_header(); ?>
     /* Banners */
     $args = [
         'banners' => get_field('banners_after_categories', $page_id),
+        'banners_mobile' => get_field('banners_after_categories_mobile', $page_id),
     ];
     get_template_part('template-parts/home/banners', null, $args);
 
@@ -62,6 +63,7 @@ get_header(); ?>
     /* Banners */
     $args = [
         'banners' => get_field('banners_after_offer_sales', $page_id),
+        'banners_mobile' => get_field('banners_after_offer_sales_mobile', $page_id),
     ];
     get_template_part('template-parts/home/banners', null, $args);
 
@@ -92,6 +94,7 @@ get_header(); ?>
     /* Banners */
     $args = [
         'banners' => get_field('banners_after_soffa_products', $page_id),
+        'banners_mobile' => get_field('banners_after_soffa_products_mobile', $page_id),
     ];
     get_template_part('template-parts/home/banners', null, $args);
 

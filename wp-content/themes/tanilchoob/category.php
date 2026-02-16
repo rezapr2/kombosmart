@@ -72,7 +72,7 @@ if(!$sidebar_ads) {
                             ?>
                             <?php if ($max_pages > $current_paged) : ?>
                             <div class="load-more-container flex justify-center mt-20">
-                                <button id="load-more-category-posts" class="loadmore-btn yekan-18 transition color-black-80 flex items-center gap-10" data-page="<?php echo esc_attr($current_paged); ?>" data-max="<?php echo esc_attr($max_pages); ?>">
+                                <button id="load-more-category-posts" class="loadmore-btn yekan-18 transition color-black-80 flex items-center gap-10 pointer" data-page="<?php echo esc_attr($current_paged); ?>" data-max="<?php echo esc_attr($max_pages); ?>">
                                     مشاهده بیشتر
                                     <span class="spinner hidden"></span>
                                 </button>

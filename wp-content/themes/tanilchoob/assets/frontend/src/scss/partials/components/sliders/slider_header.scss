@@ -74,13 +74,13 @@
         transform: rotate(180deg);
     }
     @media (max-width: 768px) {
-        .title_btn {
-            padding: 0.45rem 0.9rem;
-        }
         .archive-btn {
             padding: 0.6rem;
+            height: 3rem;
         }
         .title_btn {
+            padding: 0.45rem 0.9rem;
+            height: 3rem;
             svg {
                 width: 1.2rem;
             }

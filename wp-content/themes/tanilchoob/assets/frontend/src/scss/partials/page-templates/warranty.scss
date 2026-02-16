@@ -1,9 +1,9 @@
 .page-template-warranty {
     .hero {
-        background-color: #FDFAFF;
+        background-color: #fdfaff;
         padding-top: 4rem;
         padding-bottom: 6rem;
-
+        border-bottom: 0.3rem solid #dfdfdf;
         .title {
             font-size: 4.2rem;
         }
@@ -12,20 +12,20 @@
             margin-top: 12rem;
         }
     }
-    .top_boxes{
-        .box{
+    .top_boxes {
+        .box {
             padding: 3rem;
         }
     }
-    .warranty_terms{
+    .warranty_terms {
         line-height: 1.5em;
-        ul{
+        ul {
             list-style: disc;
             padding-right: 4rem;
         }
     }
     .page_blocks_title {
-        background-color: rgba($color: #5D0E87, $alpha: 0.03);
+        background-color: rgba($color: #5d0e87, $alpha: 0.03);
         padding: 1.5rem;
     }
     .contact-form {
@@ -65,15 +65,15 @@
             }
         }
     }
-    .warranty_faqs{
-        .faq-item{
+    .warranty_faqs {
+        .faq-item {
             padding: 2.4rem 4rem;
             border: 1px solid rgba(0, 0, 0, 0.2);
-            &.active{
-                border-color: #5D0E87;
+            &.active {
+                border-color: #5d0e87;
             }
             .faq-question {
-                &::after{
+                &::after {
                     content: '+';
                     font-size: 3rem;
                     line-height: 0;
@@ -83,14 +83,21 @@
             .faq-answer {
                 padding-top: 2rem;
             }
-            
+
             &.active {
                 .faq-question {
-                    &::after{
+                    &::after {
                         content: '-';
                     }
                 }
             }
+        }
+    }
+    .story-lightbox-content{
+        aspect-ratio: 16 / 9;
+        width: 85%;
+        .story-avatar{
+            display: none;
         }
     }
     @media (max-width: 768px) {
@@ -117,8 +124,8 @@
                 }
             }
         }
-        .warranty_faqs{
-            .faq-item{
+        .warranty_faqs {
+            .faq-item {
                 padding: 2rem 1rem;
             }
         }

@@ -108,6 +108,10 @@
                 .logo {
                     margin-left: 0;
                     margin-right: calcRem(12);
+                    height: 100%;
+                    img{
+                        height: 100%;
+                    }
                 }
                 .search {
                     flex: 1;
@@ -395,7 +399,6 @@
 
                         .icon {
                             stroke: var(--color-primary);
-                            fill: var(--color-primary);
                         }
                     }
                     &.icon {

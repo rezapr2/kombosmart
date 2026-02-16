@@ -65,6 +65,16 @@ class Walker_Nav_Menu_Custom extends \Walker_Nav_Menu
         $item_output .= isset($args->after) ? $args->after : '';
 
         $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
+
+        $is_product_categories_menu = isset($args->theme_location) && 'product_categories_menu' === $args->theme_location;
+        $has_children = in_array('menu-item-has-children', $classes, true);
+        if (0 === (int) $depth && $is_product_categories_menu && ! $has_children && ! empty($item->url)) {
+            $t = (isset($args->item_spacing) && 'discard' === $args->item_spacing) ? '' : "\t";
+            $n = (isset($args->item_spacing) && 'discard' === $args->item_spacing) ? '' : "\n";
+            $output .= $n . $indent . $t . '<ul class="sub-menu md:hidden">' . $n;
+            $output .= $indent . $t . $t . '<li class="menu-parent-link"><a class="menu-parent-link__anchor" href="' . esc_url($item->url) . '">' . esc_html( sprintf( 'همه محصولات %s', esc_html( $item->title ) )) . '</a></li>' . $n;
+            $output .= $indent . $t . '</ul>' . $n;
+        }
     }
 
     public function start_lvl( &$output, $depth = 0, $args = null ) {

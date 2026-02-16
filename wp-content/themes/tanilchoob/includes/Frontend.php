@@ -126,6 +126,7 @@ EOD;
 		$args['wrap_before'] = '<div class="container"><nav class="' . $classes . '" aria-label="breadcrumb">';
 		$args['wrap_after']  = '</nav></div>';
 		$args['delimiter']  = '<span class="color-black-30">&nbsp;/&nbsp;</span>';
+		$args['home'] = 'تانیل چوب';
 		
 		return $args;
 	}

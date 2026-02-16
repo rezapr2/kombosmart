@@ -509,7 +509,7 @@ $product_status = get_post_meta($product_id, '_product_status', true);
 
 			get_template_part('template-parts/product/consult-cta', null, array(
 				'label' => 'موجودی و نحوه ارسال محصول',
-				'url' => '#',
+				'url' =>  Helper::get_options_field( 'stock_link' ) ?: '#',
 				'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M2 9V7C2 4 4 2 7 2H17C20 2 22 4 22 7V9" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
 				<path d="M2 15V17C2 20 4 22 7 22H17C20 22 22 20 22 17V15" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
@@ -521,7 +521,7 @@ $product_status = get_post_meta($product_id, '_product_status', true);
 
 			get_template_part('template-parts/product/consult-cta', null, array(
 				'label' => 'شرایط گارنتی محصولات',
-				'url' => '#',
+				'url' =>  Helper::get_options_field( 'warranty_link' ) ?: '#',
 				'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M10.4862 2.23055L5.49625 4.11055C4.34625 4.54055 3.40625 5.90055 3.40625 7.12055V14.5505C3.40625 15.7305 4.18625 17.2805 5.13625 17.9905L9.43625 21.2005C10.8462 22.2605 13.1663 22.2605 14.5763 21.2005L18.8762 17.9905C19.8262 17.2805 20.6063 15.7305 20.6063 14.5505V7.12055C20.6063 5.89055 19.6663 4.53055 18.5163 4.10055L13.5262 2.23055C12.6762 1.92055 11.3162 1.92055 10.4862 2.23055Z" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 			<path d="M9.04688 11.8697L10.6569 13.4797L14.9569 9.17969" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -540,7 +540,7 @@ $product_status = get_post_meta($product_id, '_product_status', true);
 
 			get_template_part('template-parts/product/consult-cta', null, array(
 				'label' => 'صفحه شرایط خرید نقدی و اقساطی',
-				'url' => '#',
+				'url' =>  Helper::get_options_field( 'purchasing_rules_link' ) ?: '#',
 				'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M3.67188 2.5V14.47C3.67188 15.45 4.13187 16.38 4.92188 16.97L10.1319 20.87C11.2419 21.7 12.7719 21.7 13.8819 20.87L19.0919 16.97C19.8819 16.38 20.3419 15.45 20.3419 14.47V2.5H3.67188Z" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10"/>
 				<path d="M2 2.5H22" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"/>
@@ -551,7 +551,7 @@ $product_status = get_post_meta($product_id, '_product_status', true);
 
 			get_template_part('template-parts/product/consult-cta', null, array(
 				'label' => 'مواد اولیه محصولات',
-				'url' => '#',
+				'url' =>  Helper::get_options_field( 'material_link' ) ?: '#',
 				'icon' => '<svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M16.31 17.42L18.53 16.31V13.53M11.86 8.53L9.64 9.64L11.86 8.53ZM9.64 9.64L7.42 8.53L9.64 9.64ZM9.64 9.64V12.42V9.64ZM18.53 5.19L16.31 6.3L18.53 5.19ZM18.53 5.19L16.31 4.08L18.53 5.19ZM18.53 5.19V7.97V5.19ZM11.86 1.86L9.64 0.75L7.42 1.86H11.86ZM0.75 5.19L2.97 4.08L0.75 5.19ZM0.75 5.19L2.97 6.3L0.75 5.19ZM0.75 5.19V7.97V5.19ZM9.64 20.75L7.42 19.64L9.64 20.75ZM9.64 20.75L11.86 19.64L9.64 20.75ZM9.64 20.75V17.97V20.75ZM2.97 17.42L0.75 16.31V13.53L2.97 17.42Z" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 				</svg>',

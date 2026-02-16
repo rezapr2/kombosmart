@@ -6,22 +6,27 @@
     box-shadow: 0px -1px 8.6px rgba(0, 0, 0, 0.15);
 
     // Ensure icons are sized correctly
-    svg, img {
+    svg,
+    img {
         height: calcRem(20);
         object-fit: contain;
-        margin-bottom: .2rem;
-        path{
+        margin-bottom: 0.2rem;
+        path {
             stroke: var(--color-black);
         }
     }
 
     a {
         text-decoration: none;
-        
-        &.active, &:hover {
+        flex: 1;
+        min-width: 0;
+
+        &.active,
+        &:hover {
             color: var(--color-primary);
 
-            svg, path {
+            svg,
+            path {
                 stroke: var(--color-primary);
             }
             circle {
@@ -81,18 +86,20 @@
         .mobile-drawer-menu {
             background-color: #efefef;
             overflow-y: auto;
-            padding-bottom: 6rem;
+            padding-bottom: 6.5rem;
+
             > li {
                 width: 100%;
                 border-bottom: 1px solid #d7d7d7;
                 background-color: #f9f9f9;
                 transition: all 0.2s;
-                
+
                 &.active {
                     color: var(--color-primary);
                     > a {
                         color: var(--color-primary);
-                        svg, path {
+                        svg,
+                        path {
                             stroke: var(--color-primary);
                         }
                     }
@@ -141,7 +148,11 @@
     .sub-menu {
         li {
             margin-bottom: calcRem(15);
-
+            &.menu-parent-link {
+                a {
+                    color: var(--color-primary) !important;
+                }
+            }
             > a {
                 font-size: calcRem(14);
                 color: #333;
@@ -150,8 +161,8 @@
                 margin-bottom: calcRem(10);
                 padding-bottom: calcRem(10);
                 border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-                svg{
-                    width: .7rem;
+                svg {
+                    width: 0.7rem;
                     flex-shrink: 0;
                     transform: rotate(-90deg);
                 }

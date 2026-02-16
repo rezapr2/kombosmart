@@ -37,6 +37,7 @@
                             var $cards = $next.find('.blog-card');
                             if ($cards.length && $container.length) {
                                 $container.append($cards);
+                                $btn.parent().before($cards);
                                 $btn.data('page', next);
                                 if (next >= max) {
                                     $btn.closest('.load-more-container').remove();

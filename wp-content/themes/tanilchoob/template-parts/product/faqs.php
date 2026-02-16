@@ -2,6 +2,8 @@
 use TanilChoob\Theme\Helper;
 
 $faqs = isset($faqs) ? $faqs : get_query_var('faqs');
+$faq_page_link = Helper::get_options_field( 'faq_page_link' ) ?: '#faq-items';
+
 ?>
 <?php if ($faqs) : ?>
 <div class="product-faqs flex flex-col gap-20 mb-40">
@@ -23,8 +25,9 @@ $faqs = isset($faqs) ? $faqs : get_query_var('faqs');
 			<?php
 			$faq_icon = Helper::getAssetUri('/images/faq_icon.png');
 			echo '<img src="' . esc_url($faq_icon) . '" alt="FAQ Icon" />';
+
 			?>
-			<div class="faq-icon-text yekan-22 md:yekan-26 color-black-80">شما عزیزان می توانید با مراجعه به بخش <a href="#faq-items" class="color-white bg-black px-25 inline-block">( پرسش های متدوال)</a> بخش تمامی سوالات احتمالی خود را دریافت کنید</div>
+			<div class="faq-icon-text yekan-22 md:yekan-26 color-black-80">شما عزیزان می توانید با مراجعه به بخش <a href="<?php echo esc_url($faq_page_link); ?>" class="color-white bg-black px-25 inline-block">( پرسش های متدوال)</a> بخش تمامی سوالات احتمالی خود را دریافت کنید</div>
 		</div>
 	</div>
 
