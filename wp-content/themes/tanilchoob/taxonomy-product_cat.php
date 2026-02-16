@@ -113,8 +113,8 @@ $product_cat_slug = get_query_var('product_cat'); // گرفتن اسلاگ دس�
             woocommerce_output_all_notices();
         }
 
-        // Current orderby from query (fallback to menu_order)
-        $current_orderby = isset($_GET['orderby']) ? wc_clean(wp_unslash($_GET['orderby'])) : 'menu_order';
+        // Current orderby from query (fallback to date)
+        $current_orderby = isset($_GET['orderby']) ? wc_clean(wp_unslash($_GET['orderby'])) : 'date';
 
         // Define our custom sort options to match the desired UI
         $sort_options = array(
