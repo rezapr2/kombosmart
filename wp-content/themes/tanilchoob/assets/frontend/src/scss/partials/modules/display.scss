@@ -21,6 +21,6 @@
         display: grid;
     }
     .md\:none, .md\:hidden{
-        display: none;
+        display: none !important;
     }
 }
