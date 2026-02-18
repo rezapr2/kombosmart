@@ -32,7 +32,7 @@ $page_id = get_queried_object_id();
         ?>
         <section class="container flex flex-col gap-20">
             <h2 class="page_blocks_title text-center yekan-18 md:yekan-28 bold color-primary mt-20 md:mt-40">
-                سوالات متداول 
+                <?php echo get_field('second_title', $page_id) ?: ''; ?> 
             </h2>
 
             <div class="list_faqs flex flex-col gap-20">

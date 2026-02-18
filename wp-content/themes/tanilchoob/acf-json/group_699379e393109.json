@@ -42,6 +42,27 @@
             "selected": 0
         },
         {
+            "key": "field_699622b8c0023",
+            "label": "عنوان دوم",
+            "name": "second_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_699379e396850",
             "label": "سوالات متداول درباره گارانتی",
             "name": "faqs",
@@ -129,5 +150,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1771273429
+    "modified": 1771446994
 }
