@@ -102,7 +102,7 @@ if(!$sidebar_ads) {
             
             <?php 
             $top_video = get_field('top_video');
-            if (isset($top_video['video_link'])): ?>
+            if (isset($top_video['video_link']) && $top_video['video_link']): ?>
                 <div class="hero_video relative w-100 mb-10">
                     <div class="dark-overlay z-index-1"></div>
                     <a class=" relative video-lightbox" data-video-url="<?php echo esc_url($top_video['video_link']); ?>">
