@@ -33,6 +33,9 @@ class Frontend
 		add_action('woocommerce_before_calculate_totals', [$this, 'apply_product_option_adjustments'], 10);
 		add_filter('woocommerce_get_item_data', [$this, 'render_cart_item_option_data'], 10, 2);
 		add_action('woocommerce_checkout_create_order_line_item', [$this, 'add_order_item_meta'], 10, 4);
+		add_filter('woocommerce_product_single_add_to_cart_text', [$this, 'contact_mode_add_to_cart_text']);
+		add_filter('woocommerce_product_add_to_cart_text', [$this, 'contact_mode_add_to_cart_text']);
+		add_action('template_redirect', [$this, 'redirect_cart_checkout_if_contact_mode']);
 
 	}
 
@@ -211,6 +214,31 @@ EOD;
 					$sign . ' ' . wc_price(abs($amount))
 				);
 			}
+		}
+	}
+
+	public function contact_mode_add_to_cart_text($text)
+	{
+		if (Helper::get_options_field('contact_mode')) {
+			return 'تماس با ما';
+		}
+		return $text;
+	}
+
+	public function redirect_cart_checkout_if_contact_mode()
+	{
+		if (is_admin() || (defined('DOING_AJAX') && DOING_AJAX)) {
+			return;
+		}
+		if (!function_exists('is_cart') || !function_exists('is_checkout')) {
+			return;
+		}
+		if (!Helper::get_options_field('contact_mode')) {
+			return;
+		}
+		if (is_cart() || is_checkout()) {
+			wp_safe_redirect(home_url());
+			exit;
 		}
 	}
 }

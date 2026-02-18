@@ -12,6 +12,10 @@ defined('ABSPATH') || exit;
 
 global $product;
 ?>
+<?php
+$contact_mode = \TanilChoob\Theme\Helper::get_options_field('contact_mode');
+$button_text = $contact_mode ? 'تماس با ما' : 'افزودن به سبد خرید';
+?>
 <div class="woocommerce-variation-add-to-cart variations_button h-100 flex-grow-1">
 	<?php do_action('woocommerce_before_add_to_cart_button'); ?>
 
@@ -24,7 +28,7 @@ global $product;
 			<path d="M8.68229 23.1458C9.4086 23.1458 9.9974 22.557 9.9974 21.8307C9.9974 21.1044 9.4086 20.5156 8.68229 20.5156C7.95598 20.5156 7.36719 21.1044 7.36719 21.8307C7.36719 22.557 7.95598 23.1458 8.68229 23.1458Z" stroke="white" stroke-width="1.57812" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
 			<path d="M9.46875 8.41699H22.0938" stroke="white" stroke-width="1.57812" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
 		</svg>
-		<span class="yekan-22 color-white">افزودن به سبد خرید</span>
+		<span class="yekan-22 color-white"><?php echo esc_html($button_text); ?></span>
 	</div>
 	<?php do_action('woocommerce_after_add_to_cart_button'); ?>
 
