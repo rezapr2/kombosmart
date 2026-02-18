@@ -27,9 +27,9 @@
     "location": [
         [
             {
-                "param": "page",
+                "param": "page_template",
                 "operator": "==",
-                "value": "2"
+                "value": "default"
             }
         ]
     ],
@@ -43,5 +43,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1771273416
+    "modified": 1771442818
 }

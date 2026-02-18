@@ -93,11 +93,21 @@
             }
         }
     }
-    .story-lightbox-content{
-        aspect-ratio: 16 / 9;
+    .story-lightbox-content {
+        aspect-ratio: auto;
         width: 85%;
-        .story-avatar{
+        height: 85%;
+        background: transparent;
+        box-shadow: none;
+        .story-header, .story-caption{
+            background: none;
+        }
+        .story-avatar {
             display: none;
+        }
+        img {
+            object-fit: contain;
+            width: auto;
         }
     }
     @media (max-width: 768px) {
