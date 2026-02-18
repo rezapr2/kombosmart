@@ -293,6 +293,20 @@ if(!$sidebar_ads) {
             if( empty($related_posts) ){
                 $categories = get_the_category();
                 $cat_ids = $categories ? array_map(function($c){return $c->term_id;}, $categories) : [];
+                if ($categories) {
+                    $parent_ids = [];
+                    foreach ($categories as $category) {
+                        $ancestors = get_ancestors($category->term_id, 'category');
+                        if (!empty($ancestors)) {
+                            $parent_ids = array_merge($parent_ids, $ancestors);
+                        }
+                    }
+                    $parent_ids = array_unique($parent_ids);
+                    $leaf_ids = array_values(array_diff($cat_ids, $parent_ids));
+                    if (!empty($leaf_ids)) {
+                        $cat_ids = $leaf_ids;
+                    }
+                }
                 
                 $related_query = new WP_Query([
                     'category__in' => $cat_ids,
