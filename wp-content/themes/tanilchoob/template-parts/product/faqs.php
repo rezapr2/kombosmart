@@ -9,14 +9,14 @@ $faq_page_link = Helper::get_options_field( 'faq_page_link' ) ?: '#faq-items';
 <div class="product-faqs flex flex-col gap-20 mb-40">
 	<div class="container flex flex-col-reverse md:flex-row justify-between">
 		<div class="faq-items-wrapper flex flex-col gap-20">
-			<div class="faq-title yekan-28 bold color-primary text-center md:text-right">سوالات متداول</div>
+			<h2 class="faq-title yekan-28 bold color-primary text-center md:text-right">سوالات متداول</h2>
 			<div class="faq-items flex flex-col gap-10">
 				<?php foreach ($faqs as $faq) : ?>
 					<div class="faq-item slide-down-wrapper flex flex-col">
-						<div class="faq-question slide-down-trigger yekan-16 md:yekan-20 color-black-80 flex justify-between items-center cursor-pointer">
-							<span><?php echo $faq['question']; ?></span>
+						<div class="faq-question slide-down-trigger flex justify-between items-center cursor-pointer">
+							<h3 class="yekan-16 md:yekan-20 color-black-80 regular"><?php echo $faq['question']; ?></h3>
 						</div>
-						<div class="faq-answer slide-down-content yekan-14 md:yekan-20 text-center md:text-right color-black" style="display: none;"><?php echo $faq['answer']; ?></div>
+						<p class="faq-answer slide-down-content yekan-14 md:yekan-20 text-center md:text-right color-black" style="display: none;"><?php echo $faq['answer']; ?></p>
 					</div>
 				<?php endforeach; ?>
 			</div>

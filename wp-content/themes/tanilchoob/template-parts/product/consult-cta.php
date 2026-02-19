@@ -8,7 +8,7 @@
 	</div>
 
 	<!-- Click CTA -->
-	<a href="#<?php echo $args['url']; ?>" class="more-btn bg-black-05 yekan-18 color-black">
+	<a href="<?php echo $args['url']; ?>" class="more-btn bg-black-05 yekan-18 color-black">
 		<span class="hidden md:flex">
 		کلیک کنید
 		</span>

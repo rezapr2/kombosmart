@@ -90,8 +90,7 @@
 
             > li {
                 width: 100%;
-                border-bottom: 1px solid #d7d7d7;
-                background-color: #f9f9f9;
+                background-color: #fff;
                 transition: all 0.2s;
 
                 &.active {
@@ -116,6 +115,8 @@
                     color: #666;
                     gap: calcRem(8);
                     width: 36%;
+                    background-color: #f9f9f9;
+                    border-bottom: 1px solid #d7d7d7;
                     svg.ms-1 {
                         display: none;
                     }
@@ -131,7 +132,6 @@
                     top: 0;
                     right: 36%;
                     width: 64%;
-                    height: 100%;
                     overflow-y: auto;
                     background-color: #fff;
                     padding: calcRem(12) calcRem(17);

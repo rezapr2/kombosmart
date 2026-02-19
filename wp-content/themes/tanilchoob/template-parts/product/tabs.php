@@ -35,24 +35,24 @@ $play_icon_src = function_exists('get_theme_file_uri')
     <div class="tab-contents">
         <div class="tabs hidden md:flex w-full">
             <?php if ($description) : ?>
-                <div id="tab-desc" class="tab-item yekan-14 color-black-30 pointer active">توضیحات محصول</div>
+                <h2 id="tab-desc" class="tab-item yekan-14 regular color-black-30 pointer active">توضیحات محصول</h2>
             <?php endif;
             if ($has_specs) : ?>
-                <div id="tab-specs" class="tab-item yekan-14 color-black-30 pointer">مشخصات کلی</div>
+                <h2 id="tab-specs" class="tab-item yekan-14 regular color-black-30 pointer">مشخصات کلی</h2>
             <?php endif; ?>
             <?php if ($product_review) : ?>
-                <div id="tab-technical-review" class="tab-item yekan-14 color-black-30 pointer">بررسی تخصصی</div>
+                <h2 id="tab-technical-review" class="tab-item yekan-14 regular color-black-30 pointer">بررسی تخصصی</h2>
             <?php endif; ?>
             <?php if ($product_size_images) : ?>
-                <div id="tab-dimensions" class="tab-item yekan-14 color-black-30 pointer">ابعاد محصول</div>
+                <h2 id="tab-dimensions" class="tab-item yekan-14 regular color-black-30 pointer">ابعاد محصول</h2>
             <?php endif; ?>
-            <div id="tab-faqs" class="tab-item yekan-14 color-black-30 pointer">پرسش و پاسخ</div>
-            <div id="tab-reviews" class="tab-item yekan-14 color-black-30 pointer">نظرات مشتریان</div>
+            <h2 id="tab-faqs" class="tab-item yekan-14 regular color-black-30 pointer">پرسش و پاسخ</h2>
+            <h2 id="tab-reviews" class="tab-item yekan-14 regular color-black-30 pointer">نظرات مشتریان</h2>
             <?php if ($product_maintenance) : ?>
-                <div id="tab-maintenance" class="tab-item yekan-14 color-black-30 pointer">نحوه نگهداری محصول</div>
+                <h2 id="tab-maintenance" class="tab-item yekan-14 regular color-black-30 pointer">نحوه نگهداری محصول</h2>
             <?php endif; ?>
             <?php if ($production_process_video_link) : ?>
-                <div id="tab-production" class="tab-item yekan-14 color-black-30 pointer">روند تولید</div>
+                <h2 id="tab-production" class="tab-item yekan-14 regular color-black-30 pointer">روند تولید</h2>
             <?php endif; ?>
         </div>
         <div class="tab-content flex flex-col gap-20">
@@ -104,7 +104,7 @@ $play_icon_src = function_exists('get_theme_file_uri')
                         <div class="items grid grid-cols-1 md:grid-cols-2 gap-07">
                             <?php if ($product_cats) : ?>
                                 <div class="spec-item flex flex-col gap-05 py-10 md:py-20 px-15 md:px-40 bg-black-03">
-                                    <div class="spec-name yekan-16 md:yekan-20 color-black-80">دسته بندی محصول</div>
+                                    <h3 class="spec-name yekan-16 regular md:yekan-20 color-black-80">دسته بندی محصول</h3>
                                     <div class="spec-value yekan-14 md:yekan-18 color-black-50">
                                         <?php
                                         $cat_names = array();
@@ -143,7 +143,7 @@ $play_icon_src = function_exists('get_theme_file_uri')
                                         $valueStr = implode(' | ', $valueParts);
                                         ?>
                                         <div class="spec-item flex flex-col gap-05 py-10 md:py-20 px-15 md:px-40 bg-black-03">
-                                            <div class="spec-name yekan-16 md:yekan-20 color-black-80"><?php echo esc_html($label); ?></div>
+                                            <h3 class="spec-name yekan-16 regular md:yekan-20 color-black-80"><?php echo esc_html($label); ?></h3>
                                             <div class="spec-value yekan-14 md:yekan-18 color-black-50"><?php echo esc_html($valueStr); ?></div>
                                         </div>
                                         <?php
@@ -171,16 +171,16 @@ $play_icon_src = function_exists('get_theme_file_uri')
                                 $x++;
                             ?>
                             <div class="technical-review-item slide-down-wrapper flex flex-col gap-10 <?php echo $x == 1 ? 'active' : ''; ?>">
-                                    <div class="technical-review-title slide-down-trigger yekan-18 md:yekan-24 color-primary flex gap-10 items-center cursor-pointer">
+                                    <div class="technical-review-title slide-down-trigger  color-primary flex gap-10 items-center cursor-pointer">
                                         <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M1.10156 1.09961L8.60156 8.57836L16.1016 1.09961" stroke="#5D0E87" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
-                                        <span><?php echo $review['product_review_title'] ?: ' ' ; ?></span>
+                                        <h3 class="yekan-18 md:yekan-24 regular"><?php echo $review['product_review_title'] ?: ' ' ; ?></h3>
                                     </div>
                                     <div class="technical-review-content slide-down-content flex flex-col gap-07 yekan-14 color-black-80">
                                         <?php if($review['items']) : foreach ($review['items'] as $spec) : ?>
                                             <div class="spec-item flex flex-col md:flex-row md:gap-10">
-                                                <div class="spec-name"><?php echo $spec['label']; ?></div>
+                                                <h4 class="spec-name regular"><?php echo $spec['label']; ?></h4>
                                                 <div class="spec-value"><?php echo $spec['value']; ?></div>
                                             </div>
                                         <?php endforeach; endif; ?>

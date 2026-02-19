@@ -83,9 +83,9 @@ $questions = $questions_query->posts;
                                 <path d="M16.9949 19.4788H17.0077" stroke="#5D0E87" stroke-width="2.125" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
-                        <div class="qa-question flex-1 flex items-center yekan-12 md:yekan-18 color-black-70">
+                        <h3 class="qa-question flex-1 flex items-center yekan-12 regular md:yekan-18 color-black-70">
                             <?php echo wp_kses_post($question->post_content); ?>
-                        </div>
+                        </h3>
                         <div class="yekan-12 md:yekan-14 hidden md:flex items-center color-black-40 qa-date px-25">
                             <?php echo esc_html(get_the_date('', $question)); ?>
                         </div>
