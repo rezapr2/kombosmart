@@ -23,6 +23,20 @@ $next_to_it_products = get_field('next_to_it_products', $current_product_id);
                     /* Suggustions Products Slider */
                     $product_terms      = get_the_terms( $current_product_id, 'product_cat' );
                     $product_term_ids   = $product_terms ? wp_list_pluck( $product_terms, 'term_id' ) : [];
+                    if ( ! empty( $product_terms ) ) {
+                        $parent_ids = [];
+                        foreach ( $product_terms as $term ) {
+                            $ancestors = get_ancestors( $term->term_id, 'product_cat' );
+                            if ( ! empty( $ancestors ) ) {
+                                $parent_ids = array_merge( $parent_ids, $ancestors );
+                            }
+                        }
+                        $parent_ids = array_unique( $parent_ids );
+                        $leaf_ids = array_values( array_diff( $product_term_ids, $parent_ids ) );
+                        if ( ! empty( $leaf_ids ) ) {
+                            $product_term_ids = $leaf_ids;
+                        }
+                    }
 
                     $query_args = [
                         'post_type'           => 'product',
