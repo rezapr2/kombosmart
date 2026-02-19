@@ -92,7 +92,7 @@
                     var modalHtml = [
                         '<div id="gallery-lightbox-modal" class="gallery-lightbox-modal items-center justify-center" role="dialog" aria-modal="true" aria-label="نمایش همه تصاویر">',
                         '  <div class="gallery-lightbox-content relative bg-white">',
-                        '    <button type="button" class="gallery-lightbox-close absolute pointer color-white yekan-34" aria-label="بستن">×</button>',
+                        '    <button type="button" class="gallery-lightbox-close absolute pointer color-white" aria-label="بستن">×</button>',
                         '    <div class="gallery-lightbox-body flex flex-col md:flex-row">',
                         '      <div class="product-gallery-main">',
                         '        <div class="swiper-container h-100 gallery-lightbox-main overflow-hidden">',

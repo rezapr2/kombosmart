@@ -193,10 +193,13 @@
         max-height: 92vh;
         padding: 1rem;
         .gallery-lightbox-close {
-            top: -3.5rem;
+            top: -4.5rem;
             left: -3.5rem;
             background: transparent;
             border: none;
+            font-weight: 100;
+            font-size: 5rem;
+            z-index: 999;
         }
         .gallery-lightbox-body {
             gap: 10px;
@@ -245,6 +248,11 @@
             }
         }
         @media screen and (max-width: 768px) {
+            .gallery-lightbox-close {
+                top: -0.5rem;
+                left: 1rem;
+                color: #000;
+            }
            .product-gallery-main {
                 width: 100%;
                 height: 70vh;
