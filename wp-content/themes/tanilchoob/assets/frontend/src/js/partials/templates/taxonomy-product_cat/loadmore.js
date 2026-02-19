@@ -68,7 +68,7 @@
             setLoadingState(true);
             try {
                 const currentUrl = new URL(window.location.href);
-                const orderby = currentUrl.searchParams.get('orderby') || 'menu_order';
+                const orderby = currentUrl.searchParams.get('orderby') || 'date';
                 const body = new URLSearchParams({
                     action: 'tanilchoob_category_products_load',
                     nonce: (window.tanilchoob && tanilchoob.ajax && tanilchoob.ajax.nonce) ? tanilchoob.ajax.nonce : '',
