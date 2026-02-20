@@ -35,7 +35,6 @@ class Frontend
 		add_action('woocommerce_checkout_create_order_line_item', [$this, 'add_order_item_meta'], 10, 4);
 		add_filter('woocommerce_product_single_add_to_cart_text', [$this, 'contact_mode_add_to_cart_text']);
 		add_filter('woocommerce_product_add_to_cart_text', [$this, 'contact_mode_add_to_cart_text']);
-		add_action('template_redirect', [$this, 'redirect_cart_checkout_if_contact_mode']);
 
 	}
 
@@ -225,20 +224,5 @@ EOD;
 		return $text;
 	}
 
-	public function redirect_cart_checkout_if_contact_mode()
-	{
-		if (is_admin() || (defined('DOING_AJAX') && DOING_AJAX)) {
-			return;
-		}
-		if (!function_exists('is_cart') || !function_exists('is_checkout')) {
-			return;
-		}
-		if (!Helper::get_options_field('contact_mode')) {
-			return;
-		}
-		if (is_cart() || is_checkout()) {
-			wp_safe_redirect(home_url());
-			exit;
-		}
-	}
+	
 }
