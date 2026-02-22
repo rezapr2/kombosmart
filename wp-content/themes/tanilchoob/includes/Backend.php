@@ -39,6 +39,8 @@ class Backend {
 
         add_filter('wpseo_metabox_prio', function() { return 'low'; });
 
+        
+
     }
 
 	private function load_dependencies() {
@@ -128,4 +130,51 @@ class Backend {
 
         return $where;
     }
+}
+
+/**
+ * -----------------------------------------------------------------------------
+ * Custom WooCommerce Category & Tag WYSIWYG Editor
+ * -----------------------------------------------------------------------------
+ */
+
+/**
+ * 1. Hide the default plain text description field on the Product Category & Tag Edit screens.
+ */
+add_action( 'admin_head', __NAMESPACE__ . '\hide_default_taxonomy_description' );
+function hide_default_taxonomy_description() {
+    $screen = get_current_screen();
+    // Check if we are on the WooCommerce product category OR product tag edit screen
+    if ( $screen && in_array( $screen->id, array( 'edit-product_cat', 'edit-product_tag' ), true ) ) {
+        echo '<style>.term-description-wrap { display: none; }</style>';
+    }
+}
+
+/**
+ * 2. Add a Rich Text Editor (WYSIWYG) to the Product Category & Tag Edit screens.
+ */
+add_action( 'product_cat_edit_form_fields', __NAMESPACE__ . '\add_wysiwyg_to_taxonomy_description', 10, 2 );
+add_action( 'product_tag_edit_form_fields', __NAMESPACE__ . '\add_wysiwyg_to_taxonomy_description', 10, 2 );
+function add_wysiwyg_to_taxonomy_description( $term, $taxonomy ) {
+    ?>
+    <tr class="form-field custom-term-description-wrap">
+        <th scope="row"><label for="cat_description">توضیح (Description)</label></th>
+        <td>
+            <?php
+            $settings = array(
+                'wpautop'       => true,
+                'media_buttons' => true,
+                'textarea_name' => 'description', // This forces WordPress to save it automatically
+                'textarea_rows' => 10,
+                'teeny'         => false
+            );
+            
+            // Output the WordPress editor
+            $content = htmlspecialchars_decode( $term->description );
+            wp_editor( $content, 'cat_description', $settings );
+            ?>
+            <p class="description">توضیح به طور پیش‌فرض پررنگ نیست؛ با این حال، برخی از پوسته‌ها ممکن است آن را نمایش دهند.</p>
+        </td>
+    </tr>
+    <?php
 }

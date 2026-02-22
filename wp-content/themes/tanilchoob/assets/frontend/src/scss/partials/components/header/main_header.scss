@@ -235,6 +235,7 @@
                                     &.menu-parent-link {
                                         a {
                                             border-bottom: none !important;
+                                            pointer-events: none;
                                         }
                                     }
                                     // Column Header
@@ -245,7 +246,9 @@
                                         border-bottom: 1px solid #e5e7eb;
                                         margin-bottom: calcRem(10);
                                         background: none;
-                                        pointer-events: none; // Make header non-clickable if desired, or keep generic
+                                        img{
+                                            filter: invert(0);
+                                        }
                                     }
 
                                     // Nested Sub-menu (Level 2)
