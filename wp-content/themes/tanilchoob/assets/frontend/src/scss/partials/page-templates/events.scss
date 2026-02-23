@@ -58,23 +58,71 @@
             background-color: rgba(0, 0, 0, 0.03);
         }
     }
-    .customers_commetns_wrapper{
-        .title{
+    .customers_commetns_wrapper {
+        .title {
             margin-bottom: 3rem;
         }
-        .customers_commetns{
+        .customers_commetns {
             gap: 2.4rem 1.5rem;
-            .comment{
+            .comment {
                 padding: 1.6rem 2.4rem;
                 border: 1.5px solid rgba(0, 0, 0, 0.2);
-                .name{
-                    &::after{
+                .name {
+                    &::after {
                         content: '';
                         height: 1px;
                         width: 30%;
                         display: block;
-                        background-color: rgba($color: #000000, $alpha: .1);
+                        background-color: rgba($color: #000000, $alpha: 0.1);
                         margin-top: 1rem;
+                    }
+                }
+            }
+        }
+    }
+    .event_form_wrapper {
+        .event_form {
+            padding: 1.5rem 4rem;
+            background-color: rgba($color: #000000, $alpha: 0.08);
+            .wpcf7{
+                width: 45%;
+            }
+            .wpcf7-form {
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                p{
+                    display: flex ;
+                    gap: 1rem;
+                    justify-content: flex-end;
+                }
+                .wpcf7-spinner{
+                    position: absolute;
+                    left: .7rem;
+                    top: 2rem;
+                    margin: 0;   
+                }
+                input.wpcf7-text {
+                    box-sizing: border-box;
+                    background: transparent;
+                    border: 1px solid rgba(0, 0, 0, 0.15);
+                    border-radius: 0;
+                    font-size: 1.8rem;
+                    padding: 2rem;
+                    width: 29rem;
+                }
+                .wpcf7-submit {
+                    background-color: #2f2f2f;
+                    border: 1px solid #2f2f2f;
+                    color: #fff;
+                    font-size: 1.8rem;
+                    padding: 1.2rem 4rem;
+                    border-radius: 0;
+                    transition: all 0.5s ease;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: transparent;
+                        color: #2f2f2f;
                     }
                 }
             }
