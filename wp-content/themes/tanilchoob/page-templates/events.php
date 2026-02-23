@@ -34,11 +34,11 @@ $event_form_id = get_field('event_form_id', $page_id);
 
 
     if( isset($end_off_sale) && $end_off_sale ): ?>
-    <div class="container">
-        <div class=" countdown_wrapper flex flex-col gap-30 justify-center items-center">
-            <div class="md:yekan-30 bold color-black">زمان باقی مانده تا پایان جشنواره:</div>
+    <div class="md:container">
+        <div class=" countdown_wrapper flex flex-col gap-10 md:gap-30 justify-center items-center">
+            <div class="yekan-20 md:yekan-30 bold color-black">زمان باقی مانده تا پایان جشنواره:</div>
             <div class="countdown-timer regular" data-end-date="<?php echo esc_attr($end_off_sale); ?>">
-                <div class="countdown-timer__time flex gap-20 w-full h-100 justify-evenly">
+                <div class="countdown-timer__time flex gap-10 md:gap-20 w-full h-100 justify-evenly">
 							<div class="countdown-timer__item flex flex-col text-center item-center">
 								<div class="countdown-timer__seconds yekan-18 md:yekan-30">00</div>
 								<div class="countdown-timer__label yekan-12 md:yekan-20">ثانیه</div>
@@ -63,10 +63,10 @@ $event_form_id = get_field('event_form_id', $page_id);
     <?php endif; ?>
         <div class="container">
             <div class="events_description flex flex-col items-center gap-04">
-                <div class="color-primary yekan-28 text-center">
+                <div class="color-primary yekan-16 md:yekan-28 text-center">
                     رویدادهای خاص تانیل چوب درمناسب های مختلف
                 </div>
-                <div class="yekan-20 color-black-60 text-center description">
+                <div class="yekan-12 md:yekan-20 color-black-60 text-center description">
                     ما در تانیل چوب در مناسبت هایی مانند عید نوروز ، بلک فردایدی و اعیاد مذهبی ، تخفیف هایی باورنکردنی روی محصولات خاص ارائه می دهیم
                 </div>
             </div>
@@ -74,8 +74,8 @@ $event_form_id = get_field('event_form_id', $page_id);
     <?php
     if(isset($off_products) && $off_products): ?>
     <div class="container off_products flex flex-col items-center">
-        <div class="title yekan-30 bold text-center color-black">محصولات <span>تخفیف</span> خورده</div>
-        <div class="products grid grid-cols-1 md:grid-cols-4 ">
+        <div class="title yekan-20 md:yekan-30 bold text-center color-black">محصولات <span>تخفیف</span> خورده</div>
+        <div class="products grid grid-cols-1 md:grid-cols-4 w-full">
             <?php 
 
                 $off_product_ids = array_map('absint', (array) $off_products);
@@ -97,7 +97,7 @@ $event_form_id = get_field('event_form_id', $page_id);
             ?>
         </div>
         <?php if(isset($see_all_url['url']) && $see_all_url):?>
-            <a href="<?php echo esc_url($see_all_url['url']); ?>" class="button see_all color-primary yekan-18"><?php echo $see_all_url['title']; ?></a>
+            <a href="<?php echo esc_url($see_all_url['url']); ?>" class="button see_all color-primary yekan-14 md:yekan-18"><?php echo $see_all_url['title']; ?></a>
         <?php endif; ?>
     </div>
     <?php endif;
@@ -106,24 +106,24 @@ $event_form_id = get_field('event_form_id', $page_id);
 
     if(isset($customers_commetns) && $customers_commetns): ?>
         <div class="container customers_commetns_wrapper flex flex-col">
-            <div class="title yekan-30 bold text-center color-primary">نظرات مشتریان</div>
+            <div class="title yekan-20 md:yekan-30 bold text-center color-primary">نظرات مشتریان</div>
             <div class="customers_commetns grid grid-cols-1 md:grid-cols-2">
                 <?php foreach($customers_commetns as $customer): ?>
                     <div class="comment flex flex-col gap-15">
-                        <div class="name yekan-20 color-black-50"><?php echo isset($customer['name']) ? $customer['name'] : ''; ?></div>
-                        <div class="comment_text yekan-24 color-black-80"><?php echo isset($customer['comment_text']) ? $customer['comment_text'] : ''; ?></div>
+                        <div class="name yekan-18 md:yekan-20 color-black-50"><?php echo isset($customer['name']) ? $customer['name'] : ''; ?></div>
+                        <div class="comment_text yekan-14 md:yekan-24 color-black-80"><?php echo isset($customer['comment_text']) ? $customer['comment_text'] : ''; ?></div>
                     </div>
                 <?php endforeach; ?>
             </div>
         </div>
     <?php endif; ?>
 
-    <div class="md:container mb-40 mt-40">
+    <div class="md:container mb-20 md:mb-40 mt-20 md:mt-40">
 	<div id="help_cta" class="cta help-cta py-40 px-25 md:px-40">
 		<div class="flex flex-col md:flex-row justify-between items-center">
 			<div class="flex flex-col">
-				<div class="yekan-22 md:yekan-34 text-center md:text-right color-white">با مدیریت فروش تماس بگیرید </div>
-				<div class="yekan-22 md:yekan-24 text-center md:text-right color-white-70 mb-25 md:mb-0">از طريق تماس يا واتساب مى توانيد سفارش دهيد يا از رويدادهاى بعدى مطلع شويد.</div>
+				<div class="yekan-24 md:yekan-34 text-center md:text-right color-white">با مدیریت فروش تماس بگیرید </div>
+				<div class="yekan-18 md:yekan-24 text-center md:text-right color-white-70 mb-25 md:mb-0">از طريق تماس يا واتساب مى توانيد سفارش دهيد يا از رويدادهاى بعدى مطلع شويد.</div>
 			</div>
 			<div class="flex flex-col gap-04">
 				<?php if(isset($contact_box['whatsapp_link']) && $contact_box['whatsapp_link']): ?>
@@ -152,8 +152,8 @@ $event_form_id = get_field('event_form_id', $page_id);
 </div>
 <?php if(isset($event_form_id) && $event_form_id): ?>
         <div class="event_form_wrapper container">
-            <div class="event_form flex items-center justify-between">
-                <div class="yekan-22 color-black">
+            <div class="event_form flex flex-col md:flex-row items-center justify-between">
+                <div class="yekan-22 color-black text-center">
                     برای اطلاع از رويدادهای بعدی شماره تماس خود را وارد کنید:
                 </div>
                 

@@ -5,6 +5,25 @@
     .hero-slider-wrapper .swiper-slide .hero-slider-content .title {
         margin-bottom: 1rem;
     }
+    @media (max-width: 768px) {
+        .hero-slider-wrapper .swiper-slide .slide-img {
+            height: 30rem;
+        }
+        .hero-slider-wrapper .swiper-slide .slide-content {
+            flex-direction: column-reverse;
+        }
+        .hero-slider-wrapper .swiper-slide .hero-slider-content .title {
+            margin-top: 4rem;
+            font-size: 2.2rem;
+        }
+        .hero-slider-wrapper .swiper-slide .hero-slider-content .title,
+        .hero-slider-wrapper .swiper-slide .hero-slider-content .description {
+            text-align: center;
+        }
+        .hero-slider-wrapper .swiper-slide .hero-slider-content .description {
+            font-size: 1.8rem;
+        }
+    }
     .countdown_wrapper {
         background: #ffffff;
         border: 1px solid rgba(0, 0, 0, 0.08);
@@ -22,6 +41,16 @@
             }
         }
     }
+    @media (max-width: 768px) {
+        .countdown_wrapper {
+            .countdown-timer {
+                .countdown-timer__item {
+                    height: 7.5rem;
+                    width: 7.5rem;
+                }
+            }
+        }
+    }
     .events_description {
         padding-top: 4rem;
         padding-bottom: 2.5rem;
@@ -30,7 +59,15 @@
             width: 50%;
         }
     }
-
+    @media (max-width: 768px) {
+        .events_description {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            .description {
+                width: 100%;
+            }
+        }
+    }
     .off_products {
         padding-top: 4rem;
         padding-bottom: 4rem;
@@ -46,16 +83,41 @@
             gap: 1.8rem 3.2rem;
         }
     }
+    @media (max-width: 768px) {
+        .off_products {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            .title {
+                margin-bottom: 1rem;
+            }
+            .products {
+                gap: 1.8rem 3.2rem;
+            }
+        }
+    }
     .button.see_all {
         padding: 1rem 6rem;
         border: 1.5px solid #5d0e87;
         margin-top: 4rem;
+    }
+    @media (max-width: 768px) {
+        .button.see_all {
+            padding: 1rem 1.5rem;
+            margin-top: 1.5rem;
+        }
     }
     .home-features {
         .features {
             margin-top: 0;
             padding: 4rem 20rem;
             background-color: rgba(0, 0, 0, 0.03);
+        }
+    }
+    @media (max-width: 768px) {
+        .home-features {
+            .features {
+                padding: 1.7rem;
+            }
         }
     }
     .customers_commetns_wrapper {
@@ -80,27 +142,46 @@
             }
         }
     }
+    @media (max-width: 768px) {
+        .customers_commetns_wrapper {
+            .title {
+                margin-bottom: 1rem;
+            }
+            .customers_commetns {
+                gap:1.5rem;
+                .comment {
+                    padding: 1.5rem;
+                    .name {
+                        &::after {
+                            width: 70%;
+                            margin-top: .5rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
     .event_form_wrapper {
         .event_form {
             padding: 1.5rem 4rem;
             background-color: rgba($color: #000000, $alpha: 0.08);
-            .wpcf7{
+            .wpcf7 {
                 width: 45%;
             }
             .wpcf7-form {
                 display: flex;
                 flex-direction: column;
                 position: relative;
-                p{
-                    display: flex ;
+                p {
+                    display: flex;
                     gap: 1rem;
                     justify-content: flex-end;
                 }
-                .wpcf7-spinner{
+                .wpcf7-spinner {
                     position: absolute;
-                    left: .7rem;
+                    left: 0.7rem;
                     top: 2rem;
-                    margin: 0;   
+                    margin: 0;
                 }
                 input.wpcf7-text {
                     box-sizing: border-box;
@@ -128,4 +209,34 @@
             }
         }
     }
+        @media (max-width: 768px) {
+        .event_form_wrapper {
+        .event_form {
+            padding: 3rem 1.6rem;
+            gap: 3rem;
+            .wpcf7 {
+                width: 100%;
+            }
+            .wpcf7-form {
+                p {
+                    flex-direction: column;
+                }
+                .wpcf7-spinner {
+                    position: absolute;
+                    left: 0.7rem;
+                    top: 2rem;
+                    margin: 0;
+                }
+                input.wpcf7-text {
+                    font-size: 1.4rem;
+                    padding: 1.6rem;
+                    width: 100%;
+                }
+                .wpcf7-submit {
+                    width: 100%;
+                }
+            }
+        }
+    }
+        }
 }
