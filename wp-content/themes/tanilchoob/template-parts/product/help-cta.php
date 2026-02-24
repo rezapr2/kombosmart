@@ -7,8 +7,9 @@ $contact_box = Helper::get_options_field("contact_box");
 	<div id="help_cta" class="cta help-cta py-40 px-25 md:px-40">
 		<div class="flex flex-col md:flex-row justify-between items-center">
 			<div class="flex flex-col">
-				<div class="yekan-22 md:yekan-34 text-center md:text-right color-white">برای خرید به مشاوره نیاز داری؟</div>
-				<div class="yekan-22 md:yekan-34 text-center md:text-right color-white mb-25 md:mb-0">درمورد این محصول سوالی دارید؟</div>
+				<?php if(isset($contact_box['box_text']) && $contact_box['box_text']): ?>
+				<div class="yekan-22 md:yekan-34 text-center md:text-right color-white mb-25 md:mb-0"><?php echo $contact_box['box_text']; ?></div>
+				<?php endif; ?>
 			</div>
 			<div class="flex flex-col gap-04">
 				<?php if(isset($contact_box['whatsapp_link']) && $contact_box['whatsapp_link']): ?>
