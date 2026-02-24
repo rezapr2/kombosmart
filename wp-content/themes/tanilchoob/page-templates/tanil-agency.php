@@ -181,20 +181,31 @@ $page_id = get_queried_object_id();
         </div>
     </section>
 
-    <?php endif; ?>
+    <?php endif; 
+    $contact_box_title = get_field('contact_box_title', $page_id);
+    $contact_box_subtitle = get_field('contact_box_subtitle', $page_id);
+    $contact_box_button = get_field('contact_box_button', $page_id);
+    ?>
                         
     <section class="call-us flex flex-col items-center mt-40 bg-black-05">
+
+        <?php if(isset($contact_box_title) && $contact_box_title): ?>
         <div class="title yekan-18 md:yekan-30 bold color-primary">
-            برای دريافت نمايندگى اقدام كنيد
+            <?php echo $contact_box_title; ?>
         </div>
+        <?php endif;
+        if(isset($contact_box_subtitle) && $contact_box_subtitle): ?>
         <div class="subtitle yekan-12 md:yekan-24 text-center md:text-right color-black-60">
-            كارشناسان ما آماده باسخگويى به سوالات وراهنمايى شما هستند
+            <?php echo $contact_box_subtitle; ?>
         </div>
+        <?php endif;
+        if(isset($contact_box_button) && $contact_box_button): ?>
         <div class="button mt-25">
-            <a href="<?php echo get_field('button_url', $page_id) ?: '#'; ?>" class="yekan-14 md:yekan-20 color-white bg-primary block">
-                <?php echo get_field('button_text', $page_id) ?: 'تماس با ما'; ?>
+            <a href="<?php echo $contact_box_button['url'] ?: '#'; ?>" class="yekan-14 md:yekan-20 color-white bg-primary block">
+                <?php echo $contact_box_button['title'] ?: 'تماس با ما'; ?>
             </a>
         </div>
+        <?php endif; ?>
     </section>
 </div>
 <?php
