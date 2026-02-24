@@ -99,6 +99,9 @@
             font-size: 1.2rem;
             font-weight: 400;
         }
+        ins .woocommerce-Price-currencySymbol{
+            display: none !important;
+        }
     }
 
     &__actions {

@@ -35,6 +35,7 @@ class Frontend
 		add_action('woocommerce_checkout_create_order_line_item', [$this, 'add_order_item_meta'], 10, 4);
 		add_filter('woocommerce_product_single_add_to_cart_text', [$this, 'contact_mode_add_to_cart_text']);
 		add_filter('woocommerce_product_add_to_cart_text', [$this, 'contact_mode_add_to_cart_text']);
+		add_filter('term_description', [$this, 'force_internal_links'], 99);
 
 	}
 
@@ -224,5 +225,34 @@ EOD;
 		return $text;
 	}
 
-	
+	public function force_internal_links($content)
+	{
+		if (is_admin()) {
+			return $content;
+		}
+
+		$link_class = '\SeoAutomatedLinkBuilding\Link';
+		$converter_class = '\SeoAutomatedLinkBuilding\TextConverter';
+		if (!class_exists($converter_class) || !class_exists($link_class)) {
+			return $content;
+		}
+		
+		$query = call_user_func([$link_class, 'query']);
+		$links = $query
+			->where('active', true)
+			->order_by('priority', 'desc')
+			->get();
+
+		if (empty($links)) {
+			return $content;
+		}
+
+		try {
+			$converter = new $converter_class($content);
+			$converter->addLinks($links);
+			return $converter->getText();
+		} catch (\Exception $e) {
+			return $content;
+		}
+	}
 }
