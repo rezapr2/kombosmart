@@ -20,7 +20,9 @@ $page_id = get_queried_object_id();
 $why_tanil = get_field('why_tanil', $page_id);
 $compare_purchase_conditions = get_field('compare_purchase-conditions', $page_id);
 $form_id = get_field('form_id', $page_id);
-
+$contact_box_title = get_field('contact_box_title', $page_id);
+$contact_box_subtitle = get_field('contact_box_subtitle', $page_id);
+$contact_box_button = get_field('contact_box_button', $page_id);
 ?>
 <div id="page-purchase-conditions" class="container page-template-purchase-conditions mt-60">
     <section class="hero flex flex-col items-center gap-20">
@@ -169,16 +171,21 @@ $form_id = get_field('form_id', $page_id);
                             ?>
                         </div>
                         <div class="text-area flex flex-col items-center">
+                            <?php if(isset($contact_box_title) && $contact_box_title): ?>
                             <div class="yekan-20 md:yekan-30 color-primary bold">
-                                سؤالى درباره پرداختها داريد؟
+                                <?php echo $contact_box_title; ?>
                             </div>
+                            <?php endif;
+                            if (isset($contact_box_subtitle) && $contact_box_subtitle): ?>
                             <div class="yekan-14 md:yekan-18 text-center md:text-right color-black-80">
-                                با ما تماس بگيريد تا مشاوران فروش تانيل چوب شما را راهنمايى كنند.
+                                <?php echo $contact_box_subtitle; ?>
                             </div>
-                            <a class="button yekan-14 md:yekan-18 color-black mt-25" href="#">
-                                تماس با مشاور فروش
-                            </a>
-
+                            <?php endif;
+                            if(isset($contact_box_button) && $contact_box_button): ?>
+                                <a href="<?php echo $contact_box_button['url'] ?: '#'; ?>" class="button yekan-14 md:yekan-18 color-black mt-25">
+                                    <?php echo $contact_box_button['title'] ?: 'تماس با مشاور فروش'; ?>
+                                </a>
+                            <?php endif; ?>
                         </div>
 
                     </div>
