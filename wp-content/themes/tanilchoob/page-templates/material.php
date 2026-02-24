@@ -100,17 +100,28 @@ $page_blocks = get_field('page_blocks', $page_id);
         ?>
     </section>
     <section class="call-us flex flex-col items-center mt-40">
+        <?php
+            $contact_box_title = get_field('contact_box_title', $page_id);
+            $contact_box_subtitle = get_field('contact_box_subtitle', $page_id);
+            $contact_box_button = get_field('contact_box_button', $page_id);
+
+        if(isset($contact_box_title) && $contact_box_title): ?>
         <div class="title yekan-16 md:yekan-30 text-center bold color-primary">
-            برای انتخاب بهتر، با مشاوران ما تماس بکیريد
+            <?php echo $contact_box_title; ?>
         </div>
+        <?php endif;
+        if(isset($contact_box_subtitle) && $contact_box_subtitle): ?>
         <div class="subtitle yekan-14 md:yekan-24 text-center color-black-60">
-            ما آماده ايم تا متريال هاى مختلف را به شما نشان دهيم ودر انتخاب بهترين كزينه راهنمایى تان كنيم.
+            <?php echo $contact_box_subtitle; ?>
         </div>
+        <?php endif;
+        if(isset($contact_box_button) && $contact_box_button): ?>
         <div class="button mt-25">
-            <a href="<?php echo get_field('button_url', $page_id) ?: '#'; ?>" class="yekan-14 md:yekan-20 color-white bg-primary block">
-                <?php echo get_field('button_text', $page_id) ?: 'تماس با ما'; ?>
+            <a href="<?php echo $contact_box_button['url'] ?: '#'; ?>" class="yekan-14 md:yekan-20 color-white bg-primary block">
+                <?php echo $contact_box_button['title'] ?: 'تماس با ما'; ?>
             </a>
         </div>
+        <?php endif; ?>
     </section>
 
 
