@@ -35,9 +35,10 @@ get_header(); ?>
     /* Special Offers Products Slider */
     $special_offers_term = get_field('special_offers_term', $page_id);
     $end_off_sale = get_field('end_off_sale', $page_id);
+    $special_offers_term_see_all = get_field('special_offers_term_see_all', $page_id);
     $args = [
         'title' => '<span class="yekan-12 md:yekan-20 color-white"><strong>فروش </strong><span class="thin">ویژه</span></span>',
-        'button_link' => '#',
+        'button_link' => $special_offers_term_see_all ?? null,
         'card' => 'product-card',
         'wrapper_class' => 'md:mb-40',
         'slidesPerView' => 4.5,
@@ -69,9 +70,10 @@ get_header(); ?>
 
     /* Soffa Products Slider */
     $soffa_term = get_field('soffa_term', $page_id);
+    $soffa_term_see_all = get_field('soffa_term_see_all', $page_id);
     $args = [
         'title' => '<span class="yekan-14 md:yekan-20 color-black-80"><strong>مبلمان</strong></span>',
-        'button_link' => '#',
+        'button_link' => $soffa_term_see_all ?? null,
         'card' => 'product-card',
         'wrapper_class' => 'mb-40',
         'slidesPerView' => 3.5,
@@ -100,9 +102,10 @@ get_header(); ?>
 
     /* Sleep Pack Products Slider */
     $sleep_pack_term = get_field('sleep_pack_term', $page_id);
+    $sleep_pack_term_see_all = get_field('sleep_pack_term_see_all', $page_id);
     $args = [
         'title' => '<span class="yekan-14 md:yekan-20 color-black-80"><strong>سرویس </strong><span class="thin">خواب</span></span>',
-        'button_link' => '#',
+        'button_link' => $sleep_pack_term_see_all ?? null,
         'card' => 'product-card',
         'wrapper_class' => 'mb-40',
         'slidesPerView' => 3.5,
@@ -131,7 +134,7 @@ get_header(); ?>
     /* Article Slider */
     $args = [
         'title' => '<span class="yekan-14 md:yekan-20 color-black-80"><strong>جدیدترین </strong><span class="thin">مقاله</span></span>',
-        'button_link' => '#',
+        'button_link' => get_site_url() . '/blog',
         'card' => 'article-card',
         'slidesPerView' => 2.2,
         'query' => [
