@@ -12,17 +12,19 @@ $sleep_products = get_field('sleep_products', $page_id);
 $food_products = get_field('food_products', $page_id);
 $sleep_pack = get_field('sleep_pack', $page_id);
 $soffa_desk = get_field('soffa_desk', $page_id);
+$categories_section_subtitle = get_field('categories_section_subtitle', $page_id);
 
 $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-btn.svg'));
-
 ?>
 <section class="home-product-categories flex flex-col container">
     <div class="title yekan-16 md:yekan-24 color-black thin text-center color-black-80">
         <strong class="color-primary">دسته بندی</strong> محصولات
     </div>
+    <?php if(isset($categories_section_subtitle) && $categories_section_subtitle): ?>
     <div class="description yekan-12 md:yekan-16 color-black-60 text-center">
-        دسته بندی محصولات توضیحات اضافی
+        <?php echo $categories_section_subtitle; ?>
     </div>
+    <?php endif; ?>
     <div class="categories gap-04 md:gap-07 flex flex-col-reverse md:flex-row">
         <div class="category-pack gap-04 md:gap-07 flex flex-col">
             <div class="row gap-04 md:gap-07 flex h-100">

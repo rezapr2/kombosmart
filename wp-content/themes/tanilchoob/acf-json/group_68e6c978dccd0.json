@@ -344,6 +344,27 @@
             "esc_html": 0
         },
         {
+            "key": "field_699e06fe3ffa1",
+            "label": "زیر عنوان دسته بندی محصولات",
+            "name": "categories_section_subtitle",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_68e6dabafd01d",
             "label": "انواع کمد",
             "name": "comod_types",
@@ -1130,6 +1151,27 @@
             "esc_html": 0
         },
         {
+            "key": "field_699e076ab5ad8",
+            "label": "زیر عنوان بهترین تشک ها",
+            "name": "toshaks_section_subtitle",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_68ec0a78ebbbe",
             "label": "بهترین تشک ها",
             "name": "best_toshaks",
@@ -1785,5 +1827,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1771274529
+    "modified": 1771964328
 }

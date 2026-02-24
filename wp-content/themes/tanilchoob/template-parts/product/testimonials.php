@@ -2,6 +2,7 @@
 
 $post_id = get_the_ID();
 $testimonials_customers = get_field('testimonials_customers', $post_id);
+$toshaks_section_subtitle = get_field('toshaks_section_subtitle', $post_id);
 if(!$testimonials_customers) {
   return;
 }
@@ -11,10 +12,11 @@ if(!$testimonials_customers) {
     <div class="title yekan-16 md:yekan-24 color-black thin text-center color-black-80">
       <strong class="color-primary">تجربه خرید </strong> مشتریان
     </div>
-    <div class="description yekan-12 md:yekan-16 color-black-60 text-center">
-      توضیحات درمورد بخش بهترین تشک ها
-    </div>
-
+    <?php if(isset($toshaks_section_subtitle) && $toshaks_section_subtitle): ?>
+      <div class="description yekan-12 md:yekan-16 color-black-60 text-center">
+        <?php echo $toshaks_section_subtitle; ?>
+      </div>
+    <?php endif; ?>
     <div class="mt-25 flex flex-col md:flex-row gap-10">
       <div class="testimonial-slider swiper relative flex flex-1 flex-col gap-15">
         <div class="swiper-wrapper">

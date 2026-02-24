@@ -235,7 +235,9 @@
                                     &.menu-parent-link {
                                         a {
                                             border-bottom: none !important;
-                                            pointer-events: none;
+                                            &:hover{
+                                                color: var(--color-primary) !important;
+                                            }
                                         }
                                     }
                                     // Column Header
