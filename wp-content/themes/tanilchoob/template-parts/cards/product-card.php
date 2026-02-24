@@ -48,6 +48,10 @@ if ($product->is_type('variable')) {
     }
 }
 
+if ($price_html) {
+    $price_html = preg_replace('/<\/?(ins)[^>]*>/', '', $price_html);
+}
+
 // Calculate discount percentage if on sale
 $discount_percentage = 0;
 if ($on_sale && $regular_price > 0) {
@@ -59,7 +63,7 @@ $add_to_cart_text = isset($args['add_to_cart_text']) ? $args['add_to_cart_text']
 
 ?>
 
-<div class="product-card swiper-slide transition h-100">
+<div class="product-card swiper-slide transition h-100<?php echo $on_sale ? ' is-on-sale' : ''; ?>">
     <div class="product-card__inner flex flex-col h-100">
         <div class="product-card__image relative overflow-hidden">
             <?php if ($on_sale && $discount_percentage > 0): ?>

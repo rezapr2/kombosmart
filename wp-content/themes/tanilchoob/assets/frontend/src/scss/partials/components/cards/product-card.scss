@@ -85,6 +85,9 @@
             font-size: 1.8rem;
             font-weight: 400;
             line-height: 0.5;
+            bdi{
+                font-weight: 400 !important; 
+            }
         }
 
         .amount {
@@ -99,11 +102,15 @@
             font-size: 1.2rem;
             font-weight: 400;
         }
-        ins .woocommerce-Price-currencySymbol{
+        del .woocommerce-Price-currencySymbol{
             display: none !important;
         }
     }
-
+    &.is-on-sale{
+        .product-card__price {
+            margin-top: -1rem;
+        }
+    }
     &__actions {
         margin-top: auto;
     }
