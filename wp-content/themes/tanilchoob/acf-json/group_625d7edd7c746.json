@@ -708,7 +708,7 @@
         },
         {
             "key": "field_699382e83ba5f",
-            "label": "لینک شرایط گارنتی محصولات",
+            "label": "لینک شرایط گارانتی محصولات",
             "name": "warranty_link",
             "aria-label": "",
             "type": "text",

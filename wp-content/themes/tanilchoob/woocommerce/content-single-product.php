@@ -520,7 +520,7 @@ $product_status = get_post_meta($product_id, '_product_status', true);
 			));
 
 			get_template_part('template-parts/product/consult-cta', null, array(
-				'label' => 'شرایط گارنتی محصولات',
+				'label' => 'شرایط گارانتی محصولات',
 				'url' =>  Helper::get_options_field( 'warranty_link' ) ?: '#',
 				'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M10.4862 2.23055L5.49625 4.11055C4.34625 4.54055 3.40625 5.90055 3.40625 7.12055V14.5505C3.40625 15.7305 4.18625 17.2805 5.13625 17.9905L9.43625 21.2005C10.8462 22.2605 13.1663 22.2605 14.5763 21.2005L18.8762 17.9905C19.8262 17.2805 20.6063 15.7305 20.6063 14.5505V7.12055C20.6063 5.89055 19.6663 4.53055 18.5163 4.10055L13.5262 2.23055C12.6762 1.92055 11.3162 1.92055 10.4862 2.23055Z" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
