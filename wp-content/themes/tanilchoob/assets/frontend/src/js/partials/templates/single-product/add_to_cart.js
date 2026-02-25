@@ -82,9 +82,13 @@
             }
             return s || '';
         }
-        function tcRenderPrice(amount, symbol) {
+        function tcRenderPrice(amount, symbol, regularAmount) {
             var formatted = tcFormatNumber(amount);
             var symbolHtml = symbol ? '<span class="woocommerce-Price-currencySymbol">' + symbol + '</span>' : '';
+            if (regularAmount !== null && typeof regularAmount !== 'undefined' && regularAmount > amount) {
+                var regularFormatted = tcFormatNumber(regularAmount);
+                return '<span class="price flex flex-col"><span class="woocommerce-Price-amount amount"><bdi>' + formatted + symbolHtml + '</bdi></span><del><span class="woocommerce-Price-amount amount regular yekan-18 color-black-70"><bdi>' + regularFormatted + symbolHtml + '</bdi></span></del> </span>';
+            }
             return '<span class="price"><span class="woocommerce-Price-amount amount"><bdi>' + formatted + symbolHtml + '</bdi></span></span>';
         }
         function tcGetOptionsSum() {
@@ -112,8 +116,12 @@
             if ($priceBox.length) {
                 var symbol = tcGetCurrencySymbol($priceBox, match);
                 var basePrice = null;
+                var regularPrice = null;
                 if (match && typeof match.display_price !== 'undefined') {
                     basePrice = parseFloat(match.display_price);
+                }
+                if (match && typeof match.display_regular_price !== 'undefined') {
+                    regularPrice = parseFloat(match.display_regular_price);
                 }
                 if (basePrice === null) {
                     basePrice = tcParsePriceFromEl($priceBox);
@@ -122,7 +130,10 @@
                 var optSum = tcGetOptionsSum();
                 if (basePrice !== null) {
                     finalPrice = basePrice + optSum;
-                    $priceBox.html(tcRenderPrice(finalPrice, symbol));
+                    if (regularPrice !== null) {
+                        regularPrice = regularPrice + optSum;
+                    }
+                    $priceBox.html(tcRenderPrice(finalPrice, symbol, regularPrice));
                 } else if (match && match.price_html) {
                     $priceBox.html(match.price_html);
                 } else {

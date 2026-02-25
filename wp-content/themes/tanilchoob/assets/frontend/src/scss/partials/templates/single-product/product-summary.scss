@@ -102,6 +102,12 @@
                 font-size: 2rem;
                 margin-right: 0.6rem;
             }
+            del{
+                margin-top: -1rem;
+               .woocommerce-Price-currencySymbol{
+                display: none !important;
+               } 
+            }
         }
     }
     @media (max-width: 768px) {
