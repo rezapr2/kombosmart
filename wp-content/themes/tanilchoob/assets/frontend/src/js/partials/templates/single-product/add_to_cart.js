@@ -107,9 +107,6 @@
                     break;
                 }
             }
-            console.log('variations', variations);
-            console.log('selections', selections);
-            console.log('match', match);
 
             var $priceBox = $form.find('.tanil-variation-price');
             if ($priceBox.length) {
