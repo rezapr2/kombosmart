@@ -99,7 +99,7 @@ use TanilChoob\Theme\Helper;
                     <div class="icon border flex item-center flex-shrink-0 h-100">
                         <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/location.svg')); ?>
                     </div>
-                    <a class="text border flex item-center yekan-13 mdyekan-16 color-white-70 w-full" href="<?php echo get_field('location', 'options'); ?>">
+                    <a class="text border flex item-center yekan-13 mdyekan-16 color-white-70 w-full" href="<?php echo get_field('location_link', 'options'); ?>">
                         لوكيشن شعب وكارخانه
                     </a>
                 </div>
