@@ -48,6 +48,7 @@ class Main {
 		require_once get_template_directory().'/includes/Backend.php';
 		require_once get_template_directory().'/includes/WC_Product_BackOffice.php';
 		require_once get_template_directory().'/includes/Walker_Nav_Menu_Custom.php';
+		require_once get_template_directory().'/includes/MyAccount.php';
     }
 
 	private function initializer() {
@@ -55,6 +56,7 @@ class Main {
 		new Frontend();
 		new Backend();
 		new WC_Product_BackOffice();
+		new MyAccount();
 	}
 
 	/**
