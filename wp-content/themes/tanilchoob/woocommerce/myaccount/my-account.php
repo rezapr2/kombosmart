@@ -18,7 +18,7 @@ $current_user = wp_get_current_user();
 		خوش آمدی <?php echo esc_html( $current_user->display_name ); ?>! 👋
 	</p>
 
-	<div class="wc-my-account__body">
+	<div class="wc-my-account__body flex flex-row-reverse">
 
 		<div class="wc-my-account__content woocommerce-MyAccount-content">
 			<?php do_action( 'woocommerce_account_content' ); ?>

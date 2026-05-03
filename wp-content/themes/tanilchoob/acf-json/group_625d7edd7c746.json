@@ -708,7 +708,7 @@
         },
         {
             "key": "field_699382e83ba5f",
-            "label": "لینک شرایط گارانتی محصولات",
+            "label": "لینک شرایط گارنتی محصولات",
             "name": "warranty_link",
             "aria-label": "",
             "type": "text",
@@ -849,6 +849,105 @@
                     "new_lines": "br"
                 }
             ]
+        },
+        {
+            "key": "field_69f7c0b88c598",
+            "label": "تنظیمات ارسال sms",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_69f7c15645edb",
+            "label": "کلید دسترسی",
+            "name": "sms_api_key",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_69f7c17245edc",
+            "label": "شماره ارسال به مخاطب",
+            "name": "sms_from_number",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_69f7c1a145edd",
+            "label": "کد تایید شماره موبایل",
+            "name": "otp_validation_number",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_69f7c1e645ede",
+                    "label": "کد پترن",
+                    "name": "code",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "در محتوای پترن کد ارسالی را به صورت متغیری با نام code درج کنید",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
         }
     ],
     "location": [
@@ -870,5 +969,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1771959397
+    "modified": 1777844877
 }

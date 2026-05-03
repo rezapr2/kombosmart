@@ -43,10 +43,10 @@ do_action( 'woocommerce_before_account_navigation' );
 			<li class="<?php echo esc_attr( $classes ); ?>">
 				<a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"
 				   <?php echo wc_is_current_account_menu_item( $endpoint ) ? 'aria-current="page"' : ''; ?>>
-					<span class="nav-label"><?php echo esc_html( $label ); ?></span>
-					<?php if ( $icon ) : ?>
+				   	<?php if ( $icon ) : ?>
 					<span class="nav-icon" aria-hidden="true"><?php echo $icon; ?></span>
 					<?php endif; ?>
+					<span class="nav-label"><?php echo esc_html( $label ); ?></span>
 				</a>
 			</li>
 		<?php endforeach; ?>
