@@ -869,11 +869,36 @@
             "selected": 0
         },
         {
+            "key": "field_69fa23cdd6be1",
+            "label": "موجودی",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_69f7c15645edb",
+                        "operator": "!=empty"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "<p>اعتبار فعلی شما: <strong>1,000,000.00 ریال<\/strong><\/p>",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
             "key": "field_69f7c15645edb",
             "label": "کلید دسترسی",
             "name": "sms_api_key",
             "aria-label": "",
-            "type": "text",
+            "type": "password",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -882,8 +907,6 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
             "prepend": "",
@@ -897,7 +920,14 @@
             "type": "text",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_69f7c15645edb",
+                        "operator": "!=empty"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -911,43 +941,78 @@
             "append": ""
         },
         {
-            "key": "field_69f7c1a145edd",
-            "label": "کد تایید شماره موبایل",
-            "name": "otp_validation_number",
+            "key": "field_69fa21d77062b",
+            "label": "کد پترن ورود",
+            "name": "otp_login_pattern",
             "aria-label": "",
-            "type": "group",
+            "type": "select",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_69f7c15645edb",
+                        "operator": "!=empty"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
             },
-            "layout": "block",
-            "sub_fields": [
-                {
-                    "key": "field_69f7c1e645ede",
-                    "label": "کد پترن",
-                    "name": "code",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "در محتوای پترن کد ارسالی را به صورت متغیری با نام code درج کنید",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": ""
-                }
-            ]
+            "choices": {
+                "": "پترن را از لیست انتخاب کنید",
+                "cicatr9hfc8lonh": "کاربر گرامی،\nکد تایید ورود شما به سایت تانیل چوب:\n%code%",
+                "iuro6xpv1qf4du4": "کاربر گرامی،\nکد تایید ثبت‌نام شما در مجموعه تانیل چوب:\n%code%"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_69fa22e4fa402",
+            "label": "کد پترن ثبت نام",
+            "name": "otp_signup_pattern",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_69f7c15645edb",
+                        "operator": "!=empty"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "": "پترن را از لیست انتخاب کنید",
+                "cicatr9hfc8lonh": "کاربر گرامی،\nکد تایید ورود شما به سایت تانیل چوب:\n%code%",
+                "iuro6xpv1qf4du4": "کاربر گرامی،\nکد تایید ثبت‌نام شما در مجموعه تانیل چوب:\n%code%"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
         }
     ],
     "location": [
@@ -969,5 +1034,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1777844877
+    "modified": 1778002244
 }

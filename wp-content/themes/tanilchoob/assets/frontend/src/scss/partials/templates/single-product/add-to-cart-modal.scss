@@ -1,0 +1,118 @@
+.tc-cart-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    direction: rtl;
+
+    &.is-open {
+        display: flex;
+    }
+
+    &__overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+    &__box {
+        position: relative;
+        z-index: 1;
+        background: #fff;
+        border-radius: 0;
+        width: 48rem;
+        padding: 2rem;
+        max-width: calc(100vw - 3.2rem);
+        overflow: hidden;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    &__close {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background 0.15s;
+        border: 1px solid #B3B3B3;
+        svg {
+            path{
+                stroke: #B3B3B3;
+            }
+        }
+        &:hover {
+            background: rgba(0, 0, 0, 0.06);
+        }
+    }
+
+    &__success {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+
+    &__product {
+        display: flex;
+        gap: 1.6rem;
+        margin-bottom: 1.5rem;
+    }
+
+    &__product-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    &__product-name {
+        color: #2f2f2f;
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    &__product-price {
+        margin: 0;
+        text-align: left;
+    }
+
+    &__product-img {
+        width: 17rem;
+        height: 12rem;
+        object-fit: cover;
+        flex-shrink: 0;
+    }
+
+    &__view-cart {
+        display: block;
+        text-align: center;
+        background: transparent;
+        color: #2F2F2F;
+        border: 1px solid #2F2F2F;
+        padding: 1.6rem;
+        text-decoration: none;
+        transition: background 0.2s;
+
+        &:hover {
+            background: #2F2F2F;
+            color: #fff;
+        }
+    }
+}
+
+body.tc-modal-open {
+    overflow: hidden;
+}

@@ -194,7 +194,145 @@
             if ($priceBox.length && variation && variation.price_html) {
                 $priceBox.html(variation.price_html);
             }
+            // Store the resolved variation so the AJAX handler can read it
+            if (variation && variation.variation_id) {
+                $form.data('tc_resolved_variation', variation);
+                $form.find('input.variation_id').val(variation.variation_id);
+            }
         });
+
+        // ----- AJAX Add to Cart + Modal -----
+
+        function injectCartModal() {
+            if ($('#tc-cart-modal').length) return;
+            $('body').append(
+                '<div id="tc-cart-modal" class="tc-cart-modal" role="dialog" aria-modal="true">' +
+                    '<div class="tc-cart-modal__overlay"></div>' +
+                    '<div class="tc-cart-modal__box">' +
+                        '<div class="tc-cart-modal__header">' +
+                            '<div class="tc-cart-modal__success">' +
+                                '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="9" stroke="#5D0E87" stroke-width="1.5"/><path d="M6 10l3 3 5-5" stroke="#5D0E87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+                                '<span class="tc-cart-modal__success-text yekan-20 color-primary bold">کالا به سبد خرید اضافه شد</span>' +
+                            '</div>' +
+                            '<button class="tc-cart-modal__close" aria-label="بستن">' +
+                                '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 5L5 15M5 5l10 10" stroke="#2f2f2f" stroke-width="1.5" stroke-linecap="round"/></svg>' +
+                            '</button>' +
+                            
+                        '</div>' +
+                        '<div class="tc-cart-modal__product">' +
+                            '<img class="tc-cart-modal__product-img" src="" alt="" />' +
+                            '<div class="tc-cart-modal__product-info">' +
+                                '<p class="tc-cart-modal__product-name yekan-18"></p>' +
+                                '<p class="tc-cart-modal__product-price yekan-20 color-primary bold"></p>' +
+                            '</div>' +
+                        '</div>' +
+                        '<a class="tc-cart-modal__view-cart yekan-18" href="#">مشاهده سبد خرید</a>' +
+                    '</div>' +
+                '</div>'
+            );
+        }
+
+        function openCartModal(productName, productPrice, productImg) {
+            var $modal = $('#tc-cart-modal');
+            $modal.find('.tc-cart-modal__product-name').text(productName);
+            $modal.find('.tc-cart-modal__product-price').text(productPrice);
+            $modal.find('.tc-cart-modal__product-img').attr('src', productImg).attr('alt', productName);
+            if (typeof wc_add_to_cart_params !== 'undefined' && wc_add_to_cart_params.cart_url) {
+                $modal.find('.tc-cart-modal__view-cart').attr('href', wc_add_to_cart_params.cart_url);
+            }
+            $modal.addClass('is-open');
+            $('body').addClass('tc-modal-open');
+        }
+
+        function closeCartModal() {
+            $('#tc-cart-modal').removeClass('is-open');
+            $('body').removeClass('tc-modal-open');
+        }
+
+        injectCartModal();
+
+        $(document).on('click', '.tc-cart-modal__close, .tc-cart-modal__overlay', function () {
+            closeCartModal();
+        });
+
+        $(document).on('keydown', function (e) {
+            if (e.key === 'Escape') closeCartModal();
+        });
+
+        $(document).on('submit', 'form.cart', function (e) {
+            var $form = $(this);
+            var $btn = $form.find('.single_add_to_cart_button');
+
+            if (!$btn.length || $btn.hasClass('disabled')) return;
+
+            e.preventDefault();
+
+            if ($btn.hasClass('tc-loading')) return;
+
+            // Resolve variation from stored found_variation data or fall back to variations scan
+            var resolvedVariation = $form.data('tc_resolved_variation') || null;
+            if (!resolvedVariation) {
+                var variations = parseVariations($form);
+                var selections = getSelectedAttributes($form);
+                for (var i = 0; i < variations.length; i++) {
+                    if (variations[i] && variations[i].attributes && isMatch(variations[i].attributes, selections)) {
+                        resolvedVariation = variations[i];
+                        break;
+                    }
+                }
+            }
+
+            var variationId = resolvedVariation ? resolvedVariation.variation_id : 0;
+            if (!variationId) return; // no variation selected yet
+
+            $btn.addClass('tc-loading');
+
+            var quantity = absInt($form.find('input[name="quantity"]').val()) || 1;
+
+            // WooCommerce AJAX handler expects product_id = variation ID for variation products.
+            // It reads parent + variation attributes from the variation itself.
+            var postData = {
+                product_id:   variationId,
+                quantity:     quantity,
+                'add-to-cart': variationId
+            };
+
+            var ajaxUrl = (typeof wc_add_to_cart_params !== 'undefined' && wc_add_to_cart_params.wc_ajax_url)
+                ? wc_add_to_cart_params.wc_ajax_url.replace('%%endpoint%%', 'add_to_cart')
+                : '/?wc-ajax=add_to_cart';
+
+            $.ajax({
+                type: 'POST',
+                url: ajaxUrl,
+                data: postData,
+                success: function (response) {
+                    $btn.removeClass('tc-loading');
+
+                    if (response && response.error) return;
+
+                    if (response && response.fragments) {
+                        $.each(response.fragments, function (key, value) {
+                            $(key).replaceWith(value);
+                        });
+                        $(document.body).trigger('wc_fragments_refreshed');
+                    }
+
+                    var productName = $('.product-title').first().text().trim();
+                    var productPrice = $('.tanil-variation-price .woocommerce-Price-amount').first().text().trim();
+                    var productImg = $('.gallery-main .swiper-slide').first().find('img').attr('src') || '';
+
+                    openCartModal(productName, productPrice, productImg);
+                },
+                error: function () {
+                    $btn.removeClass('tc-loading');
+                }
+            });
+        });
+
+        function absInt(val) {
+            var n = parseInt(val, 10);
+            return isNaN(n) ? 0 : Math.abs(n);
+        }
 
         // ----- Product Options (price adjustments) -----
         // Moved from template to JS: handles checkboxes that add/remove cost
