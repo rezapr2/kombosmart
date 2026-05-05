@@ -170,8 +170,7 @@ class OtpAuth {
 		$api_key             = Helper::get_options_field( 'sms_api_key' );
 		$sms_base_url        = 'https://edge.ippanel.com/v1';
 		$sms_from_number     = Helper::get_options_field( 'sms_from_number' );
-		$otp_validation_number = Helper::get_options_field( 'otp_validation_number' );
-		$pattern_code        = $otp_validation_number ? $otp_validation_number['code'] : '';
+		$otp_login_pattern = Helper::get_options_field( 'otp_login_pattern' );
 
 		// If no API key is configured, log the OTP for local development and return true.
 		if ( empty( $api_key ) ) {
@@ -182,8 +181,8 @@ class OtpAuth {
 		$url      = rtrim( $sms_base_url, '/' ) . '/api/send';
 		$payload  = wp_json_encode( [
 			'sending_type' => 'pattern',
-			'from_number'  => $sms_from_number,
-			'code'         => $pattern_code,
+			'from_number'  => $sms_from_number, // +983000505
+			'code'         => $otp_login_pattern,
 			'recipients'   => [ $mobile ],
 			'params'       => [ 'code' => $otp ],
 		] );
