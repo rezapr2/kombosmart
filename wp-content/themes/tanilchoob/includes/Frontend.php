@@ -36,8 +36,12 @@ class Frontend
 		add_filter('woocommerce_product_single_add_to_cart_text', [$this, 'contact_mode_add_to_cart_text']);
 		add_filter('woocommerce_product_add_to_cart_text', [$this, 'contact_mode_add_to_cart_text']);
 		add_filter('term_description', [$this, 'force_internal_links'], 99);
+		
+		// WooCommerce filter to prevent all of its default styles from loading
+		add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 
 	}
+
 
 	/**
 	 * Disable WordPress name/email requirement for product reviews only.
