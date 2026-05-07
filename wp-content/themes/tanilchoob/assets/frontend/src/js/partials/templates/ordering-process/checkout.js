@@ -59,9 +59,9 @@
         // Update step indicators
         $('[data-step]').each(function () {
             var s = parseInt($(this).data('step'), 10);
-            $(this).removeClass('is-active is-done');
-            if (s === n)  $(this).addClass('is-active');
-            if (s < n)    $(this).addClass('is-done');
+            $(this).removeClass('active done');
+            if (s === n)  $(this).addClass('active');
+            if (s < n)    $(this).addClass('done');
         });
 
         // Show/hide footer bar
@@ -389,6 +389,15 @@
 
         $('#tc-invoice').html(html);
     }
+
+    // ── Step indicator click (navigate back to done steps) ────
+
+    $(document).on('click', '[data-step]', function () {
+        var s = parseInt($(this).data('step'), 10);
+        if (s < currentStep) {
+            goToStep(s);
+        }
+    });
 
     // ── Next button ───────────────────────────────────────────
 
