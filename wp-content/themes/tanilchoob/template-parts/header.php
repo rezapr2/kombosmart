@@ -32,9 +32,9 @@ $header_logo_mobile = get_field('header_logo_mobile', 'option');
             </button>
         </div>
         <div class="top-row__left hidden md:flex ">
-            <div class="bascket-btn flex item-center transition pointer">
+            <a href="<?php echo esc_url(wc_get_cart_url()); ?>" class="bascket-btn flex item-center transition pointer">
                 <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/shopping-cart.svg')); ?>
-            </div>
+            </a>
             <a href="<?php echo esc_url(get_permalink(get_option('woocommerce_myaccount_page_id'))); ?>" class="sign-up-btn flex items-center transition pointer color-primary">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12.1625 10.87C12.0625 10.86 11.9425 10.86 11.8325 10.87C9.4525 10.79 7.5625 8.84 7.5625 6.44C7.5625 3.99 9.5425 2 12.0025 2C14.4525 2 16.4425 3.99 16.4425 6.44C16.4325 8.84 14.5425 10.79 12.1625 10.87Z" stroke="#5D0E87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

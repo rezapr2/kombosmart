@@ -17,11 +17,15 @@ if (!is_array($addresses)) {
 
 $cart_total = number_format((float) $cart->get_total(''), 0, '.', ',');
 
-$payment_methods = [
-	'cod' => ['title' => 'پرداخت در محل', 'desc' => 'ویژه تهران و حومه'],
-	'online' => ['title' => 'پرداخت آنلاین', 'desc' => 'از طریق درگاه بانکی'],
-	'bank_transfer' => ['title' => 'واریز به حساب', 'desc' => 'واریز از طریق شماره حساب'],
-	'installment' => ['title' => 'پرداخت اقساطی', 'desc' => 'پرداخت اقساطی به شرایط بانکی'],
+$payment_gateways = WC()->payment_gateways()->get_available_payment_gateways();
+
+// SVG icons keyed by gateway ID (fallback used for unknowns)
+$gateway_icons = [
+	'cod'           => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M12 13.43a3.12 3.12 0 1 0 0-6.24 3.12 3.12 0 0 0 0 6.24z" stroke="currentColor" stroke-width="1.5"/><path d="M3.62 8.49c1.97-8.66 14.8-8.65 16.76.01 1.15 5.08-2.01 9.38-4.78 12.04a5.19 5.19 0 0 1-7.21 0c-2.76-2.66-5.92-6.97-4.77-12.05z" stroke="currentColor" stroke-width="1.5"/></svg>',
+	'bacs'          => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M11.02 2.22c.54-.3 1.42-.3 1.96 0l7.53 4.2c.54.3.97 1.03.97 1.64v2.97c0 .55-.45 1-1 1H3.5c-.55 0-1-.45-1-1V8.06c0-.61.43-1.34.97-1.64l7.55-4.2zM2.5 21h19M12 17v4M7 17v4M17 17v4M2.5 13h19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+	'cheque'        => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M17 2H7C4 2 2 4 2 7v10c0 3 2 5 5 5h10c3 0 5-2 5-5V7c0-3-2-5-5-5z" stroke="currentColor" stroke-width="1.5"/><path d="M8 12h4M8 16h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+	'_online'       => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M22 10v6c0 3-1.5 5-5 5H7c-3.5 0-5-2-5-5v-6h20zm0-2H2V7c0-3 1.5-5 5-5h10c3.5 0 5 2 5 5v1z" stroke="currentColor" stroke-width="1.5"/><path d="M7 15h2M11 15h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+	'_default'      => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M22 10v6c0 3-1.5 5-5 5H7c-3.5 0-5-2-5-5v-6h20zm0-2H2V7c0-3 1.5-5 5-5h10c3.5 0 5 2 5 5v1z" stroke="currentColor" stroke-width="1.5"/><path d="M7 15h2M11 15h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
 ];
 
 $steps = [
@@ -66,7 +70,7 @@ $steps = [
 			<div class="tc-cart-table">
 				<div class="tc-cart-table__head">
 					<div class="tc-cart-table__head-product">محصول</div>
-					<div class="tc-cart-table__head-qty">مقدار</div>
+					<div class="tc-cart-table__head-qty flex justify-center">مقدار</div>
 					<div class="tc-cart-table__head-custom">سفارش سازی ها</div>
 					<div class="tc-cart-table__head-price">قیمت</div>
 					<div></div>
@@ -80,19 +84,42 @@ $steps = [
 					$product_id = $cart_item['product_id'];
 					$image_id = $product->get_image_id();
 					$image_url = $image_id ? wp_get_attachment_image_url($image_id, 'thumbnail') : wc_placeholder_img_src('thumbnail');
-					$name = $product->get_name();
+					$product_name = $product->get_name();
 					$qty = $cart_item['quantity'];
 					$line_total = number_format((float) $cart_item['line_total'], 0, '.', ',');
 
 					// Variation attributes
 					$variation_lines = [];
 					if (!empty($cart_item['variation'])) {
-						foreach ($cart_item['variation'] as $attr => $val) {
-							$label = wc_attribute_label(str_replace('attribute_', '', $attr));
-							$variation_lines[] = $label . ': ' . $val;
+						
+						foreach ( $cart_item['variation'] as $name => $value ) {
+							$taxonomy = wc_attribute_taxonomy_name( str_replace( 'attribute_pa_', '', urldecode( $name ) ) );
+
+							if ( taxonomy_exists( $taxonomy ) ) {
+								// If this is a term slug, get the term's nice name.
+								$term = get_term_by( 'slug', $value, $taxonomy );
+								if ( ! is_wp_error( $term ) && $term && $term->name ) {
+									$value = $term->name;
+								}
+								$label = wc_attribute_label( $taxonomy );
+							} else {
+								// If this is a custom option slug, get the options name.
+								$value = apply_filters( 'woocommerce_variation_option_name', $value, null, $taxonomy, $cart_item['data'] );
+								$label = wc_attribute_label( str_replace( 'attribute_', '', $name ), $cart_item['data'] );
+							}
+
+							// Check the nicename against the title.
+							if ( '' === $value || wc_is_attribute_in_product_name( $value, $cart_item['data']->get_name() ) ) {
+								continue;
+							}
+							$variation_lines[] = array(
+								'key'   => $label,
+								'value' => $value,
+							);
+							
 						}
 					}
-
+					
 					// Custom option adjustments
 					$option_lines = [];
 					if (!empty($cart_item['tc_option_adjustments'])) {
@@ -109,14 +136,16 @@ $steps = [
 								alt="<?php echo esc_attr($name); ?>">
 							<div class="tc-cart-table__product-info">
 								<a href="<?php echo esc_url(get_permalink($product_id)); ?>"
-									class="tc-cart-table__product-name"><?php echo esc_html($name); ?></a>
-								<?php foreach ($variation_lines as $vl): ?>
-									<span class="tc-cart-table__meta"><?php echo esc_html($vl); ?></span>
-								<?php endforeach; ?>
+									class="tc-cart-table__product-name color-black"><?php echo esc_html($product_name); ?></a>
+								<?php 	$product_components_text = get_field('product_components_text', $product_id); 
+								if($product_components_text):?>
+									<div class="product_components_text color-black-40 yekan-16">شامل: <?php echo $product_components_text; ?></div>
+								<?php endif; ?>
+
 							</div>
 						</div>
 
-						<div class="tc-cart-table__col-qty">
+						<div class="tc-cart-table__col-qty flex justify-center">
 							<div class="tc-qty">
 								<button class="tc-qty__btn tc-qty-plus"
 									data-key="<?php echo esc_attr($cart_item_key); ?>">+</button>
@@ -128,17 +157,23 @@ $steps = [
 						</div>
 
 						<div class="tc-cart-table__col-custom">
+							<?php foreach ($variation_lines as $vl): ?>
+									<div class="tc-cart-table__meta"><span class='color-black-80 yekan-14 bold'><?php echo esc_html($vl['key']); ?> : </span> <span class='color-black-70 yekan-14'><?php echo esc_html($vl['value']); ?></span></div>
+								<?php endforeach; ?>
 							<?php if ($option_lines): ?>
 								<?php foreach ($option_lines as $ol): ?><span><?php echo esc_html($ol); ?></span><?php endforeach; ?>
 							<?php else: ?>
-								<span class="tc-muted">—</span>
+								<span class="tc-muted"></span>
 							<?php endif; ?>
 						</div>
 
 						<div class="tc-cart-table__col-price">
-							<span class="tc-cart-table__price-val"
-								data-key="<?php echo esc_attr($cart_item_key); ?>"><?php echo esc_html($line_total); ?></span>
-							<span class="tc-toman">تومان</span>
+							<div class="price relative">
+								<span class="tc-cart-table__price-val"
+									data-key="<?php echo esc_attr($cart_item_key); ?>"><?php echo esc_html($line_total); ?></span>
+								<span class="tc-toman absolute">تومان</span>
+							</div>
+							
 						</div>
 
 						<div class="tc-cart-table__col-actions flex item-center gap-10">
@@ -153,7 +188,7 @@ $steps = [
 							</button>
 							<?php
 							printf('<a href="%s" class="tc-icon-btn tc-icon-btn--view tc-cart-view"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M15.5819 11.9999C15.5819 13.9799 13.9819 15.5799 12.0019 15.5799C10.0219 15.5799 8.42188 13.9799 8.42188 11.9999C8.42188 10.0199 10.0219 8.41992 12.0019 8.41992C13.9819 8.41992 15.5819 10.0199 15.5819 11.9999Z" stroke="#2F2F2F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M15.5819 11.9999C15.5819 13.9799 13.9819 15.5799 12.0019 15.5799C10.0219 15.5799 8.42188 13.9799 8.42188 11.9999C8.42188 10.0199 10.0219 8.41992 12.0019 8.41992C13.9819 8.41992 15.5819 10.0199 15.5819 11.9999Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M11.9998 20.2707C15.5298 20.2707 18.8198 18.1907 21.1098 14.5907C22.0098 13.1807 22.0098 10.8107 21.1098 9.4007C18.8198 5.8007 15.5298 3.7207 11.9998 3.7207C8.46984 3.7207 5.17984 5.8007 2.88984 9.4007C1.98984 10.8107 1.98984 13.1807 2.88984 14.5907C5.17984 18.1907 8.46984 20.2707 11.9998 20.2707Z" stroke="#2F2F2F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 							</svg>
 							</a>', esc_url(get_permalink($product_id))); // PHPCS: XSS ok.
@@ -163,6 +198,11 @@ $steps = [
 					</div>
 				<?php endforeach; ?>
 			</div>
+		</div>
+		<div class="tc-notes-wrap">
+			<label for="tc-order-notes color-black">توضیحات تکمیلی:</label>
+			<textarea id="tc-order-notes" placeholder="درصورت نیاز توضیحات تکمیلی را اینجا وارد نمایید."
+				rows="4"></textarea>
 		</div>
 	</div>
 
@@ -174,7 +214,7 @@ $steps = [
 				<p class="tc-addresses__empty">هنوز آدرسی ذخیره نکرده‌اید. یک آدرس جدید اضافه کنید.</p>
 			<?php else: ?>
 				<?php foreach ($addresses as $i => $addr): ?>
-					<div class="tc-address-card" data-id="<?php echo esc_attr($addr['id']); ?>">
+					<div class="tc-address-card flex justify-between" data-id="<?php echo esc_attr($addr['id']); ?>">
 						<label class="tc-address-card__inner">
 							<input type="radio" name="tc_selected_address" value="<?php echo esc_attr($addr['id']); ?>"
 								class="tc-address-radio" <?php checked($i, 0); ?>>
@@ -201,27 +241,33 @@ $steps = [
 								</div>
 							</div>
 						</label>
-						<div class="tc-address-card__actions">
-							<button class="tc-btn tc-btn--sm tc-btn--danger-outline tc-address-delete"
+						<div class="tc-address-card__actions flex flex-col">
+							<button class="tc-btn tc-btn--sm tc-btn--danger-outline tc-address-delete flex justify-between"
 								data-id="<?php echo esc_attr($addr['id']); ?>">
-								<svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-									<path
-										d="M21 5.98c-3.33-.33-6.68-.5-10.02-.5-1.98 0-3.96.1-5.94.3L3 5.98M8.5 4.97l.22-1.31C8.88 2.71 9 2 10.69 2h2.62c1.69 0 1.82.75 1.97 1.67l.22 1.3M18.85 9.14l-.65 10.07C18.09 20.78 18 22 15.21 22H8.79C6 22 5.91 20.78 5.8 19.21L5.15 9.14"
-										stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-										stroke-linejoin="round" />
-								</svg>
+								
 								حذف آدرس
+								
+								<svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M21 5.98047C17.67 5.65047 14.32 5.48047 10.98 5.48047C9 5.48047 7.02 5.58047 5.04 5.78047L3 5.98047" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M18.8484 9.14062L18.1984 19.2106C18.0884 20.7806 17.9984 22.0006 15.2084 22.0006H8.78844C5.99844 22.0006 5.90844 20.7806 5.79844 19.2106L5.14844 9.14062" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M10.3281 16.5H13.6581" stroke="#currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M9.5 12.5H14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+								
+
 							</button>
-							<button class="tc-btn tc-btn--sm tc-btn--outline tc-address-edit"
+							<button class="tc-btn tc-btn--sm tc-btn--outline tc-address-edit flex justify-between"
 								data-id="<?php echo esc_attr($addr['id']); ?>"
 								data-address="<?php echo esc_attr(wp_json_encode($addr)); ?>">
-								<svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-									<path
-										d="M13.26 3.6l-8.21 8.69c-.31.33-.61.98-.67 1.43l-.37 3.24c-.13 1.13.71 1.93 1.83 1.75l3.22-.55c.45-.08 1.08-.41 1.39-.75l8.21-8.69c1.42-1.5 2.06-3.21.63-4.74-1.44-1.54-3.12-.94-4.03.62z"
-										stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-										stroke-linejoin="round" />
-								</svg>
+								
 								ویرایش آدرس
+								<svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M13.2594 3.59924L5.04936 12.2892C4.73936 12.6192 4.43936 13.2692 4.37936 13.7192L4.00936 16.9592C3.87936 18.1292 4.71936 18.9292 5.87936 18.7292L9.09936 18.1792C9.54936 18.0992 10.1794 17.7692 10.4894 17.4292L18.6994 8.73924C20.1194 7.23924 20.7594 5.52924 18.5494 3.43924C16.3494 1.36924 14.6794 2.09924 13.2594 3.59924Z" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M11.8906 5.05078C12.3206 7.81078 14.5606 9.92078 17.3406 10.2008" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M3 22H21" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+
 							</button>
 						</div>
 					</div>
@@ -275,13 +321,17 @@ $steps = [
 	<!-- ── Step 3: Payment ──────────────────────────────── -->
 	<div class="tc-checkout__step" data-step-panel="3">
 
-		<h2 class="tc-section-title">انتخاب شیوه پرداخت</h2>
+		<h2 class="tc-section-title bg-black-03 color-black-80">انتخاب شیوه پرداخت</h2>
 
 		<div class="tc-payment-methods">
-			<?php foreach (array_reverse($payment_methods, true) as $method_key => $method): ?>
-				<label class="tc-payment-card" data-method="<?php echo esc_attr($method_key); ?>">
-					<input type="radio" name="tc_payment_method" value="<?php echo esc_attr($method_key); ?>"
-						class="tc-payment-radio" <?php checked($method_key, 'cod'); ?>>
+			<?php
+			$first_gateway = true;
+			foreach (array_reverse($payment_gateways, true) as $gw_id => $gateway):
+				$icon_svg = $gateway_icons[$gw_id] ?? $gateway_icons['_default'];
+			?>
+				<label class="tc-payment-card" data-method="<?php echo esc_attr($gw_id); ?>">
+					<input type="radio" name="tc_payment_method" value="<?php echo esc_attr($gw_id); ?>"
+						class="tc-payment-radio" <?php checked($first_gateway, true); ?>>
 					<span class="tc-payment-card__check">
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
 							<path d="M4 12l6 6L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round"
@@ -289,41 +339,17 @@ $steps = [
 						</svg>
 					</span>
 					<div class="tc-payment-card__icon">
-						<?php if ($method_key === 'cod'): ?>
-							<svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-								<path d="M12 13.43a3.12 3.12 0 1 0 0-6.24 3.12 3.12 0 0 0 0 6.24z" stroke="currentColor"
-									stroke-width="1.5" />
-								<path
-									d="M3.62 8.49c1.97-8.66 14.8-8.65 16.76.01 1.15 5.08-2.01 9.38-4.78 12.04a5.19 5.19 0 0 1-7.21 0c-2.76-2.66-5.92-6.97-4.77-12.05z"
-									stroke="currentColor" stroke-width="1.5" />
-							</svg>
-						<?php elseif ($method_key === 'online'): ?>
-							<svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-								<path
-									d="M22 10v6c0 3-1.5 5-5 5H7c-3.5 0-5-2-5-5v-6h20zm0-2H2V7c0-3 1.5-5 5-5h10c3.5 0 5 2 5 5v1z"
-									stroke="currentColor" stroke-width="1.5" />
-								<path d="M7 15h2M11 15h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-							</svg>
-						<?php elseif ($method_key === 'bank_transfer'): ?>
-							<svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-								<path
-									d="M11.02 2.22c.54-.3 1.42-.3 1.96 0l7.53 4.2c.54.3.97 1.03.97 1.64v2.97c0 .55-.45 1-1 1H3.5c-.55 0-1-.45-1-1V8.06c0-.61.43-1.34.97-1.64l7.55-4.2zM2.5 21h19M12 17v4M7 17v4M17 17v4M2.5 13h19"
-									stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-							</svg>
-						<?php else: ?>
-							<svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-								<path d="M17 2H7C4 2 2 4 2 7v10c0 3 2 5 5 5h10c3 0 5-2 5-5V7c0-3-2-5-5-5z" stroke="currentColor"
-									stroke-width="1.5" />
-								<path d="M8 12h4M8 16h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-							</svg>
-						<?php endif; ?>
+						<?php echo $icon_svg; // phpcs:ignore WordPress.Security.EscapeOutput -- SVG is hardcoded ?>
 					</div>
 					<div class="tc-payment-card__body">
-						<div class="tc-payment-card__title"><?php echo esc_html($method['title']); ?></div>
-						<div class="tc-payment-card__desc"><?php echo esc_html($method['desc']); ?></div>
+						<div class="tc-payment-card__title"><?php echo esc_html($gateway->get_title()); ?></div>
+						<div class="tc-payment-card__desc"><?php echo esc_html($gateway->get_description()); ?></div>
 					</div>
 				</label>
-			<?php endforeach; ?>
+			<?php
+				$first_gateway = false;
+			endforeach;
+			?>
 		</div>
 
 		<div class="tc-payment-warning" id="tc-cod-warning">
@@ -332,40 +358,52 @@ $steps = [
 					stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 			</svg>
 			<span>هزینه ارسال محصول، به صورت پس کرایه می باشد.</span>
-			<a href="#" class="tc-payment-warning__link">پس کرایه چیست؟</a>
-		</div>
-
-		<div class="tc-notes-wrap">
-			<label for="tc-order-notes">توضیحات تکمیلی:</label>
-			<textarea id="tc-order-notes" placeholder="درصورت نیاز توضیحات تکمیلی را اینجا وارد نمایید."
-				rows="4"></textarea>
+			<a href="#" class="tc-payment-warning__link" id="tc-cod-info-link">پس کرایه چیست؟</a>
 		</div>
 
 	</div>
 
 	<!-- ── Step 4: Invoice ──────────────────────────────── -->
 	<div class="tc-checkout__step" data-step-panel="4">
-		<div class="tc-order-success">
-			<svg class="tc-order-success__icon" width="64" height="64" viewBox="0 0 24 24" fill="none">
-				<circle cx="12" cy="12" r="10" fill="var(--color-primary)" opacity=".12" />
-				<path d="M7.75 12l3.5 3.5 5-6" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round"
-					stroke-linejoin="round" />
-			</svg>
-			<div class="tc-order-success__msg">سفارش شما با موفقیت ثبت شد</div>
-			<div class="tc-order-success__num">کد پیگیری سفارش: <strong id="tc-order-number"></strong></div>
+		<div class="tc-order-success flex flex-col gap-10">
+			
+			<div class="tc-order-success__msg text-center w-full">سفارش شما با موفقیت ثبت شد</div>
+			<div class="tc-order-success__num flex justify-between"><span class="flex-shrink-0">کد پیگیری سفارش:</span> <span id="tc-order-number"></span></div>
+		</div>
+		<div class="tc-order-support_msg color-primary text-center">
+			سفارش شما در حال بررسی و تایید مدیرت فروش می باشد. برای پیگیری سفارش خود می توانید با کارشناسان فروش ما در ارتباط باشید. کارشناسان ما در 24 ساعت آینده برای تایید نهایی سفارش با شما تماس خواهند گرفت
+		</div>
+		<div class="tc-invoice-actions flex gap-10">
+			<button class="tc-btn tc-btn--outline-primary" onclick="window.print()">
+				دانلود پیش فاکتور
+			</button>
+			<button class="tc-btn tc-btn--primary" >
+پیگیری سفارش			</button>
 		</div>
 		<div class="tc-invoice" id="tc-invoice">
 			<!-- rendered by JS -->
 		</div>
-		<div class="tc-invoice-actions">
-			<button class="tc-btn tc-btn--outline-primary" onclick="window.print()">
-				<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-					<path
-						d="M6 17H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 8V3h12v5M6 14h12v7H6v-7z"
-						stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+		
+	</div>
+
+	<!-- ── COD Info Modal ───────────────────────────────── -->
+	<div class="tc-modal-overlay" id="tc-cod-modal" aria-hidden="true">
+		<div class="tc-modal" role="dialog" aria-modal="true" dir="rtl">
+			<button class="tc-modal__close" id="tc-cod-modal-close" aria-label="بستن">
+				<svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+					<path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
 				</svg>
-				پیش فاکتور سفارش
 			</button>
+			<div class="tc-modal__icon">
+				<svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+					<path d="M12 13.43a3.12 3.12 0 1 0 0-6.24 3.12 3.12 0 0 0 0 6.24z" stroke="currentColor" stroke-width="1.5"/>
+					<path d="M3.62 8.49c1.97-8.66 14.8-8.65 16.76.01 1.15 5.08-2.01 9.38-4.78 12.04a5.19 5.19 0 0 1-7.21 0c-2.76-2.66-5.92-6.97-4.77-12.05z" stroke="currentColor" stroke-width="1.5"/>
+				</svg>
+			</div>
+			<h3 class="tc-modal__title">پس کرایه چیست؟</h3>
+			<p class="tc-modal__body">
+				هزینه ارسال محصول به صورت <strong>پس کرایه</strong> می‌باشد؛ یعنی هزینه حمل و نقل در هنگام تحویل کالا توسط پیک یا شرکت باربری از شما دریافت می‌شود و در قیمت نهایی سفارش محاسبه نشده است. این هزینه بسته به وزن، حجم و مقصد ارسال متفاوت است و مستقیماً به شرکت حمل‌ونقل پرداخت می‌گردد.
+			</p>
 		</div>
 	</div>
 

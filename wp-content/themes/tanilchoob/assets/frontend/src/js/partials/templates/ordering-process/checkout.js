@@ -201,6 +201,8 @@
         return $('<div>').text(String(str || '')).html();
     }
 
+    var isAccountPage = !!$('.tc-account-addresses').length;
+
     function openAddressForm(addr) {
         var editing = addr && addr.id;
         $('#tc-address-form-title').text(editing ? 'ویرایش آدرس' : 'افزودن آدرس جدید');
@@ -212,12 +214,18 @@
         $('#tc-addr-city').val(editing ? addr.city : '');
         $('#tc-addr-address1').val(editing ? addr.address_1 : '');
         $('#tc-address-msg').text('').removeClass('is-error is-success');
-        $('#tc-address-form').addClass('is-open');
-        $('html, body').animate({ scrollTop: $('#tc-address-form').offset().top - 80 }, 300);
+        if (isAccountPage) {
+            $('#tc-address-modal-overlay').addClass('is-open').attr('aria-hidden', 'false');
+            $('#tc-address-form').addClass('is-open');
+        } else {
+            $('#tc-address-form').addClass('is-open');
+            $('html, body').animate({ scrollTop: $('#tc-address-form').offset().top - 80 }, 300);
+        }
     }
 
     function closeAddressForm() {
         $('#tc-address-form').removeClass('is-open');
+        $('#tc-address-modal-overlay').removeClass('is-open').attr('aria-hidden', 'true');
     }
 
     $(document).on('click', '#tc-add-address-btn', function () {
@@ -226,6 +234,18 @@
 
     $(document).on('click', '#tc-cancel-address-btn', function () {
         closeAddressForm();
+    });
+
+    $(document).on('click', '#tc-address-modal-overlay', function (e) {
+        if ($(e.target).is('#tc-address-modal-overlay')) {
+            closeAddressForm();
+        }
+    });
+
+    $(document).on('keydown', function (e) {
+        if (e.key === 'Escape' && $('#tc-address-modal-overlay').hasClass('is-open')) {
+            closeAddressForm();
+        }
     });
 
     $(document).on('click', '.tc-address-edit', function () {
@@ -327,6 +347,10 @@
             notes:          notes,
         }, function (data) {
             setLoading(false);
+            if (data.redirect_url) {
+                window.location.href = data.redirect_url;
+                return;
+            }
             renderInvoice(data);
             goToStep(4);
         }, function (msg) {
@@ -445,6 +469,29 @@
             renderAppliedCoupons(data.applied_coupons);
             $('#tc-coupon-msg').text('').removeClass('is-error is-success');
         });
+    });
+
+    // ── COD info modal ────────────────────────────────────────
+
+    $(document).on('click', '#tc-cod-info-link', function (e) {
+        e.preventDefault();
+        $('#tc-cod-modal').addClass('is-open').attr('aria-hidden', 'false');
+    });
+
+    $(document).on('click', '#tc-cod-modal-close', function () {
+        $('#tc-cod-modal').removeClass('is-open').attr('aria-hidden', 'true');
+    });
+
+    $(document).on('click', '#tc-cod-modal', function (e) {
+        if ($(e.target).is('#tc-cod-modal')) {
+            $('#tc-cod-modal').removeClass('is-open').attr('aria-hidden', 'true');
+        }
+    });
+
+    $(document).on('keydown', function (e) {
+        if (e.key === 'Escape') {
+            $('#tc-cod-modal').removeClass('is-open').attr('aria-hidden', 'true');
+        }
     });
 
     // ── Step indicator click (navigate back to done steps) ────

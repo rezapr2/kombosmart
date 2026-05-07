@@ -10,9 +10,8 @@
 
     // ── Wrapper ─────────────────────────────────────────────────
     .tc-checkout {
-        max-width: 980px;
+        max-width: 1294px;
         margin: 0 auto 8rem;
-        padding: 0 2rem;
         font-family: inherit;
 
         @media (max-width: 768px) {
@@ -167,6 +166,7 @@
     // ── Cart table ───────────────────────────────────────────────
     .tc-cart-table-wrap {
         overflow: hidden;
+        margin-bottom: 4rem;
     }
 
     .tc-cart-table {
@@ -175,7 +175,7 @@
 
     .tc-cart-table__head {
         display: grid;
-        grid-template-columns:  1fr 10rem 1fr 12rem 5rem;
+        grid-template-columns: 1fr 14rem .6fr 14rem 12rem;
         align-items: center;
         background: rgba(0, 0, 0, 0.03);
         padding: 1.4rem 2rem;
@@ -191,15 +191,15 @@
 
     .tc-cart-table__row {
         display: grid;
-        grid-template-columns:  1fr 10rem 1fr 12rem 5rem;
+        grid-template-columns: 1fr 14rem .6fr 14rem 12rem;
         align-items: center;
-        padding: 2rem;
+        padding: 1rem;
         border-bottom: 1px solid $checkout-border;
-        gap: 1.6rem;
         transition: background 0.15s;
 
-        &:last-child {
-            border-bottom: none;
+        &:first-child {
+            margin-top: 1rem;
+            border-top: 1px solid $checkout-border;
         }
 
         &:hover {
@@ -225,10 +225,9 @@
         }
     }
 
-
     .tc-icon-btn {
-        width: 3.4rem;
-        height: 3.4rem;
+        width: 5rem;
+        height: 5rem;
         border: 1px solid transparent;
         display: flex;
         align-items: center;
@@ -247,7 +246,7 @@
                 border-color: #dc3545;
             }
         }
-        &--view{
+        &--view {
             border-color: #2f2f2f;
             color: #2f2f2f;
 
@@ -255,7 +254,6 @@
                 background: #2f2f2f;
                 border-color: #2f2f2f;
                 color: #fff;
-
             }
         }
     }
@@ -268,11 +266,9 @@
     }
 
     .tc-cart-table__img {
-        width: 7rem;
-        height: 7rem;
+        width: 20rem;
+        height: 12rem;
         object-fit: cover;
-        border-radius: 0.8rem;
-        border: 1px solid $checkout-border;
         flex-shrink: 0;
     }
 
@@ -283,12 +279,9 @@
     }
 
     .tc-cart-table__product-name {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: rgba(0, 0, 0, 0.85);
+        font-size: 2rem;
+        font-weight: 500;
         text-decoration: none;
-        line-height: 1.5;
-
         &:hover {
             color: $checkout-primary;
         }
@@ -303,8 +296,6 @@
     .tc-qty {
         display: flex;
         align-items: center;
-        border: 1.5px solid rgba(0, 0, 0, 0.15);
-        border-radius: 0.8rem;
         overflow: hidden;
         width: fit-content;
     }
@@ -312,7 +303,6 @@
     .tc-qty__btn {
         width: 3.2rem;
         height: 3.2rem;
-        background: rgba(0, 0, 0, 0.03);
         border: none;
         cursor: pointer;
         font-size: 1.8rem;
@@ -346,14 +336,16 @@
         align-items: center;
         gap: 0.4rem;
         font-weight: 700;
-        font-size: 1.6rem;
-        color: rgba(0, 0, 0, 0.85);
+        font-size: 2.2rem;
+        color: var(--color-primary);
     }
 
     .tc-toman {
-        font-size: 1.2rem;
-        color: rgba(0, 0, 0, 0.45);
+        font-size: 1.6rem;
+        color: var(--color-primary);
         font-weight: 400;
+        left: 0;
+        top: -100%;
     }
 
     .tc-muted {
@@ -389,7 +381,7 @@
         border: 2px solid $checkout-border;
         overflow: hidden;
         transition: border-color 0.2s;
-
+        padding: 2rem;
         &:has(.tc-address-radio:checked) {
             border-color: $checkout-primary;
         }
@@ -399,9 +391,7 @@
         display: flex;
         align-items: flex-start;
         gap: 1.6rem;
-        padding: 2rem;
         cursor: pointer;
-
         input[type='radio'] {
             display: none;
         }
@@ -483,11 +473,10 @@
     }
 
     .tc-address-card__actions {
-        display: flex;
-        gap: 1rem;
-        padding: 1.2rem 2rem;
-        border-top: 1px solid $checkout-border;
-        background: rgba(0, 0, 0, 0.015);
+        gap: .5rem;
+        svg{
+            width: 2rem;
+        }
     }
 
     // Buttons
@@ -676,9 +665,9 @@
     .tc-section-title {
         font-size: 1.8rem;
         font-weight: 700;
-        color: rgba(0, 0, 0, 0.8);
         margin-bottom: 2rem;
         text-align: center;
+        padding: 1rem;
     }
 
     .tc-payment-methods {
@@ -698,11 +687,9 @@
 
     .tc-payment-card {
         border: 2px solid $checkout-border;
-        border-radius: $checkout-radius;
         padding: 2rem;
         cursor: pointer;
         display: flex;
-        flex-direction: column;
         align-items: center;
         gap: 1rem;
         text-align: center;
@@ -775,14 +762,13 @@
         gap: 1rem;
         padding: 1.4rem 1.8rem;
         background: #fff8f0;
-        border: 1px solid #f0c080;
-        border-radius: 0.8rem;
+        border: 1px solid #FF0000;
         font-size: 1.4rem;
-        color: #9a6010;
+        color: #FF0000;
         margin-bottom: 2.4rem;
 
         svg {
-            color: #e08010;
+            color: #FF0000;
             flex-shrink: 0;
         }
 
@@ -811,14 +797,12 @@
 
         label {
             font-size: 1.5rem;
-            font-weight: 600;
-            color: rgba(0, 0, 0, 0.65);
         }
 
         textarea {
             padding: 1.2rem 1.6rem;
-            border: 1.5px solid rgba(0, 0, 0, 0.15);
-            border-radius: 0.8rem;
+            border: 1.5px solid rgba(0, 0, 0, 0.3);
+            border-radius: 0;
             font-size: 1.4rem;
             font-family: inherit;
             resize: vertical;
@@ -827,20 +811,12 @@
             &:focus {
                 outline: none;
                 border-color: $checkout-primary;
-                box-shadow: 0 0 0 3px rgba(93, 14, 135, 0.1);
+                box-shadow: none;
             }
         }
     }
 
     // ── Invoice (step 4) ─────────────────────────────────────────
-    .tc-order-success {
-        text-align: center;
-        padding: 3rem 2rem 2rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
 
     .tc-order-success__icon {
         margin-bottom: 0.4rem;
@@ -848,23 +824,29 @@
 
     .tc-order-success__msg {
         font-size: 2rem;
-        font-weight: 700;
-        color: rgba(0, 0, 0, 0.85);
+        font-weight: 700;      
+        padding: 3rem;
+        background: rgba(67, 125, 64, 0.13);
+        color: #437D40;
+        font-size: 3rem;
+        font-weight: 500;
     }
 
     .tc-order-success__num {
         font-size: 1.5rem;
         color: rgba(0, 0, 0, 0.55);
-
-        strong {
-            color: $checkout-primary;
-            font-size: 1.8rem;
-        }
+        padding: 1.5rem 5rem;
+        gap: 810px;
+        border: 1.5px solid rgba(0, 0, 0, 0.2);
+        color: #2F2F2F;
+        font-size: 2.4rem;
     }
-
+    .tc-order-support_msg{
+        font-size: 2.4rem;
+        margin-top: 3rem;
+    }
     .tc-invoice {
         border: 1px solid $checkout-border;
-        border-radius: $checkout-radius;
         overflow: hidden;
         margin-top: 2.4rem;
 
@@ -880,7 +862,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 2rem 2.4rem;
-        background: rgba(93, 14, 135, 0.04);
+        background: #EAEAEA;
         border-bottom: 1px solid $checkout-border;
 
         img {
@@ -1120,6 +1102,7 @@
     }
 
     .header {
+        margin-bottom: 3.5rem;
         .top-bg {
             height: 9.5rem;
             border-bottom: 2px dashed #5d0e87;
@@ -1236,5 +1219,84 @@
     }
 
     @media (max-width: 768px) {
+    }
+
+    // ── COD Info Modal ───────────────────────────────────────────
+    .tc-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.25s ease, visibility 0.25s ease;
+        padding: 2rem;
+
+        &.is-open {
+            opacity: 1;
+            visibility: visible;
+
+            .tc-modal {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    }
+
+    .tc-modal {
+        background: #1e1e1e;
+        color: #f5f5f5;
+        border-radius: 1.6rem;
+        padding: 3.2rem 2.8rem;
+        max-width: 46rem;
+        width: 100%;
+        position: relative;
+        transform: translateY(2rem);
+        opacity: 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        text-align: right;
+        direction: rtl;
+
+        &__close {
+            position: absolute;
+            top: 1.6rem;
+            left: 1.6rem;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            padding: 0.4rem;
+            line-height: 1;
+            transition: color 0.2s;
+
+            &:hover {
+                color: #fff;
+            }
+        }
+
+        &__icon {
+            color: var(--color-primary);
+            margin-bottom: 1.6rem;
+        }
+
+        &__title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.4rem;
+            color: #fff;
+        }
+
+        &__body {
+            font-size: 1.5rem;
+            line-height: 2;
+            color: rgba(255, 255, 255, 0.75);
+
+            strong {
+                color: #fff;
+            }
+        }
     }
 }

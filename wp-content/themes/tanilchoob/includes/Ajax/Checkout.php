@@ -170,12 +170,12 @@ class Checkout {
 			// Option adjustment meta is handled by Frontend.php via woocommerce_checkout_create_order_line_item
 		}
 
-		$payment_titles = [
-			'cod'          => 'پرداخت در محل',
-			'online'       => 'پرداخت آنلاین',
-			'bank_transfer' => 'واریز به حساب',
-			'installment'  => 'پرداخت اقساطی',
-		];
+		$gateways       = WC()->payment_gateways()->payment_gateways();
+		$gateway_obj    = $gateways[ $payment_method ] ?? null;
+
+		if ( ! $gateway_obj ) {
+			wp_send_json_error( [ 'message' => 'شیوه پرداخت انتخابی معتبر نیست.' ] );
+		}
 
 		$addr_data = [
 			'first_name' => $address['first_name'],
@@ -190,7 +190,7 @@ class Checkout {
 		$order->set_address( $addr_data, 'billing' );
 		$order->set_address( $addr_data, 'shipping' );
 		$order->set_payment_method( $payment_method );
-		$order->set_payment_method_title( $payment_titles[ $payment_method ] ?? $payment_method );
+		$order->set_payment_method_title( $gateway_obj->get_title() );
 
 		foreach ( WC()->cart->get_applied_coupons() as $coupon_code ) {
 			$order->apply_coupon( $coupon_code );
@@ -204,6 +204,16 @@ class Checkout {
 		$order->update_meta_data( '_tc_payment_note', $notes );
 		$order->save();
 
+		// For gateways that handle payment themselves (e.g. online bank redirect),
+		// call process_payment() to get the redirect URL.
+		if ( $gateway_obj->id !== 'cod' && $gateway_obj->id !== 'bacs' && $gateway_obj->id !== 'cheque' ) {
+			$result = $gateway_obj->process_payment( $order->get_id() );
+			if ( isset( $result['result'] ) && $result['result'] === 'success' && ! empty( $result['redirect'] ) ) {
+				WC()->cart->empty_cart();
+				wp_send_json_success( [ 'redirect_url' => $result['redirect'] ] );
+			}
+		}
+
 		WC()->cart->empty_cart();
 
 		$order_date = $order->get_date_created()
@@ -214,7 +224,7 @@ class Checkout {
 			'order_id'       => $order->get_id(),
 			'order_number'   => $order->get_order_number(),
 			'order_date'     => $order_date,
-			'payment_title'  => $payment_titles[ $payment_method ] ?? $payment_method,
+			'payment_title'  => $gateway_obj->get_title(),
 			'address'        => $address,
 			'notes'          => $notes,
 			'total'          => number_format( (float) $order->get_total(), 0, '.', ',' ),

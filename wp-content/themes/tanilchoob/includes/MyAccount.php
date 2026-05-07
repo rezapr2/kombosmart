@@ -291,39 +291,45 @@ class MyAccount {
 				+ افزودن آدرس جدید
 			</button>
 
-			<div class="tc-address-form" id="tc-address-form">
-				<h3 class="tc-address-form__title" id="tc-address-form-title">افزودن آدرس جدید</h3>
-				<input type="hidden" id="tc-address-id" value="">
-				<div class="tc-form-grid">
-					<div class="tc-form-field">
-						<label for="tc-addr-first-name">نام <span class="required">*</span></label>
-						<input type="text" id="tc-addr-first-name" placeholder="نام">
+			<div class="tc-address-modal-overlay" id="tc-address-modal-overlay" aria-hidden="true">
+				<div class="tc-address-form" id="tc-address-form" role="dialog" aria-modal="true" dir="rtl">
+					<button class="tc-address-form__close" id="tc-cancel-address-btn" aria-label="بستن">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+							<path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+						</svg>
+					</button>
+					<h3 class="tc-address-form__title" id="tc-address-form-title">افزودن آدرس جدید</h3>
+					<input type="hidden" id="tc-address-id" value="">
+					<div class="tc-form-grid">
+						<div class="tc-form-field">
+							<label for="tc-addr-first-name">نام <span class="required">*</span></label>
+							<input type="text" id="tc-addr-first-name" placeholder="نام">
+						</div>
+						<div class="tc-form-field">
+							<label for="tc-addr-last-name">نام خانوادگی <span class="required">*</span></label>
+							<input type="text" id="tc-addr-last-name" placeholder="نام خانوادگی">
+						</div>
+						<div class="tc-form-field">
+							<label for="tc-addr-phone">شماره تماس <span class="required">*</span></label>
+							<input type="tel" id="tc-addr-phone" placeholder="09xxxxxxxxx" dir="ltr">
+						</div>
+						<div class="tc-form-field">
+							<label for="tc-addr-postcode">کد پستی</label>
+							<input type="text" id="tc-addr-postcode" placeholder="کد پستی" dir="ltr">
+						</div>
+						<div class="tc-form-field tc-form-field--full">
+							<label for="tc-addr-city">شهر <span class="required">*</span></label>
+							<input type="text" id="tc-addr-city" placeholder="شهر">
+						</div>
+						<div class="tc-form-field tc-form-field--full">
+							<label for="tc-addr-address1">آدرس <span class="required">*</span></label>
+							<textarea id="tc-addr-address1" placeholder="آدرس کامل" rows="3"></textarea>
+						</div>
 					</div>
-					<div class="tc-form-field">
-						<label for="tc-addr-last-name">نام خانوادگی <span class="required">*</span></label>
-						<input type="text" id="tc-addr-last-name" placeholder="نام خانوادگی">
+					<p class="tc-form-msg" id="tc-address-msg"></p>
+					<div class="tc-address-form__footer">
+						<button class="tc-btn tc-btn--primary" id="tc-save-address-btn">ذخیره آدرس</button>
 					</div>
-					<div class="tc-form-field">
-						<label for="tc-addr-phone">شماره تماس <span class="required">*</span></label>
-						<input type="tel" id="tc-addr-phone" placeholder="09xxxxxxxxx" dir="ltr">
-					</div>
-					<div class="tc-form-field">
-						<label for="tc-addr-postcode">کد پستی</label>
-						<input type="text" id="tc-addr-postcode" placeholder="کد پستی" dir="ltr">
-					</div>
-					<div class="tc-form-field tc-form-field--full">
-						<label for="tc-addr-city">شهر <span class="required">*</span></label>
-						<input type="text" id="tc-addr-city" placeholder="شهر">
-					</div>
-					<div class="tc-form-field tc-form-field--full">
-						<label for="tc-addr-address1">آدرس <span class="required">*</span></label>
-						<textarea id="tc-addr-address1" placeholder="آدرس کامل" rows="3"></textarea>
-					</div>
-				</div>
-				<p class="tc-form-msg" id="tc-address-msg"></p>
-				<div class="tc-address-form__footer">
-					<button class="tc-btn tc-btn--primary" id="tc-save-address-btn">ذخیره آدرس</button>
-					<button class="tc-btn tc-btn--ghost" id="tc-cancel-address-btn">انصراف</button>
 				</div>
 			</div>
 

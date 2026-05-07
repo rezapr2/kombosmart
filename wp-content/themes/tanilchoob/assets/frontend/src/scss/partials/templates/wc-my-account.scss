@@ -685,6 +685,68 @@
         }
     }
 
+    // ── Address modal overlay ────────────────────────────────────
+    .tc-address-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        padding: 2rem;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.25s ease, visibility 0.25s ease;
+
+        &.is-open {
+            opacity: 1;
+            visibility: visible;
+
+            .tc-address-form {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    }
+
+    .tc-account-addresses .tc-address-form {
+        position: relative;
+        background: #fff;
+        border-radius: 1.6rem;
+        padding: 3.2rem 2.8rem;
+        max-width: 56rem;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        transform: translateY(2rem);
+        opacity: 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        direction: rtl;
+        text-align: right;
+
+        &.is-open {
+            display: block;
+        }
+
+        .tc-address-form__close {
+            position: absolute;
+            top: 1.6rem;
+            left: 1.6rem;
+            background: none;
+            border: none;
+            color: rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            padding: 0.4rem;
+            line-height: 1;
+            transition: color 0.2s;
+
+            &:hover {
+                color: #000;
+            }
+        }
+    }
+
     // Mobile overrides
     @media (max-width: 768px) {
         .wc-account-product-row {
