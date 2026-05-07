@@ -172,7 +172,48 @@ class MyAccount {
 	// ── Messages ───────────────────────────────────────────────────────────
 
 	public function messages_content() {
-		echo '<p class="wc-account-empty-msg">هیچ پیامی وجود ندارد.</p>';
+		$user_id  = get_current_user_id();
+		$messages = \TanilChoob\Theme\PostType\CustomerMessage::get_for_user( $user_id );
+
+		wp_localize_script( 'scripts', 'tcCheckout', [
+			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+			'nonce'   => wp_create_nonce( 'ajax-nonce' ),
+		] );
+
+		if ( empty( $messages ) ) {
+			echo '<p class="wc-account-empty-msg">هیچ پیامی وجود ندارد.</p>';
+			return;
+		}
+		?>
+		<div class="tc-messages-list" dir="rtl">
+			<?php foreach ( $messages as $msg ) :
+				$read    = get_post_meta( $msg->ID, '_tc_message_read', true );
+				$subject = get_the_title( $msg );
+				$body    = wpautop( wp_kses_post( $msg->post_content ) );
+				$date    = get_the_date( 'Y/m/d', $msg );
+			?>
+			<div class="tc-message-item <?php echo $read ? 'is-read' : 'is-unread'; ?>" data-id="<?php echo esc_attr( $msg->ID ); ?>">
+				<div class="tc-message-item__header">
+					<span class="tc-message-item__subject"><?php echo esc_html( $subject ); ?></span>
+					<span class="tc-message-item__date"><?php echo esc_html( $date ); ?></span>
+					<?php if ( ! $read ) : ?>
+					<span class="tc-message-item__badge">جدید</span>
+					<?php endif; ?>
+				</div>
+				<div class="tc-message-item__body"><?php echo $body; ?></div>
+			</div>
+			<?php endforeach; ?>
+		</div>
+		<script>
+		(function($){
+			$('.tc-message-item.is-unread').each(function(){
+				var id = $(this).data('id');
+				$.post(tcCheckout.ajaxUrl, { action: 'tc_mark_message_read', nonce: tcCheckout.nonce, message_id: id });
+				$(this).removeClass('is-unread').addClass('is-read').find('.tc-message-item__badge').remove();
+			});
+		})(jQuery);
+		</script>
+		<?php
 	}
 
 	// ── Wishlist ───────────────────────────────────────────────────────────
