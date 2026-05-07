@@ -1,10 +1,9 @@
 'use strict';
 
 (function ($) {
-
+    jQuery(document).ready(function ($) {
     // Guard: only run on the checkout page
     if (!$('.tc-checkout').length) return;
-
     var cfg       = window.tcCheckout || {};
     var AJAX_URL  = cfg.ajaxUrl || (window.tanilchoob && tanilchoob.ajax.url) || '';
     var NONCE     = cfg.nonce  || (window.tanilchoob && tanilchoob.ajax.nonce) || '';
@@ -122,6 +121,7 @@
     }
 
     $(document).on('click', '.tc-qty-plus', function () {
+        console.log('reasrasr');
         if (isLoading) return;
         var key = $(this).data('key');
         var $val = $('.tc-qty__val[data-key="' + key + '"]');
@@ -408,5 +408,6 @@
     $(document).ready(function () {
         goToStep(1);
     });
-
+    });
 })(jQuery);
+

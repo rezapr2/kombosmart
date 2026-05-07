@@ -1,85 +1,107 @@
 .page-template-ordering-process {
-    .header{
-        .top-bg{
+    .header {
+        .top-bg {
             height: 11rem;
-            border-bottom: 2px dashed #5D0E87;
+            border-bottom: 2px dashed #5d0e87;
         }
-        .items{
+        .items {
             padding-top: 3rem;
-            .item{
-                width: 15rem;
-                height: 15rem;
-                overflow: hidden;
-                background-color: #F0F0F0;
-                border: 5px solid #fff;
-                outline: 1px solid rgba(0, 0, 0, 0.1) !important;
-                &.active{
-                    outline: 1px solid #5D0E87 !important;
+            .item {
+                .circle {
+                    width: 15rem;
+                    height: 15rem;
+                    background-color: #f0f0f0;
+                    border: 5px solid #fff;
+                    outline: 1px solid rgba(0, 0, 0, 0.1) !important;
+
+                    img {
+                        opacity: 0.15;
+                    }
+                }
+                .label {
+                    opacity: 0.15;
+                }
+                &.active {
+                    .circle {
+                        outline: 1px solid #5d0e87 !important;
+                    }
+                    .label,
+                    .circle img {
+                        opacity: 1;
+                    }
                 }
             }
         }
     }
-            /* ظرف اصلی جدول گریدی */
-        .grid-table {
-            width: 100%;
-            overflow: hidden;
-            margin-top: 4rem;
-        }
+    /* ظرف اصلی جدول گریدی */
+    .grid-table {
+        width: 100%;
+        overflow: hidden;
+        margin-top: 4rem;
+    }
 
-        /* هر سطر از گرید: 3 ستون (دسته, توضیحات, قیمت/جزئیات) */
-        .grid-row {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1.2fr 1.2fr 0.9fr;
-            border-bottom: 1px solid #f0e9df;
-            transition: background 0.1s ease;
-        }
+    /* هر سطر از گرید: 3 ستون (دسته, توضیحات, قیمت/جزئیات) */
+    .grid-row {
+        display: grid;
+        grid-template-columns: 2.5fr 0.7fr 2fr 1fr 0.9fr;
+        border-bottom: 1px solid #f0e9df;
+        transition: background 0.1s ease;
+    }
 
-        /* سلول‌ها */
-        .grid-cell {
-            padding: 1rem 1.2rem;
-            line-height: 1.45;
-            &.actions{
-                .button{
-                    padding: 2rem;
-                    width: 6.4rem;
-                    height: 6.4rem;
-                    border: 1px solid #2F2F2F;
-                    &:hover{
-                        background-color: #2F2F2F;
-                        svg path{
-                            stroke: #fff;
-                        }
-                    }
-                    &.remove{
-                        border-color: #FF0000;
-                        &:hover{
-                            background-color: #FF0000;
-                        }
+    /* سلول‌ها */
+    .grid-cell {
+        padding: 1rem 1.2rem;
+        line-height: 1.45;
+        &.actions {
+            .button {
+                padding: 2rem;
+                width: 6.4rem;
+                height: 6.4rem;
+                border: 1px solid #2f2f2f;
+                &:hover {
+                    background-color: #2f2f2f;
+                    svg path {
+                        stroke: #fff;
                     }
                 }
-                
+                &.remove {
+                    border-color: #ff0000;
+                    &:hover {
+                        background-color: #ff0000;
+                    }
+                }
             }
         }
-        
-      
+    }
+    .cart-collaterals {
+        .cart_totals {
+            padding: 2.2rem 3rem;
+            border: 1px solid #5d0e87;
+        }
+        .wc-proceed-to-checkout {
+            padding: 1rem 2.5rem;
 
-        /* ریسپانسیو: در موبایل ستونها تبدیل به بلوک */
-        @media (max-width: 680px) {
-            .grid-row {
-                grid-template-columns: 1fr;
-                gap: 0;
-                border-bottom: 2px solid #e2d5c2;
-            }
-            .grid-cell {
-                border-left: none;
-                border-bottom: 1px solid #efe4d4;
-            }
-            .grid-header {
-                display: none;
+            .wc-forward {
+                color: white;
             }
         }
-   
+    }
+    /* ریسپانسیو: در موبایل ستونها تبدیل به بلوک */
+    @media (max-width: 680px) {
+        .grid-row {
+            grid-template-columns: 1fr;
+            gap: 0;
+            border-bottom: 2px solid #e2d5c2;
+        }
+        .grid-cell {
+            border-left: none;
+            border-bottom: 1px solid #efe4d4;
+        }
+        .grid-header {
+            display: none;
+        }
+    }
+
     @media (max-width: 768px) {
-       
     }
 }

@@ -15,25 +15,18 @@
  * @version 2.3.6
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
-<div class="cart_totals <?php echo ( WC()->customer->has_calculated_shipping() ) ? 'calculated_shipping' : ''; ?>">
+<div
+	class="cart_totals flex justify-between items-center <?php echo (WC()->customer->has_calculated_shipping()) ? 'calculated_shipping' : ''; ?>">
 
-
-
-	
-
-		<tr class="order-total">
-			<th><?php esc_html_e( 'Total', 'woocommerce' ); ?></th>
-			<td data-title="<?php esc_attr_e( 'Total', 'woocommerce' ); ?>"><?php wc_cart_totals_order_total_html(); ?></td>
-		</tr>
-
-
-
-	<div class="wc-proceed-to-checkout">
-		<?php do_action( 'woocommerce_proceed_to_checkout' ); ?>
+	<div class="yekan-28 color-black"><?php esc_html_e('مبلغ قابل پرداخت:', 'tanilchoob'); ?></div>
+	<div class="flex items-center gap-20">
+		<div class="yekan-30 bold color-primary"><?php wc_cart_totals_order_total_html(); ?></div>
+		<div class="wc-proceed-to-checkout bg-primary text-white yekan-24">
+			<?php do_action('woocommerce_proceed_to_checkout'); ?>
+		</div>
 	</div>
-
 
 </div>
