@@ -10,6 +10,8 @@ class Checkout {
 		add_action( 'wp_ajax_tc_address_save',      [ $this, 'handle_address_save' ] );
 		add_action( 'wp_ajax_tc_address_delete',    [ $this, 'handle_address_delete' ] );
 		add_action( 'wp_ajax_tc_place_order',       [ $this, 'handle_place_order' ] );
+		add_action( 'wp_ajax_tc_apply_coupon',      [ $this, 'handle_apply_coupon' ] );
+		add_action( 'wp_ajax_tc_remove_coupon',     [ $this, 'handle_remove_coupon' ] );
 		add_action( 'template_redirect',            [ $this, 'maybe_redirect_checkout' ] );
 	}
 
@@ -190,6 +192,10 @@ class Checkout {
 		$order->set_payment_method( $payment_method );
 		$order->set_payment_method_title( $payment_titles[ $payment_method ] ?? $payment_method );
 
+		foreach ( WC()->cart->get_applied_coupons() as $coupon_code ) {
+			$order->apply_coupon( $coupon_code );
+		}
+
 		if ( $notes ) {
 			$order->add_order_note( $notes, true );
 		}
@@ -214,6 +220,57 @@ class Checkout {
 			'total'          => number_format( (float) $order->get_total(), 0, '.', ',' ),
 			'items'          => $this->get_order_items_data( $order ),
 		] );
+	}
+
+	// ── Coupons ──────────────────────────────────────────────
+
+	public function handle_apply_coupon() {
+		$this->check_nonce();
+
+		$code = isset( $_POST['coupon_code'] ) ? sanitize_text_field( wp_unslash( $_POST['coupon_code'] ) ) : '';
+
+		if ( ! $code ) {
+			wp_send_json_error( [ 'message' => 'کد تخفیف را وارد کنید.' ] );
+		}
+
+		wc_clear_notices();
+
+		$result = WC()->cart->apply_coupon( $code );
+
+		if ( ! $result ) {
+			$notices = wc_get_notices( 'error' );
+			$msg     = ! empty( $notices ) ? wp_strip_all_tags( $notices[0]['notice'] ) : 'کد تخفیف معتبر نیست.';
+			wc_clear_notices();
+			wp_send_json_error( [ 'message' => $msg ] );
+		}
+
+		wc_clear_notices();
+		WC()->cart->calculate_totals();
+
+		wp_send_json_success( $this->coupon_response() );
+	}
+
+	public function handle_remove_coupon() {
+		$this->check_nonce();
+
+		$code = isset( $_POST['coupon_code'] ) ? sanitize_text_field( wp_unslash( $_POST['coupon_code'] ) ) : '';
+
+		if ( ! $code ) {
+			wp_send_json_error( [ 'message' => 'کد تخفیف معتبر نیست.' ] );
+		}
+
+		WC()->cart->remove_coupon( $code );
+		WC()->cart->calculate_totals();
+
+		wp_send_json_success( $this->coupon_response() );
+	}
+
+	private function coupon_response(): array {
+		return [
+			'cart_total'      => number_format( (float) WC()->cart->get_total( '' ), 0, '.', ',' ),
+			'discount_total'  => number_format( (float) WC()->cart->get_discount_total(), 0, '.', ',' ),
+			'applied_coupons' => WC()->cart->get_applied_coupons(),
+		];
 	}
 
 	// ── Helpers ──────────────────────────────────────────────

@@ -370,9 +370,28 @@ $steps = [
 	</div>
 
 	<!-- ── Footer bar ───────────────────────────────────── -->
-	<div class="tc-checkout__footer" id="tc-checkout-footer flex justify-between items-center">
+	<div class="tc-checkout__footer" id="tc-checkout-footer">
 		<div class="tc-checkout__footer-total">
 			<span>مبلغ قابل پرداخت:</span>
+			<div class="tc-coupon-wrap" id="tc-coupon-wrap">
+				<button class="tc-coupon-toggle" id="tc-coupon-toggle">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21.41 11.58l-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .59 1.42l9 9A2 2 0 0 0 13 22a2 2 0 0 0 1.41-.59l7-7A2 2 0 0 0 22 13a2 2 0 0 0-.59-1.42zM6.5 8a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+					کد تخفیف دارید؟
+				</button>
+				<div class="tc-coupon-form" id="tc-coupon-form">
+					<input type="text" id="tc-coupon-code" placeholder="کد تخفیف" dir="ltr">
+					<button class="tc-btn tc-btn--outline-primary" id="tc-apply-coupon-btn">اعمال</button>
+				</div>
+				<p class="tc-form-msg" id="tc-coupon-msg"></p>
+				<div class="tc-applied-coupons" id="tc-applied-coupons">
+					<?php foreach ( WC()->cart->get_applied_coupons() as $coupon_code ) : ?>
+					<div class="tc-coupon-tag" data-coupon="<?php echo esc_attr( $coupon_code ); ?>">
+						<span><?php echo esc_html( $coupon_code ); ?></span>
+						<button class="tc-coupon-remove" data-coupon="<?php echo esc_attr( $coupon_code ); ?>" aria-label="حذف کد تخفیف">×</button>
+					</div>
+					<?php endforeach; ?>
+				</div>
+			</div>
 		</div>
 		<div class="flex gap-30 items-center">
 			<div class="color-primary">
@@ -383,7 +402,6 @@ $steps = [
 				ادامه ثبت سفارش
 			</button>
 		</div>
-
 	</div>
 
 </div>

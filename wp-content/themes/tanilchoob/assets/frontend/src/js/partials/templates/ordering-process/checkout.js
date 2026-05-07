@@ -390,6 +390,63 @@
         $('#tc-invoice').html(html);
     }
 
+    // ── Coupon toggle ─────────────────────────────────────────
+
+    $(document).on('click', '#tc-coupon-toggle', function () {
+        $('#tc-coupon-form').toggleClass('is-open');
+        if ($('#tc-coupon-form').hasClass('is-open')) {
+            $('#tc-coupon-code').focus();
+        }
+    });
+
+    // ── Coupon ────────────────────────────────────────────────
+
+    function renderAppliedCoupons(coupons) {
+        var $list = $('#tc-applied-coupons');
+        $list.empty();
+        $.each(coupons, function (i, code) {
+            $list.append(
+                '<div class="tc-coupon-tag" data-coupon="' + esc(code) + '">' +
+                    '<span>' + esc(code) + '</span>' +
+                    '<button class="tc-coupon-remove" data-coupon="' + esc(code) + '" aria-label="حذف">×</button>' +
+                '</div>'
+            );
+        });
+    }
+
+    $(document).on('click', '#tc-apply-coupon-btn', function () {
+        var code = $.trim($('#tc-coupon-code').val());
+        var $msg = $('#tc-coupon-msg');
+        if (!code) {
+            showMsg($msg, 'کد تخفیف را وارد کنید.', true);
+            return;
+        }
+        $(this).prop('disabled', true).text('در حال بررسی...');
+        ajax('tc_apply_coupon', { coupon_code: code }, function (data) {
+            $('#tc-apply-coupon-btn').prop('disabled', false).text('اعمال کد تخفیف');
+            $('#tc-coupon-code').val('');
+            showMsg($msg, 'کد تخفیف با موفقیت اعمال شد.', false);
+            updateCartTotal(data.cart_total);
+            renderAppliedCoupons(data.applied_coupons);
+        }, function (msg) {
+            $('#tc-apply-coupon-btn').prop('disabled', false).text('اعمال کد تخفیف');
+            showMsg($msg, msg, true);
+        });
+    });
+
+    $(document).on('keydown', '#tc-coupon-code', function (e) {
+        if (e.key === 'Enter') $('#tc-apply-coupon-btn').trigger('click');
+    });
+
+    $(document).on('click', '.tc-coupon-remove', function () {
+        var code = $(this).data('coupon');
+        ajax('tc_remove_coupon', { coupon_code: code }, function (data) {
+            updateCartTotal(data.cart_total);
+            renderAppliedCoupons(data.applied_coupons);
+            $('#tc-coupon-msg').text('').removeClass('is-error is-success');
+        });
+    });
+
     // ── Step indicator click (navigate back to done steps) ────
 
     $(document).on('click', '[data-step]', function () {
