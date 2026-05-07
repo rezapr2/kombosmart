@@ -185,7 +185,7 @@ class MyAccount {
 			return;
 		}
 		?>
-		<div class="tc-messages-list" dir="rtl">
+		<div class="tc-messages-list">
 			<?php foreach ( $messages as $msg ) :
 				$read    = get_post_meta( $msg->ID, '_tc_message_read', true );
 				$subject = get_the_title( $msg );
