@@ -229,8 +229,7 @@
     .tc-icon-btn {
         width: 3.4rem;
         height: 3.4rem;
-        border-radius: 0.8rem;
-        border: 1.5px solid transparent;
+        border: 1px solid transparent;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -246,6 +245,17 @@
                 background: #dc3545;
                 color: #fff;
                 border-color: #dc3545;
+            }
+        }
+        &--view{
+            border-color: #2f2f2f;
+            color: #2f2f2f;
+
+            &:hover {
+                background: #2f2f2f;
+                border-color: #2f2f2f;
+                color: #fff;
+
             }
         }
     }

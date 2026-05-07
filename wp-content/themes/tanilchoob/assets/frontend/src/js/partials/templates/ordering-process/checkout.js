@@ -2,8 +2,8 @@
 
 (function ($) {
     jQuery(document).ready(function ($) {
-    // Guard: only run on the checkout page
-    if (!$('.tc-checkout').length) return;
+    // Guard: only run on the checkout or account addresses page
+    if (!$('.tc-checkout').length && !$('.tc-account-addresses').length) return;
     var cfg       = window.tcCheckout || {};
     var AJAX_URL  = cfg.ajaxUrl || (window.tanilchoob && tanilchoob.ajax.url) || '';
     var NONCE     = cfg.nonce  || (window.tanilchoob && tanilchoob.ajax.nonce) || '';
