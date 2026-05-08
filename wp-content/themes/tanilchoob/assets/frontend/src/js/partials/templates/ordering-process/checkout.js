@@ -169,7 +169,7 @@
 
     function renderAddressCard(addr, checked) {
         var checkedAttr = checked ? 'checked' : '';
-        return '<div class="tc-address-card" data-id="' + addr.id + '">' +
+        return '<div class="tc-address-card flex justify-between" data-id="' + addr.id + '">' +
             '<label class="tc-address-card__inner">' +
                 '<input type="radio" name="tc_selected_address" value="' + addr.id + '" class="tc-address-radio" ' + checkedAttr + '>' +
                 '<span class="tc-address-card__check-icon">' +
@@ -184,14 +184,14 @@
                     '</div>' +
                 '</div>' +
             '</label>' +
-            '<div class="tc-address-card__actions">' +
+            '<div class="tc-address-card__actions flex flex-col">' +
                 '<button class="tc-btn tc-btn--sm tc-btn--danger-outline tc-address-delete" data-id="' + addr.id + '">' +
-                    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M21 5.98c-3.33-.33-6.68-.5-10.02-.5-1.98 0-3.96.1-5.94.3L3 5.98M8.5 4.97l.22-1.31C8.88 2.71 9 2 10.69 2h2.62c1.69 0 1.82.75 1.97 1.67l.22 1.3M18.85 9.14l-.65 10.07C18.09 20.78 18 22 15.21 22H8.79C6 22 5.91 20.78 5.8 19.21L5.15 9.14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
                     'حذف آدرس' +
+                    '<svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 5.98047C17.67 5.65047 14.32 5.48047 10.98 5.48047C9 5.48047 7.02 5.58047 5.04 5.78047L3 5.98047" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.8484 9.14062L18.1984 19.2106C18.0884 20.7806 17.9984 22.0006 15.2084 22.0006H8.78844C5.99844 22.0006 5.90844 20.7806 5.79844 19.2106L5.14844 9.14062" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.3281 16.5H13.6581" stroke="#currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 12.5H14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
                 '</button>' +
                 '<button class="tc-btn tc-btn--sm tc-btn--outline tc-address-edit" data-id="' + addr.id + '" data-address=\'' + JSON.stringify(addr) + '\'>' +
-                    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M13.26 3.6l-8.21 8.69c-.31.33-.61.98-.67 1.43l-.37 3.24c-.13 1.13.71 1.93 1.83 1.75l3.22-.55c.45-.08 1.08-.41 1.39-.75l8.21-8.69c1.42-1.5 2.06-3.21.63-4.74-1.44-1.54-3.12-.94-4.03.62z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
                     'ویرایش آدرس' +
+                    '<svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.2594 3.59924L5.04936 12.2892C4.73936 12.6192 4.43936 13.2692 4.37936 13.7192L4.00936 16.9592C3.87936 18.1292 4.71936 18.9292 5.87936 18.7292L9.09936 18.1792C9.54936 18.0992 10.1794 17.7692 10.4894 17.4292L18.6994 8.73924C20.1194 7.23924 20.7594 5.52924 18.5494 3.43924C16.3494 1.36924 14.6794 2.09924 13.2594 3.59924Z" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.8906 5.05078C12.3206 7.81078 14.5606 9.92078 17.3406 10.2008" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 22H21" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>'
                 '</button>' +
             '</div>' +
         '</div>';

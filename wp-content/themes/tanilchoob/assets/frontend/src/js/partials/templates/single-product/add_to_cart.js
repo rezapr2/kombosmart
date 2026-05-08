@@ -289,12 +289,16 @@
 
             var quantity = absInt($form.find('input[name="quantity"]').val()) || 1;
 
+            // Ensure option adjustments hidden input is up-to-date before reading
+            tcUpdateOptionsUI();
+
             // WooCommerce AJAX handler expects product_id = variation ID for variation products.
             // It reads parent + variation attributes from the variation itself.
             var postData = {
                 product_id:   variationId,
                 quantity:     quantity,
-                'add-to-cart': variationId
+                'add-to-cart': variationId,
+                product_option_adjustments: $form.find('input[name="product_option_adjustments"]').val() || '[]'
             };
 
             var ajaxUrl = (typeof wc_add_to_cart_params !== 'undefined' && wc_add_to_cart_params.wc_ajax_url)
