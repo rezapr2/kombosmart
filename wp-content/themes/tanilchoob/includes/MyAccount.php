@@ -7,6 +7,7 @@ class MyAccount {
 	const REWRITE_VERSION = '1.1';
 
 	public function __construct() {
+		add_action( 'template_redirect', [ $this, 'track_product_view' ] );
 		add_action( 'init', [ $this, 'register_endpoints' ] );
 		add_filter( 'woocommerce_account_menu_items', [ $this, 'filter_menu_items' ] );
 		add_action( 'woocommerce_account_recently-viewed_endpoint', [ $this, 'recently_viewed_content' ] );
@@ -15,6 +16,9 @@ class MyAccount {
 		add_action( 'woocommerce_account_messages_endpoint',        [ $this, 'messages_content' ] );
 		add_action( 'woocommerce_account_wishlist_endpoint',        [ $this, 'wishlist_content' ] );
 		add_action( 'woocommerce_account_tc-addresses_endpoint',   [ $this, 'tc_addresses_content' ] );
+		add_action( 'wp_ajax_tc_delete_review',         [ $this, 'ajax_delete_review' ] );
+		add_action( 'wp_ajax_tc_toggle_wishlist',       [ $this, 'ajax_toggle_wishlist' ] );
+		add_action( 'woocommerce_save_account_details', [ $this, 'save_account_custom_fields' ] );
 	}
 
 	public function register_endpoints() {
@@ -29,6 +33,16 @@ class MyAccount {
 			flush_rewrite_rules();
 			update_option( 'tc_myaccount_rewrite_v', self::REWRITE_VERSION );
 		}
+	}
+
+	public function save_account_custom_fields( int $user_id ) {
+		if ( isset( $_POST['billing_national_id'] ) ) {
+			update_user_meta( $user_id, 'billing_national_id', sanitize_text_field( $_POST['billing_national_id'] ) );
+		}
+		if ( isset( $_POST['billing_phone'] ) ) {
+			update_user_meta( $user_id, 'billing_phone', sanitize_text_field( $_POST['billing_phone'] ) );
+		}
+		update_user_meta( $user_id, 'tc_newsletter', ! empty( $_POST['tc_newsletter'] ) ? '1' : '' );
 	}
 
 	public function filter_menu_items( $items ) {
@@ -46,6 +60,28 @@ class MyAccount {
 	}
 
 	// ── Recently Viewed ────────────────────────────────────────────────────
+
+	public function track_product_view() {
+		if ( ! is_singular( 'product' ) ) {
+			return;
+		}
+
+		$viewed = empty( $_COOKIE['woocommerce_recently_viewed'] )
+			? []
+			: wp_parse_id_list( explode( '|', wp_unslash( $_COOKIE['woocommerce_recently_viewed'] ) ) );
+
+		$product_id = get_the_ID();
+
+		// Move to end (most recent) if already present
+		$viewed = array_diff( $viewed, [ $product_id ] );
+		$viewed[] = $product_id;
+
+		if ( \count( $viewed ) > 15 ) {
+			array_shift( $viewed );
+		}
+
+		wc_setcookie( 'woocommerce_recently_viewed', implode( '|', $viewed ) );
+	}
 
 	public function recently_viewed_content() {
 		$viewed = isset( $_COOKIE['woocommerce_recently_viewed'] )
@@ -86,13 +122,37 @@ class MyAccount {
 					<p class="wc-account-product-row__price"><?php echo $price_html; ?></p>
 					<?php endif; ?>
 				</div>
-				<div class="wc-account-product-row__action">
+				<div class="wc-account-product-row__action flex flex-col">
 					<a href="<?php echo esc_url( $permalink ); ?>" class="btn-view-product">مشاهده محصول</a>
+					<button class="tc-btn tc-btn--sm tc-btn--danger-outline tc-recently-viewed-delete" data-id="<?php echo esc_attr( $product_id ); ?>">
+						حذف
+						<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M21 5.98C17.67 5.65 14.32 5.48 10.98 5.48c-1.98 0-3.96.1-5.94.3L3 5.98" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M8.5 4.97l.22-1.31C8.88 2.71 9 2 10.69 2h2.62C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M18.85 9.14l-.65 10.07C18.09 20.78 18 22 15.21 22H8.79C5.999 22 5.91 20.78 5.8 19.21L5.15 9.14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M10.33 16.5h3.33M9.5 12.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</button>
 				</div>
 			</div>
 			<?php
 		}
 		echo '</div>';
+		?>
+		<script>
+		(function($){
+			$(document).on('click', '.tc-recently-viewed-delete', function(){
+				var $btn = $(this);
+				var id = String($btn.data('id'));
+				var cookie = decodeURIComponent(document.cookie.replace(/(?:(?:^|.*;\s*)woocommerce_recently_viewed\s*=\s*([^;]*).*$)|^.*$/, '$1'));
+				var ids = cookie ? cookie.split('|').filter(function(v){ return v && v !== id; }) : [];
+				var expires = ids.length ? '; path=/; max-age=' + (60 * 60 * 24 * 30) : '; path=/; max-age=0';
+				document.cookie = 'woocommerce_recently_viewed=' + ids.join('|') + expires;
+				$btn.closest('.wc-account-product-row').fadeOut(300, function(){ $(this).remove(); });
+			});
+		})(jQuery);
+		</script>
+		<?php
 	}
 
 	// ── Reviews ────────────────────────────────────────────────────────────
@@ -106,6 +166,11 @@ class MyAccount {
 			'number'  => 20,
 		] );
 
+		wp_localize_script( 'scripts', 'tcCheckout', [
+			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+			'nonce'   => wp_create_nonce( 'ajax-nonce' ),
+		] );
+
 		if ( empty( $comments ) ) {
 			echo '<p class="wc-account-empty-msg">هنوز نظری ثبت نکرده‌اید.</p>';
 			return;
@@ -117,18 +182,68 @@ class MyAccount {
 			if ( ! $product ) {
 				continue;
 			}
-			$rating = intval( get_comment_meta( $comment->comment_ID, 'rating', true ) );
 			?>
-			<div class="wc-account-review-item">
+			<div class="wc-account-review-item" data-id="<?php echo esc_attr( $comment->comment_ID ); ?>">
 				<div class="wc-account-review-item__product">
 					<a href="<?php echo esc_url( $product->get_permalink() ); ?>"><?php echo esc_html( $product->get_name() ); ?></a>
 				</div>
 				<p class="wc-account-review-item__text"><?php echo esc_html( $comment->comment_content ); ?></p>
-				<span class="wc-account-review-item__date"><?php echo esc_html( get_comment_date( '', $comment ) ); ?></span>
+				<div class="wc-account-review-item__footer">
+					<span class="wc-account-review-item__date"><?php echo esc_html( get_comment_date( '', $comment ) ); ?></span>
+					<button class="tc-btn tc-btn--sm tc-btn--danger-outline tc-review-delete" data-id="<?php echo esc_attr( $comment->comment_ID ); ?>">
+						حذف نظر
+						<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M21 5.98C17.67 5.65 14.32 5.48 10.98 5.48c-1.98 0-3.96.1-5.94.3L3 5.98" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M8.5 4.97l.22-1.31C8.88 2.71 9 2 10.69 2h2.62C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M18.85 9.14l-.65 10.07C18.09 20.78 18 22 15.21 22H8.79C5.999 22 5.91 20.78 5.8 19.21L5.15 9.14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M10.33 16.5h3.33M9.5 12.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</button>
+				</div>
 			</div>
 			<?php
 		}
 		echo '</div>';
+		?>
+		<script>
+		(function($){
+			$(document).on('click', '.tc-review-delete', function(){
+				var $btn = $(this);
+				var id = $btn.data('id');
+				if (!confirm('آیا از حذف این نظر اطمینان دارید؟')) return;
+				$btn.prop('disabled', true);
+				$.post(tcCheckout.ajaxUrl, { action: 'tc_delete_review', nonce: tcCheckout.nonce, comment_id: id }, function(res){
+					if (res && res.success) {
+						$btn.closest('.wc-account-review-item').fadeOut(300, function(){ $(this).remove(); });
+					} else {
+						alert(res && res.data ? res.data : 'خطا در حذف نظر');
+						$btn.prop('disabled', false);
+					}
+				});
+			});
+		})(jQuery);
+		</script>
+		<?php
+	}
+
+	public function ajax_delete_review() {
+		check_ajax_referer( 'ajax-nonce', 'nonce' );
+
+		$comment_id = absint( $_POST['comment_id'] ?? 0 );
+		if ( ! $comment_id ) {
+			wp_send_json_error( 'شناسه نظر نامعتبر است' );
+		}
+
+		$comment = get_comment( $comment_id );
+		if ( ! $comment || (int) $comment->user_id !== get_current_user_id() ) {
+			wp_send_json_error( 'دسترسی غیرمجاز' );
+		}
+
+		if ( wp_delete_comment( $comment_id, true ) ) {
+			wp_send_json_success();
+		} else {
+			wp_send_json_error( 'حذف نظر با خطا مواجه شد' );
+		}
 	}
 
 	// ── Questions ──────────────────────────────────────────────────────────
@@ -218,8 +333,115 @@ class MyAccount {
 
 	// ── Wishlist ───────────────────────────────────────────────────────────
 
+	public static function get_wishlist( int $user_id ): array {
+		$list = get_user_meta( $user_id, 'tc_wishlist', true );
+		return is_array( $list ) ? $list : [];
+	}
+
+	public function ajax_toggle_wishlist() {
+		check_ajax_referer( 'ajax-nonce', 'nonce' );
+
+		$product_id = absint( $_POST['product_id'] ?? 0 );
+		if ( ! $product_id ) {
+			wp_send_json_error( 'شناسه محصول نامعتبر است' );
+		}
+
+		$user_id = get_current_user_id();
+		if ( ! $user_id ) {
+			wp_send_json_error( 'لطفاً وارد حساب کاربری خود شوید' );
+		}
+
+		$list = self::get_wishlist( $user_id );
+
+		if ( in_array( $product_id, $list, true ) ) {
+			$list = array_values( array_diff( $list, [ $product_id ] ) );
+			$in_wishlist = false;
+		} else {
+			$list[] = $product_id;
+			$in_wishlist = true;
+		}
+
+		update_user_meta( $user_id, 'tc_wishlist', $list );
+		wp_send_json_success( [ 'in_wishlist' => $in_wishlist ] );
+	}
+
 	public function wishlist_content() {
-		echo '<p class="wc-account-empty-msg">لیست علاقه‌مندی‌ها خالی است.</p>';
+		$user_id = get_current_user_id();
+		$list    = self::get_wishlist( $user_id );
+
+		wp_localize_script( 'scripts', 'tcCheckout', [
+			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+			'nonce'   => wp_create_nonce( 'ajax-nonce' ),
+		] );
+
+		if ( empty( $list ) ) {
+			echo '<p class="wc-account-empty-msg">لیست علاقه‌مندی‌ها خالی است.</p>';
+			return;
+		}
+
+		echo '<div class="wc-account-product-list">';
+		foreach ( $list as $product_id ) {
+			$product = wc_get_product( $product_id );
+			if ( ! $product ) {
+				continue;
+			}
+			$title      = $product->get_name();
+			$permalink  = $product->get_permalink();
+			$image_id   = $product->get_image_id();
+			$image_url  = $image_id ? wp_get_attachment_image_url( $image_id, 'medium' ) : wc_placeholder_img_src();
+			$price_html = $product->get_price_html();
+			if ( $price_html ) {
+				$price_html = preg_replace( '/<\/?(ins)[^>]*>/', '', $price_html );
+			}
+			?>
+			<div class="wc-account-product-row" data-id="<?php echo esc_attr( $product_id ); ?>">
+				<div class="wc-account-product-row__img">
+					<a href="<?php echo esc_url( $permalink ); ?>">
+						<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $title ); ?>">
+					</a>
+				</div>
+				<div class="wc-account-product-row__info">
+					<h3 class="wc-account-product-row__title">
+						<a href="<?php echo esc_url( $permalink ); ?>"><?php echo esc_html( $title ); ?></a>
+					</h3>
+					<?php if ( $price_html ) : ?>
+					<p class="wc-account-product-row__price"><?php echo $price_html; ?></p>
+					<?php endif; ?>
+				</div>
+				<div class="wc-account-product-row__action flex flex-col">
+					<a href="<?php echo esc_url( $permalink ); ?>" class="btn-view-product">مشاهده محصول</a>
+					<button class="tc-btn tc-btn--sm tc-btn--danger-outline tc-wishlist-remove" data-id="<?php echo esc_attr( $product_id ); ?>">
+						حذف از علاقه‌مندی‌ها
+						<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M21 5.98C17.67 5.65 14.32 5.48 10.98 5.48c-1.98 0-3.96.1-5.94.3L3 5.98" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M8.5 4.97l.22-1.31C8.88 2.71 9 2 10.69 2h2.62C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M18.85 9.14l-.65 10.07C18.09 20.78 18 22 15.21 22H8.79C5.999 22 5.91 20.78 5.8 19.21L5.15 9.14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M10.33 16.5h3.33M9.5 12.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</button>
+				</div>
+			</div>
+			<?php
+		}
+		echo '</div>';
+		?>
+		<script>
+		(function($){
+			$(document).on('click', '.tc-wishlist-remove', function(){
+				var $btn = $(this);
+				var id = $btn.data('id');
+				$btn.prop('disabled', true);
+				$.post(tcCheckout.ajaxUrl, { action: 'tc_toggle_wishlist', nonce: tcCheckout.nonce, product_id: id }, function(res){
+					if (res && res.success) {
+						$btn.closest('.wc-account-product-row').fadeOut(300, function(){ $(this).remove(); });
+					} else {
+						$btn.prop('disabled', false);
+					}
+				});
+			});
+		})(jQuery);
+		</script>
+		<?php
 	}
 
 	// ── Addresses ─────────────────────────────────────────────────────────
@@ -247,7 +469,7 @@ class MyAccount {
 					<p class="tc-addresses__empty">هنوز آدرسی ذخیره نکرده‌اید. یک آدرس جدید اضافه کنید.</p>
 				<?php else : ?>
 					<?php foreach ( $addresses as $i => $addr ) : ?>
-					<div class="tc-address-card" data-id="<?php echo esc_attr( $addr['id'] ); ?>">
+					<div class="tc-address-card flex justify-between" data-id="<?php echo esc_attr( $addr['id'] ); ?>">
 						<label class="tc-address-card__inner">
 							<input type="radio" name="tc_selected_address" value="<?php echo esc_attr( $addr['id'] ); ?>" class="tc-address-radio" <?php checked( $i, 0 ); ?>>
 							<span class="tc-address-card__check-icon">
@@ -270,16 +492,33 @@ class MyAccount {
 								</div>
 							</div>
 						</label>
-						<div class="tc-address-card__actions">
-							<button class="tc-btn tc-btn--sm tc-btn--danger-outline tc-address-delete" data-id="<?php echo esc_attr( $addr['id'] ); ?>">
-								<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M21 5.98c-3.33-.33-6.68-.5-10.02-.5-1.98 0-3.96.1-5.94.3L3 5.98M8.5 4.97l.22-1.31C8.88 2.71 9 2 10.69 2h2.62c1.69 0 1.82.75 1.97 1.67l.22 1.3M18.85 9.14l-.65 10.07C18.09 20.78 18 22 15.21 22H8.79C6 22 5.91 20.78 5.8 19.21L5.15 9.14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+						<div class="tc-address-card__actions flex flex-col">
+							<button class="tc-btn tc-btn--sm tc-btn--danger-outline tc-address-delete flex justify-between"
+								data-id="<?php echo esc_attr($addr['id']); ?>">
+								
 								حذف آدرس
+								
+								<svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M21 5.98047C17.67 5.65047 14.32 5.48047 10.98 5.48047C9 5.48047 7.02 5.58047 5.04 5.78047L3 5.98047" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M18.8484 9.14062L18.1984 19.2106C18.0884 20.7806 17.9984 22.0006 15.2084 22.0006H8.78844C5.99844 22.0006 5.90844 20.7806 5.79844 19.2106L5.14844 9.14062" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M10.3281 16.5H13.6581" stroke="#currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M9.5 12.5H14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+								
+
 							</button>
-							<button class="tc-btn tc-btn--sm tc-btn--outline tc-address-edit"
-								data-id="<?php echo esc_attr( $addr['id'] ); ?>"
-								data-address="<?php echo esc_attr( wp_json_encode( $addr ) ); ?>">
-								<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M13.26 3.6l-8.21 8.69c-.31.33-.61.98-.67 1.43l-.37 3.24c-.13 1.13.71 1.93 1.83 1.75l3.22-.55c.45-.08 1.08-.41 1.39-.75l8.21-8.69c1.42-1.5 2.06-3.21.63-4.74-1.44-1.54-3.12-.94-4.03.62z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+							<button class="tc-btn tc-btn--sm tc-btn--outline tc-address-edit flex justify-between"
+								data-id="<?php echo esc_attr($addr['id']); ?>"
+								data-address="<?php echo esc_attr(wp_json_encode($addr)); ?>">
+								
 								ویرایش آدرس
+								<svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M13.2594 3.59924L5.04936 12.2892C4.73936 12.6192 4.43936 13.2692 4.37936 13.7192L4.00936 16.9592C3.87936 18.1292 4.71936 18.9292 5.87936 18.7292L9.09936 18.1792C9.54936 18.0992 10.1794 17.7692 10.4894 17.4292L18.6994 8.73924C20.1194 7.23924 20.7594 5.52924 18.5494 3.43924C16.3494 1.36924 14.6794 2.09924 13.2594 3.59924Z" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M11.8906 5.05078C12.3206 7.81078 14.5606 9.92078 17.3406 10.2008" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M3 22H21" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+
 							</button>
 						</div>
 					</div>

@@ -228,12 +228,20 @@ $product_status = get_post_meta($product_id, '_product_status', true);
 							<span class="yekan-12">اشتراک گذاری</span>
 
 						</div>
-						<div class="button flex item-center pointer whish-button">
+						<?php
+						$_wl_user_id  = get_current_user_id();
+						$_in_wishlist = $_wl_user_id && in_array( $product_id, \TanilChoob\Theme\MyAccount::get_wishlist( $_wl_user_id ), true );
+						?>
+						<div class="button flex item-center pointer whish-button tc-wishlist-btn <?php echo $_in_wishlist ? 'is-wishlisted' : ''; ?>"
+							data-product-id="<?php echo esc_attr( $product_id ); ?>"
+							data-ajax-url="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>"
+							data-nonce="<?php echo esc_attr( wp_create_nonce( 'ajax-nonce' ) ); ?>">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M12.62 20.8096C12.28 20.9296 11.72 20.9296 11.38 20.8096C8.48 19.8196 2 15.6896 2 8.68961C2 5.59961 4.49 3.09961 7.56 3.09961C9.38 3.09961 10.99 3.97961 12 5.33961C13.01 3.97961 14.63 3.09961 16.44 3.09961C19.51 3.09961 22 5.59961 22 8.68961C22 15.6896 15.52 19.8196 12.62 20.8096Z" stroke="#484848" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+								<path d="M12.62 20.8096C12.28 20.9296 11.72 20.9296 11.38 20.8096C8.48 19.8196 2 15.6896 2 8.68961C2 5.59961 4.49 3.09961 7.56 3.09961C9.38 3.09961 10.99 3.97961 12 5.33961C13.01 3.97961 14.63 3.09961 16.44 3.09961C19.51 3.09961 22 5.59961 22 8.68961C22 15.6896 15.52 19.8196 12.62 20.8096Z"
+									fill="<?php echo $_in_wishlist ? 'currentColor' : 'none'; ?>"
+									stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 							</svg>
-							<span class="yekan-12">افزودن به علاقه مندی ها</span>
-
+							<span class="yekan-12"><?php echo $_in_wishlist ? 'در علاقه‌مندی‌ها' : 'افزودن به علاقه مندی ها'; ?></span>
 						</div>
 					</div>
 					<div class="swiper-container gallery-main overflow-hidden">
