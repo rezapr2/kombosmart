@@ -36,10 +36,94 @@ class Frontend
 		add_filter('woocommerce_product_single_add_to_cart_text', [$this, 'contact_mode_add_to_cart_text']);
 		add_filter('woocommerce_product_add_to_cart_text', [$this, 'contact_mode_add_to_cart_text']);
 		add_filter('term_description', [$this, 'force_internal_links'], 99);
-		
+
 		// WooCommerce filter to prevent all of its default styles from loading
 		add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 
+		add_filter( 'woocommerce_add_to_cart_fragments', [ $this, 'minicart_fragment' ] );
+		add_action( 'wp_ajax_tc_remove_cart_item',        [ $this, 'ajax_remove_cart_item' ] );
+		add_action( 'wp_ajax_nopriv_tc_remove_cart_item', [ $this, 'ajax_remove_cart_item' ] );
+	}
+
+	public function ajax_remove_cart_item() {
+		check_ajax_referer( 'ajax-nonce', 'nonce' );
+
+		$cart_key = sanitize_text_field( $_POST['cart_key'] ?? '' );
+		if ( ! $cart_key || ! WC()->cart->remove_cart_item( $cart_key ) ) {
+			wp_send_json_error( 'خطا در حذف آیتم' );
+		}
+
+		WC()->cart->calculate_totals();
+
+		$fragments = [];
+		$fragments['#tc-minicart-dropdown'] = self::render_minicart();
+
+		wp_send_json_success( [
+			'fragments'   => $fragments,
+			'cart_count'  => WC()->cart->get_cart_contents_count(),
+			'cart_total'  => WC()->cart->get_cart_total(),
+		] );
+	}
+
+	public static function render_minicart(): string {
+		$cart     = WC()->cart;
+		$items    = $cart ? $cart->get_cart() : [];
+		$total    = $cart ? $cart->get_cart_total() : '';
+		$checkout = wc_get_checkout_url();
+		$nonce    = wp_create_nonce( 'ajax-nonce' );
+		$ajax_url = admin_url( 'admin-ajax.php' );
+
+		ob_start();
+		?>
+		<div class="minicart__dropdown" id="tc-minicart-dropdown">
+			<?php if ( empty( $items ) ) : ?>
+				<p class="minicart__empty">سبد خرید شما خالی است.</p>
+			<?php else : ?>
+				<ul class="minicart__list">
+					<?php foreach ( $items as $cart_key => $item ) :
+						$product   = $item['data'];
+						$image_id  = $product->get_image_id();
+						$image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'thumbnail' ) : wc_placeholder_img_src( 'thumbnail' );
+						$name      = $product->get_name();
+						$price     = wc_price( $item['line_total'] );
+					?>
+					<li class="minicart__item" data-cart-key="<?php echo esc_attr( $cart_key ); ?>">
+						<div class="minicart__item-img-wrap">
+							<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $name ); ?>">
+						</div>
+						<div class="minicart__item-info">
+							<span class="minicart__item-name"><?php echo esc_html( $name ); ?></span>
+							<span class="minicart__item-price"><?php echo wp_kses_post( $price ); ?> تومان</span>
+						</div>
+						<button type="button" class="minicart__item-remove"
+							data-cart-key="<?php echo esc_attr( $cart_key ); ?>"
+							data-nonce="<?php echo esc_attr( $nonce ); ?>"
+							data-ajax-url="<?php echo esc_url( $ajax_url ); ?>"
+							aria-label="حذف از سبد خرید">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M21 5.98C17.67 5.65 14.32 5.48 10.98 5.48c-1.98 0-3.96.1-5.94.3L3 5.98" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M8.5 4.97l.22-1.31C8.88 2.71 9 2 10.69 2h2.62C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M18.85 9.14l-.65 10.07C18.09 20.78 18 22 15.21 22H8.79C5.999 22 5.91 20.78 5.8 19.21L5.15 9.14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M10.33 16.5h3.33M9.5 12.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</button>
+					</li>
+					<?php endforeach; ?>
+				</ul>
+				<div class="minicart__total">
+					<span class="minicart__total-label">مبلغ قابل پرداخت</span>
+					<span class="minicart__total-value"><?php echo wp_kses_post( $total ); ?> تومان</span>
+				</div>
+				<a href="<?php echo esc_url( $checkout ); ?>" class="minicart__checkout-btn">ثبت سفارش</a>
+			<?php endif; ?>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
+
+	public function minicart_fragment( array $fragments ): array {
+		$fragments['#tc-minicart-dropdown'] = self::render_minicart();
+		return $fragments;
 	}
 
 
