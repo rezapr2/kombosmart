@@ -115,7 +115,7 @@ $boxes = isset($top_boxes['boxes']) ? $top_boxes['boxes'] : [];
                 <?php foreach ($warranty_faqs as $faq): ?>
                     <div class="faq-item slide-down-wrapper flex flex-col gap-04 md:gap-20">
                         <div
-                            class="faq-question slide-down-trigger  flex justify-between items-center cursor-pointer">
+                            class="faq-question slide-down-trigger  flex justify-between items-center pointer">
                             <h3 class="regular yekan-14 md:yekan-24 color-black-80"><?php echo $faq['question']; ?></h3>
                         </div>
                         <div class="faq-answer slide-down-content yekan-12 md:yekan-20 text-center md:text-right color-black-70" style="display: none;">

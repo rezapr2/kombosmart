@@ -171,7 +171,7 @@ $play_icon_src = function_exists('get_theme_file_uri')
                                 $x++;
                             ?>
                             <div class="technical-review-item slide-down-wrapper flex flex-col gap-10 <?php echo $x == 1 ? 'active' : ''; ?>">
-                                    <div class="technical-review-title slide-down-trigger  color-primary flex gap-10 items-center cursor-pointer">
+                                    <div class="technical-review-title slide-down-trigger  color-primary flex gap-10 items-center pointer">
                                         <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M1.10156 1.09961L8.60156 8.57836L16.1016 1.09961" stroke="#5D0E87" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>

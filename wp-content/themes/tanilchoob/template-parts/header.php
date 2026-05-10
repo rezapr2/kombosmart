@@ -31,35 +31,31 @@ $header_logo_mobile = get_field('header_logo_mobile', 'option');
                 <span class="hamburger-line"></span>
             </button>
         </div>
-        <div class="top-row__left hidden md:flex ">
-            <div class="minicart-wrapper">
-                <button type="button" class="bascket-btn flex item-center transition pointer" id="tc-minicart-trigger" aria-expanded="false" aria-controls="tc-minicart-dropdown">
+        <div class="top-row__left gap-10 hidden md:flex ">
+                            <a href="<?php echo esc_url( wc_get_account_endpoint_url('wishlist') ); ?>" class="bascket-btn flex item-center transition pointer minicart__icon-wish">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12.62 20.81c-.34.12-.9.12-1.24 0C8.48 19.82 2 15.69 2 8.69 2 5.6 4.49 3.1 7.56 3.1c1.82 0 3.43.88 4.44 2.24 1.01-1.36 2.63-2.24 4.44-2.24C19.51 3.1 22 5.6 22 8.69c0 7-6.48 11.13-9.38 12.12z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </a>
+
+            <div class="minicart-wrapper relative">
+                <button type="button" class="bascket-btn flex item-center transition relative pointer" id="tc-minicart-trigger" aria-expanded="false" aria-controls="tc-minicart-dropdown">
                     <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/shopping-cart.svg')); ?>
                     <?php
                     $cart_count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
                     if ( $cart_count > 0 ) : ?>
-                    <span class="minicart-badge"><?php echo esc_html( $cart_count ); ?></span>
+                    <span class="minicart-badge absolute flex item-center ng-primary"><?php echo esc_html( $cart_count ); ?></span>
                     <?php endif; ?>
                 </button>
-                <div class="minicart" id="tc-minicart" role="dialog" aria-label="سبد خرید" dir="rtl">
+                <div class="minicart absolute bg-white" id="tc-minicart" role="dialog" aria-label="سبد خرید" dir="rtl">
                     <div class="minicart__header">
-                        <div class="minicart__icons">
-                            <span class="minicart__icon-cart is-active">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 2h1.74c1.08 0 1.93.93 1.84 2l-.83 9.96a2.796 2.796 0 002.79 3.03H18.19c1.45 0 2.73-1.07 2.85-2.51l.54-7.5c.13-1.64-1.14-2.98-2.79-2.98H5.82" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.25 22a1.25 1.25 0 100-2.5 1.25 1.25 0 000 2.5zM8.25 22a1.25 1.25 0 100-2.5 1.25 1.25 0 000 2.5z" fill="currentColor"/><path d="M9 8h11" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </span>
-                            <a href="<?php echo esc_url( wc_get_account_endpoint_url('wishlist') ); ?>" class="minicart__icon-wish">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12.62 20.81c-.34.12-.9.12-1.24 0C8.48 19.82 2 15.69 2 8.69 2 5.6 4.49 3.1 7.56 3.1c1.82 0 3.43.88 4.44 2.24 1.01-1.36 2.63-2.24 4.44-2.24C19.51 3.1 22 5.6 22 8.69c0 7-6.48 11.13-9.38 12.12z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </a>
-                        </div>
                         <div class="minicart__title-row">
-                            <span class="minicart__title">سبد خرید شما</span>
-                            <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="minicart__view-cart">مشاهده سبد خرید</a>
+                            <span class="minicart__title yekan-20 color-black bold">سبد خرید شما</span>
+                            <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="minicart__view-cart inline-block color-primary yekan-15">مشاهده سبد خرید</a>
                         </div>
                     </div>
                     <?php echo \TanilChoob\Theme\Frontend::render_minicart(); ?>
                 </div>
                 <div class="minicart-overlay" id="tc-minicart-overlay"></div>
-            </div>
+           
             </div><!-- /.minicart-wrapper -->
             <a href="<?php echo esc_url(get_permalink(get_option('woocommerce_myaccount_page_id'))); ?>" class="sign-up-btn flex items-center transition pointer color-primary">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

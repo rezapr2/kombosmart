@@ -13,7 +13,7 @@ $faq_page_link = Helper::get_options_field( 'faq_page_link' ) ?: '#faq-items';
 			<div class="faq-items flex flex-col gap-10">
 				<?php foreach ($faqs as $faq) : ?>
 					<div class="faq-item slide-down-wrapper flex flex-col">
-						<div class="faq-question slide-down-trigger flex justify-between items-center cursor-pointer">
+						<div class="faq-question slide-down-trigger flex justify-between items-center pointer">
 							<h3 class="yekan-16 md:yekan-20 color-black-80 regular"><?php echo $faq['question']; ?></h3>
 						</div>
 						<p class="faq-answer slide-down-content yekan-14 md:yekan-20 text-center md:text-right color-black" style="display: none;"><?php echo $faq['answer']; ?></p>

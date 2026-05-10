@@ -77,9 +77,9 @@ class Frontend
 		?>
 		<div class="minicart__dropdown" id="tc-minicart-dropdown">
 			<?php if ( empty( $items ) ) : ?>
-				<p class="minicart__empty">سبد خرید شما خالی است.</p>
+				<p class="minicart__empty text-center yekan-14 m-0">سبد خرید شما خالی است.</p>
 			<?php else : ?>
-				<ul class="minicart__list">
+				<ul class="minicart__list m-0 p-0">
 					<?php foreach ( $items as $cart_key => $item ) :
 						$product   = $item['data'];
 						$image_id  = $product->get_image_id();
@@ -87,15 +87,15 @@ class Frontend
 						$name      = $product->get_name();
 						$price     = wc_price( $item['line_total'] );
 					?>
-					<li class="minicart__item" data-cart-key="<?php echo esc_attr( $cart_key ); ?>">
-						<div class="minicart__item-img-wrap">
-							<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $name ); ?>">
+					<li class="minicart__item flex items-center" data-cart-key="<?php echo esc_attr( $cart_key ); ?>">
+						<div class="minicart__item-img-wrap flex-shrink-0 overflow-hidden">
+							<img class="w-100 h-100 block object-cover" src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $name ); ?>">
 						</div>
-						<div class="minicart__item-info">
-							<span class="minicart__item-name"><?php echo esc_html( $name ); ?></span>
-							<span class="minicart__item-price"><?php echo wp_kses_post( $price ); ?> تومان</span>
+						<div class="minicart__item-info flex flex-col flex-1">
+							<span class="minicart__item-name block yekan-14 color-black-80 overflow-hidden"><?php echo esc_html( $name ); ?></span>
+							<span class="minicart__item-price yekan-12 color-black-50"><?php echo wp_kses_post( $price ); ?> </span>
 						</div>
-						<button type="button" class="minicart__item-remove"
+						<button type="button" class="minicart__item-remove flex-shrink-0 flex item-center pointer"
 							data-cart-key="<?php echo esc_attr( $cart_key ); ?>"
 							data-nonce="<?php echo esc_attr( $nonce ); ?>"
 							data-ajax-url="<?php echo esc_url( $ajax_url ); ?>"
@@ -110,11 +110,11 @@ class Frontend
 					</li>
 					<?php endforeach; ?>
 				</ul>
-				<div class="minicart__total">
-					<span class="minicart__total-label">مبلغ قابل پرداخت</span>
-					<span class="minicart__total-value"><?php echo wp_kses_post( $total ); ?> تومان</span>
+				<div class="minicart__total flex items-center justify-between">
+					<span class="minicart__total-label color-primary yekan-18">مبلغ قابل پرداخت</span>
+					<span class="minicart__total-value color-primary yekan-18"><?php echo wp_kses_post( $total ); ?></span>
 				</div>
-				<a href="<?php echo esc_url( $checkout ); ?>" class="minicart__checkout-btn">ثبت سفارش</a>
+				<a href="<?php echo esc_url( $checkout ); ?>" class="minicart__checkout-btn block w-100 text-center color-white yekan-18 bold">ثبت سفارش</a>
 			<?php endif; ?>
 		</div>
 		<?php
