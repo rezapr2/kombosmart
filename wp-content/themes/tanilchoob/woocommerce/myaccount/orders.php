@@ -60,10 +60,7 @@ $base_url = wc_get_account_endpoint_url( 'orders' );
 		if ( empty( $orders ) ) :
 			?>
 			<div class="tc-orders__empty">
-				<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<circle cx="40" cy="40" r="39" stroke="#E5E7EB" stroke-width="2"/>
-					<path d="M25 30h30M25 40h20M25 50h15" stroke="#D1D5DB" stroke-width="2.5" stroke-linecap="round"/>
-				</svg>
+				<img src="<?php echo get_template_directory_uri(); ?>/assets/frontend/dist/images/no_orders.png" alt="Google Maps">
 				<p>هیچ سفارشی در این بخش وجود ندارد.</p>
 			</div>
 		<?php else : ?>

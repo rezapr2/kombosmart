@@ -553,6 +553,7 @@
         display: flex;
         flex-direction: column;
         gap: 2rem;
+        padding: 2rem;
     }
 
     .wc-account-review-item,
@@ -1013,6 +1014,9 @@
         }
     }
 
+    .tc-account-addresses{
+        padding: 3rem;
+    }
     .tc-account-addresses .tc-address-form {
         position: relative;
         background: #fff;
@@ -1069,7 +1073,54 @@
             font-size: 1.2rem;
         }
     }
-
+    // ── User Info ──────────────────────────────────────────
+    .tc-account-info{
+        padding: 2rem;
+        min-height: 50rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .tc-account-info__edit-icon{
+            width: 4.4rem;
+            height: 4.4rem;
+            background-color: #EFEFEF;
+            border-radius: 50%;
+            border: none;
+            outline: none;
+            transition: all .5s;
+            svg{
+                width: 2.4rem;
+                height: 2.4rem;
+            }
+            &:hover{
+                background-color: #292D32;
+                svg{
+                    path{
+                        stroke: #fff;
+                    }
+                }
+            }
+        }
+        .main-btn{
+            width: fit-content;
+            background-color: #2F2F2F;
+            color: #fff;
+            padding: 1.5rem 6rem;
+            border-color: #2F2F2F;
+            font-size: 2rem;
+            font-weight: 500;
+            margin-right: auto;
+        }
+    }
+    .tc-account-edit-form{
+        padding: 2rem;
+        .tc-account-edit-form__footer{
+            margin-top: 3rem;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+    }
     // ── Orders (tabbed) ──────────────────────────────────────────
     .tc-orders {
         display: flex;
@@ -1103,7 +1154,6 @@
         &.is-active {
             color: #000;
             border-bottom-color: #000;
-            font-weight: 700;
         }
 
         @media (max-width: 480px) {
