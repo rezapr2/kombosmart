@@ -20,7 +20,7 @@ $current_user = wp_get_current_user();
 
 	<div class="wc-my-account__body flex flex-row-reverse">
 
-		<div class="wc-my-account__content woocommerce-MyAccount-content">
+		<div class="wc-my-account__content bg-black-03 woocommerce-MyAccount-content">
 			<?php do_action( 'woocommerce_account_content' ); ?>
 		</div>
 

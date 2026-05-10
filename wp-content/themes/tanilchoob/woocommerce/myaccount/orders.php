@@ -34,7 +34,7 @@ foreach ( $tab_groups as $key => $group ) {
 $base_url = wc_get_account_endpoint_url( 'orders' );
 ?>
 
-<div class="tc-orders" dir="rtl">
+<div class="tc-orders">
 
 	<!-- Tabs -->
 	<div class="tc-orders__tabs" role="tablist">
@@ -87,10 +87,10 @@ $base_url = wc_get_account_endpoint_url( 'orders' );
 			?>
 			<div class="tc-order-card">
 				<div class="tc-order-card__header">
-					<span class="tc-order-card__code">
-						<strong>کد سفارش :</strong> <?php echo esc_html( 'TLC-' . $order_number ); ?>
+					<span class="tc-order-card__code flex gap-10">
+						 <span class="color-black-80 yekan-22"><?php echo esc_html( 'TLC-' . $order_number ); ?></span><span class="color-black-50 yekan-22">:کد سفارش</span>
 					</span>
-					<span class="tc-order-card__total"><?php echo wp_kses_post( $order_total ); ?> تومان</span>
+					<span class="tc-order-card__total"><?php echo wp_kses_post( $order_total ); ?></span>
 				</div>
 
 				<div class="tc-order-card__body">
@@ -113,7 +113,7 @@ $base_url = wc_get_account_endpoint_url( 'orders' );
 						</div>
 						<?php endif; ?>
 					</div>
-
+<div class="tc-order-card__footer flex justify-between items-end">
 					<div class="tc-order-card__thumbs">
 						<?php
 						$shown = 0;
@@ -133,14 +133,14 @@ $base_url = wc_get_account_endpoint_url( 'orders' );
 						}
 						?>
 					</div>
-				</div>
-
-				<div class="tc-order-card__footer">
 					<a href="<?php echo esc_url( $order_url ); ?>" class="tc-order-card__details-link">
 						جزئیات بیشتر
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
 					</a>
 				</div>
+				</div>
+
+				
 			</div>
 			<?php endforeach; ?>
 		<?php endif; ?>

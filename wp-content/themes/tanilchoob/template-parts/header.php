@@ -42,7 +42,7 @@ $header_logo_mobile = get_field('header_logo_mobile', 'option');
                     <?php
                     $cart_count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
                     if ( $cart_count > 0 ) : ?>
-                    <span class="minicart-badge absolute flex item-center ng-primary"><?php echo esc_html( $cart_count ); ?></span>
+                    <span class="minicart-badge absolute flex item-center bg-primary"><?php echo esc_html( $cart_count ); ?></span>
                     <?php endif; ?>
                 </button>
                 <div class="minicart absolute bg-white" id="tc-minicart" role="dialog" aria-label="سبد خرید" dir="rtl">
