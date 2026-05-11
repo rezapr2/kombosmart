@@ -559,42 +559,59 @@
         display: flex;
         flex-direction: column;
         gap: 2rem;
-        padding: 2rem;
+        padding: 0;
+        background-color: transparent;
     }
 
     .wc-account-review-item,
     .wc-account-question-item {
-        padding: 2rem;
-        border: 1px solid rgba(0, 0, 0, 0.08);
+        padding: 2.5rem 1.5rem;
+        border: 1px solid #fafafa;
         background-color: #fafafa;
 
+        &:hover{
+            border-color: var(--color-primary);
+        }
+        
         &__product a {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--color-primary);
-            margin-bottom: 0.8rem;
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: #000;
+            margin-bottom: 1rem;
             display: block;
         }
 
         &__text {
-            font-size: 1.4rem;
-            color: rgba(0, 0, 0, 0.7);
-            margin: 0 0 0.8rem;
         }
 
         &__date {
             font-size: 1.2rem;
             color: rgba(0, 0, 0, 0.4);
         }
-
-        &__answer {
-            margin-top: 1rem;
-            padding: 1rem 1.5rem;
-            background-color: var(--color-primary-light);
-            border-right: 3px solid var(--color-primary);
-            font-size: 1.4rem;
-            color: rgba(0, 0, 0, 0.7);
+        &__question {
+            padding: .4rem;
+            .icon__box{
+                background-color: #F7E9FF;
+            }
         }
+        &__answer {
+            margin-top: .6rem;
+            padding: .6rem;
+            .icon__box{
+                background-color: #F3F3F3;
+            }
+        }
+        &__question, &__answer{
+            border: 1px solid rgba(0, 0, 0, 0.3);
+        }
+        
+        .icon__box{
+            padding: 3rem;
+        }
+
+
+
+
     }
 
     // ── WooCommerce built-in endpoints (orders, addresses, edit-account)
