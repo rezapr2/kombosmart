@@ -722,11 +722,12 @@
     }
 
     .tc-addresses__empty {
-        color: rgba(0, 0, 0, 0.5);
-        font-size: 1.5rem;
-        padding: 2rem;
+        color: rgba(0, 0, 0, 0.8);
+        font-size: 2rem;
         text-align: center;
-        border: 1px dashed $checkout-border;
+        img{
+            max-width: 30rem;
+        }
     }
 
     .tc-address-card {

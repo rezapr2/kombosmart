@@ -131,20 +131,7 @@ class MyAccount
 				</div>
 				<div class="wc-account-product-row__action flex flex-col">
 					<a href="<?php echo esc_url($permalink); ?>" class="btn-view-product">مشاهده محصول</a>
-					<button class="tc-btn tc-btn--sm tc-btn--danger-outline tc-recently-viewed-delete"
-						data-id="<?php echo esc_attr($product_id); ?>">
-						حذف
-						<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M21 5.98C17.67 5.65 14.32 5.48 10.98 5.48c-1.98 0-3.96.1-5.94.3L3 5.98" stroke="currentColor"
-								stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-							<path d="M8.5 4.97l.22-1.31C8.88 2.71 9 2 10.69 2h2.62C15 2 15.13 2.75 15.28 3.67L15.5 4.97"
-								stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-							<path d="M18.85 9.14l-.65 10.07C18.09 20.78 18 22 15.21 22H8.79C5.999 22 5.91 20.78 5.8 19.21L5.15 9.14"
-								stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-							<path d="M10.33 16.5h3.33M9.5 12.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-								stroke-linejoin="round" />
-						</svg>
-					</button>
+					
 				</div>
 			</div>
 			<?php
@@ -524,7 +511,10 @@ class MyAccount
 
 			<div class="tc-addresses" id="tc-addresses-list">
 				<?php if (empty($addresses)): ?>
-					<p class="tc-addresses__empty">هنوز آدرسی ذخیره نکرده‌اید. یک آدرس جدید اضافه کنید.</p>
+					<div class="tc-addresses__empty">
+						<img src="<?php echo get_template_directory_uri(); ?>/assets/frontend/dist/images/no_address_vector.png" alt="No Address">
+						<p class="">تاکنون آدرسی ثبت نکرده اید!</p>
+					</div>
 				<?php else: ?>
 					<?php foreach ($addresses as $i => $addr): ?>
 						<div class="tc-address-card flex justify-between" data-id="<?php echo esc_attr($addr['id']); ?>">
