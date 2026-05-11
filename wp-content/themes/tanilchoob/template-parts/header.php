@@ -57,21 +57,69 @@ $header_logo_mobile = get_field('header_logo_mobile', 'option');
                 <div class="minicart-overlay" id="tc-minicart-overlay"></div>
            
             </div><!-- /.minicart-wrapper -->
-            <a href="<?php echo esc_url(get_permalink(get_option('woocommerce_myaccount_page_id'))); ?>" class="sign-up-btn flex items-center transition pointer color-primary">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12.1625 10.87C12.0625 10.86 11.9425 10.86 11.8325 10.87C9.4525 10.79 7.5625 8.84 7.5625 6.44C7.5625 3.99 9.5425 2 12.0025 2C14.4525 2 16.4425 3.99 16.4425 6.44C16.4325 8.84 14.5425 10.79 12.1625 10.87Z" stroke="#5D0E87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M7.15875 14.56C4.73875 16.18 4.73875 18.82 7.15875 20.43C9.90875 22.27 14.4188 22.27 17.1688 20.43C19.5888 18.81 19.5888 16.17 17.1688 14.56C14.4288 12.73 9.91875 12.73 7.15875 14.56Z" stroke="#5D0E87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <?php if ( is_user_logged_in() ) :
-                    $current_user = wp_get_current_user();
-                    $first_name   = $current_user->first_name;
-                    $last_name    = $current_user->last_name;
-                    $display      = trim( "$first_name $last_name" );
-                    echo esc_html( $display ?: $current_user->display_name );
-                else : ?>
-                ورود/ثبت نام
+            <div class="profile-wrapper relative">
+                <button type="button" id="tc-profile-trigger" class="sign-up-btn flex items-center transition pointer color-primary" aria-expanded="false" aria-controls="tc-profile-dropdown">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.1625 10.87C12.0625 10.86 11.9425 10.86 11.8325 10.87C9.4525 10.79 7.5625 8.84 7.5625 6.44C7.5625 3.99 9.5425 2 12.0025 2C14.4525 2 16.4425 3.99 16.4425 6.44C16.4325 8.84 14.5425 10.79 12.1625 10.87Z" stroke="#5D0E87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M7.15875 14.56C4.73875 16.18 4.73875 18.82 7.15875 20.43C9.90875 22.27 14.4188 22.27 17.1688 20.43C19.5888 18.81 19.5888 16.17 17.1688 14.56C14.4288 12.73 9.91875 12.73 7.15875 14.56Z" stroke="#5D0E87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <?php if ( is_user_logged_in() ) :
+                        $current_user = wp_get_current_user();
+                        $first_name   = $current_user->first_name;
+                        $last_name    = $current_user->last_name;
+                        $display      = trim( "$first_name $last_name" );
+                        echo esc_html( $display ?: $current_user->display_name );
+                    else : ?>
+                    ورود/ثبت نام
+                    <?php endif; ?>
+                </button>
+                <?php if ( is_user_logged_in() ) : ?>
+                <div class="profile-dropdown absolute bg-white" id="tc-profile-dropdown" role="dialog" aria-label="حساب کاربری" dir="rtl">
+                    <ul class="profile-dropdown__list flex flex-col m-0 p-0">
+                        <li class="profile-dropdown__item">
+                            <a href="<?php echo esc_url( get_permalink( get_option('woocommerce_myaccount_page_id') ) ); ?>" class="profile-dropdown__link flex items-center yekan-20">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12.1625 10.87C12.0625 10.86 11.9425 10.86 11.8325 10.87C9.4525 10.79 7.5625 8.84 7.5625 6.44C7.5625 3.99 9.5425 2 12.0025 2C14.4525 2 16.4425 3.99 16.4425 6.44C16.4325 8.84 14.5425 10.79 12.1625 10.87Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.15875 14.56C4.73875 16.18 4.73875 18.82 7.15875 20.43C9.90875 22.27 14.4188 22.27 17.1688 20.43C19.5888 18.81 19.5888 16.17 17.1688 14.56C14.4288 12.73 9.91875 12.73 7.15875 14.56Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                مدیریت حساب کاربری
+                            </a>
+                        </li>
+                        <li class="profile-dropdown__item">
+                            <a href="<?php echo esc_url( wc_get_account_endpoint_url('orders') ); ?>" class="profile-dropdown__link flex items-center yekan-20">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.5 7.66952V6.69952C7.5 4.44952 9.31 2.23952 11.56 2.02952C14.24 1.76952 16.5 3.87952 16.5 6.50952V7.88952" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.0008 22H15.0008C19.0208 22 19.7408 20.39 19.9508 18.43L20.7008 12.43C20.9708 9.99 20.2708 8 16.0008 8H8.0008C3.7308 8 3.0308 9.99 3.3008 12.43L4.0508 18.43C4.2608 20.39 4.9808 22 9.0008 22Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15.4945 12H15.5035" stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8.49451 12H8.50349" stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+                                سفارش‌های من
+                            </a>
+                        </li>
+                        <li class="profile-dropdown__item profile-dropdown__item--logout">
+                            <a href="<?php echo esc_url( wp_logout_url( home_url() ) ); ?>" class="profile-dropdown__link flex items-center yekan-20">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.89844 7.56023C9.20844 3.96023 11.0584 2.49023 15.1084 2.49023H15.2384C19.7084 2.49023 21.4984 4.28023 21.4984 8.75023V15.2702C21.4984 19.7402 19.7084 21.5302 15.2384 21.5302H15.1084C11.0884 21.5302 9.23844 20.0802 8.90844 16.5402" stroke="#5D0E87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14.9972 12H3.61719" stroke="#5D0E87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5.85 8.65039L2.5 12.0004L5.85 15.3504" stroke="#5D0E87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+                                خروج از حساب کاربری
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="profile-overlay" id="tc-profile-overlay"></div>
+                <?php else : ?>
+                <div class="profile-dropdown absolute bg-white yekan-20" id="tc-profile-dropdown" role="dialog" aria-label="حساب کاربری" dir="rtl">
+                    <ul class="profile-dropdown__list m-0 p-0">
+                        <li class="profile-dropdown__item">
+                            <a href="<?php echo esc_url( get_permalink( get_option('woocommerce_myaccount_page_id') ) ); ?>" class="profile-dropdown__link flex items-center">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12.1625 10.87C12.0625 10.86 11.9425 10.86 11.8325 10.87C9.4525 10.79 7.5625 8.84 7.5625 6.44C7.5625 3.99 9.5425 2 12.0025 2C14.4525 2 16.4425 3.99 16.4425 6.44C16.4325 8.84 14.5425 10.79 12.1625 10.87Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.15875 14.56C4.73875 16.18 4.73875 18.82 7.15875 20.43C9.90875 22.27 14.4188 22.27 17.1688 20.43C19.5888 18.81 19.5888 16.17 17.1688 14.56C14.4288 12.73 9.91875 12.73 7.15875 14.56Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                ورود / ثبت نام
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="profile-overlay" id="tc-profile-overlay"></div>
                 <?php endif; ?>
-            </a>
+            </div><!-- /.profile-wrapper -->
         </div>
 
     </div>
