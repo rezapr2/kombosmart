@@ -182,53 +182,51 @@ class MyAccount
 			if (!$product) {
 				continue;
 			}
+			$rating      = (int) get_comment_meta($comment->comment_ID, 'rating', true);
+			$author      = trim($comment->comment_author) ?: 'ناشناس';
+			$date        = get_comment_date('j F Y', $comment);
+			$replies     = get_comments([
+				'parent'  => $comment->comment_ID,
+				'status'  => 'approve',
+				'number'  => 1,
+			]);
+			$reply = !empty($replies) ? $replies[0] : null;
 			?>
 			<div class="wc-account-review-item" data-id="<?php echo esc_attr($comment->comment_ID); ?>">
-				<div class="wc-account-review-item__product">
-					<a
-						href="<?php echo esc_url($product->get_permalink()); ?>"><?php echo esc_html($product->get_name()); ?></a>
+				<div class="wc-account-review-item__header">
+					<a class="wc-account-review-item__product" href="<?php echo esc_url($product->get_permalink()); ?>">
+						<?php echo esc_html($product->get_name()); ?>
+					</a>
+					<div class="wc-account-review-item__meta">
+						<span class="wc-account-review-item__author"><?php echo esc_html($author); ?></span>
+						<span class="wc-account-review-item__date">در تاریخ <?php echo esc_html($date); ?></span>
+					</div>
 				</div>
+				<?php if ($rating > 0) : ?>
+				<div class="wc-account-review-item__stars">
+					<?php for ($i = 1; $i <= 5; $i++) : ?>
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="<?php echo $i <= $rating ? '#FBBF24' : 'none'; ?>" xmlns="http://www.w3.org/2000/svg">
+						<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+					<?php endfor; ?>
+				</div>
+				<?php endif; ?>
 				<p class="wc-account-review-item__text"><?php echo esc_html($comment->comment_content); ?></p>
-				<div class="wc-account-review-item__footer">
-					<span class="wc-account-review-item__date"><?php echo esc_html(get_comment_date('', $comment)); ?></span>
-					<button class="tc-btn tc-btn--sm tc-btn--danger-outline tc-review-delete"
-						data-id="<?php echo esc_attr($comment->comment_ID); ?>">
-						حذف نظر
-						<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M21 5.98C17.67 5.65 14.32 5.48 10.98 5.48c-1.98 0-3.96.1-5.94.3L3 5.98" stroke="currentColor"
-								stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-							<path d="M8.5 4.97l.22-1.31C8.88 2.71 9 2 10.69 2h2.62C15 2 15.13 2.75 15.28 3.67L15.5 4.97"
-								stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-							<path d="M18.85 9.14l-.65 10.07C18.09 20.78 18 22 15.21 22H8.79C5.999 22 5.91 20.78 5.8 19.21L5.15 9.14"
-								stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-							<path d="M10.33 16.5h3.33M9.5 12.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-								stroke-linejoin="round" />
-						</svg>
-					</button>
+				<?php if ($reply) : ?>
+				<div class="wc-account-review-item__reply">
+					<div class="wc-account-review-item__reply-header">
+						<span class="wc-account-review-item__reply-label">مدیریت</span>
+						<span class="wc-account-review-item__reply-date"><?php echo esc_html(get_comment_date('j F Y', $reply)); ?></span>
+					</div>
+					<p class="wc-account-review-item__reply-text"><?php echo esc_html($reply->comment_content); ?></p>
 				</div>
+				<?php endif; ?>
+				
 			</div>
 			<?php
 		}
 		echo '</div>';
 		?>
-		<script>
-			(function ($) {
-				$(document).on('click', '.tc-review-delete', function () {
-					var $btn = $(this);
-					var id = $btn.data('id');
-					if (!confirm('آیا از حذف این نظر اطمینان دارید؟')) return;
-					$btn.prop('disabled', true);
-					$.post(tcCheckout.ajaxUrl, { action: 'tc_delete_review', nonce: tcCheckout.nonce, comment_id: id }, function (res) {
-						if (res && res.success) {
-							$btn.closest('.wc-account-review-item').fadeOut(300, function () { $(this).remove(); });
-						} else {
-							alert(res && res.data ? res.data : 'خطا در حذف نظر');
-							$btn.prop('disabled', false);
-						}
-					});
-				});
-			})(jQuery);
-		</script>
 		<?php
 	}
 

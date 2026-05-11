@@ -49,12 +49,12 @@ $steps = [
 	$template_uri = get_template_directory_uri();
 	?>
 	<div class="header relative">
-		<div class="top-bg bg-black-03 w-full absolute"></div>
+		<div class="hidden md:flex top-bg bg-black-03 w-full absolute"></div>
 		<div class="items flex justify-between relative z-index-1 direction-ltr">
 			<?php foreach (array_reverse($steps, true) as $num => $label): ?>
 				<div class="flex flex-col items-center gap-15 item circle-radius <?php echo $num === 1 ? 'active' : ''; ?>"
 					data-step="<?php echo $num; ?>">
-					<div class="circle circle-radius flex item-center">
+					<div class="circle circle-radius hidden md:flex item-center">
 						<img src="<?php echo esc_url($template_uri . '/assets/frontend/dist/images/' . $step_icons[$num]); ?>"
 							alt="<?php echo esc_attr($label); ?>">
 					</div>
