@@ -259,6 +259,18 @@
             if (e.key === 'Escape') closeCartModal();
         });
 
+        function showCartError($form, message) {
+            var $err = $form.find('.tc-cart-error');
+            if (!$err.length) {
+                $err = $('<div class="tc-cart-error yekan-16"></div>').insertBefore($form.find('.single_add_to_cart_button'));
+            }
+            $err.html(message).show();
+        }
+
+        function clearCartError($form) {
+            $form.find('.tc-cart-error').hide();
+        }
+
         $(document).on('submit', 'form.cart', function (e) {
             var $form = $(this);
             var $btn = $form.find('.single_add_to_cart_button');
@@ -286,20 +298,29 @@
             if (!variationId) return; // no variation selected yet
 
             $btn.addClass('tc-loading');
+            clearCartError($form);
 
             var quantity = absInt($form.find('input[name="quantity"]').val()) || 1;
 
-            // Ensure option adjustments hidden input is up-to-date before reading
             tcUpdateOptionsUI();
 
-            // WooCommerce AJAX handler expects product_id = variation ID for variation products.
-            // It reads parent + variation attributes from the variation itself.
+            var parentProductId = absInt($form.data('product_id'));
+
             var postData = {
-                product_id:   variationId,
-                quantity:     quantity,
-                'add-to-cart': variationId,
+                'add-to-cart':  parentProductId,
+                product_id:     parentProductId,
+                variation_id:   variationId,
+                quantity:       quantity,
                 product_option_adjustments: $form.find('input[name="product_option_adjustments"]').val() || '[]'
             };
+
+            // Append every attribute_* value from the hidden selects
+            $form.find('select.tanil-hidden-select').each(function () {
+                var name = $(this).attr('name');
+                if (name) {
+                    postData[name] = $(this).val() || '';
+                }
+            });
 
             var ajaxUrl = (typeof wc_add_to_cart_params !== 'undefined' && wc_add_to_cart_params.wc_ajax_url)
                 ? wc_add_to_cart_params.wc_ajax_url.replace('%%endpoint%%', 'add_to_cart')
@@ -312,7 +333,20 @@
                 success: function (response) {
                     $btn.removeClass('tc-loading');
 
-                    if (response && response.error) return;
+                    if (response && response.error) {
+                        var noticesUrl = (typeof tanilchoob !== 'undefined' && tanilchoob.ajax && tanilchoob.ajax.url)
+                            ? tanilchoob.ajax.url
+                            : '/wp-admin/admin-ajax.php';
+                        $.post(noticesUrl, { action: 'tanilchoob_get_notices' }, function (r) {
+                            var msg = (r && r.success && r.data && r.data.messages && r.data.messages.length)
+                                ? r.data.messages.join('<br>')
+                                : 'خطایی رخ داد. لطفاً دوباره تلاش کنید.';
+                            showCartError($form, msg);
+                        }).fail(function () {
+                            showCartError($form, 'خطایی رخ داد. لطفاً دوباره تلاش کنید.');
+                        });
+                        return;
+                    }
 
                     if (response && response.fragments) {
                         $.each(response.fragments, function (key, value) {
@@ -329,6 +363,7 @@
                 },
                 error: function () {
                     $btn.removeClass('tc-loading');
+                    showCartError($form, 'خطا در ارتباط با سرور. لطفاً دوباره تلاش کنید.');
                 }
             });
         });

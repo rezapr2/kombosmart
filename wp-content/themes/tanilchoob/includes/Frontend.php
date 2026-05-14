@@ -43,6 +43,7 @@ class Frontend
 		add_filter( 'woocommerce_add_to_cart_fragments', [ $this, 'minicart_fragment' ] );
 		add_action( 'wp_ajax_tc_remove_cart_item',        [ $this, 'ajax_remove_cart_item' ] );
 		add_action( 'wp_ajax_nopriv_tc_remove_cart_item', [ $this, 'ajax_remove_cart_item' ] );
+
 	}
 
 	public function ajax_remove_cart_item() {
