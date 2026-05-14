@@ -58,21 +58,28 @@ $header_logo_mobile = get_field('header_logo_mobile', 'option');
            
             </div><!-- /.minicart-wrapper -->
             <div class="profile-wrapper relative">
+                <?php if ( is_user_logged_in() ) :
+                    $current_user = wp_get_current_user();
+                    $first_name   = $current_user->first_name;
+                    $last_name    = $current_user->last_name;
+                    $display      = trim( "$first_name $last_name" );
+                ?>
                 <button type="button" id="tc-profile-trigger" class="sign-up-btn flex items-center transition pointer color-primary" aria-expanded="false" aria-controls="tc-profile-dropdown">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12.1625 10.87C12.0625 10.86 11.9425 10.86 11.8325 10.87C9.4525 10.79 7.5625 8.84 7.5625 6.44C7.5625 3.99 9.5425 2 12.0025 2C14.4525 2 16.4425 3.99 16.4425 6.44C16.4325 8.84 14.5425 10.79 12.1625 10.87Z" stroke="#5D0E87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M7.15875 14.56C4.73875 16.18 4.73875 18.82 7.15875 20.43C9.90875 22.27 14.4188 22.27 17.1688 20.43C19.5888 18.81 19.5888 16.17 17.1688 14.56C14.4288 12.73 9.91875 12.73 7.15875 14.56Z" stroke="#5D0E87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <?php if ( is_user_logged_in() ) :
-                        $current_user = wp_get_current_user();
-                        $first_name   = $current_user->first_name;
-                        $last_name    = $current_user->last_name;
-                        $display      = trim( "$first_name $last_name" );
-                        echo esc_html( $display ?: $current_user->display_name );
-                    else : ?>
-                    ورود/ثبت نام
-                    <?php endif; ?>
+                    <?php echo esc_html( $display ?: $current_user->display_name ); ?>
                 </button>
+                <?php else : ?>
+                <a href="<?php echo esc_url( get_permalink( get_option('woocommerce_myaccount_page_id') ) ); ?>" class="sign-up-btn flex items-center transition color-primary">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.1625 10.87C12.0625 10.86 11.9425 10.86 11.8325 10.87C9.4525 10.79 7.5625 8.84 7.5625 6.44C7.5625 3.99 9.5425 2 12.0025 2C14.4525 2 16.4425 3.99 16.4425 6.44C16.4325 8.84 14.5425 10.79 12.1625 10.87Z" stroke="#5D0E87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M7.15875 14.56C4.73875 16.18 4.73875 18.82 7.15875 20.43C9.90875 22.27 14.4188 22.27 17.1688 20.43C19.5888 18.81 19.5888 16.17 17.1688 14.56C14.4288 12.73 9.91875 12.73 7.15875 14.56Z" stroke="#5D0E87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    ورود/ثبت نام
+                </a>
+                <?php endif; ?>
                 <?php if ( is_user_logged_in() ) : ?>
                 <div class="profile-dropdown absolute bg-white" id="tc-profile-dropdown" role="dialog" aria-label="حساب کاربری" dir="rtl">
                     <ul class="profile-dropdown__list flex flex-col m-0 p-0">
@@ -101,18 +108,6 @@ $header_logo_mobile = get_field('header_logo_mobile', 'option');
 <path d="M5.85 8.65039L2.5 12.0004L5.85 15.3504" stroke="#5D0E87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
                                 خروج از حساب کاربری
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="profile-overlay" id="tc-profile-overlay"></div>
-                <?php else : ?>
-                <div class="profile-dropdown absolute bg-white yekan-20" id="tc-profile-dropdown" role="dialog" aria-label="حساب کاربری" dir="rtl">
-                    <ul class="profile-dropdown__list m-0 p-0">
-                        <li class="profile-dropdown__item">
-                            <a href="<?php echo esc_url( get_permalink( get_option('woocommerce_myaccount_page_id') ) ); ?>" class="profile-dropdown__link flex items-center">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12.1625 10.87C12.0625 10.86 11.9425 10.86 11.8325 10.87C9.4525 10.79 7.5625 8.84 7.5625 6.44C7.5625 3.99 9.5425 2 12.0025 2C14.4525 2 16.4425 3.99 16.4425 6.44C16.4325 8.84 14.5425 10.79 12.1625 10.87Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.15875 14.56C4.73875 16.18 4.73875 18.82 7.15875 20.43C9.90875 22.27 14.4188 22.27 17.1688 20.43C19.5888 18.81 19.5888 16.17 17.1688 14.56C14.4288 12.73 9.91875 12.73 7.15875 14.56Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                ورود / ثبت نام
                             </a>
                         </li>
                     </ul>
