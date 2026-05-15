@@ -277,8 +277,7 @@ class MyAccount
 			<div class="wc-account-question-item">
 				<?php if ($product): ?>
 					<div class="wc-account-question-item__product">
-						<a
-							href="<?php echo esc_url($product->get_permalink()); ?>"><?php echo esc_html($product->get_name()); ?></a>
+						<a href="<?php echo esc_url($product->get_permalink()); ?>"><?php echo esc_html($product->get_name()); ?></a>
 					</div>
 				<?php endif; ?>
 				<div class="wc-account-question-item__question flex items-center gap-15">
