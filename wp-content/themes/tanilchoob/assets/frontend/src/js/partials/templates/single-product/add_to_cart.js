@@ -214,10 +214,13 @@
                                 '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="9" stroke="#5D0E87" stroke-width="1.5"/><path d="M6 10l3 3 5-5" stroke="#5D0E87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
                                 '<span class="tc-cart-modal__success-text yekan-20 color-primary bold">کالا به سبد خرید اضافه شد</span>' +
                             '</div>' +
+                            '<div class="tc-cart-modal__error-header">' +
+                                '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="9" stroke="#c0392b" stroke-width="1.5"/><path d="M10 6v5" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="14" r="0.75" fill="#c0392b"/></svg>' +
+                                '<span class="yekan-20 bold">خطا در افزودن به سبد خرید</span>' +
+                            '</div>' +
                             '<button class="tc-cart-modal__close" aria-label="بستن">' +
                                 '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 5L5 15M5 5l10 10" stroke="#2f2f2f" stroke-width="1.5" stroke-linecap="round"/></svg>' +
                             '</button>' +
-                            
                         '</div>' +
                         '<div class="tc-cart-modal__product">' +
                             '<img class="tc-cart-modal__product-img" src="" alt="" />' +
@@ -226,6 +229,7 @@
                                 '<p class="tc-cart-modal__product-price yekan-20 color-primary bold"></p>' +
                             '</div>' +
                         '</div>' +
+                        '<p class="tc-cart-modal__error-body yekan-16"></p>' +
                         '<a class="tc-cart-modal__view-cart yekan-18" href="#">مشاهده سبد خرید</a>' +
                     '</div>' +
                 '</div>'
@@ -240,12 +244,19 @@
             if (typeof wc_add_to_cart_params !== 'undefined' && wc_add_to_cart_params.cart_url) {
                 $modal.find('.tc-cart-modal__view-cart').attr('href', wc_add_to_cart_params.cart_url);
             }
-            $modal.addClass('is-open');
+            $modal.removeClass('is-error').addClass('is-open');
+            $('body').addClass('tc-modal-open');
+        }
+
+        function openErrorModal(message) {
+            var $modal = $('#tc-cart-modal');
+            $modal.find('.tc-cart-modal__error-body').text(message);
+            $modal.addClass('is-open is-error');
             $('body').addClass('tc-modal-open');
         }
 
         function closeCartModal() {
-            $('#tc-cart-modal').removeClass('is-open');
+            $('#tc-cart-modal').removeClass('is-open is-error');
             $('body').removeClass('tc-modal-open');
         }
 
@@ -258,18 +269,6 @@
         $(document).on('keydown', function (e) {
             if (e.key === 'Escape') closeCartModal();
         });
-
-        function showCartError($form, message) {
-            var $err = $form.find('.tc-cart-error');
-            if (!$err.length) {
-                $err = $('<div class="tc-cart-error yekan-16"></div>').insertBefore($form.find('.single_add_to_cart_button'));
-            }
-            $err.html(message).show();
-        }
-
-        function clearCartError($form) {
-            $form.find('.tc-cart-error').hide();
-        }
 
         $(document).on('submit', 'form.cart', function (e) {
             var $form = $(this);
@@ -298,7 +297,6 @@
             if (!variationId) return; // no variation selected yet
 
             $btn.addClass('tc-loading');
-            clearCartError($form);
 
             var quantity = absInt($form.find('input[name="quantity"]').val()) || 1;
 
@@ -339,11 +337,11 @@
                             : '/wp-admin/admin-ajax.php';
                         $.post(noticesUrl, { action: 'tanilchoob_get_notices' }, function (r) {
                             var msg = (r && r.success && r.data && r.data.messages && r.data.messages.length)
-                                ? r.data.messages.join('<br>')
+                                ? r.data.messages.join('\n')
                                 : 'خطایی رخ داد. لطفاً دوباره تلاش کنید.';
-                            showCartError($form, msg);
+                            openErrorModal(msg);
                         }).fail(function () {
-                            showCartError($form, 'خطایی رخ داد. لطفاً دوباره تلاش کنید.');
+                            openErrorModal('خطایی رخ داد. لطفاً دوباره تلاش کنید.');
                         });
                         return;
                     }
@@ -363,7 +361,7 @@
                 },
                 error: function () {
                     $btn.removeClass('tc-loading');
-                    showCartError($form, 'خطا در ارتباط با سرور. لطفاً دوباره تلاش کنید.');
+                    openErrorModal('خطا در ارتباط با سرور. لطفاً دوباره تلاش کنید.');
                 }
             });
         });

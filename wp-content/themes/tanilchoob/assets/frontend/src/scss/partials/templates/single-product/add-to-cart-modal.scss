@@ -64,6 +64,33 @@
         gap: 0.8rem;
     }
 
+    &__error-header {
+        display: none;
+        align-items: center;
+        gap: 0.8rem;
+        color: #c0392b;
+    }
+
+    &__error-body {
+        display: none;
+        color: #c0392b;
+        background: #fdf0ee;
+        border: 1px solid #e8b4ae;
+        border-radius: 0.6rem;
+        padding: 1.2rem 1.6rem;
+        margin: 0 0 1.5rem;
+        font-size: 1.4rem;
+        line-height: 1.8;
+        white-space: pre-line;
+    }
+
+    &.is-error {
+        .tc-cart-modal__success { display: none; }
+        .tc-cart-modal__error-header { display: flex; }
+        .tc-cart-modal__product { display: none; }
+        .tc-cart-modal__error-body { display: block; }
+        .tc-cart-modal__view-cart { display: none; }
+    }
 
     &__product {
         display: flex;
