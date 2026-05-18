@@ -305,8 +305,8 @@
             var parentProductId = absInt($form.data('product_id'));
 
             var postData = {
-                'add-to-cart':  parentProductId,
-                product_id:     parentProductId,
+                'add-to-cart':  variationId,
+                product_id:     variationId,
                 variation_id:   variationId,
                 quantity:       quantity,
                 product_option_adjustments: $form.find('input[name="product_option_adjustments"]').val() || '[]'
