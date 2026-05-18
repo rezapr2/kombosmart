@@ -36,7 +36,8 @@
         });
 
         // Remove item from cart
-        $(document).on('click', '.minicart__item-remove', function () {
+        jQuery('.minicart__item-remove').on('click', function () {
+            console.log('Removing item from cart');
             var $btn = $(this);
             if ($btn.hasClass('is-loading')) return;
             $btn.addClass('is-loading');

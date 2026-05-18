@@ -19,7 +19,7 @@
 
             if ($select.length) {
                 $select.val(value).trigger('change');
-            }
+            } 
         }
 
         function parseVariations($form) {
