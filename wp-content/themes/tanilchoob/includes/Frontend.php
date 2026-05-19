@@ -124,6 +124,13 @@ class Frontend
 
 	public function minicart_fragment( array $fragments ): array {
 		$fragments['#tc-minicart-dropdown'] = self::render_minicart();
+
+		$count        = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
+		$badge_inner  = $count > 0
+			? '<span class="minicart-badge absolute flex item-center bg-primary">' . esc_html( $count ) . '</span>'
+			: '';
+		$fragments['#tc-minicart-badge-wrap'] = '<span id="tc-minicart-badge-wrap">' . $badge_inner . '</span>';
+
 		return $fragments;
 	}
 

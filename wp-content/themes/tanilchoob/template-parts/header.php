@@ -39,11 +39,8 @@ $header_logo_mobile = get_field('header_logo_mobile', 'option');
             <div class="minicart-wrapper relative">
                 <button type="button" class="bascket-btn flex item-center transition relative pointer" id="tc-minicart-trigger" aria-expanded="false" aria-controls="tc-minicart-dropdown">
                     <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/shopping-cart.svg')); ?>
-                    <?php
-                    $cart_count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
-                    if ( $cart_count > 0 ) : ?>
-                    <span class="minicart-badge absolute flex item-center bg-primary"><?php echo esc_html( $cart_count ); ?></span>
-                    <?php endif; ?>
+                    <?php $cart_count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0; ?>
+                    <span id="tc-minicart-badge-wrap"><?php if ( $cart_count > 0 ) : ?><span class="minicart-badge absolute flex item-center bg-primary"><?php echo esc_html( $cart_count ); ?></span><?php endif; ?></span>
                 </button>
                 <div class="minicart absolute bg-white" id="tc-minicart" role="dialog" aria-label="سبد خرید" dir="rtl">
                     <div class="minicart__header">

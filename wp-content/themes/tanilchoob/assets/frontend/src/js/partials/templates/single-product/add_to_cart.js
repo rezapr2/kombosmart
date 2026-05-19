@@ -305,10 +305,9 @@
             var parentProductId = absInt($form.data('product_id'));
 
             var postData = {
-                'add-to-cart':  variationId,
-                product_id:     variationId,
-                variation_id:   variationId,
-                quantity:       quantity,
+                action:       'tanilchoob_add_variation_to_cart',
+                variation_id: variationId,
+                quantity:     quantity,
                 product_option_adjustments: $form.find('input[name="product_option_adjustments"]').val() || '[]'
             };
 
@@ -320,9 +319,9 @@
                 }
             });
 
-            var ajaxUrl = (typeof wc_add_to_cart_params !== 'undefined' && wc_add_to_cart_params.wc_ajax_url)
-                ? wc_add_to_cart_params.wc_ajax_url.replace('%%endpoint%%', 'add_to_cart')
-                : '/?wc-ajax=add_to_cart';
+            var ajaxUrl = (typeof tanilchoob !== 'undefined' && tanilchoob.ajax && tanilchoob.ajax.url)
+                ? tanilchoob.ajax.url
+                : '/wp-admin/admin-ajax.php';
 
             $.ajax({
                 type: 'POST',
@@ -332,17 +331,10 @@
                     $btn.removeClass('tc-loading');
 
                     if (response && response.error) {
-                        var noticesUrl = (typeof tanilchoob !== 'undefined' && tanilchoob.ajax && tanilchoob.ajax.url)
-                            ? tanilchoob.ajax.url
-                            : '/wp-admin/admin-ajax.php';
-                        $.post(noticesUrl, { action: 'tanilchoob_get_notices' }, function (r) {
-                            var msg = (r && r.success && r.data && r.data.messages && r.data.messages.length)
-                                ? r.data.messages.join('\n')
-                                : 'خطایی رخ داد. لطفاً دوباره تلاش کنید.';
-                            openErrorModal(msg);
-                        }).fail(function () {
-                            openErrorModal('خطایی رخ داد. لطفاً دوباره تلاش کنید.');
-                        });
+                        var msg = (response.messages && response.messages.length)
+                            ? response.messages.join('\n')
+                            : 'خطایی رخ داد. لطفاً دوباره تلاش کنید.';
+                        openErrorModal(msg);
                         return;
                     }
 
