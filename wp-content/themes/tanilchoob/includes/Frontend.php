@@ -44,6 +44,10 @@ class Frontend
 		add_action( 'wp_ajax_tc_remove_cart_item',        [ $this, 'ajax_remove_cart_item' ] );
 		add_action( 'wp_ajax_nopriv_tc_remove_cart_item', [ $this, 'ajax_remove_cart_item' ] );
 
+		add_filter( 'woocommerce_currency_symbol',      [ $this, 'change_currency_symbol' ], 9999, 2 );
+		add_filter( 'raw_woocommerce_price',            [ $this, 'divide_price_by_10' ], 9999 );
+		add_filter( 'woocommerce_available_variation',  [ $this, 'divide_variation_json_by_10' ], 9999, 3 );
+		add_filter( 'woocommerce_add_cart_item_data',   [ $this, 'correct_cart_options_to_rials' ], 20, 3 );
 	}
 
 	public function ajax_remove_cart_item() {
@@ -325,6 +329,39 @@ EOD;
 			return 'تماس با ما';
 		}
 		return $text;
+	}
+
+	public function change_currency_symbol( string $currency_symbol, string $currency ): string {
+		if ( $currency === 'IRR' ) return 'تومان';
+		return $currency_symbol;
+	}
+
+	public function divide_price_by_10( $price ) {
+		if ( is_admin() && ! Helper::requestIsFrontendAjax() ) return $price;
+		if ( is_numeric( $price ) ) return (float) $price / 10;
+		return $price;
+	}
+
+	public function divide_variation_json_by_10( array $data, $_product, $_variation ): array {
+		if ( is_admin() && ! Helper::requestIsFrontendAjax() ) return $data;
+		if ( isset( $data['display_price'] ) ) {
+			$data['display_price'] = (float) $data['display_price'] / 10;
+		}
+		if ( isset( $data['display_regular_price'] ) ) {
+			$data['display_regular_price'] = (float) $data['display_regular_price'] / 10;
+		}
+		return $data;
+	}
+
+	public function correct_cart_options_to_rials( array $cart_item_data, int $product_id, int $variation_id ): array {
+		if ( isset( $cart_item_data['tc_option_adjustments'] ) && is_array( $cart_item_data['tc_option_adjustments'] ) ) {
+			foreach ( $cart_item_data['tc_option_adjustments'] as &$opt ) {
+				if ( isset( $opt['amount'] ) ) {
+					$opt['amount'] = (float) $opt['amount'] * 10;
+				}
+			}
+		}
+		return $cart_item_data;
 	}
 
 	public function force_internal_links($content)

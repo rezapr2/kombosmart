@@ -192,36 +192,39 @@ class MyAccount
 			]);
 			$reply = !empty($replies) ? $replies[0] : null;
 			?>
-			<div class="wc-account-review-item" data-id="<?php echo esc_attr($comment->comment_ID); ?>">
-				<div class="wc-account-review-item__header">
-					<a class="wc-account-review-item__product" href="<?php echo esc_url($product->get_permalink()); ?>">
-						<?php echo esc_html($product->get_name()); ?>
-					</a>
-					<div class="wc-account-review-item__meta">
-						<span class="wc-account-review-item__author"><?php echo esc_html($author); ?></span>
-						<span class="wc-account-review-item__date">در تاریخ <?php echo esc_html($date); ?></span>
+			<div class="wc-account-review-item comment_container" data-id="<?php echo esc_attr($comment->comment_ID); ?>">
+				<a class="wc-account-review-item__product" href="<?php echo esc_url($product->get_permalink()); ?>">
+					<?php echo esc_html($product->get_name()); ?>
+				</a>
+				<div class="comment-text">
+					<div class="flex flex-col">
+						<span class="yekan-16 md:yekan-20 color-black-60"><?php echo esc_html($author); ?></span>
+						<div class="flex items-center">
+							<span class="yekan-10 md:yekan-18 color-black-40">در تاریخ: <?php echo esc_html($date); ?></span>
+							<?php if ($rating > 0) : $aria_label = sprintf('Rated %d out of 5', $rating); ?>
+							<div class="review-stars" role="img" aria-label="<?php echo esc_attr($aria_label); ?>">
+								<?php for ($i = 1; $i <= 5; $i++) : $filled = $i <= $rating; ?>
+									<span class="star <?php echo $filled ? 'filled' : ''; ?>" aria-hidden="true">
+										<svg class="star-icon" width="14" height="14" viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg" focusable="false">
+											<path d="M21.6086 2.63915L24.8511 9.12417C25.2933 10.0269 26.4724 10.8928 27.4673 11.0586L33.3443 12.0351C37.1027 12.6614 37.987 15.3881 35.2788 18.0779L30.7098 22.6469C29.936 23.4207 29.5122 24.913 29.7517 25.9815L31.0598 31.6375C32.0915 36.1144 29.7149 37.8462 25.7539 35.5064L20.2453 32.2455C19.2504 31.6559 17.6108 31.6559 16.5975 32.2455L11.0889 35.5064C7.14629 37.8462 4.75126 36.096 5.78297 31.6375L7.09102 25.9815C7.33053 24.913 6.90679 23.4207 6.13301 22.6469L1.56402 18.0779C-1.12579 15.3881 -0.259893 12.6614 3.49847 12.0351L9.37552 11.0586C10.352 10.8928 11.5311 10.0269 11.9732 9.12417L15.2157 2.63915C16.9844 -0.879715 19.8584 -0.879715 21.6086 2.63915Z" fill="currentColor" />
+										</svg>
+									</span>
+								<?php endfor; ?>
+							</div>
+							<?php endif; ?>
+						</div>
 					</div>
-				</div>
-				<?php if ($rating > 0) : ?>
-				<div class="wc-account-review-item__stars">
-					<?php for ($i = 1; $i <= 5; $i++) : ?>
-					<svg width="18" height="18" viewBox="0 0 24 24" fill="<?php echo $i <= $rating ? '#FBBF24' : 'none'; ?>" xmlns="http://www.w3.org/2000/svg">
-						<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-					</svg>
-					<?php endfor; ?>
-				</div>
-				<?php endif; ?>
-				<p class="wc-account-review-item__text"><?php echo esc_html($comment->comment_content); ?></p>
-				<?php if ($reply) : ?>
-				<div class="wc-account-review-item__reply">
-					<div class="wc-account-review-item__reply-header">
-						<span class="wc-account-review-item__reply-label">مدیریت</span>
-						<span class="wc-account-review-item__reply-date"><?php echo esc_html(get_comment_date('j F Y', $reply)); ?></span>
+					<div class="yekan-14 md:yekan-18 color-black-70 description"><?php echo esc_html($comment->comment_content); ?></div>
+					<?php if ($reply) : ?>
+					<div class="wc-account-review-item__reply">
+						<div class="wc-account-review-item__reply-header">
+							<span class="wc-account-review-item__reply-label">مدیریت</span>
+							<span class="wc-account-review-item__reply-date"><?php echo esc_html(get_comment_date('j F Y', $reply)); ?></span>
+						</div>
+						<p class="wc-account-review-item__reply-text"><?php echo esc_html($reply->comment_content); ?></p>
 					</div>
-					<p class="wc-account-review-item__reply-text"><?php echo esc_html($reply->comment_content); ?></p>
+					<?php endif; ?>
 				</div>
-				<?php endif; ?>
-				
 			</div>
 			<?php
 		}
