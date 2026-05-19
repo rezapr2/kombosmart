@@ -56,12 +56,18 @@ class Frontend
 
 		WC()->cart->calculate_totals();
 
+		$count       = WC()->cart->get_cart_contents_count();
+		$badge_inner = $count > 0
+			? '<span class="minicart-badge absolute flex item-center bg-primary">' . esc_html( $count ) . '</span>'
+			: '';
+
 		$fragments = [];
-		$fragments['#tc-minicart-dropdown'] = self::render_minicart();
+		$fragments['#tc-minicart-dropdown']  = self::render_minicart();
+		$fragments['#tc-minicart-badge-wrap'] = '<span id="tc-minicart-badge-wrap">' . $badge_inner . '</span>';
 
 		wp_send_json_success( [
 			'fragments'   => $fragments,
-			'cart_count'  => WC()->cart->get_cart_contents_count(),
+			'cart_count'  => $count,
 			'cart_total'  => WC()->cart->get_cart_total(),
 		] );
 	}
