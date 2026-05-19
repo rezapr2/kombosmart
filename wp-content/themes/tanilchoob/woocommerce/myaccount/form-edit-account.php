@@ -156,7 +156,7 @@ do_action('woocommerce_before_edit_account_form'); ?>
 			</div>
 
 			<div class="tc-form-field">
-				<label for="account_email">پست الکترونیکی <span class="required">*</span></label>
+				<label for="account_email">پست الکترونیکی </label>
 				<input type="email" id="account_email" name="account_email" value="<?php echo esc_attr($email); ?>"
 					dir="ltr" placeholder="ایمیل">
 			</div>
@@ -183,7 +183,7 @@ do_action('woocommerce_before_edit_account_form'); ?>
 
 		</div>
 
-		<hr class="tc-account-edit-form__divider">
+		<!-- <hr class="tc-account-edit-form__divider">
 
 		<div class="tc-form-grid">
 
@@ -203,7 +203,7 @@ do_action('woocommerce_before_edit_account_form'); ?>
 				<input type="password" id="password_2" name="password_2" dir="ltr" placeholder="تکرار رمز عبور جدید">
 			</div>
 
-		</div>
+		</div> -->
 
 		<?php do_action('woocommerce_edit_account_form'); ?>
 
