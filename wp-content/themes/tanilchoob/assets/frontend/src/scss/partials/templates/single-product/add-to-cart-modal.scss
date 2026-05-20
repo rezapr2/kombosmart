@@ -143,3 +143,21 @@
 body.tc-modal-open {
     overflow: hidden;
 }
+
+@media (max-width: 767px) {
+    .tc-cart-modal {
+        align-items: flex-end;
+
+        &__box {
+            width: 100%;
+            max-width: 100%;
+            border-radius: 1.6rem 1.6rem 0 0;
+            padding: 2rem 1.6rem 3rem;
+        }
+
+        &__product-img {
+            width: 10rem;
+            height: 8rem;
+        }
+    }
+}
