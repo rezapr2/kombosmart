@@ -25,6 +25,7 @@ wp-content/plugins/fakerpress/*
 wp-content/plugins/wp-crontrol/
 wp-content/plugins/better-search-replace/
 wp-content/plugins/tracix
+wp-content/plugins/ai-woo-sales-assistant
 
 # ignore specific themes
 wp-content/themes/twenty*/
