@@ -82,63 +82,74 @@ $base_url = wc_get_account_endpoint_url( 'orders' );
 				// Delivery slot meta (may be empty if no slot plugin is used)
 				$delivery_slot = $order->get_meta( '_tc_delivery_slot' );
 			?>
-			<div class="tc-order-card">
-				<div class="tc-order-card__header">
-					<span class="tc-order-card__code flex gap-10">
-						 <span class="color-black-80 yekan-22"><?php echo esc_html( 'TLC-' . $order_number ); ?></span><span class="color-black-50 yekan-22">:کد سفارش</span>
-					</span>
-					<span class="tc-order-card__total"><?php echo wp_kses_post( $order_total ); ?></span>
-				</div>
-
-				<div class="tc-order-card__body">
-					<div class="tc-order-card__package-label">
-						مرسوله ۱ از ۱
+			<?php
+					// First product image (used for mobile hero)
+					$first_item    = reset( $items );
+					$first_product = $first_item ? $first_item->get_product() : null;
+					$first_img_id  = $first_product ? $first_product->get_image_id() : 0;
+					$first_img_url = $first_img_id
+						? wp_get_attachment_image_url( $first_img_id, 'medium' )
+						: wc_placeholder_img_src( 'medium' );
+					$first_img_alt = $first_product ? $first_product->get_name() : '';
+					?>
+				<div class="tc-order-card">
+					<div class="tc-order-card__header">
+						<span class="tc-order-card__code flex gap-10">
+							<span class="color-black-80 yekan-22"><?php echo esc_html( 'TLC-' . $order_number ); ?></span><span class="color-black-50 yekan-22">:کد سفارش</span>
+						</span>
+						<span class="tc-order-card__total"><?php echo wp_kses_post( $order_total ); ?></span>
 					</div>
 
-					<div class="tc-order-card__meta">
-						<?php if ( $delivery_slot ) : ?>
-						<div class="tc-order-card__meta-row">
-							<span class="tc-order-card__meta-key">زمان تحویل :</span>
-							<span class="tc-order-card__meta-val"><?php echo esc_html( $delivery_slot ); ?></span>
+					<img src="<?php echo esc_url( $first_img_url ); ?>" alt="<?php echo esc_attr( $first_img_alt ); ?>" class="tc-order-card__mobile-img">
+
+					<div class="tc-order-card__body">
+						<div class="tc-order-card__package-label">
+							مرسوله ۱ از ۱
 						</div>
-						<?php endif; ?>
 
-						<?php if ( $shipping_label ) : ?>
-						<div class="tc-order-card__meta-row">
-							<span class="tc-order-card__meta-key">نوع ارسال :</span>
-							<span class="tc-order-card__meta-val"><?php echo esc_html( $shipping_label ); ?></span>
+						<div class="tc-order-card__meta">
+							<?php if ( $delivery_slot ) : ?>
+							<div class="tc-order-card__meta-row">
+								<span class="tc-order-card__meta-key">زمان تحویل :</span>
+								<span class="tc-order-card__meta-val"><?php echo esc_html( $delivery_slot ); ?></span>
+							</div>
+							<?php endif; ?>
+
+							<?php if ( $shipping_label ) : ?>
+							<div class="tc-order-card__meta-row">
+								<span class="tc-order-card__meta-key">نوع ارسال :</span>
+								<span class="tc-order-card__meta-val"><?php echo esc_html( $shipping_label ); ?></span>
+							</div>
+							<?php endif; ?>
 						</div>
-						<?php endif; ?>
-					</div>
-<div class="tc-order-card__footer flex justify-between items-end">
-					<div class="tc-order-card__thumbs">
-						<?php
-						$shown = 0;
-						foreach ( $items as $item ) {
-							if ( $shown >= 3 ) break;
-							$product   = $item->get_product();
-							$image_id  = $product ? $product->get_image_id() : 0;
-							$image_url = $image_id
-								? wp_get_attachment_image_url( $image_id, 'thumbnail' )
-								: wc_placeholder_img_src( 'thumbnail' );
-							$name = $product ? $product->get_name() : $item->get_name();
-							echo '<img src="' . esc_url( $image_url ) . '" alt="' . esc_attr( $name ) . '" class="tc-order-card__thumb">';
-							$shown++;
-						}
-						if ( $item_count > 3 ) {
-							echo '<span class="tc-order-card__thumb-more">+' . ( $item_count - 3 ) . '</span>';
-						}
-						?>
-					</div>
-					<a href="<?php echo esc_url( $order_url ); ?>" class="tc-order-card__details-link">
-						جزئیات بیشتر
-						<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-					</a>
-				</div>
-				</div>
 
-				
-			</div>
+						<div class="tc-order-card__footer flex justify-between items-end">
+							<div class="tc-order-card__thumbs">
+								<?php
+								$shown = 0;
+								foreach ( $items as $item ) {
+									if ( $shown >= 3 ) break;
+									$product   = $item->get_product();
+									$image_id  = $product ? $product->get_image_id() : 0;
+									$image_url = $image_id
+										? wp_get_attachment_image_url( $image_id, 'thumbnail' )
+										: wc_placeholder_img_src( 'thumbnail' );
+									$name = $product ? $product->get_name() : $item->get_name();
+									echo '<img src="' . esc_url( $image_url ) . '" alt="' . esc_attr( $name ) . '" class="tc-order-card__thumb">';
+									$shown++;
+								}
+								if ( $item_count > 3 ) {
+									echo '<span class="tc-order-card__thumb-more">+' . ( $item_count - 3 ) . '</span>';
+								}
+								?>
+							</div>
+							<a href="<?php echo esc_url( $order_url ); ?>" class="tc-order-card__details-link">
+								جزئیات بیشتر
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+							</a>
+						</div>
+					</div>
+				</div>
 			<?php endforeach; ?>
 		<?php endif; ?>
 	</div>

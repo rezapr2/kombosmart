@@ -47,7 +47,7 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 
 <div class="tc-view-order">
 
-	<!-- Back + Invoice -->
+	<!-- Back + Invoice (hidden on mobile — my-account.php header handles back) -->
 	<div class="tc-view-order__topbar">
 		<a href="<?php echo esc_url(wc_get_account_endpoint_url('orders')); ?>" class="tc-view-order__back">
 			<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -103,7 +103,8 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 		</div>
 	</div>
 
-	<!-- ── Transaction History ────────────────────────────────── -->
+	<!-- ── Transaction History (online payments only) ───────────── -->
+	<?php if ( ! in_array( $order->get_payment_method(), [ 'cod', '' ], true ) ) : ?>
 	<div class="tc-view-order__section">
 		<h3 class="tc-view-order__section-title">
 			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -139,8 +140,7 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 					<tr>
 						<td><?php echo esc_html($date_str); ?></td>
 						<td>
-							<span
-								class="tc-view-order__tx-status tc-view-order__tx-status--<?php echo esc_attr($tx_status_cls); ?>">
+							<span class="tc-view-order__tx-status tc-view-order__tx-status--<?php echo esc_attr($tx_status_cls); ?>">
 								<?php echo esc_html($tx_status); ?>
 							</span>
 						</td>
@@ -152,7 +152,30 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 				</tbody>
 			</table>
 		</div>
+
+		<!-- Mobile-only: key-value rows replacing the table -->
+		<div class="tc-view-order__tx-mobile">
+			<div class="tc-view-order__tx-row">
+				<span class="tc-view-order__info-key">تاریخ :</span>
+				<span class="tc-view-order__info-val"><?php echo esc_html($date_str); ?></span>
+			</div>
+			<div class="tc-view-order__tx-row">
+				<span class="tc-view-order__info-key">وضعیت :</span>
+				<span class="tc-view-order__tx-status tc-view-order__tx-status--<?php echo esc_attr($tx_status_cls); ?>"><?php echo esc_html($tx_status); ?></span>
+			</div>
+			<div class="tc-view-order__tx-row">
+				<span class="tc-view-order__info-key">روش پرداخت :</span>
+				<span class="tc-view-order__info-val"><?php echo esc_html($payment_title ?: '—'); ?></span>
+			</div>
+			<?php if ($transaction) : ?>
+			<div class="tc-view-order__tx-row">
+				<span class="tc-view-order__info-key">شماره پیگیری :</span>
+				<span class="tc-view-order__info-val" dir="ltr"><?php echo esc_html($transaction); ?></span>
+			</div>
+			<?php endif; ?>
+		</div>
 	</div>
+	<?php endif; ?>
 
 	<!-- ── Recipient & Destination ───────────────────────────── -->
 	<div class="tc-view-order__section">
@@ -282,6 +305,16 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 								<?php echo esc_html($brand); ?>
 							</span>
 						<?php endif; ?>
+						<!-- Mobile-only: status + tracking + price inside the card -->
+						<div class="tc-view-order__item-mobile-meta">
+							<span class="tc-view-order__item-status tc-view-order__item-status--<?php echo esc_attr($item_status_cls); ?>">
+								<?php echo esc_html($item_status_label); ?>
+							</span>
+							<div class="tc-view-order__item-tracking">
+								<span class="tc-view-order__info-key">کد پیگیری مرسوله :</span>
+								<span dir="ltr">TLC-<?php echo esc_html($order_number); ?></span>
+							</div>
+						</div>
 						<span class="tc-view-order__item-price">
 							<?php echo esc_html(number_format($subtotal)); ?> تومان
 						</span>

@@ -166,6 +166,17 @@ class MyAccount
 			'number' => 20,
 		]);
 
+		// Mark all current reply IDs as seen
+		$review_ids = wp_list_pluck($comments, 'comment_ID');
+		if ($review_ids) {
+			$reply_ids = get_comments([
+				'parent__in' => $review_ids,
+				'status'     => 'approve',
+				'fields'     => 'ids',
+			]);
+			update_user_meta($user_id, '_tc_seen_review_replies', (array) $reply_ids);
+		}
+
 		wp_localize_script('scripts', 'tcCheckout', [
 			'ajaxUrl' => admin_url('admin-ajax.php'),
 			'nonce' => wp_create_nonce('ajax-nonce'),
@@ -265,6 +276,17 @@ class MyAccount
 			'numberposts' => 999,
 			'post_status' => ['publish', 'pending'],
 		]);
+
+		// Mark all answered question IDs as seen
+		if ($questions) {
+			$answered_ids = [];
+			foreach ($questions as $q) {
+				if (get_post_meta($q->ID, 'answer_text', true)) {
+					$answered_ids[] = $q->ID;
+				}
+			}
+			update_user_meta($user_id, '_tc_seen_question_answers', $answered_ids);
+		}
 
 		if (empty($questions)) {
 			echo '<p class="wc-account-empty-msg">هنوز سوالی ثبت نکرده‌اید.</p>';

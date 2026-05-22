@@ -76,13 +76,61 @@ $icons = [
 ];
 
 do_action('woocommerce_before_account_navigation');
+
+// Count new review replies
+$user_id = get_current_user_id();
+$review_badge = 0;
+$question_badge = 0;
+
+if ($user_id) {
+	$user_reviews = get_comments([
+		'user_id' => $user_id,
+		'type'    => 'review',
+		'status'  => 'approve',
+		'number'  => 50,
+		'fields'  => 'ids',
+	]);
+	if ($user_reviews) {
+		$seen_reply_ids  = (array) get_user_meta($user_id, '_tc_seen_review_replies', true);
+		$all_reply_ids   = get_comments([
+			'parent__in' => $user_reviews,
+			'status'     => 'approve',
+			'fields'     => 'ids',
+		]);
+		$review_badge = count(array_diff((array) $all_reply_ids, $seen_reply_ids));
+	}
+
+	$user_questions = get_posts([
+		'post_type'   => 'product_questions',
+		'author'      => $user_id,
+		'numberposts' => 50,
+		'post_status' => ['publish', 'pending'],
+		'fields'      => 'ids',
+	]);
+	if ($user_questions) {
+		$seen_answer_ids = (array) get_user_meta($user_id, '_tc_seen_question_answers', true);
+		$answered_ids    = [];
+		foreach ($user_questions as $qid) {
+			if (get_post_meta($qid, 'answer_text', true)) {
+				$answered_ids[] = $qid;
+			}
+		}
+		$question_badge = count(array_diff($answered_ids, $seen_answer_ids));
+	}
+}
+
+$nav_badges = [
+	'reviews'   => $review_badge,
+	'questions' => $question_badge,
+];
 ?>
 
 <nav class="woocommerce-MyAccount-navigation" aria-label="<?php esc_attr_e('Account pages', 'woocommerce'); ?>">
 	<ul>
 		<?php foreach (wc_get_account_menu_items() as $endpoint => $label):
 			$classes = wc_get_account_menu_item_classes($endpoint);
-			$icon = isset($icons[$endpoint]) ? $icons[$endpoint] : '';
+			$icon    = $icons[$endpoint] ?? '';
+			$badge   = $nav_badges[$endpoint] ?? 0;
 			?>
 			<li class="<?php echo esc_attr($classes); ?>">
 				<a href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>" <?php echo wc_is_current_account_menu_item($endpoint) ? 'aria-current="page"' : ''; ?>>
@@ -90,6 +138,12 @@ do_action('woocommerce_before_account_navigation');
 						<span class="nav-icon" aria-hidden="true"><?php echo $icon; ?></span>
 					<?php endif; ?>
 					<span class="nav-label"><?php echo esc_html($label); ?></span>
+					<?php if ($badge > 0): ?>
+						<span class="nav-badge">
+							<span class="nav-badge__count">+<?php echo esc_html($badge); ?></span>
+							<span class="nav-badge__text"><?php echo $endpoint === 'reviews' ? 'پاسخ جدید برای نظر شما' : 'پاسخ جدید برای پرسش شما'; ?></span>
+						</span>
+					<?php endif; ?>
 				</a>
 			</li>
 		<?php endforeach; ?>
