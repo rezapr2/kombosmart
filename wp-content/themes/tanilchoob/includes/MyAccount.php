@@ -636,7 +636,7 @@ class MyAccount
 						</div>
 						<div class="tc-form-field">
 							<label for="tc-addr-phone">شماره تماس <span class="required">*</span></label>
-							<input type="tel" id="tc-addr-phone" placeholder="09xxxxxxxxx" dir="ltr">
+							<input type="tel" id="tc-addr-phone" placeholder="09xxxxxxxxx" dir="ltr" required>
 						</div>
 						<div class="tc-form-field">
 							<label for="tc-addr-postcode">کد پستی</label>
