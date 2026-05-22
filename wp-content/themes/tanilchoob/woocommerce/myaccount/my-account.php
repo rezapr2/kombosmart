@@ -15,7 +15,7 @@ $current_user = wp_get_current_user();
 <div class="wc-my-account">
 
 	<p class="wc-my-account__greeting">
-		خوش آمدی <?php echo esc_html( $current_user->display_name ); ?>! 👋
+		خوش آمدی<br class="wc-my-account__greeting-break"> <span class="wc-my-account__greeting-name"><?php echo esc_html( $current_user->display_name ); ?>!</span> 👋
 	</p>
 
 	<div class="wc-my-account__body flex flex-row-reverse">

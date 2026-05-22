@@ -296,9 +296,21 @@
         color: var(--color-black);
         margin-bottom: 2rem;
 
+        &-break {
+            display: none;
+        }
+
         @media (max-width: 768px) {
-            font-size: 1.8rem;
+            font-size: 2.4rem;
             margin-bottom: 2rem;
+
+            &-break {
+                display: inline;
+            }
+
+            &-name {
+                font-size: 2rem;
+            }
         }
     }
 
