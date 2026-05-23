@@ -147,12 +147,12 @@ do_action('woocommerce_before_edit_account_form'); ?>
 				<div class="tc-form-field">
 					<label for="account_first_name">نام <span class="required">*</span></label>
 					<input type="text" id="account_first_name" name="account_first_name"
-						value="<?php echo esc_attr($first_name); ?>" placeholder="نام">
+						value="<?php echo esc_attr($first_name); ?>" placeholder="نام" required>
 				</div>
 				<div class="tc-form-field">
 					<label for="account_last_name">نام خانوادگی <span class="required">*</span></label>
 					<input type="text" id="account_last_name" name="account_last_name"
-						value="<?php echo esc_attr($last_name); ?>" placeholder="نام خانوادگی">
+						value="<?php echo esc_attr($last_name); ?>" placeholder="نام خانوادگی" required>
 				</div>
 			</div>
 
@@ -184,9 +184,9 @@ do_action('woocommerce_before_edit_account_form'); ?>
 
 			<div class="tc-form-group" data-group="phone">
 				<div class="tc-form-field">
-					<label for="billing_phone">شماره موبایل</label>
+					<label for="billing_phone">شماره موبایل <span class="required">*</span></label>
 					<input type="tel" id="billing_phone" name="billing_phone" value="<?php echo esc_attr($phone); ?>"
-						dir="ltr" placeholder="09xxxxxxxxx">
+						dir="ltr" placeholder="09xxxxxxxxx" required>
 				</div>
 			</div>
 
@@ -205,8 +205,9 @@ do_action('woocommerce_before_edit_account_form'); ?>
 			</button>
 		</div>
 
-		<?php wp_nonce_field('save_account_details', 'woocommerce-edit-account-nonce'); ?>
+		<?php wp_nonce_field('save_account_details', 'save-account-details-nonce'); ?>
 		<input type="hidden" name="action" value="save_account_details">
+		<input type="hidden" name="account_display_name" value="<?php echo esc_attr($user->display_name); ?>">
 
 		<?php do_action('woocommerce_edit_account_form_end'); ?>
 	</form>
@@ -246,6 +247,13 @@ do_action('woocommerce_before_edit_account_form'); ?>
 			$('.tc-form-group').show();
 			$('#tc-mobile-group-header').hide();
 			$('.tc-account-edit-form__footer').removeClass('tc-footer--mobile-group');
+		});
+
+		// Sync display_name with first + last name
+		$(document).on('input', '#account_first_name, #account_last_name', function () {
+			var first = $('#account_first_name').val().trim();
+			var last  = $('#account_last_name').val().trim();
+			$('[name="account_display_name"]').val((first + ' ' + last).trim());
 		});
 
 		// Cancel — go back to view
