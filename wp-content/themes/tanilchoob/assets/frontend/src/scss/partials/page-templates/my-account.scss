@@ -706,8 +706,11 @@
         padding: 2rem 2.4rem;
         display: flex;
         flex-direction: column;
-        gap: 1.2rem;
+        gap: .2rem;
 
+        &:hover{
+            border-color: var(--color-primary);
+        }
         &__header {
             display: flex;
             align-items: flex-start;
@@ -716,8 +719,8 @@
         }
 
         &__product {
-            font-size: 2rem;
-            font-weight: 700;
+            font-size: 2.2rem;
+            font-weight: 500;
             color: #000;
             text-decoration: none;
             line-height: 1.4;
@@ -762,34 +765,54 @@
         }
 
         &__reply {
-            border-right: 3px solid rgba(0, 0, 0, 0.12);
-            padding-right: 1.4rem;
-            margin-top: 0.4rem;
             display: flex;
             flex-direction: column;
             gap: 0.6rem;
+            padding-right: 2rem;
+            margin-right: 2rem;
+            padding-top: 3rem;
+            position: relative;
+            &:before {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 1px;
+                height: 70%;
+                background-color: rgba(0, 0, 0, .2);
+            }
+            &:after {
+                content: "";
+                position: absolute;
+                top: 70%;
+                right: 0;
+                width: 2rem;
+                height: 1px;
+                background-color: rgba(0, 0, 0, .2);
+            }
         }
 
         &__reply-header {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
+            flex-direction: column;
             justify-content: space-between;
         }
 
         &__reply-label {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: rgba(0, 0, 0, 0.7);
+            font-size: 2rem;
+            font-weight: 500;
+            color: rgba(0, 0, 0, 0.8);
         }
 
         &__reply-date {
-            font-size: 1.3rem;
-            color: rgba(0, 0, 0, 0.4);
+            font-size: 1.4rem;
+            color: rgba(0, 0, 0, 0.5);
         }
 
         &__reply-text {
-            font-size: 1.5rem;
-            color: rgba(0, 0, 0, 0.6);
+            font-size: 1.8rem;
+            color: rgba(0, 0, 0, 0.7);
             line-height: 1.9;
             margin: 0;
         }

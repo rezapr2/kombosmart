@@ -204,14 +204,17 @@ class MyAccount
 			$reply = !empty($replies) ? $replies[0] : null;
 			?>
 			<div class="wc-account-review-item comment_container" data-id="<?php echo esc_attr($comment->comment_ID); ?>">
-				<a class="wc-account-review-item__product" href="<?php echo esc_url($product->get_permalink()); ?>">
-					<?php echo esc_html($product->get_name()); ?>
-				</a>
+				<div class="w-full flex justify-between">
+					<span class="yekan-16 md:yekan-20 color-black-80"><?php echo esc_html($author); ?></span>
+					<a class="wc-account-review-item__product" href="<?php echo esc_url($product->get_permalink()); ?>">
+						<?php echo esc_html($product->get_name()); ?>
+					</a>
+				</div>
+				
 				<div class="comment-text">
 					<div class="flex flex-col">
-						<span class="yekan-16 md:yekan-20 color-black-60"><?php echo esc_html($author); ?></span>
 						<div class="flex items-center">
-							<span class="yekan-10 md:yekan-18 color-black-40">در تاریخ: <?php echo esc_html($date); ?></span>
+							<span class="yekan-10 md:yekan-14 color-black-50">در تاریخ: <?php echo esc_html($date); ?></span>
 							<?php if ($rating > 0) : $aria_label = sprintf('Rated %d out of 5', $rating); ?>
 							<div class="review-stars" role="img" aria-label="<?php echo esc_attr($aria_label); ?>">
 								<?php for ($i = 1; $i <= 5; $i++) : $filled = $i <= $rating; ?>
@@ -225,7 +228,7 @@ class MyAccount
 							<?php endif; ?>
 						</div>
 					</div>
-					<div class="yekan-14 md:yekan-18 color-black-70 description"><?php echo esc_html($comment->comment_content); ?></div>
+					<div class="yekan-14 md:yekan-18 color-black-70 mt-10 description"><?php echo esc_html($comment->comment_content); ?></div>
 					<?php if ($reply) : ?>
 					<div class="wc-account-review-item__reply">
 						<div class="wc-account-review-item__reply-header">
