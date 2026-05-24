@@ -78,8 +78,6 @@
             $('#tc-checkout-next').text('ادامه ثبت سفارش');
         }
 
-        // Show/hide COD warning
-        if (n === 3) updateCodWarning();
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -320,18 +318,6 @@
         });
     });
 
-    // ── Payment ───────────────────────────────────────────────
-
-    function updateCodWarning() {
-        var method = $('input[name="tc_payment_method"]:checked').val();
-        if (method === 'cod') {
-            $('#tc-cod-warning').removeClass('is-hidden');
-        } else {
-            $('#tc-cod-warning').addClass('is-hidden');
-        }
-    }
-
-    $(document).on('change', '.tc-payment-radio', updateCodWarning);
 
     // ── Place order ──────────────────────────────────────────
 

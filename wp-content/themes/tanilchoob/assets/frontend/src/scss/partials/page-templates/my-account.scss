@@ -706,6 +706,9 @@
 
         &:hover{
             border-color: var(--color-primary);
+            .wc-account-review-item__product {
+                color: var(--color-primary);
+            }
         }
         &__header {
             display: flex;
@@ -2616,27 +2619,6 @@
         color: rgba(0, 0, 0, 0.5);
     }
 
-    // COD warning
-    .tc-payment-warning {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 1.4rem 1.8rem;
-        background: #fff8f0;
-        border: 1px solid #FF0000;
-        font-size: 1.4rem;
-        color: #FF0000;
-        margin-bottom: 2.4rem;
-
-        svg {
-            color: #FF0000;
-            flex-shrink: 0;
-        }
-
-        &.is-hidden {
-            display: none;
-        }
-    }
 
     .tc-payment-warning__link {
         color: #9a6010;
@@ -2650,6 +2632,7 @@
         }
     }
 
+    
     // Notes
     .tc-notes-wrap {
         display: flex;

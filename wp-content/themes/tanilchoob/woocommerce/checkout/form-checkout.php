@@ -7,6 +7,10 @@
 
 defined('ABSPATH') || exit;
 
+if ( ! is_user_logged_in() ) {
+	wp_safe_redirect( wc_get_page_permalink( 'myaccount' ) );
+	exit;
+}
 
 $cart = WC()->cart;
 $user_id = get_current_user_id();
@@ -189,7 +193,7 @@ $steps = [
 							<?php
 							printf('<a href="%s" class="tc-icon-btn tc-icon-btn--view tc-cart-view"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M15.5819 11.9999C15.5819 13.9799 13.9819 15.5799 12.0019 15.5799C10.0219 15.5799 8.42188 13.9799 8.42188 11.9999C8.42188 10.0199 10.0219 8.41992 12.0019 8.41992C13.9819 8.41992 15.5819 10.0199 15.5819 11.9999Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M11.9998 20.2707C15.5298 20.2707 18.8198 18.1907 21.1098 14.5907C22.0098 13.1807 22.0098 10.8107 21.1098 9.4007C18.8198 5.8007 15.5298 3.7207 11.9998 3.7207C8.46984 3.7207 5.17984 5.8007 2.88984 9.4007C1.98984 10.8107 1.98984 13.1807 2.88984 14.5907C5.17984 18.1907 8.46984 20.2707 11.9998 20.2707Z" stroke="#2F2F2F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M11.9998 20.2707C15.5298 20.2707 18.8198 18.1907 21.1098 14.5907C22.0098 13.1807 22.0098 10.8107 21.1098 9.4007C18.8198 5.8007 15.5298 3.7207 11.9998 3.7207C8.46984 3.7207 5.17984 5.8007 2.88984 9.4007C1.98984 10.8107 1.98984 13.1807 2.88984 14.5907C5.17984 18.1907 8.46984 20.2707 11.9998 20.2707Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 							</svg>
 							</a>', esc_url(get_permalink($product_id))); // PHPCS: XSS ok.
 							?>
@@ -297,8 +301,16 @@ $steps = [
 					<input type="tel" id="tc-addr-phone" placeholder="09xxxxxxxxx" dir="ltr">
 				</div>
 				<div class="tc-form-field">
-					<label for="tc-addr-postcode">کد پستی</label>
+					<label for="tc-addr-phone">تلفن ثابت <span class="required">*</span></label>
+					<input type="tel" id="tc-addr-phone" placeholder="0xxxxxxxxx" dir="ltr">
+				</div>
+				<div class="tc-form-field">
+					<label for="tc-addr-postcode">کد پستی <span class="required">*</span></label>
 					<input type="text" id="tc-addr-postcode" placeholder="کد پستی" dir="ltr">
+				</div>
+				<div class="tc-form-field">
+					<label for="tc-addr-postcode">کد ملی <span class="required">*</span></label>
+					<input type="text" id="tc-addr-postcode" placeholder="کد ملی" dir="ltr">
 				</div>
 				<div class="tc-form-field tc-form-field--full">
 					<label for="tc-addr-city">شهر <span class="required">*</span></label>
@@ -352,13 +364,22 @@ $steps = [
 			?>
 		</div>
 
-		<div class="tc-payment-warning" id="tc-cod-warning">
+		<div class="tc-payment-warning" >
 			<svg width="20" height="20" viewBox="0 0 24 24" fill="none">
 				<path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10zm0-6v-4m0-4h.01"
 					stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 			</svg>
 			<span>هزینه ارسال محصول، به صورت پس کرایه می باشد.</span>
 			<a href="#" class="tc-payment-warning__link" id="tc-cod-info-link">پس کرایه چیست؟</a>
+		</div>
+
+		<div class="tc-payment-warning payments">
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+				<path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10zm0-6v-4m0-4h.01"
+					stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+			</svg>
+			<span>انواع روش های پرداخت نقد و اقساط</span>
+			<a href="<?php echo esc_url(  get_option( 'all_payments_blog_url', 'option' ) ); ?>" class="tc-payment-warning__link">بیشتر بدانید</a>
 		</div>
 
 	</div>
@@ -377,8 +398,7 @@ $steps = [
 			<button class="tc-btn tc-btn--outline-primary" onclick="window.print()">
 				دانلود پیش فاکتور
 			</button>
-			<button class="tc-btn tc-btn--primary" >
-پیگیری سفارش			</button>
+			<a href="<?php echo esc_url( wc_get_account_endpoint_url( 'orders' ) ); ?>" class="tc-btn tc-btn--primary">پیگیری سفارش</a>
 		</div>
 		<div class="tc-invoice" id="tc-invoice">
 			<!-- rendered by JS -->
@@ -390,19 +410,15 @@ $steps = [
 	<div class="tc-modal-overlay" id="tc-cod-modal" aria-hidden="true">
 		<div class="tc-modal" role="dialog" aria-modal="true" dir="rtl">
 			<button class="tc-modal__close" id="tc-cod-modal-close" aria-label="بستن">
-				<svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-					<path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+					<path d="M9.16992 14.8299L14.8299 9.16992" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+					<path d="M14.8299 14.8299L9.16992 9.16992" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 				</svg>
 			</button>
-			<div class="tc-modal__icon">
-				<svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-					<path d="M12 13.43a3.12 3.12 0 1 0 0-6.24 3.12 3.12 0 0 0 0 6.24z" stroke="currentColor" stroke-width="1.5"/>
-					<path d="M3.62 8.49c1.97-8.66 14.8-8.65 16.76.01 1.15 5.08-2.01 9.38-4.78 12.04a5.19 5.19 0 0 1-7.21 0c-2.76-2.66-5.92-6.97-4.77-12.05z" stroke="currentColor" stroke-width="1.5"/>
-				</svg>
-			</div>
 			<h3 class="tc-modal__title">پس کرایه چیست؟</h3>
 			<p class="tc-modal__body">
-				هزینه ارسال محصول به صورت <strong>پس کرایه</strong> می‌باشد؛ یعنی هزینه حمل و نقل در هنگام تحویل کالا توسط پیک یا شرکت باربری از شما دریافت می‌شود و در قیمت نهایی سفارش محاسبه نشده است. این هزینه بسته به وزن، حجم و مقصد ارسال متفاوت است و مستقیماً به شرکت حمل‌ونقل پرداخت می‌گردد.
+				<?php the_field('whats_the_afterpay_text', 'option'); ?>
 			</p>
 		</div>
 	</div>

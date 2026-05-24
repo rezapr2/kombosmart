@@ -851,6 +851,66 @@
             ]
         },
         {
+            "key": "field_6a132f73c316e",
+            "label": "صفحه سبد خرید",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_6a132f8dc316f",
+            "label": "متن پس کرایه چیست",
+            "name": "whats_the_afterpay_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "هزینه ارسال محصول به صورت پس کرایه می‌باشد؛ یعنی هزینه حمل و نقل در هنگام تحویل کالا توسط پیک یا شرکت باربری از شما دریافت می‌شود و در قیمت نهایی سفارش محاسبه نشده است. این هزینه بسته به وزن، حجم و مقصد ارسال متفاوت است و مستقیماً به شرکت حمل‌ونقل پرداخت می‌گردد.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": "",
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_6a132fc7c3170",
+            "label": "لینک انواع روش های پرداخت نقد و اقساط",
+            "name": "all_payments_blog_url",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_69f7c0b88c598",
             "label": "تنظیمات ارسال sms",
             "name": "",
@@ -889,7 +949,7 @@
                 "class": "",
                 "id": ""
             },
-            "message": "<p>اعتبار فعلی شما: <strong>1,000,000.00 ریال<\/strong><\/p>",
+            "message": "<p style=\"color:red;\">خطای سرور (کد 502)<\/p>",
             "new_lines": "wpautop",
             "esc_html": 0
         },
@@ -962,9 +1022,7 @@
                 "id": ""
             },
             "choices": {
-                "": "پترن را از لیست انتخاب کنید",
-                "cicatr9hfc8lonh": "کاربر گرامی،\nکد تایید ورود شما به سایت تانیل چوب:\n%code%",
-                "iuro6xpv1qf4du4": "کاربر گرامی،\nکد تایید ثبت‌نام شما در مجموعه تانیل چوب:\n%code%"
+                "": "خطا از سرور (کد 502)"
             },
             "default_value": false,
             "return_format": "value",
@@ -999,9 +1057,7 @@
                 "id": ""
             },
             "choices": {
-                "": "پترن را از لیست انتخاب کنید",
-                "cicatr9hfc8lonh": "کاربر گرامی،\nکد تایید ورود شما به سایت تانیل چوب:\n%code%",
-                "iuro6xpv1qf4du4": "کاربر گرامی،\nکد تایید ثبت‌نام شما در مجموعه تانیل چوب:\n%code%"
+                "": "خطا از سرور (کد 502)"
             },
             "default_value": false,
             "return_format": "value",
@@ -1034,5 +1090,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1778002244
+    "modified": 1779642359
 }
