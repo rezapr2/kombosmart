@@ -308,7 +308,7 @@ class MyAccount
 						<a href="<?php echo esc_url($product->get_permalink()); ?>"><?php echo esc_html($product->get_name()); ?></a>
 					</div>
 				<?php endif; ?>
-				<div class="wc-account-question-item__question flex items-center gap-15">
+				<div class="wc-account-question-item__question flex items-center gap-15 relative">
 					<div class="icon__box">
 						<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path
@@ -323,10 +323,13 @@ class MyAccount
 						</svg>
 
 					</div>
-					<p class="yekan-16 color-black-80">
-						<?php echo esc_html($q->post_content); ?>
-					</p>
-					
+					<div class="flex flex-col gap-5">
+						<p class="yekan-16 color-black-80">
+							<?php echo esc_html($q->post_content); ?>
+						</p>
+						<span class="yekan-14 color-black-30 absolute bottom-0 left-0 px-15 py-15"><?php echo esc_html( get_the_date( 'Y/m/j', $q ) ); ?></span>
+					</div>
+
 				</div>
 				<?php if ($answer): ?>
 

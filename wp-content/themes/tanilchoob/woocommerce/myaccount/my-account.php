@@ -13,6 +13,11 @@ $current_user  = wp_get_current_user();
 $menu_items    = wc_get_account_menu_items();
 $section_label = '';
 
+$first_name   = trim( $current_user->first_name );
+$last_name    = trim( $current_user->last_name );
+$full_name    = trim( "$first_name $last_name" );
+$greeting_name = $full_name ?: get_user_meta( $current_user->ID, 'billing_phone', true );
+
 foreach ( $menu_items as $endpoint => $label ) {
 	if ( in_array( $endpoint, [ 'dashboard', 'customer-logout' ], true ) ) {
 		continue;
@@ -40,7 +45,7 @@ $is_sub_page = ! empty( $section_label );
 	<?php endif; ?>
 
 	<p class="wc-my-account__greeting">
-		خوش آمدی<br class="wc-my-account__greeting-break"> <span class="wc-my-account__greeting-name"><?php echo esc_html( $current_user->display_name ); ?>!</span> 👋
+		خوش آمدی<br class="wc-my-account__greeting-break"> <span class="wc-my-account__greeting-name"><?php echo esc_html( $greeting_name ); ?>!</span> 👋
 	</p>
 
 	<div class="wc-my-account__body flex flex-row-reverse">

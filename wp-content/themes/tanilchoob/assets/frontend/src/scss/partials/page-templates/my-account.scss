@@ -305,17 +305,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 3.6rem;
-        height: 3.6rem;
-        border: 1px solid rgba(0, 0, 0, 0.12);
-        border-radius: 50%;
-        color: var(--color-black);
+        color: var(--color-primary);
         flex-shrink: 0;
         transition: background-color 0.15s ease;
-
-        &:hover {
-            background-color: rgba(0, 0, 0, 0.04);
-        }
 
         svg {
             width: 2rem;
@@ -324,9 +316,9 @@
     }
 
     &__mobile-title {
-        font-size: 2rem;
-        font-weight: 700;
-        color: var(--color-black);
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: var(--color-primary);
     }
 
     // On mobile sub-pages: hide greeting and sidebar
@@ -344,7 +336,7 @@
 
     // ── Greeting ─────────────────────────────────────────────
     &__greeting {
-        font-size: 3.8rem;
+        font-size: 3.4rem;
         font-weight: 700;
         color: var(--color-black);
         margin-bottom: 2rem;
@@ -656,9 +648,7 @@
         border: 1px solid #fafafa;
         background-color: #fafafa;
 
-        &:hover{
-            border-color: var(--color-primary);
-        }
+        
         
         &__product a {
             font-size: 2.2rem;
@@ -668,6 +658,12 @@
             display: block;
         }
 
+        &:hover{
+            border-color: var(--color-primary);
+            .wc-account-question-item__product a {
+                color: var(--color-primary);
+            }
+        }
         &__text {
         }
 
@@ -1853,9 +1849,7 @@
         padding-top: 2rem;
         border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 
-        @media (max-width: 768px) {
-            display: none;
-        }
+        
     }
 
     .tc-view-order__back {
