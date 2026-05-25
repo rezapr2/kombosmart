@@ -21,6 +21,7 @@ class MyAccount
 		add_action('wp_ajax_tc_delete_review', [$this, 'ajax_delete_review']);
 		add_action('wp_ajax_tc_toggle_wishlist', [$this, 'ajax_toggle_wishlist']);
 		add_action('woocommerce_save_account_details', [$this, 'save_account_custom_fields']);
+		add_filter('wc_order_statuses', [$this, 'rename_order_statuses']);
 	}
 
 	public function register_endpoints()
@@ -666,5 +667,11 @@ class MyAccount
 
 		</div>
 		<?php
+	}
+
+	public function rename_order_statuses(array $statuses): array
+	{
+		$statuses['wc-completed'] = 'تحویل شده';
+		return $statuses;
 	}
 }
