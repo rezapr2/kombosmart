@@ -374,10 +374,15 @@ class MyAccount
 			echo '<p class="wc-account-empty-msg">هیچ پیامی وجود ندارد.</p>';
 			return;
 		}
+
+		$read_message_ids = (array) get_user_meta($user_id, '_tc_read_messages', true);
 		?>
 		<div class="tc-messages-list">
 			<?php foreach ($messages as $msg):
-				$read = get_post_meta($msg->ID, '_tc_message_read', true);
+				$is_group_msg = (bool) get_post_meta($msg->ID, '_tc_message_group_id', true);
+				$read = $is_group_msg
+					? \in_array($msg->ID, $read_message_ids, true)
+					: (bool) get_post_meta($msg->ID, '_tc_message_read', true);
 				$subject = get_the_title($msg);
 				$body = wpautop(wp_kses_post($msg->post_content));
 				$date = get_the_date('Y/m/d', $msg);

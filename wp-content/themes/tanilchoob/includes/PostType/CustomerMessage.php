@@ -176,12 +176,27 @@ class CustomerMessage extends PostType {
 			wp_send_json_error();
 		}
 
-		$recipient = (int) get_post_meta( $message_id, '_tc_message_user_id', true );
-		if ( $recipient !== get_current_user_id() ) {
-			wp_send_json_error();
+		$user_id          = get_current_user_id();
+		$direct_recipient = (int) get_post_meta( $message_id, '_tc_message_user_id', true );
+		$group_id         = (int) get_post_meta( $message_id, '_tc_message_group_id', true );
+
+		if ( $group_id ) {
+			$user_group_id = (int) get_user_meta( $user_id, '_tc_customer_group_id', true );
+			if ( $user_group_id !== $group_id ) {
+				wp_send_json_error();
+			}
+			$read_ids = (array) get_user_meta( $user_id, '_tc_read_messages', true );
+			if ( ! in_array( $message_id, $read_ids, true ) ) {
+				$read_ids[] = $message_id;
+				update_user_meta( $user_id, '_tc_read_messages', $read_ids );
+			}
+		} else {
+			if ( $direct_recipient !== $user_id ) {
+				wp_send_json_error();
+			}
+			update_post_meta( $message_id, '_tc_message_read', 1 );
 		}
 
-		update_post_meta( $message_id, '_tc_message_read', 1 );
 		wp_send_json_success();
 	}
 
