@@ -22,6 +22,7 @@ class MyAccount
 		add_action('wp_ajax_tc_toggle_wishlist', [$this, 'ajax_toggle_wishlist']);
 		add_action('woocommerce_save_account_details', [$this, 'save_account_custom_fields']);
 		add_filter('wc_order_statuses', [$this, 'rename_order_statuses']);
+		add_action('init', [$this, 'rename_completed_post_status'], 20);
 	}
 
 	public function register_endpoints()
@@ -673,5 +674,18 @@ class MyAccount
 	{
 		$statuses['wc-completed'] = 'تحویل شده';
 		return $statuses;
+	}
+
+	public function rename_completed_post_status(): void
+	{
+		global $wp_post_statuses;
+		if (isset($wp_post_statuses['wc-completed'])) {
+			$label = 'تحویل شده';
+			$wp_post_statuses['wc-completed']->label       = $label;
+			$wp_post_statuses['wc-completed']->label_count = _n_noop(
+				'تحویل شده <span class="count">(%s)</span>',
+				'تحویل شده <span class="count">(%s)</span>'
+			);
+		}
 	}
 }
