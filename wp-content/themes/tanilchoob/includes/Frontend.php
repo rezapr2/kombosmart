@@ -231,7 +231,7 @@ EOD;
 	public function wc_breadcrumb_defaults($args)
 	{
 		// Add custom classes to the breadcrumb wrapper element
-		$classes = 'breadcrumb yekan-14 md:yekan-16 py-20';
+		$classes = 'breadcrumb yekan-12 md:yekan-16 py-20';
 		$args['wrap_before'] = '<div class="container"><nav class="' . $classes . '" aria-label="breadcrumb">';
 		$args['wrap_after']  = '</nav></div>';
 		$args['delimiter']  = '<span class="color-black-30">&nbsp;/&nbsp;</span>';

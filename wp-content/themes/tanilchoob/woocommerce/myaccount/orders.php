@@ -93,7 +93,7 @@ $base_url = wc_get_account_endpoint_url( 'orders' );
 				<div class="tc-order-card">
 					<div class="tc-order-card__header">
 						<span class="tc-order-card__code flex gap-10">
-							<span class="color-black-80 yekan-22"><?php echo esc_html( 'TLC-' . $order_number ); ?></span><span class="color-black-50 yekan-22">:کد سفارش</span>
+							<span class="color-black-80 yekan-16 md:yekan-22"><?php echo esc_html( 'TLC-' . $order_number ); ?></span><span class="color-black-50 yekan-16 md:yekan-22">:کد سفارش</span>
 						</span>
 						<span class="tc-order-card__total"><?php echo wp_kses_post( $order_total ); ?></span>
 					</div>

@@ -51,7 +51,7 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 
 	<!-- Back + Invoice (hidden on mobile — my-account.php header handles back) -->
 	<div class="tc-view-order__topbar">
-		<a href="<?php echo esc_url(wc_get_account_endpoint_url('orders')); ?>" class="tc-view-order__back">
+		<a href="#" class="tc-view-order__back">
 			<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
 				<path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
 					stroke-linejoin="round" />
@@ -248,7 +248,7 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 							<path d="M2 14H4" stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round"
 								stroke-linejoin="round" />
 						</svg>
-						<span class="color-primary yekan-16"><?php echo esc_html($shipping_label); ?></span>
+						<span class="color-primary yekan-12 md:yekan-16"><?php echo esc_html($shipping_label); ?></span>
 					</div>
 				<?php endif; ?>
 			</div>
@@ -322,17 +322,6 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 								<?php echo esc_html($brand); ?>
 							</span>
 						<?php endif; ?>
-						<!-- Mobile-only: status + tracking + price inside the card -->
-						<div class="tc-view-order__item-mobile-meta">
-							<span
-								class="tc-view-order__item-status tc-view-order__item-status--<?php echo esc_attr($item_status_cls); ?>">
-								<?php echo esc_html($item_status_label); ?>
-							</span>
-							<div class="tc-view-order__item-tracking">
-								<span class="tc-view-order__info-key">کد پیگیری مرسوله :</span>
-								<span dir="ltr">TLC-<?php echo esc_html($order_number); ?></span>
-							</div>
-						</div>
 						<span class="tc-view-order__item-price">
 							<?php echo esc_html(number_format($subtotal)); ?> تومان
 						</span>
