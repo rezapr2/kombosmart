@@ -22,6 +22,66 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_6a13ddb0fb342",
+            "label": "بخش ارسال",
+            "name": "post_section",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_6a13de0dfb343",
+                    "label": "نوع ارسال",
+                    "name": "post_type",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_6a13de1dfb344",
+                    "label": "زمان ارسال",
+                    "name": "post_time",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
         }
     ],
     "location": [
@@ -34,7 +94,7 @@
         ]
     ],
     "menu_order": 0,
-    "position": "side",
+    "position": "normal",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
@@ -43,5 +103,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1779615470
+    "modified": 1779686973
 }

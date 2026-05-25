@@ -72,15 +72,13 @@ $base_url = wc_get_account_endpoint_url( 'orders' );
 				$items          = $order->get_items();
 				$item_count     = count( $items );
 
+				$post_section = get_field( 'post_section', $order_id );
+
 				// Shipping method label
-				$shipping_label = '';
-				foreach ( $order->get_shipping_methods() as $shipping ) {
-					$shipping_label = $shipping->get_name();
-					break;
-				}
+				$shipping_label = $post_section ? $post_section['post_type'] : '';
 
 				// Delivery slot meta (may be empty if no slot plugin is used)
-				$delivery_slot = $order->get_meta( '_tc_delivery_slot' );
+				$delivery_slot = $post_section ? $post_section['post_time'] : '';
 			?>
 			<?php
 					// First product image (used for mobile hero)
@@ -107,10 +105,10 @@ $base_url = wc_get_account_endpoint_url( 'orders' );
 							<span class="tc-order-card__item-count"><?php echo esc_html( $item_count ); ?> کالا</span>
 						</div>
 
-						<div class="tc-order-card__meta">
+						<div class="tc-order-card__meta flex items-center gap-20 justify-between">
 							<?php if ( $delivery_slot ) : ?>
 							<div class="tc-order-card__meta-row">
-								<span class="tc-order-card__meta-key">زمان تحویل :</span>
+								<span class="tc-order-card__meta-key">زمان ارسال :</span>
 								<span class="tc-order-card__meta-val"><?php echo esc_html( $delivery_slot ); ?></span>
 							</div>
 							<?php endif; ?>

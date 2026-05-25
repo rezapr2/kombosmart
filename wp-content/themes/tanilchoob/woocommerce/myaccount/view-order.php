@@ -21,11 +21,13 @@ $shipping = (float) $order->get_shipping_total();
 $date_str = $order_date ? $order_date->date_i18n('l j F Y، ساعت H:i') : '—';
 
 // Shipping method
-$shipping_method = '';
-foreach ($order->get_shipping_methods() as $sm) {
-	$shipping_method = $sm->get_name();
-	break;
-}
+
+$post_section = get_field('post_section', $order_id);
+
+// Shipping method label
+$shipping_label = $post_section ? $post_section['post_type'] : '';
+// Delivery slot meta (may be empty if no slot plugin is used)
+$delivery_slot = $post_section ? $post_section['post_time'] : '';
 
 // Recipient
 $first = $order->get_shipping_first_name() ?: $order->get_billing_first_name();
@@ -104,77 +106,79 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 	</div>
 
 	<!-- ── Transaction History (online payments only) ───────────── -->
-	<?php if ( ! in_array( $order->get_payment_method(), [ 'cod', '' ], true ) ) : ?>
-	<div class="tc-view-order__section">
-		<h3 class="tc-view-order__section-title">
-			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path
-					d="M21.9331 6.76099L18.5631 20.291C18.3231 21.301 17.4231 22.001 16.3831 22.001H3.24306C1.73306 22.001 0.653075 20.5209 1.10308 19.0709L5.31307 5.55103C5.60307 4.61103 6.47308 3.96094 7.45308 3.96094H19.7531C20.7031 3.96094 21.4931 4.54094 21.8231 5.34094C22.0131 5.77094 22.0531 6.26099 21.9331 6.76099Z"
-					stroke="#C4C4C4" stroke-width="1.5" stroke-miterlimit="10" />
-				<path d="M16 22H20.78C22.07 22 23.08 20.91 22.99 19.62L22 6" stroke="#C4C4C4" stroke-width="1.5"
-					stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-				<path d="M9.67969 6.37854L10.7197 2.05859" stroke="#C4C4C4" stroke-width="1.5" stroke-miterlimit="10"
-					stroke-linecap="round" stroke-linejoin="round" />
-				<path d="M16.3828 6.39075L17.3228 2.05078" stroke="#C4C4C4" stroke-width="1.5" stroke-miterlimit="10"
-					stroke-linecap="round" stroke-linejoin="round" />
-				<path d="M7.70312 12H15.7031" stroke="#C4C4C4" stroke-width="1.5" stroke-miterlimit="10"
-					stroke-linecap="round" stroke-linejoin="round" />
-				<path d="M6.70312 16H14.7031" stroke="#C4C4C4" stroke-width="1.5" stroke-miterlimit="10"
-					stroke-linecap="round" stroke-linejoin="round" />
-			</svg>
-			تاریخچه تراکنش ها
-		</h3>
-		<div class="tc-view-order__table-wrap">
-			<table class="tc-view-order__table">
-				<thead>
-					<tr>
-						<th>تاریخ</th>
-						<th>وضعیت</th>
-						<th>مبلغ</th>
-						<th>روش پرداخت</th>
-						<th>شماره پی گیری</th>
-						<th>توضیحات</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><?php echo esc_html($date_str); ?></td>
-						<td>
-							<span class="tc-view-order__tx-status tc-view-order__tx-status--<?php echo esc_attr($tx_status_cls); ?>">
-								<?php echo esc_html($tx_status); ?>
-							</span>
-						</td>
-						<td><?php echo esc_html(number_format($total)); ?> تومان</td>
-						<td><?php echo esc_html($payment_title ?: '—'); ?></td>
-						<td dir="ltr"><?php echo esc_html($transaction ?: '—'); ?></td>
-						<td><?php echo esc_html($payment_note ?: $customer_note ?: '—'); ?></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+	<?php if (!in_array($order->get_payment_method(), ['cod', ''], true)): ?>
+		<div class="tc-view-order__section">
+			<h3 class="tc-view-order__section-title">
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M21.9331 6.76099L18.5631 20.291C18.3231 21.301 17.4231 22.001 16.3831 22.001H3.24306C1.73306 22.001 0.653075 20.5209 1.10308 19.0709L5.31307 5.55103C5.60307 4.61103 6.47308 3.96094 7.45308 3.96094H19.7531C20.7031 3.96094 21.4931 4.54094 21.8231 5.34094C22.0131 5.77094 22.0531 6.26099 21.9331 6.76099Z"
+						stroke="#C4C4C4" stroke-width="1.5" stroke-miterlimit="10" />
+					<path d="M16 22H20.78C22.07 22 23.08 20.91 22.99 19.62L22 6" stroke="#C4C4C4" stroke-width="1.5"
+						stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+					<path d="M9.67969 6.37854L10.7197 2.05859" stroke="#C4C4C4" stroke-width="1.5" stroke-miterlimit="10"
+						stroke-linecap="round" stroke-linejoin="round" />
+					<path d="M16.3828 6.39075L17.3228 2.05078" stroke="#C4C4C4" stroke-width="1.5" stroke-miterlimit="10"
+						stroke-linecap="round" stroke-linejoin="round" />
+					<path d="M7.70312 12H15.7031" stroke="#C4C4C4" stroke-width="1.5" stroke-miterlimit="10"
+						stroke-linecap="round" stroke-linejoin="round" />
+					<path d="M6.70312 16H14.7031" stroke="#C4C4C4" stroke-width="1.5" stroke-miterlimit="10"
+						stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+				تاریخچه تراکنش ها
+			</h3>
+			<div class="tc-view-order__table-wrap">
+				<table class="tc-view-order__table">
+					<thead>
+						<tr>
+							<th>تاریخ</th>
+							<th>وضعیت</th>
+							<th>مبلغ</th>
+							<th>روش پرداخت</th>
+							<th>شماره پی گیری</th>
+							<th>توضیحات</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><?php echo esc_html($date_str); ?></td>
+							<td>
+								<span
+									class="tc-view-order__tx-status tc-view-order__tx-status--<?php echo esc_attr($tx_status_cls); ?>">
+									<?php echo esc_html($tx_status); ?>
+								</span>
+							</td>
+							<td><?php echo esc_html(number_format($total)); ?> تومان</td>
+							<td><?php echo esc_html($payment_title ?: '—'); ?></td>
+							<td dir="ltr"><?php echo esc_html($transaction ?: '—'); ?></td>
+							<td><?php echo esc_html($payment_note ?: $customer_note ?: '—'); ?></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
-		<!-- Mobile-only: key-value rows replacing the table -->
-		<div class="tc-view-order__tx-mobile">
-			<div class="tc-view-order__tx-row">
-				<span class="tc-view-order__info-key">تاریخ :</span>
-				<span class="tc-view-order__info-val"><?php echo esc_html($date_str); ?></span>
+			<!-- Mobile-only: key-value rows replacing the table -->
+			<div class="tc-view-order__tx-mobile">
+				<div class="tc-view-order__tx-row">
+					<span class="tc-view-order__info-key">تاریخ :</span>
+					<span class="tc-view-order__info-val"><?php echo esc_html($date_str); ?></span>
+				</div>
+				<div class="tc-view-order__tx-row">
+					<span class="tc-view-order__info-key">وضعیت :</span>
+					<span
+						class="tc-view-order__tx-status tc-view-order__tx-status--<?php echo esc_attr($tx_status_cls); ?>"><?php echo esc_html($tx_status); ?></span>
+				</div>
+				<div class="tc-view-order__tx-row">
+					<span class="tc-view-order__info-key">روش پرداخت :</span>
+					<span class="tc-view-order__info-val"><?php echo esc_html($payment_title ?: '—'); ?></span>
+				</div>
+				<?php if ($transaction): ?>
+					<div class="tc-view-order__tx-row">
+						<span class="tc-view-order__info-key">شماره پیگیری :</span>
+						<span class="tc-view-order__info-val" dir="ltr"><?php echo esc_html($transaction); ?></span>
+					</div>
+				<?php endif; ?>
 			</div>
-			<div class="tc-view-order__tx-row">
-				<span class="tc-view-order__info-key">وضعیت :</span>
-				<span class="tc-view-order__tx-status tc-view-order__tx-status--<?php echo esc_attr($tx_status_cls); ?>"><?php echo esc_html($tx_status); ?></span>
-			</div>
-			<div class="tc-view-order__tx-row">
-				<span class="tc-view-order__info-key">روش پرداخت :</span>
-				<span class="tc-view-order__info-val"><?php echo esc_html($payment_title ?: '—'); ?></span>
-			</div>
-			<?php if ($transaction) : ?>
-			<div class="tc-view-order__tx-row">
-				<span class="tc-view-order__info-key">شماره پیگیری :</span>
-				<span class="tc-view-order__info-val" dir="ltr"><?php echo esc_html($transaction); ?></span>
-			</div>
-			<?php endif; ?>
 		</div>
-	</div>
 	<?php endif; ?>
 
 	<!-- ── Recipient & Destination ───────────────────────────── -->
@@ -197,8 +201,7 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 			</div>
 			<div class="tc-view-order__info-row">
 				<span class="tc-view-order__info-key">تحویل گیرنده :</span>
-				<span
-					class="tc-view-order__info-val"><?php echo esc_html(trim($first . ' ' . $last) ?: '—'); ?></span>
+				<span class="tc-view-order__info-val"><?php echo esc_html(trim($first . ' ' . $last) ?: '—'); ?></span>
 			</div>
 			<div class="tc-view-order__info-row tc-view-order__info-row--full">
 				<span class="tc-view-order__info-key">ارسال به :</span>
@@ -215,40 +218,50 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 	<!-- ── Package ────────────────────────────────────────────── -->
 	<div class="tc-view-order__section">
 		<div class="tc-view-order__package-header">
-			<div class="flex items-center gap-10">
-				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path
-					d="M11.9978 14H12.9978C14.0978 14 14.9978 13.1 14.9978 12V2H5.9978C4.4978 2 3.18781 2.82999 2.50781 4.04999"
-					stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-				<path
-					d="M2 17C2 18.66 3.34 20 5 20H6C6 18.9 6.9 18 8 18C9.1 18 10 18.9 10 20H14C14 18.9 14.9 18 16 18C17.1 18 18 18.9 18 20H19C20.66 20 22 18.66 22 17V14H19C18.45 14 18 13.55 18 13V10C18 9.45 18.45 9 19 9H20.29L18.58 6.01001C18.22 5.39001 17.56 5 16.84 5H15V12C15 13.1 14.1 14 13 14H12"
-					stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-				<path
-					d="M8 22C9.10457 22 10 21.1046 10 20C10 18.8954 9.10457 18 8 18C6.89543 18 6 18.8954 6 20C6 21.1046 6.89543 22 8 22Z"
-					stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-				<path
-					d="M16 22C17.1046 22 18 21.1046 18 20C18 18.8954 17.1046 18 16 18C14.8954 18 14 18.8954 14 20C14 21.1046 14.8954 22 16 22Z"
-					stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-				<path d="M22 12V14H19C18.45 14 18 13.55 18 13V10C18 9.45 18.45 9 19 9H20.29L22 12Z" stroke="#C4C4C4"
-					stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-				<path d="M2 8H8" stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-				<path d="M2 11H6" stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-				<path d="M2 14H4" stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-			</svg>
-<span class="tc-view-order__package-title">
-				<span class="tc-view-order__item-count"><?php echo esc_html( count( $order->get_items() ) ); ?> کالا</span>
-			</span>
-			
-			</div>
-			
-			<div class="tc-view-order__invoice-wrap">
-				<?php $invoice_url = get_field( 'invoice_url', $order_id ); ?>
-				<?php if ( $invoice_url ) : ?>
-				<a href="<?php echo esc_url($order->get_view_order_url()); ?>" class="tc-view-order__invoice-link">
-					دریافت فاکتور
-				</a>
+			<div class="flex flex-col  gap-10">
+
+				<span class="tc-view-order__package-title">
+					<span class="tc-view-order__item-count"><?php echo esc_html(count($order->get_items())); ?>
+						کالا</span>
+				</span>
+				<?php if ($shipping_label): ?>
+					<div class="flex flex-row items-center gap-10">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M11.9978 14H12.9978C14.0978 14 14.9978 13.1 14.9978 12V2H5.9978C4.4978 2 3.18781 2.82999 2.50781 4.04999"
+								stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+							<path
+								d="M2 17C2 18.66 3.34 20 5 20H6C6 18.9 6.9 18 8 18C9.1 18 10 18.9 10 20H14C14 18.9 14.9 18 16 18C17.1 18 18 18.9 18 20H19C20.66 20 22 18.66 22 17V14H19C18.45 14 18 13.55 18 13V10C18 9.45 18.45 9 19 9H20.29L18.58 6.01001C18.22 5.39001 17.56 5 16.84 5H15V12C15 13.1 14.1 14 13 14H12"
+								stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+							<path
+								d="M8 22C9.10457 22 10 21.1046 10 20C10 18.8954 9.10457 18 8 18C6.89543 18 6 18.8954 6 20C6 21.1046 6.89543 22 8 22Z"
+								stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+							<path
+								d="M16 22C17.1046 22 18 21.1046 18 20C18 18.8954 17.1046 18 16 18C14.8954 18 14 18.8954 14 20C14 21.1046 14.8954 22 16 22Z"
+								stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+							<path d="M22 12V14H19C18.45 14 18 13.55 18 13V10C18 9.45 18.45 9 19 9H20.29L22 12Z"
+								stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+							<path d="M2 8H8" stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round"
+								stroke-linejoin="round" />
+							<path d="M2 11H6" stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round"
+								stroke-linejoin="round" />
+							<path d="M2 14H4" stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round"
+								stroke-linejoin="round" />
+						</svg>
+						<span class="color-primary yekan-16"><?php echo esc_html($shipping_label); ?></span>
+					</div>
 				<?php endif; ?>
 			</div>
+
+			<div class="tc-view-order__invoice-wrap">
+				<?php $invoice_url = get_field('invoice_url', $order_id); ?>
+				<?php if ($invoice_url): ?>
+					<a href="<?php echo esc_url($order->get_view_order_url()); ?>" class="tc-view-order__invoice-link">
+						دریافت فاکتور
+					</a>
+				<?php endif; ?>
+			</div>
+
 		</div>
 
 		<div class="tc-view-order__package-meta">
@@ -256,22 +269,12 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 				<span class="tc-view-order__info-key">کد پیگیری مرسوله :</span>
 				<span class="tc-view-order__info-val" dir="ltr">TLC-<?php echo esc_html($order_number); ?></span>
 			</div>
-			<?php if ($shipping_method): ?>
+			<?php if ($delivery_slot): ?>
 				<div class="tc-view-order__info-row">
-					<span class="tc-view-order__info-key">نوع ارسال :</span>
-					<span class="tc-view-order__info-val"><?php echo esc_html($shipping_method); ?></span>
-				</div>
-			<?php endif; ?>
-			<div class="tc-view-order__info-row">
-				<span class="tc-view-order__info-key">زمان ارسال :</span>
-				<span class="tc-view-order__info-val">
-					<mark class="tc-view-order__date-mark"><?php echo esc_html($date_str); ?></mark>
-				</span>
-			</div>
-			<?php if ($shipping > 0): ?>
-				<div class="tc-view-order__info-row">
-					<span class="tc-view-order__info-key">هزینه بسته بندی برای ارسال :</span>
-					<span class="tc-view-order__info-val"><?php echo esc_html(number_format($shipping)); ?> تومان</span>
+					<span class="tc-view-order__info-key">زمان ارسال :</span>
+					<span class="tc-view-order__info-val">
+						<mark class="tc-view-order__date-mark"><?php echo esc_html($delivery_slot); ?></mark>
+					</span>
 				</div>
 			<?php endif; ?>
 			<div class="tc-view-order__info-row">
@@ -321,7 +324,8 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 						<?php endif; ?>
 						<!-- Mobile-only: status + tracking + price inside the card -->
 						<div class="tc-view-order__item-mobile-meta">
-							<span class="tc-view-order__item-status tc-view-order__item-status--<?php echo esc_attr($item_status_cls); ?>">
+							<span
+								class="tc-view-order__item-status tc-view-order__item-status--<?php echo esc_attr($item_status_cls); ?>">
 								<?php echo esc_html($item_status_label); ?>
 							</span>
 							<div class="tc-view-order__item-tracking">
@@ -333,7 +337,7 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 							<?php echo esc_html(number_format($subtotal)); ?> تومان
 						</span>
 					</div>
-					
+
 				</div>
 			<?php endforeach; ?>
 		</div>
