@@ -239,6 +239,12 @@ $steps = [
 								</div>
 								<div class="tc-address-card__meta">
 									<span><strong>شماره تماس :</strong> <?php echo esc_html($addr['phone']); ?></span>
+									<?php if ( ! empty( $addr['fixedphone'] ) ): ?>
+										<span><strong>تلفن ثابت :</strong> <?php echo esc_html($addr['fixedphone']); ?></span>
+									<?php endif; ?>
+									<?php if ( ! empty( $addr['nationalcode'] ) ): ?>
+										<span><strong>کد ملی :</strong> <?php echo esc_html($addr['nationalcode']); ?></span>
+									<?php endif; ?>
 									<?php if ($addr['postcode']): ?>
 										<span><strong>کد پستی :</strong> <?php echo esc_html($addr['postcode']); ?></span>
 									<?php endif; ?>
@@ -301,16 +307,16 @@ $steps = [
 					<input type="tel" id="tc-addr-phone" placeholder="09xxxxxxxxx" dir="ltr">
 				</div>
 				<div class="tc-form-field">
-					<label for="tc-addr-phone">تلفن ثابت <span class="required">*</span></label>
-					<input type="tel" id="tc-addr-phone" placeholder="0xxxxxxxxx" dir="ltr">
+					<label for="tc-addr-fixedphone">تلفن ثابت <span class="required">*</span></label>
+					<input type="tel" id="tc-addr-fixedphone" placeholder="0xxxxxxxxx" dir="ltr">
 				</div>
 				<div class="tc-form-field">
 					<label for="tc-addr-postcode">کد پستی <span class="required">*</span></label>
 					<input type="text" id="tc-addr-postcode" placeholder="کد پستی" dir="ltr">
 				</div>
 				<div class="tc-form-field">
-					<label for="tc-addr-postcode">کد ملی <span class="required">*</span></label>
-					<input type="text" id="tc-addr-postcode" placeholder="کد ملی" dir="ltr">
+					<label for="tc-addr-nationalcode">کد ملی <span class="required">*</span></label>
+					<input type="text" id="tc-addr-nationalcode" placeholder="کد ملی" dir="ltr">
 				</div>
 				<div class="tc-form-field tc-form-field--full">
 					<label for="tc-addr-city">شهر <span class="required">*</span></label>

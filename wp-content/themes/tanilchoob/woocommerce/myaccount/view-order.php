@@ -215,8 +215,8 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 	<!-- ── Package ────────────────────────────────────────────── -->
 	<div class="tc-view-order__section">
 		<div class="tc-view-order__package-header">
-			<span class="tc-view-order__package-title">مرسوله ۱ از ۱</span>
-			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<div class="flex items-center gap-10">
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path
 					d="M11.9978 14H12.9978C14.0978 14 14.9978 13.1 14.9978 12V2H5.9978C4.4978 2 3.18781 2.82999 2.50781 4.04999"
 					stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -235,6 +235,20 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 				<path d="M2 11H6" stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 				<path d="M2 14H4" stroke="#C4C4C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 			</svg>
+<span class="tc-view-order__package-title">
+				<span class="tc-view-order__item-count"><?php echo esc_html( count( $order->get_items() ) ); ?> کالا</span>
+			</span>
+			
+			</div>
+			
+			<div class="tc-view-order__invoice-wrap">
+				<?php $invoice_url = get_field( 'invoice_url', $order_id ); ?>
+				<?php if ( $invoice_url ) : ?>
+				<a href="<?php echo esc_url($order->get_view_order_url()); ?>" class="tc-view-order__invoice-link">
+					دریافت فاکتور
+				</a>
+				<?php endif; ?>
+			</div>
 		</div>
 
 		<div class="tc-view-order__package-meta">

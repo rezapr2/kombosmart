@@ -1877,12 +1877,10 @@
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        font-size: 1.4rem;
-        color: var(--color-primary);
-        font-weight: 600;
+        font-size: 1.6rem;
+        color: #3767FE;
+        font-weight: 500;
         text-decoration: none;
-        border: 1px solid rgba(93, 14, 135, 0.35);
-        padding: 0.6rem 1.4rem;
         transition: background 0.2s;
 
         &:hover {
@@ -2034,7 +2032,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 1.4rem 2rem;
+        padding: 1.4rem 0;
         border-bottom: 1px solid rgba(0, 0, 0, 0.07);
     }
 

@@ -178,6 +178,8 @@
                     '<div class="tc-address-card__addr"><strong>آدرس :</strong><span>' + esc((addr.city ? addr.city + '، ' : '') + addr.address_1) + '</span></div>' +
                     '<div class="tc-address-card__meta">' +
                         '<span><strong>شماره تماس :</strong> ' + esc(addr.phone) + '</span>' +
+                        (addr.fixedphone ? '<span><strong>تلفن ثابت :</strong> ' + esc(addr.fixedphone) + '</span>' : '') +
+                        (addr.nationalcode ? '<span><strong>کد ملی :</strong> ' + esc(addr.nationalcode) + '</span>' : '') +
                         (addr.postcode ? '<span><strong>کد پستی :</strong> ' + esc(addr.postcode) + '</span>' : '') +
                     '</div>' +
                 '</div>' +
@@ -355,9 +357,16 @@
 
         var rows = '';
         $.each(items, function (i, item) {
+            var customHtml = '';
+            if (item.customizations && item.customizations.length) {
+                $.each(item.customizations, function (j, c) {
+                    customHtml += '<div class="tc-cart-table__meta"><span class="bold">' + esc(c.key) + ' : </span><span>' + esc(c.value) + '</span></div>';
+                });
+            }
             rows += '<tr>' +
                 '<td>' + esc(item.name) + '</td>' +
                 '<td style="text-align:center">' + item.qty + '</td>' +
+                '<td>' + (customHtml || '—') + '</td>' +
                 '<td>' + item.price + ' تومان</td>' +
                 '<td>' + item.total + ' تومان</td>' +
             '</tr>';
@@ -388,7 +397,7 @@
                 '</div>' +
             '</div>' +
             '<table class="tc-invoice-items">' +
-                '<thead><tr><th>محصول</th><th style="text-align:center">مقدار</th><th>قیمت واحد</th><th>قیمت کل</th></tr></thead>' +
+                '<thead><tr><th>محصول</th><th style="text-align:center">مقدار</th><th>سفارش سازی ها</th><th>قیمت واحد</th><th>قیمت کل</th></tr></thead>' +
                 '<tbody>' + rows + '</tbody>' +
             '</table>' +
             '<div class="tc-invoice-total">' +

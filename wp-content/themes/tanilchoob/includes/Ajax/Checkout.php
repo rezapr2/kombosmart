@@ -328,12 +328,22 @@ class Checkout {
 			if ( ! $item instanceof \WC_Order_Item_Product ) {
 				continue;
 			}
-			$qty     = $item->get_quantity();
+			$qty = $item->get_quantity();
+
+			$customizations = [];
+			foreach ( $item->get_formatted_meta_data( '_', true ) as $meta ) {
+				$customizations[] = [
+					'key'   => wp_strip_all_tags( $meta->display_key ),
+					'value' => wp_strip_all_tags( $meta->display_value ),
+				];
+			}
+
 			$items[] = [
-				'name'  => $item->get_name(),
-				'qty'   => $qty,
-				'price' => number_format( $qty > 0 ? (float) $item->get_subtotal() / $qty : 0, 0, '.', ',' ),
-				'total' => number_format( (float) $item->get_subtotal(), 0, '.', ',' ),
+				'name'           => $item->get_name(),
+				'qty'            => $qty,
+				'price'          => number_format( $qty > 0 ? (float) $item->get_subtotal() / $qty : 0, 0, '.', ',' ),
+				'total'          => number_format( (float) $item->get_subtotal(), 0, '.', ',' ),
+				'customizations' => $customizations,
 			];
 		}
 		return $items;

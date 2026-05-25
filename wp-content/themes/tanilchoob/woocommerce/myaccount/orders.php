@@ -104,7 +104,7 @@ $base_url = wc_get_account_endpoint_url( 'orders' );
 
 					<div class="tc-order-card__body">
 						<div class="tc-order-card__package-label">
-							مرسوله ۱ از ۱
+							<span class="tc-order-card__item-count"><?php echo esc_html( $item_count ); ?> کالا</span>
 						</div>
 
 						<div class="tc-order-card__meta">
