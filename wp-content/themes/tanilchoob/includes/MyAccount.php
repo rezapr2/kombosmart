@@ -61,7 +61,7 @@ class MyAccount
 			'questions' => 'پرسش و پاسخ',
 			'edit-account' => 'مشخصات فردی',
 			'tc-addresses' => 'آدرس‌های من',
-			'messages' => 'پیام ها',
+			'messages' => 'اطلاع رسانی',
 			'customer-logout' => 'خروج از حساب کاربری',
 		];
 	}
