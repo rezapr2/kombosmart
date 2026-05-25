@@ -230,7 +230,7 @@ $steps = [
 							</span>
 							<div class="tc-address-card__body">
 								<div class="tc-address-card__name">
-									<strong>نام و نام خوادگی تحویل گیرنده :</strong>
+									<strong>نام و نام خوانوادگی تحویل گیرنده :</strong>
 									<span><?php echo esc_html($addr['first_name'] . ' ' . $addr['last_name']); ?></span>
 								</div>
 								<div class="tc-address-card__addr">

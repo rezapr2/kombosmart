@@ -1227,6 +1227,11 @@
 
         &--add-address {
             margin-top: 0.4rem;
+            @media screen and (max-width: 768px) {
+                width: 100%;
+                justify-content: center;
+                padding: 2rem;
+            }
         }
     }
 
@@ -1255,7 +1260,7 @@
         grid-template-columns: 1fr 1fr;
         gap: 1.6rem;
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             grid-template-columns: 1fr;
         }
     }
@@ -1392,7 +1397,11 @@
             }
         }
     }
-
+        @media (max-width: 768px) {
+        .tc-account-addresses {
+        padding: 0;
+    }
+        }
     // Mobile overrides
     @media (max-width: 768px) {
         .wc-account-product-list {

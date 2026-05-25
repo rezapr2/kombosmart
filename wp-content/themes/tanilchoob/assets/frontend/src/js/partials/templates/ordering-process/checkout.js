@@ -174,7 +174,7 @@
                     '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
                 '</span>' +
                 '<div class="tc-address-card__body">' +
-                    '<div class="tc-address-card__name"><strong>نام و نام خوادگی تحویل گیرنده :</strong><span>' + esc(addr.first_name + ' ' + addr.last_name) + '</span></div>' +
+                    '<div class="tc-address-card__name"><strong>نام و نام خوانوادگی تحویل گیرنده :</strong><span>' + esc(addr.first_name + ' ' + addr.last_name) + '</span></div>' +
                     '<div class="tc-address-card__addr"><strong>آدرس :</strong><span>' + esc((addr.city ? addr.city + '، ' : '') + addr.address_1) + '</span></div>' +
                     '<div class="tc-address-card__meta">' +
                         '<span><strong>شماره تماس :</strong> ' + esc(addr.phone) + '</span>' +
