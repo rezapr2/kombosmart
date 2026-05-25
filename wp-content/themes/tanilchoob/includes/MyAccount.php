@@ -329,7 +329,7 @@ class MyAccount
 						<p class="yekan-16 color-black-80">
 							<?php echo esc_html($q->post_content); ?>
 						</p>
-						<span class="yekan-14 color-black-30 absolute bottom-0 left-0 px-15 py-15"><?php echo esc_html( get_the_date( 'Y/m/j', $q ) ); ?></span>
+						<span class="yekan-14 color-black-30 absolute bottom-0 left-0 px-15 py-15 date"><?php echo esc_html( get_the_date( 'Y/m/j', $q ) ); ?></span>
 					</div>
 
 				</div>

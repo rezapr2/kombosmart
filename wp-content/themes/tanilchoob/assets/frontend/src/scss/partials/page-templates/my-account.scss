@@ -705,7 +705,7 @@
                 margin-bottom: 1.5rem;
             }
 
-            &__date {
+            .date {
                 top: 1rem;
             }
             &__question {
@@ -741,7 +741,7 @@
                 &::after {
                     content: 'پاسخ';
                     font-size: 1.6rem;
-                    color: rgba(0, 0, 0, 0.03);
+                    color: rgba(0, 0, 0, 0.7);
                     position: absolute;
                     top: 2rem;
                     right: 7rem;
@@ -751,7 +751,7 @@
                     position: absolute;
                     width: 100%;
                     height: 5.4rem;
-                    background-color: rgba(0, 0, 0, 0.7);
+                    background-color: rgba(0, 0, 0, 0.03);
                 }
             }
             &__question,
