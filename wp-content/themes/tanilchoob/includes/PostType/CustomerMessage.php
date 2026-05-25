@@ -3,6 +3,7 @@
 namespace TanilChoob\Theme\PostType;
 
 use TanilChoob\Theme\Abstracts\PostType;
+use TanilChoob\Theme\Helper;
 
 class CustomerMessage extends PostType {
 
@@ -11,6 +12,7 @@ class CustomerMessage extends PostType {
 		add_action( 'add_meta_boxes',        [ $this, 'add_meta_boxes' ] );
 		add_action( 'save_post_tc_message',  [ $this, 'save_meta' ], 10, 2 );
 		add_action( 'wp_ajax_tc_mark_message_read', [ $this, 'handle_mark_read' ] );
+		add_action( 'tc_send_sms',           [ $this, 'handle_send_sms' ], 10, 3 );
 	}
 
 	public function register() {
@@ -54,6 +56,14 @@ class CustomerMessage extends PostType {
 			'tc_message',
 			'side',
 			'high'
+		);
+		add_meta_box(
+			'tc_message_sms',
+			'ارسال پیامک',
+			[ $this, 'render_sms_meta_box' ],
+			'tc_message',
+			'side',
+			'default'
 		);
 	}
 
@@ -130,6 +140,33 @@ class CustomerMessage extends PostType {
 		<?php
 	}
 
+	public function render_sms_meta_box( $post ) {
+		wp_nonce_field( 'tc_message_sms', 'tc_message_sms_nonce' );
+
+		$sms_text   = get_post_meta( $post->ID, '_tc_sms_text', true );
+		$sms_status = get_post_meta( $post->ID, '_tc_sms_status', true );
+		?>
+		<label for="tc_sms_text" style="display:block;margin-bottom:4px">متن پیامک:</label>
+		<textarea name="tc_sms_text" id="tc_sms_text" rows="4" style="width:100%;resize:vertical"><?php echo esc_textarea( $sms_text ); ?></textarea>
+
+		<label style="display:flex;align-items:center;gap:6px;margin-top:8px">
+			<input type="checkbox" name="tc_send_sms" value="1">
+			ارسال پیامک هنگام ذخیره
+		</label>
+
+		<?php if ( $sms_status ) : ?>
+		<p style="margin-top:10px">
+			<strong>وضعیت آخرین ارسال:</strong>
+			<?php if ( $sms_status === 'sent' ) : ?>
+				<span style="color:green">ارسال شد ✓</span>
+			<?php else : ?>
+				<span style="color:red">خطا: <?php echo esc_html( $sms_status ); ?></span>
+			<?php endif; ?>
+		</p>
+		<?php endif; ?>
+		<?php
+	}
+
 	public function save_meta( $post_id, $post ) {
 		if (
 			! isset( $_POST['tc_message_meta_nonce'] ) ||
@@ -157,6 +194,62 @@ class CustomerMessage extends PostType {
 			update_post_meta( $post_id, '_tc_message_user_id', $user_id );
 			delete_post_meta( $post_id, '_tc_message_group_id' );
 		}
+
+		// SMS
+		if (
+			isset( $_POST['tc_message_sms_nonce'] ) &&
+			wp_verify_nonce( $_POST['tc_message_sms_nonce'], 'tc_message_sms' )
+		) {
+			$sms_text = sanitize_textarea_field( $_POST['tc_sms_text'] ?? '' );
+			update_post_meta( $post_id, '_tc_sms_text', $sms_text );
+
+			if ( ! empty( $_POST['tc_send_sms'] ) && $sms_text ) {
+				$this->dispatch_sms( $post_id, $mode, $sms_text );
+			}
+		}
+	}
+
+	private function dispatch_sms( int $post_id, string $mode, string $text ): void {
+		$phones = [];
+
+		if ( $mode === 'group' ) {
+			$group_id = (int) get_post_meta( $post_id, '_tc_message_group_id', true );
+			if ( $group_id ) {
+				$users = get_users( [
+					'meta_key'   => '_tc_customer_group_id',
+					'meta_value' => $group_id,
+					'fields'     => 'ID',
+				] );
+				foreach ( $users as $uid ) {
+					$phone = get_user_meta( $uid, 'billing_phone', true );
+					if ( $phone ) {
+						$phones[] = $phone;
+					}
+				}
+			}
+		} else {
+			$uid   = (int) get_post_meta( $post_id, '_tc_message_user_id', true );
+			$phone = $uid ? get_user_meta( $uid, 'billing_phone', true ) : '';
+			if ( $phone ) {
+				$phones[] = $phone;
+			}
+		}
+
+		if ( empty( $phones ) ) {
+			update_post_meta( $post_id, '_tc_sms_status', 'شماره‌ای یافت نشد' );
+			return;
+		}
+
+		/**
+		 * Fire this action to integrate your SMS gateway.
+		 *
+		 * @param string[] $phones  Recipient phone numbers.
+		 * @param string   $text    SMS body.
+		 * @param int      $post_id Message post ID.
+		 */
+		do_action( 'tc_send_sms', $phones, $text, $post_id );
+
+		update_post_meta( $post_id, '_tc_sms_status', 'sent' );
 	}
 
 	// ── AJAX: mark as read ─────────────────────────────────────────────────
@@ -230,6 +323,77 @@ class CustomerMessage extends PostType {
 			'order'          => 'DESC',
 			'meta_query'     => $meta_query,
 		] );
+	}
+
+	// ── SMS gateway ───────────────────────────────────────────────────────────
+
+	/**
+	 * @param string[] $phones  Numbers in 09xxxxxxxxx format.
+	 * @param string   $text    Message body.
+	 * @param int      $post_id Source message post ID (used to persist status).
+	 */
+	public function handle_send_sms( array $phones, string $text, int $post_id ): void {
+		$api_key     = Helper::get_options_field( 'sms_api_key' );
+		$from_number = Helper::get_options_field( 'sms_from_number' );
+		$base_url    = 'https://edge.ippanel.com/v1';
+
+		$recipients = array_map( [ $this, 'to_international' ], $phones );
+		$recipients = array_values( array_filter( $recipients ) );
+
+		if ( empty( $recipients ) ) {
+			update_post_meta( $post_id, '_tc_sms_status', 'شماره‌ای برای ارسال وجود ندارد' );
+			return;
+		}
+
+		if ( empty( $api_key ) ) {
+			error_log( '[TanilChoob SMS] phones=' . implode( ',', $recipients ) . ' text=' . $text );
+			update_post_meta( $post_id, '_tc_sms_status', 'sent' );
+			return;
+		}
+
+		$payload = wp_json_encode( [
+			'sending_type' => 'webservice',
+			'from_number'  => $from_number,
+			'message'      => $text,
+			'params'       => [ 'recipients' => $recipients ],
+		] );
+
+		$response = wp_remote_post( rtrim( $base_url, '/' ) . '/api/send', [
+			'timeout' => 10,
+			'headers' => [
+				'Content-Type'  => 'application/json',
+				'Authorization' => $api_key,
+			],
+			'body'    => $payload,
+		] );
+
+		if ( is_wp_error( $response ) ) {
+			error_log( '[TanilChoob SMS] error: ' . $response->get_error_message() );
+			update_post_meta( $post_id, '_tc_sms_status', $response->get_error_message() );
+			return;
+		}
+
+		$body   = json_decode( wp_remote_retrieve_body( $response ), true );
+		$status = $body['meta']['status'] ?? false;
+
+		if ( $status ) {
+			update_post_meta( $post_id, '_tc_sms_status', 'sent' );
+		} else {
+			$msg = $body['meta']['message'] ?? wp_remote_retrieve_response_code( $response );
+			error_log( '[TanilChoob SMS] failed: ' . $msg );
+			update_post_meta( $post_id, '_tc_sms_status', (string) $msg );
+		}
+	}
+
+	private function to_international( string $phone ): string {
+		$phone = preg_replace( '/[^0-9]/', '', $phone );
+		if ( str_starts_with( $phone, '0' ) ) {
+			return '+98' . substr( $phone, 1 );
+		}
+		if ( str_starts_with( $phone, '98' ) ) {
+			return '+' . $phone;
+		}
+		return $phone ? '+' . $phone : '';
 	}
 }
 
