@@ -131,11 +131,6 @@ do_action('woocommerce_before_edit_account_form'); ?>
 
 		<!-- Mobile group section header (shown only when a specific group is open on mobile) -->
 		<div class="tc-mobile-group-header" id="tc-mobile-group-header">
-			<button type="button" class="tc-mobile-group-back" id="tc-mobile-back-to-list" aria-label="بازگشت">
-				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-				</svg>
-			</button>
 			<span class="tc-mobile-group-title" id="tc-mobile-group-title"></span>
 		</div>
 

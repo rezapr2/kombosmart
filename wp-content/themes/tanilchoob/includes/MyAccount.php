@@ -206,7 +206,7 @@ class MyAccount
 			$reply = !empty($replies) ? $replies[0] : null;
 			?>
 			<div class="wc-account-review-item comment_container" data-id="<?php echo esc_attr($comment->comment_ID); ?>">
-				<div class="w-full flex justify-between">
+				<div class="w-full flex justify-between flex-col-reverse md:flex-row">
 					<span class="yekan-16 md:yekan-20 color-black-80"><?php echo esc_html($author); ?></span>
 					<a class="wc-account-review-item__product" href="<?php echo esc_url($product->get_permalink()); ?>">
 						<?php echo esc_html($product->get_name()); ?>

@@ -822,6 +822,38 @@
         &__footer {
             margin-top: 0.4rem;
         }
+        @media (max-width: 768px) {
+            padding: 1.4rem;
+            &__product {
+                font-size: 2rem;
+                border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
+                text-align: center;
+                padding-bottom: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            &__date {
+                font-size: 1rem;
+            }
+
+            &__text {
+                font-size: 1.4rem;
+                line-height: 1.8;
+            }
+
+            &__reply-label {
+                font-size: 1.6rem;
+            }
+
+            &__reply-date {
+                font-size: 1rem;
+            }
+
+            &__reply-text {
+                font-size: 1.4rem;
+                line-height: 1.8;
+            }
+        }
     }
     // ── WooCommerce built-in endpoints (orders, addresses, edit-account)
     .woocommerce-MyAccount-orders {
@@ -1424,13 +1456,14 @@
             }
 
             .tc-account-info__label {
-                font-size: 1.3rem !important;
+                font-size: 1.6rem !important;
                 color: rgba(0, 0, 0, 0.45) !important;
                 margin-bottom: 0.3rem;
             }
 
             .tc-account-info__value {
-                font-size: 1.6rem !important;
+                font-size: 1.2rem !important;
+                font-weight: 500;
             }
 
             .tc-account-info__edit-icon {
@@ -1474,14 +1507,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 3.6rem;
-        height: 3.6rem;
-        border: 1px solid rgba(0, 0, 0, 0.12);
-        border-radius: 50%;
         color: var(--color-black);
         flex-shrink: 0;
         background: none;
         cursor: pointer;
+        border: none;
         transition: background-color 0.15s ease;
 
         &:hover {
@@ -1495,8 +1525,8 @@
     }
 
     .tc-mobile-group-title {
-        font-size: 1.8rem;
-        font-weight: 700;
+        font-size: 1.6rem;
+        font-weight: 500;
         color: var(--color-black);
     }
 
@@ -1505,7 +1535,9 @@
         display: contents; // on desktop, groups are invisible wrappers inside the grid
 
         @media (max-width: 768px) {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
         }
     }
 
@@ -1529,7 +1561,7 @@
 
         @media (max-width: 768px) {
             padding: 0;
-
+            background-color: #fff;
             .tc-form-grid {
                 grid-template-columns: 1fr;
                 gap: 1.2rem;
