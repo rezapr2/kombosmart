@@ -214,7 +214,7 @@
 
             .tc-cart-table__col-product {
                 align-items: flex-start;
-
+                flex-direction: row-reverse;
                 .tc-cart-table__img {
                     width: 11rem;
                     height: 11rem;
@@ -1085,8 +1085,6 @@
     }
 
     .tc-checkout__footer-total {
-        display: flex;
-        align-items: center;
         gap: 0.8rem;
         font-size: 2rem;
         color: #2f2f2f;

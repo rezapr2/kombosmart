@@ -439,7 +439,7 @@ $steps = [
 
 	<!-- ── Footer bar ───────────────────────────────────── -->
 	<div class="tc-checkout__footer" id="tc-checkout-footer">
-		<div class="tc-checkout__footer-total">
+		<div class="tc-checkout__footer-total flex flex-col md:flex-row items-start md:items-center">
 			<span>مبلغ قابل پرداخت:</span>
 			<div class="tc-coupon-wrap" id="tc-coupon-wrap">
 				<button class="tc-coupon-toggle" id="tc-coupon-toggle">
