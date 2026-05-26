@@ -256,7 +256,7 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 			<div class="tc-view-order__invoice-wrap">
 				<?php $invoice_url = get_field('invoice_url', $order_id); ?>
 				<?php if ($invoice_url): ?>
-					<a href="<?php echo esc_url($order->get_view_order_url()); ?>" class="tc-view-order__invoice-link">
+					<a href="<?php echo esc_url($invoice_url); ?>" class="tc-view-order__invoice-link">
 						دریافت فاکتور
 					</a>
 				<?php endif; ?>
