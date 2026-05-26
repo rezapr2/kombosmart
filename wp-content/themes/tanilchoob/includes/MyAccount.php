@@ -362,13 +362,76 @@ class MyAccount
 
 	public function messages_content()
 	{
-		$user_id = get_current_user_id();
-		$messages = \TanilChoob\Theme\PostType\CustomerMessage::get_for_user($user_id);
+		$user_id  = get_current_user_id();
+		$view_id  = absint($_GET['message'] ?? 0);
 
 		wp_localize_script('scripts', 'tcCheckout', [
 			'ajaxUrl' => admin_url('admin-ajax.php'),
-			'nonce' => wp_create_nonce('ajax-nonce'),
+			'nonce'   => wp_create_nonce('ajax-nonce'),
 		]);
+
+		// ── Single message view ────────────────────────────────────────────────
+		if ($view_id) {
+			$messages = \TanilChoob\Theme\PostType\CustomerMessage::get_for_user($user_id);
+			$msg = null;
+			foreach ($messages as $m) {
+				if ((int) $m->ID === $view_id) { $msg = $m; break; }
+			}
+
+			if (!$msg) {
+				echo '<p class="wc-account-empty-msg">پیام یافت نشد.</p>';
+				return;
+			}
+
+			$read_message_ids = (array) get_user_meta($user_id, '_tc_read_messages', true);
+			$is_all_msg   = (bool) get_post_meta($msg->ID, '_tc_message_recipient_all', true);
+			$is_group_msg = (bool) get_post_meta($msg->ID, '_tc_message_group_id', true);
+			$read = ( $is_all_msg || $is_group_msg )
+				? \in_array($msg->ID, $read_message_ids, true)
+				: (bool) get_post_meta($msg->ID, '_tc_message_read', true);
+
+			if (!$read) {
+				// mark as read immediately
+				if ($is_all_msg || $is_group_msg) {
+					if (!\in_array($msg->ID, $read_message_ids, true)) {
+						$read_message_ids[] = $msg->ID;
+						update_user_meta($user_id, '_tc_read_messages', $read_message_ids);
+					}
+				} else {
+					update_post_meta($msg->ID, '_tc_message_read', 1);
+				}
+			}
+
+			$back_url = wc_get_account_endpoint_url('messages');
+			?>
+			<div class="tc-message-detail">
+				<a href="<?php echo esc_url($back_url); ?>" class="tc-message-detail__back">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+						<path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+					بازگشت به لیست پیام‌ها
+				</a>
+				<h2 class="tc-message-detail__title"><?php echo esc_html(get_the_title($msg)); ?></h2>
+				<span class="tc-message-detail__date"><?php echo esc_html(get_the_date('Y/m/d', $msg)); ?></span>
+				<?php
+				$video_url      = function_exists('get_field') ? get_field('video_url', $msg->ID) : '';
+				$video_position = function_exists('get_field') ? get_field('video_position', $msg->ID) : 'bottom';
+				if (!$video_position) $video_position = 'bottom';
+				$video_block = '';
+				if ($video_url) {
+					$video_block = '<div class="tc-message-detail__video"><video src="' . esc_url($video_url) . '" controls playsinline preload="metadata"></video></div>';
+				}
+				if ($video_url && $video_position === 'top') echo $video_block;
+				?>
+				<div class="tc-message-detail__body"><?php echo wpautop(wp_kses_post($msg->post_content)); ?></div>
+				<?php if ($video_url && $video_position !== 'top') echo $video_block; ?>
+			</div>
+			<?php
+			return;
+		}
+
+		// ── Messages list ──────────────────────────────────────────────────────
+		$messages = \TanilChoob\Theme\PostType\CustomerMessage::get_for_user($user_id);
 
 		if (empty($messages)) {
 			echo '<p class="wc-account-empty-msg">هیچ پیامی وجود ندارد.</p>';
@@ -376,40 +439,42 @@ class MyAccount
 		}
 
 		$read_message_ids = (array) get_user_meta($user_id, '_tc_read_messages', true);
+		$base_url = wc_get_account_endpoint_url('messages');
 		?>
-		<div class="tc-messages-list">
+		<table class="tc-messages-table">
+			<thead>
+				<tr>
+					<th>عنوان پیام</th>
+					<th>تاریخ</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
 			<?php foreach ($messages as $msg):
 				$is_all_msg   = (bool) get_post_meta($msg->ID, '_tc_message_recipient_all', true);
 				$is_group_msg = (bool) get_post_meta($msg->ID, '_tc_message_group_id', true);
 				$read = ( $is_all_msg || $is_group_msg )
 					? \in_array($msg->ID, $read_message_ids, true)
 					: (bool) get_post_meta($msg->ID, '_tc_message_read', true);
-				$subject = get_the_title($msg);
-				$body = wpautop(wp_kses_post($msg->post_content));
-				$date = get_the_date('Y/m/d', $msg);
+				$subject  = get_the_title($msg);
+				$date     = get_the_date('Y/m/d', $msg);
+				$view_url = add_query_arg('message', $msg->ID, $base_url);
 				?>
-				<div class="tc-message-item <?php echo $read ? 'is-read' : 'is-unread'; ?>"
-					data-id="<?php echo esc_attr($msg->ID); ?>">
-					<div class="tc-message-item__header">
-						<span class="tc-message-item__subject"><?php echo esc_html($subject); ?></span>
-						<span class="tc-message-item__date"><?php echo esc_html($date); ?></span>
+				<tr class="tc-messages-table__row <?php echo $read ? 'is-read' : 'is-unread'; ?>">
+					<td class="tc-messages-table__subject">
 						<?php if (!$read): ?>
 							<span class="tc-message-item__badge">جدید</span>
 						<?php endif; ?>
-					</div>
-					<div class="tc-message-item__body"><?php echo $body; ?></div>
-				</div>
+						<a href="<?php echo esc_url($view_url); ?>"><?php echo esc_html($subject); ?></a>
+					</td>
+					<td class="tc-messages-table__date"><?php echo esc_html($date); ?></td>
+					<td class="tc-messages-table__action">
+						<a href="<?php echo esc_url($view_url); ?>" class="tc-btn tc-btn--sm tc-btn--outline">مشاهده</a>
+					</td>
+				</tr>
 			<?php endforeach; ?>
-		</div>
-		<script>
-			(function ($) {
-				$('.tc-message-item.is-unread').each(function () {
-					var id = $(this).data('id');
-					$.post(tcCheckout.ajaxUrl, { action: 'tc_mark_message_read', nonce: tcCheckout.nonce, message_id: id });
-					$(this).removeClass('is-unread').addClass('is-read').find('.tc-message-item__badge').remove();
-				});
-			})(jQuery);
-		</script>
+			</tbody>
+		</table>
 		<?php
 	}
 
