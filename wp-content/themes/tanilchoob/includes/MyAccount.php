@@ -743,20 +743,30 @@ class MyAccount
 
 	public function rename_order_statuses(array $statuses): array
 	{
-		$statuses['wc-completed'] = 'تحویل شده';
+		$statuses['wc-processing'] = 'در حال تولید';
+		$statuses['wc-on-hold']    = 'در حال ارسال';
+		$statuses['wc-completed']  = 'تحویل شده';
 		return $statuses;
 	}
 
 	public function rename_completed_post_status(): void
 	{
 		global $wp_post_statuses;
-		if (isset($wp_post_statuses['wc-completed'])) {
-			$label = 'تحویل شده';
-			$wp_post_statuses['wc-completed']->label       = $label;
-			$wp_post_statuses['wc-completed']->label_count = _n_noop(
-				'تحویل شده <span class="count">(%s)</span>',
-				'تحویل شده <span class="count">(%s)</span>'
-			);
+
+		$renames = [
+			'wc-processing' => 'در حال تولید',
+			'wc-on-hold'    => 'در حال ارسال',
+			'wc-completed'  => 'تحویل شده',
+		];
+
+		foreach ($renames as $status => $label) {
+			if (isset($wp_post_statuses[$status])) {
+				$wp_post_statuses[$status]->label       = $label;
+				$wp_post_statuses[$status]->label_count = _n_noop(
+					"$label <span class=\"count\">(%s)</span>",
+					"$label <span class=\"count\">(%s)</span>"
+				);
+			}
 		}
 	}
 }
