@@ -20,8 +20,10 @@ $total = $order->get_total();
 $shipping = (float) $order->get_shipping_total();
 $date_str = $order_date ? $order_date->date_i18n('l j F Y، ساعت H:i') : '—';
 
-// Shipping method
+// Finance 
+$finance = get_field('finance', $order_id);
 
+// Shipping method
 $post_section = get_field('post_section', $order_id);
 
 // Shipping method label
@@ -42,9 +44,17 @@ $paid_statuses = ['processing', 'completed', 'on-hold'];
 $tx_status = in_array($order_status, $paid_statuses, true) ? 'موفق' : 'ناموفق';
 $tx_status_cls = in_array($order_status, $paid_statuses, true) ? 'success' : 'fail';
 
-$delivered_statuses = ['completed'];
-$item_status_label = in_array($order_status, $delivered_statuses, true) ? 'تحویل شده' : wc_get_order_status_name($order_status);
-$item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'delivered' : 'pending';
+$status_map = [
+	'completed'  => ['label' => 'تحویل شده',   'cls' => 'delivered'],
+	'processing' => ['label' => 'در حال تولید', 'cls' => 'processing'],
+	'on-hold'    => ['label' => 'در حال ارسال', 'cls' => 'on-hold'],
+	'pending'    => ['label' => 'در انتظار پرداخت', 'cls' => 'pending'],
+	'cancelled'  => ['label' => 'لغو شده',      'cls' => 'cancelled'],
+	'refunded'   => ['label' => 'مسترد شده',    'cls' => 'refunded'],
+	'failed'     => ['label' => 'ناموفق',        'cls' => 'failed'],
+];
+$item_status_label = $status_map[$order_status]['label'] ?? wc_get_order_status_name($order_status);
+$item_status_cls   = $status_map[$order_status]['cls']   ?? 'pending';
 ?>
 
 <div class="tc-view-order">
@@ -90,23 +100,25 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 					<?php echo esc_html(number_format($total)); ?> تومان
 				</span>
 			</div>
-			<?php if ($shipping > 0): ?>
+			<?php if (isset($finance['delivery_cost'])): ?>
 				<div class="tc-view-order__info-row">
 					<span class="tc-view-order__info-key">هزینه بسته بندی برای ارسال :</span>
-					<span class="tc-view-order__info-val"><?php echo esc_html(number_format($shipping)); ?> تومان</span>
+					<span class="tc-view-order__info-val"><?php echo ($finance['delivery_cost']); ?></span>
 				</div>
 			<?php endif; ?>
+			<?php if (isset($finance['pay_amount'])): ?>
 			<div class="tc-view-order__info-row">
 				<span class="tc-view-order__info-key">مبلغ پرداخت شده :</span>
 				<span class="tc-view-order__info-val tc-view-order__info-val--price">
-					<?php echo esc_html(number_format($total)); ?> تومان
+					<?php echo ($finance['pay_amount']); ?> 
 				</span>
 			</div>
+			<?php endif; ?>
 		</div>
 	</div>
 
 	<!-- ── Transaction History (online payments only) ───────────── -->
-	<?php if (!in_array($order->get_payment_method(), ['cod', ''], true)): ?>
+	<?php if (isset($finance['tr_history'])): ?>
 		<div class="tc-view-order__section">
 			<h3 class="tc-view-order__section-title">
 				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -139,19 +151,29 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td><?php echo esc_html($date_str); ?></td>
-							<td>
-								<span
-									class="tc-view-order__tx-status tc-view-order__tx-status--<?php echo esc_attr($tx_status_cls); ?>">
-									<?php echo esc_html($tx_status); ?>
-								</span>
-							</td>
-							<td><?php echo esc_html(number_format($total)); ?> تومان</td>
-							<td><?php echo esc_html($payment_title ?: '—'); ?></td>
-							<td dir="ltr"><?php echo esc_html($transaction ?: '—'); ?></td>
-							<td><?php echo esc_html($payment_note ?: $customer_note ?: '—'); ?></td>
-						</tr>
+						<?php
+						// Assuming tr_history is an array of transactions with keys: date, status, amount, way, num, description
+						foreach ($finance['tr_history'] as $tx) {
+							$date_str = $tx['date'];
+							$tx_status = $tx['status'];
+							$tx_status_cls = $tx['status_cls'];
+							$total = $tx['amount'];
+							$payment_title = $tx['way'];
+							$transaction = $tx['num'];
+							$payment_note = $tx['description'];
+
+							echo '<tr>';
+							echo '<td>' . ($date_str) . '</td>';
+							echo '<td class="tc-view-order__tx-status tc-view-order__tx-status--' . esc_attr($tx_status_cls) . '">' . esc_html($tx_status) . '</td>';
+							echo '<td>' . ($total) . '</td>';
+							echo '<td>' . ($payment_title) . '</td>';
+							echo '<td>' . ($transaction) . '</td>';
+							echo '<td>' . ($payment_note) . '</td>';
+							echo '</tr>';
+							
+						}
+						?>
+						
 					</tbody>
 				</table>
 			</div>

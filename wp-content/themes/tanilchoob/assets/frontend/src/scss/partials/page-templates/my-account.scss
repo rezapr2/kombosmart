@@ -2289,14 +2289,36 @@
         font-weight: 500;
 
         &--delivered {
-            background: #5d0e87;
-            color: var(--color-primary);
+            background: rgba(93, 14, 135, 0.1);
+            color: #5d0e87;
+        }
+
+        &--processing {
+            background: #CED7FF;
+            color: #0B0072;
+        }
+
+        &--on-hold {
+            background: #CED7FF;
+            color: #0B0072;
         }
 
         &--pending {
             background: rgba(0, 0, 0, 0.06);
             color: rgba(0, 0, 0, 0.6);
         }
+
+        &--cancelled,
+        &--failed {
+            background: rgba(244, 67, 54, 0.1);
+            color: #c62828;
+        }
+
+        &--refunded {
+            background: rgba(0, 0, 0, 0.06);
+            color: rgba(0, 0, 0, 0.5);
+        }
+
         @media (max-width: 768px) {
             font-size: 1.2rem;
         }
