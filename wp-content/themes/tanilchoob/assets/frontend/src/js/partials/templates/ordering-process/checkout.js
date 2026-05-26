@@ -64,6 +64,19 @@
             if (s < n)    $(this).addClass('done');
         });
 
+        // Update mobile step nav
+        var $mobileNav = $('#tc-mobile-step-nav');
+        if ($mobileNav.length) {
+            var steps = $mobileNav.data('steps') || {};
+            $('#tc-mobile-current-step').text(steps[n] || '');
+            var $backBtn = $('#tc-mobile-back-btn');
+            if (n > 1) {
+                $backBtn.text('برگشت به ' + (steps[n - 1] || '')).show();
+            } else {
+                $backBtn.hide();
+            }
+        }
+
         // Show/hide footer bar
         if (n === 4) {
             $('#tc-checkout-footer').addClass('is-hidden');
@@ -77,7 +90,6 @@
         } else if (n < 4) {
             $('#tc-checkout-next').text('ادامه ثبت سفارش');
         }
-
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -495,6 +507,14 @@
         var s = parseInt($(this).data('step'), 10);
         if (s < currentStep) {
             goToStep(s);
+        }
+    });
+
+    // ── Mobile back button ────────────────────────────────────
+
+    $(document).on('click', '#tc-mobile-back-btn', function () {
+        if (currentStep > 1) {
+            goToStep(currentStep - 1);
         }
     });
 

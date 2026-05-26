@@ -949,7 +949,7 @@
                 "class": "",
                 "id": ""
             },
-            "message": "<p style=\"color:red;\">خطای سرور (کد 502)<\/p>",
+            "message": "<p>اعتبار فعلی شما: <strong>987,295 ریال<\/strong><\/p>",
             "new_lines": "wpautop",
             "esc_html": 0
         },
@@ -1022,7 +1022,9 @@
                 "id": ""
             },
             "choices": {
-                "": "خطا از سرور (کد 502)"
+                "": "پترن را از لیست انتخاب کنید",
+                "cicatr9hfc8lonh": "کاربر گرامی،\nکد تایید ورود شما به سایت تانیل چوب:\n%code%",
+                "iuro6xpv1qf4du4": "کاربر گرامی،\nکد تایید ثبت‌نام شما در مجموعه تانیل چوب:\n%code%"
             },
             "default_value": false,
             "return_format": "value",
@@ -1057,7 +1059,9 @@
                 "id": ""
             },
             "choices": {
-                "": "خطا از سرور (کد 502)"
+                "": "پترن را از لیست انتخاب کنید",
+                "cicatr9hfc8lonh": "کاربر گرامی،\nکد تایید ورود شما به سایت تانیل چوب:\n%code%",
+                "iuro6xpv1qf4du4": "کاربر گرامی،\nکد تایید ثبت‌نام شما در مجموعه تانیل چوب:\n%code%"
             },
             "default_value": false,
             "return_format": "value",
@@ -1069,6 +1073,48 @@
             "placeholder": "",
             "create_options": 0,
             "save_options": 0
+        },
+        {
+            "key": "field_6a14df65acae8",
+            "label": "ارسال sms پس از پاسخ به نظر کاربر",
+            "name": "send_sms_on_review_response",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "ui": 1
+        },
+        {
+            "key": "field_6a14dfa1acae9",
+            "label": "ارسال sms پس از پاسخ به پرسش کاربر",
+            "name": "send_sms_on_question_response",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "ui": 1
         }
     ],
     "location": [
@@ -1090,5 +1136,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1779642359
+    "modified": 1779752971
 }

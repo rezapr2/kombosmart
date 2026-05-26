@@ -54,7 +54,15 @@ $steps = [
 	?>
 	<div class="header relative">
 		<div class="hidden md:flex top-bg bg-black-03 w-full absolute"></div>
-		<div class="items flex justify-between relative z-index-1 direction-ltr">
+		<!-- Mobile step nav -->
+		<div class="tc-mobile-step-nav flex md:hidden justify-between items-center"
+			id="tc-mobile-step-nav"
+			data-steps="<?php echo esc_attr(wp_json_encode($steps)); ?>">
+			<span class="tc-mobile-current-step yekan-18 color-black bold" id="tc-mobile-current-step"><?php echo esc_html($steps[1]); ?></span>
+			<button class="tc-mobile-back-btn yekan-14 color-black-60" id="tc-mobile-back-btn" style="display:none"></button>
+		</div>
+
+		<div class="items hidden md:flex justify-between relative z-index-1 direction-ltr">
 			<?php foreach (array_reverse($steps, true) as $num => $label): ?>
 				<div class="flex flex-col items-center gap-15 item circle-radius <?php echo $num === 1 ? 'active' : ''; ?>"
 					data-step="<?php echo $num; ?>">
@@ -453,12 +461,12 @@ $steps = [
 				</div>
 			</div>
 		</div>
-		<div class="flex gap-30 items-center">
+		<div class="flex gap-30 items-center flex-wrap">
 			<div class="color-primary">
 				<strong id="tc-cart-total"><?php echo esc_html($cart_total); ?></strong>
 				<span><?php echo wp_kses_post(get_woocommerce_currency_symbol()); ?></span>
 			</div>
-			<button class="tc-btn tc-btn--primary tc-btn--lg" id="tc-checkout-next">
+			<button class="tc-btn tc-btn--primary tc-btn--lg tc-checkout-next" id="tc-checkout-next">
 				ادامه ثبت سفارش
 			</button>
 		</div>

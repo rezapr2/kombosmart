@@ -638,6 +638,12 @@
                 padding: 2rem;
             }
         }
+        @media screen and (max-width: 768px) {
+            &.tc-checkout-next {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     }
 
     // Address form
