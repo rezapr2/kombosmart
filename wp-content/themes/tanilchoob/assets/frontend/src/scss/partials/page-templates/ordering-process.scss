@@ -1092,6 +1092,42 @@
         }
     }
 
+    @media (max-width: 768px) {
+        .tc-invoice-items {
+            thead {
+                display: none;
+            }
+
+            tr {
+                display: block;
+                border-bottom: 1px solid $checkout-border;
+                padding: 1.2rem 1.6rem;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+
+            td {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                padding: 0.6rem 0;
+                border-bottom: none;
+                font-size: 1.4rem;
+                gap: 1rem;
+
+                &::before {
+                    content: attr(data-label) ' :';
+                    font-weight: 600;
+                    color: rgba(0, 0, 0, 0.5);
+                    flex-shrink: 0;
+                    text-align: left;
+                }
+            }
+        }
+    }
+
     .tc-invoice-total {
         display: flex;
         justify-content: flex-end;

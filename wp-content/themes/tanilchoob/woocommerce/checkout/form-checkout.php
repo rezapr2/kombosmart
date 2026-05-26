@@ -400,7 +400,7 @@ $steps = [
 					stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 			</svg>
 			<span>انواع روش های پرداخت نقد و اقساط</span>
-			<a href="<?php echo esc_url(  get_option( 'all_payments_blog_url', 'option' ) ); ?>" class="tc-payment-warning__link">بیشتر بدانید</a>
+			<a href="<?php echo esc_url(  get_field( 'all_payments_blog_url', 'option' ) ); ?>" class="tc-payment-warning__link">بیشتر بدانید</a>
 		</div>
 
 	</div>

@@ -373,11 +373,11 @@
                 });
             }
             rows += '<tr>' +
-                '<td>' + esc(item.name) + '</td>' +
-                '<td style="text-align:center">' + item.qty + '</td>' +
-                '<td>' + (customHtml || '—') + '</td>' +
-                '<td>' + item.price + ' تومان</td>' +
-                '<td>' + item.total + ' تومان</td>' +
+                '<td data-label="نام محصول">' + esc(item.name) + '</td>' +
+                '<td data-label="مقدار">' + item.qty + '</td>' +
+                '<td data-label="سفارش سازی ها">' + (customHtml || '—') + '</td>' +
+                '<td data-label="قیمت واحد">' + item.price + ' تومان</td>' +
+                '<td data-label="قیمت کل">' + item.total + ' تومان</td>' +
             '</tr>';
         });
 
