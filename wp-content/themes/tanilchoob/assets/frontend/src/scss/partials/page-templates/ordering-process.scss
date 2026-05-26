@@ -230,7 +230,7 @@
                 &::before {
                     content: 'مقدار :';
                     font-size: 1.5rem;
-                    color: rgba(0, 0, 0, 0.45);
+                    color: rgba(0, 0, 0, 0.8);
                     font-weight: 500;
                 }
             }
@@ -238,23 +238,22 @@
             .tc-cart-table__col-custom {
                 display: flex;
                 flex-direction: column;
-                gap: 0.4rem;
+                gap: 1rem;
                 padding: 1rem;
-                                background-color: rgba(0, 0, 0, 0.03);
-
+                background-color: rgba(0, 0, 0, 0.03);
             }
 
             .tc-cart-table__col-price {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding: 1rem;
+                padding: 1.6rem 1rem;
                 background-color: rgba(0, 0, 0, 0.03);
 
                 &::before {
                     content: 'قیمت :';
                     font-size: 1.5rem;
-                    color: rgba(0, 0, 0, 0.45);
+                    color: rgba(0, 0, 0, 0.8);
                     font-weight: 500;
                 }
 
@@ -269,6 +268,7 @@
                 gap: 1rem;
                 padding-top: 1rem;
                 border-top: 1px solid $checkout-border;
+                flex-direction: row-reverse;
             }
         }
     }
@@ -413,6 +413,10 @@
         font-weight: 400;
         left: 0;
         top: -100%;
+        @media screen and (max-width: 768px) {
+            font-size: 1rem;
+            top: -40%;
+        }
     }
 
     .tc-muted {
@@ -1239,6 +1243,9 @@
                     }
                 }
             }
+        }
+        @media screen and (max-width: 768px) {
+            margin-bottom: 1.2rem;
         }
     }
     /* ظرف اصلی جدول گریدی */

@@ -59,7 +59,7 @@ $steps = [
 		<div class="tc-mobile-step-nav flex md:hidden justify-between items-center"
 			id="tc-mobile-step-nav"
 			data-steps="<?php echo esc_attr(wp_json_encode($steps)); ?>">
-			<span class="tc-mobile-current-step yekan-18 color-black bold" id="tc-mobile-current-step"><?php echo esc_html($steps[1]); ?></span>
+			<span class="tc-mobile-current-step yekan-16 color-primary bold" id="tc-mobile-current-step"><?php echo esc_html($steps[1]); ?></span>
 			<button class="tc-mobile-back-btn yekan-14 color-black-60" id="tc-mobile-back-btn" style="display:none"></button>
 		</div>
 
