@@ -77,11 +77,13 @@
             }
         }
 
-        // Show/hide footer bar
+        // Show/hide footer bar and mobile step nav
         if (n === 4) {
             $('#tc-checkout-footer').addClass('is-hidden');
+            $('#tc-mobile-step-nav').addClass('is-hidden');
         } else {
             $('#tc-checkout-footer').removeClass('is-hidden');
+            $('#tc-mobile-step-nav').removeClass('is-hidden');
         }
 
         // Update next button label on step 3
@@ -226,13 +228,8 @@
         $('#tc-addr-city').val(editing ? addr.city : '');
         $('#tc-addr-address1').val(editing ? addr.address_1 : '');
         $('#tc-address-msg').text('').removeClass('is-error is-success');
-        if (isAccountPage) {
-            $('#tc-address-modal-overlay').addClass('is-open').attr('aria-hidden', 'false');
-            $('#tc-address-form').addClass('is-open');
-        } else {
-            $('#tc-address-form').addClass('is-open');
-            $('html, body').animate({ scrollTop: $('#tc-address-form').offset().top - 80 }, 300);
-        }
+        $('#tc-address-modal-overlay').addClass('is-open').attr('aria-hidden', 'false');
+        $('#tc-address-form').addClass('is-open');
     }
 
     function closeAddressForm() {

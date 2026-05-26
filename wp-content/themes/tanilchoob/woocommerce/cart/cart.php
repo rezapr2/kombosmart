@@ -191,7 +191,7 @@ $steps = [
 						<div class="tc-cart-table__col-actions flex item-center gap-10">
 							<button class="tc-icon-btn tc-icon-btn--danger tc-cart-remove"
 								data-key="<?php echo esc_attr($cart_item_key); ?>" aria-label="حذف">
-								<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+								<svg viewBox="0 0 24 24" fill="none">
 									<path
 										d="M21 5.98c-3.33-.33-6.68-.5-10.02-.5-1.98 0-3.96.1-5.94.3L3 5.98M8.5 4.97l.22-1.31C8.88 2.71 9 2 10.69 2h2.62c1.69 0 1.82.75 1.97 1.67l.22 1.3M18.85 9.14l-.65 10.07C18.09 20.78 18 22 15.21 22H8.79C6 22 5.91 20.78 5.8 19.21L5.15 9.14M10.33 16.5h3.33M9.5 12.5h5"
 										stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
@@ -200,7 +200,7 @@ $steps = [
 								<span class="tc-btn-label">حذف محصول</span>
 							</button>
 							<?php
-							printf('<a href="%s" class="tc-icon-btn tc-icon-btn--view tc-cart-view"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							printf('<a href="%s" class="tc-icon-btn tc-icon-btn--view tc-cart-view"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M15.5819 11.9999C15.5819 13.9799 13.9819 15.5799 12.0019 15.5799C10.0219 15.5799 8.42188 13.9799 8.42188 11.9999C8.42188 10.0199 10.0219 8.41992 12.0019 8.41992C13.9819 8.41992 15.5819 10.0199 15.5819 11.9999Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M11.9998 20.2707C15.5298 20.2707 18.8198 18.1907 21.1098 14.5907C22.0098 13.1807 22.0098 10.8107 21.1098 9.4007C18.8198 5.8007 15.5298 3.7207 11.9998 3.7207C8.46984 3.7207 5.17984 5.8007 2.88984 9.4007C1.98984 10.8107 1.98984 13.1807 2.88984 14.5907C5.17984 18.1907 8.46984 20.2707 11.9998 20.2707Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 							</svg><span class="tc-btn-label">مشاهده محصول</span></a>', esc_url(get_permalink($product_id))); // PHPCS: XSS ok.
@@ -297,48 +297,54 @@ $steps = [
 			+ افزودن آدرس جدید
 		</button>
 
-		<!-- Address form (hidden by default) -->
-		<div class="tc-address-form" id="tc-address-form">
-			<h3 class="tc-address-form__title" id="tc-address-form-title">افزودن آدرس جدید</h3>
-			<input type="hidden" id="tc-address-id" value="">
-			<div class="tc-form-grid">
-				<div class="tc-form-field">
-					<label for="tc-addr-first-name">نام <span class="required">*</span></label>
-					<input type="text" id="tc-addr-first-name" placeholder="نام">
+		<!-- Address form modal -->
+		<div class="tc-address-modal-overlay" id="tc-address-modal-overlay" aria-hidden="true">
+			<div class="tc-address-form" id="tc-address-form" role="dialog" aria-modal="true" dir="rtl">
+				<button class="tc-address-form__close" id="tc-cancel-address-btn" aria-label="بستن">
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+						<path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+					</svg>
+				</button>
+				<h3 class="tc-address-form__title" id="tc-address-form-title">افزودن آدرس جدید</h3>
+				<input type="hidden" id="tc-address-id" value="">
+				<div class="tc-form-grid">
+					<div class="tc-form-field">
+						<label for="tc-addr-first-name">نام <span class="required">*</span></label>
+						<input type="text" id="tc-addr-first-name" placeholder="نام">
+					</div>
+					<div class="tc-form-field">
+						<label for="tc-addr-last-name">نام خانوادگی <span class="required">*</span></label>
+						<input type="text" id="tc-addr-last-name" placeholder="نام خانوادگی">
+					</div>
+					<div class="tc-form-field">
+						<label for="tc-addr-phone">شماره تماس <span class="required">*</span></label>
+						<input type="tel" id="tc-addr-phone" placeholder="09xxxxxxxxx" dir="ltr">
+					</div>
+					<div class="tc-form-field">
+						<label for="tc-addr-fixedphone">تلفن ثابت <span class="required">*</span></label>
+						<input type="tel" id="tc-addr-fixedphone" placeholder="0xxxxxxxxx" dir="ltr">
+					</div>
+					<div class="tc-form-field">
+						<label for="tc-addr-postcode">کد پستی <span class="required">*</span></label>
+						<input type="text" id="tc-addr-postcode" placeholder="کد پستی" dir="ltr">
+					</div>
+					<div class="tc-form-field">
+						<label for="tc-addr-nationalcode">کد ملی <span class="required">*</span></label>
+						<input type="text" id="tc-addr-nationalcode" placeholder="کد ملی" dir="ltr">
+					</div>
+					<div class="tc-form-field tc-form-field--full">
+						<label for="tc-addr-city">شهر <span class="required">*</span></label>
+						<input type="text" id="tc-addr-city" placeholder="شهر">
+					</div>
+					<div class="tc-form-field tc-form-field--full">
+						<label for="tc-addr-address1">آدرس <span class="required">*</span></label>
+						<textarea id="tc-addr-address1" placeholder="آدرس کامل" rows="3"></textarea>
+					</div>
 				</div>
-				<div class="tc-form-field">
-					<label for="tc-addr-last-name">نام خانوادگی <span class="required">*</span></label>
-					<input type="text" id="tc-addr-last-name" placeholder="نام خانوادگی">
+				<p class="tc-form-msg" id="tc-address-msg"></p>
+				<div class="tc-address-form__footer">
+					<button class="tc-btn tc-btn--primary" id="tc-save-address-btn">ذخیره آدرس</button>
 				</div>
-				<div class="tc-form-field">
-					<label for="tc-addr-phone">شماره تماس <span class="required">*</span></label>
-					<input type="tel" id="tc-addr-phone" placeholder="09xxxxxxxxx" dir="ltr">
-				</div>
-				<div class="tc-form-field">
-					<label for="tc-addr-fixedphone">تلفن ثابت <span class="required">*</span></label>
-					<input type="tel" id="tc-addr-fixedphone" placeholder="0xxxxxxxxx" dir="ltr">
-				</div>
-				<div class="tc-form-field">
-					<label for="tc-addr-postcode">کد پستی <span class="required">*</span></label>
-					<input type="text" id="tc-addr-postcode" placeholder="کد پستی" dir="ltr">
-				</div>
-				<div class="tc-form-field">
-					<label for="tc-addr-nationalcode">کد ملی <span class="required">*</span></label>
-					<input type="text" id="tc-addr-nationalcode" placeholder="کد ملی" dir="ltr">
-				</div>
-				<div class="tc-form-field tc-form-field--full">
-					<label for="tc-addr-city">شهر <span class="required">*</span></label>
-					<input type="text" id="tc-addr-city" placeholder="شهر">
-				</div>
-				<div class="tc-form-field tc-form-field--full">
-					<label for="tc-addr-address1">آدرس <span class="required">*</span></label>
-					<textarea id="tc-addr-address1" placeholder="آدرس کامل" rows="3"></textarea>
-				</div>
-			</div>
-			<p class="tc-form-msg" id="tc-address-msg"></p>
-			<div class="tc-address-form__footer">
-				<button class="tc-btn tc-btn--primary" id="tc-save-address-btn">ذخیره آدرس</button>
-				<button class="tc-btn tc-btn--ghost" id="tc-cancel-address-btn">انصراف</button>
 			</div>
 		</div>
 
@@ -393,7 +399,7 @@ $steps = [
 					stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 			</svg>
 			<span>انواع روش های پرداخت نقد و اقساط</span>
-			<a href="<?php echo esc_url(  get_option( 'all_payments_blog_url' , 'option') ); ?>" class="tc-payment-warning__link">بیشتر بدانید</a>
+			<a href="<?php echo esc_url(get_option( 'all_payments_blog_url' , 'option')); ?>" class="tc-payment-warning__link">بیشتر بدانید</a>
 		</div>
 
 	</div>
@@ -439,8 +445,14 @@ $steps = [
 
 	<!-- ── Footer bar ───────────────────────────────────── -->
 	<div class="tc-checkout__footer" id="tc-checkout-footer">
-		<div class="tc-checkout__footer-total flex flex-col md:flex-row items-start md:items-center">
-			<span>مبلغ قابل پرداخت:</span>
+		<div class="tc-checkout__footer-total flex flex-col md:flex-row items-start md:items-center w-full md:w-auto">
+			<div class="flex items-center w-full md:w-auto justify-between">
+				<span>مبلغ قابل پرداخت:</span>
+				<div class="color-primary flex md:hidden">
+					<strong id="tc-cart-total" class="mobile_cart_total"><?php echo esc_html($cart_total); ?></strong>
+					<span><?php echo wp_kses_post(get_woocommerce_currency_symbol()); ?></span>
+				</div>
+			</div>
 			<div class="tc-coupon-wrap" id="tc-coupon-wrap">
 				<button class="tc-coupon-toggle" id="tc-coupon-toggle">
 					<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21.41 11.58l-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .59 1.42l9 9A2 2 0 0 0 13 22a2 2 0 0 0 1.41-.59l7-7A2 2 0 0 0 22 13a2 2 0 0 0-.59-1.42zM6.5 8a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -461,8 +473,8 @@ $steps = [
 				</div>
 			</div>
 		</div>
-		<div class="flex gap-30 items-center flex-wrap">
-			<div class="color-primary">
+		<div class="flex gap-30 items-center flex-wrap w-full md:w-auto">
+			<div class="color-primary hidden md:flex">
 				<strong id="tc-cart-total"><?php echo esc_html($cart_total); ?></strong>
 				<span><?php echo wp_kses_post(get_woocommerce_currency_symbol()); ?></span>
 			</div>

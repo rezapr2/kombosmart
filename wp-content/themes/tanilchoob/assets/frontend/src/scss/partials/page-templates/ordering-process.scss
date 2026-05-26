@@ -166,6 +166,9 @@
     .tc-cart-table-wrap {
         overflow: hidden;
         margin-bottom: 4rem;
+        @media (max-width: 768px) {
+            margin-bottom: 2rem;
+        }
     }
 
     .tc-cart-table {
@@ -210,7 +213,7 @@
             flex-direction: column;
             align-items: stretch;
             gap: 0.4rem;
-            padding: .4rem;
+            padding: 0.4rem;
             border: 1.5px solid rgba(0, 0, 0, 0.1);
             .tc-cart-table__col-product {
                 flex-direction: row-reverse;
@@ -294,7 +297,10 @@
         cursor: pointer;
         transition: all 0.2s;
         background: transparent;
-
+        svg {
+            width: 2.4rem;
+            height: 2.4rem;
+        }
         &--danger {
             border-color: rgba(220, 53, 69, 0.35);
             color: #dc3545;
@@ -319,10 +325,11 @@
         @media (max-width: 768px) {
             width: auto;
             height: auto;
-            padding: 1rem 1.4rem;
+            padding: 1rem 1rem;
             gap: 0.6rem;
             flex: 1;
             justify-content: center;
+            flex-direction: row-reverse;
         }
     }
 
@@ -647,17 +654,64 @@
         }
     }
 
-    // Address form
-    .tc-address-form {
-        display: none;
-        margin-top: 2.4rem;
-        padding: 2.4rem;
-        border: 1px solid $checkout-border;
-        border-radius: $checkout-radius;
-        background: rgba(0, 0, 0, 0.015);
+    // Address form modal
+    .tc-address-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        padding: 2rem;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+            opacity 0.25s ease,
+            visibility 0.25s ease;
 
         &.is-open {
-            display: block;
+            opacity: 1;
+            visibility: visible;
+
+            .tc-address-form {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    }
+
+    .tc-address-form {
+        position: relative;
+        background: #fff;
+        padding: 3.2rem 2.8rem;
+        max-width: 56rem;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        transform: translateY(2rem);
+        opacity: 0;
+        transition:
+            transform 0.3s ease,
+            opacity 0.3s ease;
+        direction: rtl;
+        text-align: right;
+
+        .tc-address-form__close {
+            position: absolute;
+            top: 1.6rem;
+            left: 1.6rem;
+            background: none;
+            border: none;
+            color: rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            padding: 0.4rem;
+            line-height: 1;
+            transition: color 0.2s;
+
+            &:hover {
+                color: #000;
+            }
         }
     }
 
@@ -916,8 +970,6 @@
     }
 
     .tc-order-success__msg {
-        font-size: 2rem;
-        font-weight: 700;
         padding: 3rem;
         background: rgba(67, 125, 64, 0.13);
         color: #437d40;
@@ -929,7 +981,6 @@
         font-size: 1.5rem;
         color: rgba(0, 0, 0, 0.55);
         padding: 1.5rem 5rem;
-        gap: 810px;
         border: 1.5px solid rgba(0, 0, 0, 0.2);
         color: #2f2f2f;
         font-size: 2.4rem;
@@ -975,7 +1026,7 @@
         gap: 0;
         border-bottom: 1px solid $checkout-border;
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             grid-template-columns: 1fr;
         }
     }
@@ -986,7 +1037,7 @@
         &:first-child {
             border-left: 1px solid $checkout-border;
 
-            @media (max-width: 600px) {
+            @media (max-width: 768px) {
                 border-left: none;
                 border-bottom: 1px solid $checkout-border;
             }
@@ -1063,6 +1114,29 @@
         margin-top: 2rem;
         gap: 1.2rem;
     }
+    @media (max-width: 768px) {
+        .tc-order-success__msg {
+            font-size: 2rem;
+            padding: 2.5rem;
+        }
+
+        .tc-order-success__num {
+            font-size: 1.8rem;
+            padding: 1.2rem 1.5rem;
+        }
+        .tc-order-support_msg {
+            font-size: 2rem;
+            margin-top: 1.2rem;
+        }
+        .tc-invoice-actions {
+            flex-direction: column;
+            .tc-btn{
+                padding: 1.6rem;
+                font-size: 1.6rem;
+                justify-content: center;
+            }
+        }
+    }
 
     // ── Footer bar ───────────────────────────────────────────────
     .tc-checkout__footer {
@@ -1094,6 +1168,10 @@
             font-size: 2.4rem;
             font-weight: 700;
             color: rgba(0, 0, 0, 0.9);
+            &.mobile_cart_total {
+                color: #5d0e87;
+                font-size: 2rem;
+            }
         }
     }
 
@@ -1302,7 +1380,7 @@
         }
     }
     /* ریسپانسیو: در موبایل ستونها تبدیل به بلوک */
-    @media (max-width: 680px) {
+    @media (max-width: 768px) {
         .grid-row {
             grid-template-columns: 1fr;
             gap: 0;
@@ -1315,9 +1393,36 @@
         .grid-header {
             display: none;
         }
+        .tc-mobile-back-btn {
+            color: #6a7bcc;
+            background-color: transparent;
+            border: none;
+        }
+        .tc-mobile-step-nav.is-hidden {
+            display: none;
+        }
     }
 
     @media (max-width: 768px) {
+        // Address card mobile
+        .tc-address-card {
+            padding: 1.4rem;
+        }
+
+        .tc-address-card.flex {
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .tc-address-card__actions {
+            flex-direction: row !important;
+            gap: 1rem;
+
+            .tc-btn {
+                flex: 1;
+                justify-content: center;
+            }
+        }
     }
 
     // ── COD Info Modal ───────────────────────────────────────────
