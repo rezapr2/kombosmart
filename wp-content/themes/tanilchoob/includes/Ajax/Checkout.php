@@ -245,7 +245,7 @@ class Checkout {
 			'address'        => $address,
 			'notes'          => $notes,
 			'total'          => number_format( (float) $order->get_total(), 0, '.', ',' ),
-			'items'          => $this->get_order_items_data( $order ),
+			'items'          => $this->get_order_items_data( wc_get_order( $order->get_id() ) ),
 		] );
 	}
 
