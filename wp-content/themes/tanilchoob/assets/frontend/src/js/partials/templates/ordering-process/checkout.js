@@ -41,6 +41,7 @@
                 else alert(msg);
             }
         }).fail(function () {
+            console.error('Failed to submit question.', arguments);
             var msg = 'خطا در ارتباط با سرور. لطفاً دوباره امتحان کنید.';
             if (typeof error === 'function') error(msg);
             else alert(msg);

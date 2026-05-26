@@ -325,6 +325,12 @@ $item_status_cls = in_array($order_status, $delivered_statuses, true) ? 'deliver
 						<span class="tc-view-order__item-price">
 							<?php echo esc_html(number_format($subtotal)); ?> تومان
 						</span>
+						<?php foreach ( $item->get_formatted_meta_data( '_' ) as $meta ) : ?>
+							<div class="tc-view-order__item-meta">
+								<span class="tc-view-order__item-meta-key"><?php echo wp_kses_post( $meta->display_key ); ?> :</span>
+								<span class="tc-view-order__item-meta-val"><?php echo wp_kses_post( $meta->display_value ); ?></span>
+							</div>
+						<?php endforeach; ?>
 					</div>
 
 				</div>

@@ -159,15 +159,32 @@ class Checkout {
 			wp_send_json_error( [ 'message' => 'خطا در ایجاد سفارش.' ] );
 		}
 
-		foreach ( WC()->cart->get_cart() as $item ) {
-			$order->add_product( $item['data'], $item['quantity'], [
+		foreach ( WC()->cart->get_cart() as $cart_item_key => $item ) {
+			$order_item = $order->add_product( $item['data'], $item['quantity'], [
 				'subtotal'     => $item['line_subtotal'],
 				'total'        => $item['line_total'],
 				'subtotal_tax' => $item['line_subtotal_tax'],
 				'total_tax'    => $item['line_tax'],
 			] );
 
-			// Option adjustment meta is handled by Frontend.php via woocommerce_checkout_create_order_line_item
+			if ( ! $order_item ) {
+				continue;
+			}
+
+			$item_id = is_object( $order_item ) ? $order_item->get_id() : (int) $order_item;
+
+			// Custom option adjustments — written directly to DB so admin always sees them
+			if ( $item_id && ! empty( $item['tc_option_adjustments'] ) && is_array( $item['tc_option_adjustments'] ) ) {
+				foreach ( $item['tc_option_adjustments'] as $opt ) {
+					$amount = isset( $opt['amount'] ) ? (float) $opt['amount'] : 0.0;
+					$sign   = $amount >= 0 ? '+' : '-';
+					wc_add_order_item_meta(
+						$item_id,
+						$opt['label'] ?? 'گزینه',
+						$sign . ' ' . number_format( abs( $amount ), 0, '.', ',' ) . ' تومان'
+					);
+				}
+			}
 		}
 
 		$gateways       = WC()->payment_gateways()->payment_gateways();

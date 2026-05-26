@@ -136,7 +136,12 @@ $steps = [
 					$option_lines = [];
 					if (!empty($cart_item['tc_option_adjustments'])) {
 						foreach ($cart_item['tc_option_adjustments'] as $opt) {
-							$option_lines[] = ($opt['label'] ?? '');
+							$amount = isset($opt['amount']) ? (float) $opt['amount'] : 0.0;
+							$sign   = $amount >= 0 ? '+' : '-';
+							$option_lines[] = [
+								'label'  => $opt['label'] ?? 'گزینه',
+								'amount' => $sign . ' ' . number_format(abs($amount), 0, '.', ',') . ' تومان',
+							];
 						}
 					}
 					?>
@@ -173,7 +178,12 @@ $steps = [
 									<div class="tc-cart-table__meta"><span class='color-black-80 yekan-14 bold'><?php echo esc_html($vl['key']); ?> : </span> <span class='color-black-70 yekan-14'><?php echo esc_html($vl['value']); ?></span></div>
 								<?php endforeach; ?>
 							<?php if ($option_lines): ?>
-								<?php foreach ($option_lines as $ol): ?><span><?php echo esc_html($ol); ?></span><?php endforeach; ?>
+								<?php foreach ($option_lines as $ol): ?>
+									<div class="tc-cart-table__meta">
+										<span class="color-black-80 yekan-14 bold"><?php echo esc_html($ol['label']); ?> :</span>
+										<span class="color-black-70 yekan-14"><?php echo esc_html($ol['amount']); ?></span>
+									</div>
+								<?php endforeach; ?>
 							<?php else: ?>
 								<span class="tc-muted"></span>
 							<?php endif; ?>

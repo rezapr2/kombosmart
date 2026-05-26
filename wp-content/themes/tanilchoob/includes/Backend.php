@@ -39,8 +39,17 @@ class Backend {
 
         add_filter('wpseo_metabox_prio', function() { return 'low'; });
 
-        
+        // Show tc_option_adjustments clearly in the WooCommerce admin order detail
+        add_filter( 'woocommerce_hidden_order_itemmeta', [ $this, 'unhide_option_adjustment_meta' ] );
 
+    }
+
+    public function unhide_option_adjustment_meta( array $hidden ): array {
+        // Remove any option-adjustment keys from the hidden list (they have no _ prefix so
+        // WC shouldn't hide them, but this ensures they always stay visible in admin).
+        return array_values( array_filter( $hidden, function( $key ) {
+            return str_starts_with( $key, '_' );
+        } ) );
     }
 
 	private function load_dependencies() {
