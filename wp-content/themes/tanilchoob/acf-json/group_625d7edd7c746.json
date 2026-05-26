@@ -949,7 +949,7 @@
                 "class": "",
                 "id": ""
             },
-            "message": "<p>اعتبار فعلی شما: <strong>987,295 ریال<\/strong><\/p>",
+            "message": "<p style=\"color:red;\">خطای سرور (کد 502)<\/p>",
             "new_lines": "wpautop",
             "esc_html": 0
         },
@@ -1022,9 +1022,7 @@
                 "id": ""
             },
             "choices": {
-                "": "پترن را از لیست انتخاب کنید",
-                "cicatr9hfc8lonh": "کاربر گرامی،\nکد تایید ورود شما به سایت تانیل چوب:\n%code%",
-                "iuro6xpv1qf4du4": "کاربر گرامی،\nکد تایید ثبت‌نام شما در مجموعه تانیل چوب:\n%code%"
+                "": "خطا از سرور (کد 502)"
             },
             "default_value": false,
             "return_format": "value",
@@ -1059,9 +1057,7 @@
                 "id": ""
             },
             "choices": {
-                "": "پترن را از لیست انتخاب کنید",
-                "cicatr9hfc8lonh": "کاربر گرامی،\nکد تایید ورود شما به سایت تانیل چوب:\n%code%",
-                "iuro6xpv1qf4du4": "کاربر گرامی،\nکد تایید ثبت‌نام شما در مجموعه تانیل چوب:\n%code%"
+                "": "خطا از سرور (کد 502)"
             },
             "default_value": false,
             "return_format": "value",
@@ -1096,6 +1092,35 @@
             "ui": 1
         },
         {
+            "key": "field_6a160b5b605c2",
+            "label": "متن sms",
+            "name": "send_sms_on_review_response_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6a14df65acae8",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": "",
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
             "key": "field_6a14dfa1acae9",
             "label": "ارسال sms پس از پاسخ به پرسش کاربر",
             "name": "send_sms_on_question_response",
@@ -1115,6 +1140,35 @@
             "ui_on_text": "",
             "ui_off_text": "",
             "ui": 1
+        },
+        {
+            "key": "field_6a160b82605c3",
+            "label": "متن sms",
+            "name": "send_sms_on_question_response_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6a14dfa1acae9",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": "",
+            "placeholder": "",
+            "new_lines": ""
         }
     ],
     "location": [
@@ -1136,5 +1190,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1779752971
+    "modified": 1779829701
 }

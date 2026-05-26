@@ -13,6 +13,9 @@ class CustomerMessage extends PostType {
 		add_action( 'save_post_tc_message',  [ $this, 'save_meta' ], 10, 2 );
 		add_action( 'wp_ajax_tc_mark_message_read', [ $this, 'handle_mark_read' ] );
 		add_action( 'tc_send_sms',           [ $this, 'handle_send_sms' ], 10, 3 );
+		add_action( 'wp_insert_comment',              [ $this, 'maybe_send_review_reply_sms' ], 10, 2 );
+		// Priority 20 so ACF has already persisted fields (ACF saves at priority 10)
+		add_action( 'save_post_product_questions',    [ $this, 'maybe_send_question_answer_sms' ], 20 );
 	}
 
 	public function register() {
@@ -433,6 +436,89 @@ class CustomerMessage extends PostType {
 			return '+' . $phone;
 		}
 		return $phone ? '+' . $phone : '';
+	}
+
+	// ── Question answer SMS ───────────────────────────────────────────────────
+
+	public function maybe_send_question_answer_sms( int $post_id ): void {
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
+		if ( ! Helper::get_options_field( 'send_sms_on_question_response' ) ) {
+			return;
+		}
+
+		// Don't send twice for the same answer
+		if ( get_post_meta( $post_id, '_tc_question_sms_sent', true ) ) {
+			return;
+		}
+
+		$answer_text = function_exists( 'get_field' ) ? get_field( 'answer_text', $post_id ) : '';
+		if ( ! $answer_text ) {
+			return;
+		}
+
+		$sms_text = Helper::get_options_field( 'send_sms_on_question_response_text' );
+		if ( ! $sms_text ) {
+			return;
+		}
+
+		// Resolve customer phone from the ACF `customer` user field
+		$phone = '';
+		$customer = function_exists( 'get_field' ) ? get_field( 'customer', $post_id ) : null;
+		if ( $customer && ! empty( $customer['ID'] ) ) {
+			$phone = get_user_meta( (int) $customer['ID'], 'billing_phone', true );
+		}
+
+		if ( ! $phone ) {
+			return;
+		}
+
+		do_action( 'tc_send_sms', [ $phone ], $sms_text, 0 );
+
+		// Mark as sent so subsequent saves don't resend
+		update_post_meta( $post_id, '_tc_question_sms_sent', 1 );
+	}
+
+	// ── Review reply SMS ──────────────────────────────────────────────────────
+
+	public function maybe_send_review_reply_sms( int $comment_id, \WP_Comment $comment ): void {
+		if ( ! Helper::get_options_field( 'send_sms_on_review_response' ) ) {
+			return;
+		}
+
+		// Only replies to WooCommerce product reviews
+		if ( get_post_type( (int) $comment->comment_post_ID ) !== 'product' ) {
+			return;
+		}
+
+		$parent_id = (int) $comment->comment_parent;
+		if ( ! $parent_id ) {
+			return;
+		}
+
+		$sms_text = Helper::get_options_field( 'send_sms_on_review_response_text' );
+		if ( ! $sms_text ) {
+			return;
+		}
+
+		$parent = get_comment( $parent_id );
+		if ( ! $parent ) {
+			return;
+		}
+
+		// Get phone from parent commenter's user account
+		$phone = '';
+		if ( $parent->user_id ) {
+			$phone = get_user_meta( (int) $parent->user_id, 'billing_phone', true );
+		}
+
+		if ( ! $phone ) {
+			return;
+		}
+
+		do_action( 'tc_send_sms', [ $phone ], $sms_text, 0 );
 	}
 }
 
