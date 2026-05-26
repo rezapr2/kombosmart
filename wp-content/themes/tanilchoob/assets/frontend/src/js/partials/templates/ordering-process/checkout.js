@@ -501,6 +501,7 @@
     // ── Step indicator click (navigate back to done steps) ────
 
     $(document).on('click', '[data-step]', function () {
+        if (currentStep === totalSteps) return;
         var s = parseInt($(this).data('step'), 10);
         if (s < currentStep) {
             goToStep(s);
