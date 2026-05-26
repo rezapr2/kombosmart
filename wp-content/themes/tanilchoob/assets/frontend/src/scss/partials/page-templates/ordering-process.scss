@@ -209,15 +209,14 @@
             display: flex;
             flex-direction: column;
             align-items: stretch;
-            gap: 0;
-            padding: 1.4rem 0;
-
+            gap: 0.4rem;
+            padding: .4rem;
+            border: 1.5px solid rgba(0, 0, 0, 0.1);
             .tc-cart-table__col-product {
-                align-items: flex-start;
                 flex-direction: row-reverse;
                 .tc-cart-table__img {
-                    width: 11rem;
-                    height: 11rem;
+                    width: 14rem;
+                    height: 10rem;
                     flex-shrink: 0;
                 }
             }
@@ -226,10 +225,8 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding: 1rem 0;
-                border-top: 1px solid $checkout-border;
-                margin-top: 1rem;
-
+                padding: 1rem;
+                background-color: rgba(0, 0, 0, 0.03);
                 &::before {
                     content: 'مقدار :';
                     font-size: 1.5rem;
@@ -242,16 +239,17 @@
                 display: flex;
                 flex-direction: column;
                 gap: 0.4rem;
-                padding: 0.8rem 0;
-                border-top: 1px solid $checkout-border;
+                padding: 1rem;
+                                background-color: rgba(0, 0, 0, 0.03);
+
             }
 
             .tc-cart-table__col-price {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding: 1rem 0;
-                border-top: 1px solid $checkout-border;
+                padding: 1rem;
+                background-color: rgba(0, 0, 0, 0.03);
 
                 &::before {
                     content: 'قیمت :';
@@ -349,7 +347,6 @@
     }
 
     .tc-cart-table__product-name {
-        font-size: 2rem;
         font-weight: 500;
         text-decoration: none;
         &:hover {

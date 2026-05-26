@@ -148,10 +148,10 @@ $steps = [
 								alt="<?php echo esc_attr($name); ?>">
 							<div class="tc-cart-table__product-info">
 								<a href="<?php echo esc_url(get_permalink($product_id)); ?>"
-									class="tc-cart-table__product-name color-black"><?php echo esc_html($product_name); ?></a>
+									class="tc-cart-table__product-name color-black yekan-16 md:yekan-20"><?php echo esc_html($product_name); ?></a>
 								<?php 	$product_components_text = get_field('product_components_text', $product_id); 
 								if($product_components_text):?>
-									<div class="product_components_text color-black-40 yekan-16">شامل: <?php echo $product_components_text; ?></div>
+									<div class="product_components_text color-black-40 yekan-12 md:yekan-16">شامل: <?php echo $product_components_text; ?></div>
 								<?php endif; ?>
 
 							</div>
