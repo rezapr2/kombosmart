@@ -225,7 +225,9 @@
         $('#tc-addr-first-name').val(editing ? addr.first_name : '');
         $('#tc-addr-last-name').val(editing ? addr.last_name : '');
         $('#tc-addr-phone').val(editing ? addr.phone : '');
+        $('#tc-addr-fixedphone').val(editing ? (addr.fixedphone || '') : '');
         $('#tc-addr-postcode').val(editing ? addr.postcode : '');
+        $('#tc-addr-nationalcode').val(editing ? (addr.nationalcode || '') : '');
         $('#tc-addr-city').val(editing ? addr.city : '');
         $('#tc-addr-address1').val(editing ? addr.address_1 : '');
         $('#tc-address-msg').text('').removeClass('is-error is-success');
@@ -269,11 +271,13 @@
 
         var first_name = $.trim($('#tc-addr-first-name').val());
         var last_name  = $.trim($('#tc-addr-last-name').val());
-        var phone      = $.trim($('#tc-addr-phone').val());
-        var city       = $.trim($('#tc-addr-city').val());
-        var address_1  = $.trim($('#tc-addr-address1').val());
-        var postcode   = $.trim($('#tc-addr-postcode').val());
-        var address_id = $('#tc-address-id').val();
+        var phone        = $.trim($('#tc-addr-phone').val());
+        var fixedphone   = $.trim($('#tc-addr-fixedphone').val());
+        var city         = $.trim($('#tc-addr-city').val());
+        var address_1    = $.trim($('#tc-addr-address1').val());
+        var postcode     = $.trim($('#tc-addr-postcode').val());
+        var nationalcode = $.trim($('#tc-addr-nationalcode').val());
+        var address_id   = $('#tc-address-id').val();
 
         if (!first_name || !last_name || !phone || !address_1) {
             showMsg($msg, 'لطفاً فیلدهای الزامی (نام، نام خانوادگی، شماره تماس، آدرس) را پر کنید.', true);
@@ -283,13 +287,15 @@
         $(this).prop('disabled', true).text('در حال ذخیره...');
 
         ajax('tc_address_save', {
-            address_id: address_id,
-            first_name: first_name,
-            last_name:  last_name,
-            phone:      phone,
-            postcode:   postcode,
-            city:       city,
-            address_1:  address_1,
+            address_id:   address_id,
+            first_name:   first_name,
+            last_name:    last_name,
+            phone:        phone,
+            fixedphone:   fixedphone,
+            postcode:     postcode,
+            nationalcode: nationalcode,
+            city:         city,
+            address_1:    address_1,
         }, function (data) {
             $('#tc-save-address-btn').prop('disabled', false).text('ذخیره آدرس');
             closeAddressForm();

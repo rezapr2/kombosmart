@@ -92,13 +92,15 @@ class Checkout {
 			: wp_generate_uuid4();
 
 		$data = [
-			'id'         => $id,
-			'first_name' => sanitize_text_field( wp_unslash( $_POST['first_name'] ?? '' ) ),
-			'last_name'  => sanitize_text_field( wp_unslash( $_POST['last_name'] ?? '' ) ),
-			'phone'      => sanitize_text_field( wp_unslash( $_POST['phone'] ?? '' ) ),
-			'postcode'   => sanitize_text_field( wp_unslash( $_POST['postcode'] ?? '' ) ),
-			'city'       => sanitize_text_field( wp_unslash( $_POST['city'] ?? '' ) ),
-			'address_1'  => sanitize_textarea_field( wp_unslash( $_POST['address_1'] ?? '' ) ),
+			'id'           => $id,
+			'first_name'   => sanitize_text_field( wp_unslash( $_POST['first_name'] ?? '' ) ),
+			'last_name'    => sanitize_text_field( wp_unslash( $_POST['last_name'] ?? '' ) ),
+			'phone'        => sanitize_text_field( wp_unslash( $_POST['phone'] ?? '' ) ),
+			'fixedphone'   => sanitize_text_field( wp_unslash( $_POST['fixedphone'] ?? '' ) ),
+			'postcode'     => sanitize_text_field( wp_unslash( $_POST['postcode'] ?? '' ) ),
+			'nationalcode' => sanitize_text_field( wp_unslash( $_POST['nationalcode'] ?? '' ) ),
+			'city'         => sanitize_text_field( wp_unslash( $_POST['city'] ?? '' ) ),
+			'address_1'    => sanitize_textarea_field( wp_unslash( $_POST['address_1'] ?? '' ) ),
 		];
 
 		if ( ! $data['first_name'] || ! $data['last_name'] || ! $data['phone'] || ! $data['address_1'] ) {
@@ -219,6 +221,8 @@ class Checkout {
 
 		$order->calculate_totals();
 		$order->update_meta_data( '_tc_payment_note', $notes );
+		if ( ! empty( $address['fixedphone'] ) )   $order->update_meta_data( '_tc_billing_fixedphone',   $address['fixedphone'] );
+		if ( ! empty( $address['nationalcode'] ) ) $order->update_meta_data( '_tc_billing_nationalcode', $address['nationalcode'] );
 		$order->save();
 
 		// For gateways that handle payment themselves (e.g. online bank redirect),

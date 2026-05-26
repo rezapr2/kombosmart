@@ -32,12 +32,15 @@ $shipping_label = $post_section ? $post_section['post_type'] : '';
 $delivery_slot = $post_section ? $post_section['post_time'] : '';
 
 // Recipient
-$first = $order->get_shipping_first_name() ?: $order->get_billing_first_name();
-$last = $order->get_shipping_last_name() ?: $order->get_billing_last_name();
-$phone = $order->get_billing_phone();
-$city = $order->get_shipping_city() ?: $order->get_billing_city();
-$state = $order->get_shipping_state() ?: $order->get_billing_state();
-$addr1 = $order->get_shipping_address_1() ?: $order->get_billing_address_1();
+$first        = $order->get_shipping_first_name() ?: $order->get_billing_first_name();
+$last         = $order->get_shipping_last_name() ?: $order->get_billing_last_name();
+$phone        = $order->get_billing_phone();
+$fixedphone   = $order->get_meta('_tc_billing_fixedphone');
+$nationalcode = $order->get_meta('_tc_billing_nationalcode');
+$city         = $order->get_shipping_city() ?: $order->get_billing_city();
+$state        = $order->get_shipping_state() ?: $order->get_billing_state();
+$postcode     = $order->get_shipping_postcode() ?: $order->get_billing_postcode();
+$addr1        = $order->get_shipping_address_1() ?: $order->get_billing_address_1();
 
 // Status label
 $paid_statuses = ['processing', 'completed', 'on-hold'];
@@ -218,13 +221,31 @@ $item_status_cls   = $status_map[$order_status]['cls']   ?? 'pending';
 		</h3>
 		<div class="tc-view-order__info-grid">
 			<div class="tc-view-order__info-row">
-				<span class="tc-view-order__info-key">شماره تماس :</span>
-				<span class="tc-view-order__info-val" dir="ltr"><?php echo esc_html($phone ?: '—'); ?></span>
-			</div>
-			<div class="tc-view-order__info-row">
 				<span class="tc-view-order__info-key">تحویل گیرنده :</span>
 				<span class="tc-view-order__info-val"><?php echo esc_html(trim($first . ' ' . $last) ?: '—'); ?></span>
 			</div>
+			<div class="tc-view-order__info-row">
+				<span class="tc-view-order__info-key">شماره تماس :</span>
+				<span class="tc-view-order__info-val" dir="ltr"><?php echo esc_html($phone ?: '—'); ?></span>
+			</div>
+			<?php if ($fixedphone): ?>
+			<div class="tc-view-order__info-row">
+				<span class="tc-view-order__info-key">تلفن ثابت :</span>
+				<span class="tc-view-order__info-val" dir="ltr"><?php echo esc_html($fixedphone); ?></span>
+			</div>
+			<?php endif; ?>
+			<?php if ($nationalcode): ?>
+			<div class="tc-view-order__info-row">
+				<span class="tc-view-order__info-key">کد ملی :</span>
+				<span class="tc-view-order__info-val" dir="ltr"><?php echo esc_html($nationalcode); ?></span>
+			</div>
+			<?php endif; ?>
+			<?php if ($postcode): ?>
+			<div class="tc-view-order__info-row">
+				<span class="tc-view-order__info-key">کد پستی :</span>
+				<span class="tc-view-order__info-val" dir="ltr"><?php echo esc_html($postcode); ?></span>
+			</div>
+			<?php endif; ?>
 			<div class="tc-view-order__info-row tc-view-order__info-row--full">
 				<span class="tc-view-order__info-key">ارسال به :</span>
 				<span class="tc-view-order__info-val">
