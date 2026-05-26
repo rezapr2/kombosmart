@@ -379,8 +379,9 @@ class MyAccount
 		?>
 		<div class="tc-messages-list">
 			<?php foreach ($messages as $msg):
+				$is_all_msg   = (bool) get_post_meta($msg->ID, '_tc_message_recipient_all', true);
 				$is_group_msg = (bool) get_post_meta($msg->ID, '_tc_message_group_id', true);
-				$read = $is_group_msg
+				$read = ( $is_all_msg || $is_group_msg )
 					? \in_array($msg->ID, $read_message_ids, true)
 					: (bool) get_post_meta($msg->ID, '_tc_message_read', true);
 				$subject = get_the_title($msg);

@@ -70,12 +70,22 @@ class CustomerMessage extends PostType {
 	public function render_recipient_meta_box( $post ) {
 		wp_nonce_field( 'tc_message_meta', 'tc_message_meta_nonce' );
 
-		$user_id  = get_post_meta( $post->ID, '_tc_message_user_id', true );
-		$group_id = get_post_meta( $post->ID, '_tc_message_group_id', true );
+		$user_id     = get_post_meta( $post->ID, '_tc_message_user_id', true );
+		$group_id    = get_post_meta( $post->ID, '_tc_message_group_id', true );
+		$all_flag    = get_post_meta( $post->ID, '_tc_message_recipient_all', true );
 
-		$mode = $group_id ? 'group' : 'user';
+		if ( $group_id ) {
+			$mode = 'group';
+		} elseif ( $user_id ) {
+			$mode = 'user';
+		} elseif ( $all_flag ) {
+			$mode = 'all';
+		} else {
+			$mode = 'all'; // default for new posts
+		}
 
 		echo '<p style="margin-bottom:8px">';
+		echo '<label style="margin-left:12px"><input type="radio" name="tc_message_recipient_mode" value="all" ' . checked( $mode, 'all', false ) . '> همه مشتریان</label>';
 		echo '<label style="margin-left:12px"><input type="radio" name="tc_message_recipient_mode" value="user" ' . checked( $mode, 'user', false ) . '> مشتری</label>';
 		echo '<label><input type="radio" name="tc_message_recipient_mode" value="group" ' . checked( $mode, 'group', false ) . '> گروه مشتریان</label>';
 		echo '</p>';
@@ -87,7 +97,7 @@ class CustomerMessage extends PostType {
 			'orderby'  => 'display_name',
 		] );
 
-		echo '<div id="tc-recipient-user" style="margin-bottom:10px;' . ( $mode === 'group' ? 'display:none' : '' ) . '">';
+		echo '<div id="tc-recipient-user" style="margin-bottom:10px;' . ( \in_array( $mode, [ 'group', 'all' ], true ) ? 'display:none' : '' ) . '">';
 		echo '<label for="tc_message_user_id" style="display:block;margin-bottom:4px">مشتری گیرنده:</label>';
 		echo '<select name="tc_message_user_id" id="tc_message_user_id" style="width:100%">';
 		echo '<option value="">— انتخاب کنید —</option>';
@@ -106,7 +116,7 @@ class CustomerMessage extends PostType {
 		// Customer group
 		$groups = get_terms( [ 'taxonomy' => 'customer_group', 'hide_empty' => false ] );
 
-		echo '<div id="tc-recipient-group" style="' . ( $mode === 'user' ? 'display:none' : '' ) . '">';
+		echo '<div id="tc-recipient-group" style="' . ( \in_array( $mode, [ 'user', 'all' ], true ) ? 'display:none' : '' ) . '">';
 		echo '<label for="tc_message_group_id" style="display:block;margin-bottom:4px">گروه گیرنده:</label>';
 		echo '<select name="tc_message_group_id" id="tc_message_group_id" style="width:100%">';
 		echo '<option value="">— انتخاب کنید —</option>';
@@ -136,6 +146,7 @@ class CustomerMessage extends PostType {
 				});
 			});
 		})();
+
 		</script>
 		<?php
 	}
@@ -183,16 +194,22 @@ class CustomerMessage extends PostType {
 			return;
 		}
 
-		$mode = isset( $_POST['tc_message_recipient_mode'] ) ? sanitize_key( $_POST['tc_message_recipient_mode'] ) : 'user';
+		$mode = isset( $_POST['tc_message_recipient_mode'] ) ? sanitize_key( $_POST['tc_message_recipient_mode'] ) : 'all';
 
-		if ( $mode === 'group' ) {
+		if ( $mode === 'all' ) {
+			update_post_meta( $post_id, '_tc_message_recipient_all', 1 );
+			delete_post_meta( $post_id, '_tc_message_user_id' );
+			delete_post_meta( $post_id, '_tc_message_group_id' );
+		} elseif ( $mode === 'group' ) {
 			$group_id = absint( $_POST['tc_message_group_id'] ?? 0 );
 			update_post_meta( $post_id, '_tc_message_group_id', $group_id );
 			delete_post_meta( $post_id, '_tc_message_user_id' );
+			delete_post_meta( $post_id, '_tc_message_recipient_all' );
 		} else {
 			$user_id = absint( $_POST['tc_message_user_id'] ?? 0 );
 			update_post_meta( $post_id, '_tc_message_user_id', $user_id );
 			delete_post_meta( $post_id, '_tc_message_group_id' );
+			delete_post_meta( $post_id, '_tc_message_recipient_all' );
 		}
 
 		// SMS
@@ -212,7 +229,18 @@ class CustomerMessage extends PostType {
 	private function dispatch_sms( int $post_id, string $mode, string $text ): void {
 		$phones = [];
 
-		if ( $mode === 'group' ) {
+		if ( $mode === 'all' ) {
+			$users = get_users( [
+				'role__in' => [ 'customer', 'subscriber' ],
+				'fields'   => 'ID',
+			] );
+			foreach ( $users as $uid ) {
+				$phone = get_user_meta( $uid, 'billing_phone', true );
+				if ( $phone ) {
+					$phones[] = $phone;
+				}
+			}
+		} elseif ( $mode === 'group' ) {
 			$group_id = (int) get_post_meta( $post_id, '_tc_message_group_id', true );
 			if ( $group_id ) {
 				$users = get_users( [
@@ -272,14 +300,21 @@ class CustomerMessage extends PostType {
 		$user_id          = get_current_user_id();
 		$direct_recipient = (int) get_post_meta( $message_id, '_tc_message_user_id', true );
 		$group_id         = (int) get_post_meta( $message_id, '_tc_message_group_id', true );
+		$is_all           = (bool) get_post_meta( $message_id, '_tc_message_recipient_all', true );
 
-		if ( $group_id ) {
+		if ( $is_all ) {
+			$read_ids = (array) get_user_meta( $user_id, '_tc_read_messages', true );
+			if ( ! \in_array( $message_id, $read_ids, true ) ) {
+				$read_ids[] = $message_id;
+				update_user_meta( $user_id, '_tc_read_messages', $read_ids );
+			}
+		} elseif ( $group_id ) {
 			$user_group_id = (int) get_user_meta( $user_id, '_tc_customer_group_id', true );
 			if ( $user_group_id !== $group_id ) {
 				wp_send_json_error();
 			}
 			$read_ids = (array) get_user_meta( $user_id, '_tc_read_messages', true );
-			if ( ! in_array( $message_id, $read_ids, true ) ) {
+			if ( ! \in_array( $message_id, $read_ids, true ) ) {
 				$read_ids[] = $message_id;
 				update_user_meta( $user_id, '_tc_read_messages', $read_ids );
 			}
@@ -304,6 +339,10 @@ class CustomerMessage extends PostType {
 				'key'   => '_tc_message_user_id',
 				'value' => $user_id,
 				'type'  => 'NUMERIC',
+			],
+			[
+				'key'   => '_tc_message_recipient_all',
+				'value' => '1',
 			],
 		];
 
