@@ -16,6 +16,8 @@ class CustomerMessage extends PostType {
 		add_action( 'wp_insert_comment',              [ $this, 'maybe_send_review_reply_sms' ], 10, 2 );
 		// Priority 20 so ACF has already persisted fields (ACF saves at priority 10)
 		add_action( 'save_post_product_questions',    [ $this, 'maybe_send_question_answer_sms' ], 20 );
+		add_action( 'admin_menu',            [ $this, 'add_submenu' ] );
+		add_action( 'admin_post_tc_send_bulk_sms', [ $this, 'handle_bulk_sms_form' ] );
 	}
 
 	public function register() {
@@ -375,6 +377,20 @@ class CustomerMessage extends PostType {
 	 * @param int      $post_id Source message post ID (used to persist status).
 	 */
 	public function handle_send_sms( array $phones, string $text, int $post_id ): void {
+		$status = $this->send_sms_request( $phones, $text );
+		if ( $post_id ) {
+			update_post_meta( $post_id, '_tc_sms_status', $status );
+		}
+	}
+
+	/**
+	 * Performs the actual IPPanel API call and returns 'sent' or an error string.
+	 *
+	 * @param string[] $phones Raw phone numbers.
+	 * @param string   $text   SMS body.
+	 * @return string 'sent' on success, error message on failure.
+	 */
+	private function send_sms_request( array $phones, string $text ): string {
 		$api_key     = Helper::get_options_field( 'sms_api_key' );
 		$from_number = Helper::get_options_field( 'sms_from_number' );
 		$base_url    = 'https://edge.ippanel.com/v1';
@@ -383,14 +399,12 @@ class CustomerMessage extends PostType {
 		$recipients = array_values( array_filter( $recipients ) );
 
 		if ( empty( $recipients ) ) {
-			update_post_meta( $post_id, '_tc_sms_status', 'شماره‌ای برای ارسال وجود ندارد' );
-			return;
+			return 'شماره‌ای برای ارسال وجود ندارد';
 		}
 
 		if ( empty( $api_key ) ) {
 			error_log( '[TanilChoob SMS] phones=' . implode( ',', $recipients ) . ' text=' . $text );
-			update_post_meta( $post_id, '_tc_sms_status', 'sent' );
-			return;
+			return 'sent';
 		}
 
 		$payload = wp_json_encode( [
@@ -411,20 +425,18 @@ class CustomerMessage extends PostType {
 
 		if ( is_wp_error( $response ) ) {
 			error_log( '[TanilChoob SMS] error: ' . $response->get_error_message() );
-			update_post_meta( $post_id, '_tc_sms_status', $response->get_error_message() );
-			return;
+			return $response->get_error_message();
 		}
 
-		$body   = json_decode( wp_remote_retrieve_body( $response ), true );
-		$status = $body['meta']['status'] ?? false;
+		$body = json_decode( wp_remote_retrieve_body( $response ), true );
 
-		if ( $status ) {
-			update_post_meta( $post_id, '_tc_sms_status', 'sent' );
-		} else {
-			$msg = $body['meta']['message'] ?? wp_remote_retrieve_response_code( $response );
-			error_log( '[TanilChoob SMS] failed: ' . $msg );
-			update_post_meta( $post_id, '_tc_sms_status', (string) $msg );
+		if ( $body['meta']['status'] ?? false ) {
+			return 'sent';
 		}
+
+		$msg = $body['meta']['message'] ?? wp_remote_retrieve_response_code( $response );
+		error_log( "[TanilChoob SMS] failed: {$msg}" );
+		return (string) $msg;
 	}
 
 	private function to_international( string $phone ): string {
@@ -479,6 +491,387 @@ class CustomerMessage extends PostType {
 
 		// Mark as sent so subsequent saves don't resend
 		update_post_meta( $post_id, '_tc_question_sms_sent', 1 );
+	}
+
+	// ── Bulk SMS submenu ──────────────────────────────────────────────────────
+
+	public function add_submenu(): void {
+		add_submenu_page(
+			'edit.php?post_type=tc_message',
+			'ارسال SMS',
+			'ارسال SMS',
+			'manage_options',
+			'tc-send-sms',
+			[ $this, 'render_sms_page' ]
+		);
+	}
+
+	public function render_sms_page(): void {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( __( 'دسترسی غیرمجاز' ) );
+		}
+
+		$sent  = isset( $_GET['tc_sms_sent'] );
+		$error = isset( $_GET['tc_sms_error'] ) ? sanitize_text_field( urldecode( $_GET['tc_sms_error'] ) ) : '';
+		?>
+		<style>
+		.tc-sms-wrap {
+			direction: rtl;
+			max-width: 780px;
+			margin: 30px 20px 0;
+			font-family: inherit;
+		}
+		.tc-sms-header {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			margin-bottom: 28px;
+		}
+		.tc-sms-header .tc-sms-icon {
+			width: 44px;
+			height: 44px;
+			background: #2271b1;
+			border-radius: 10px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+		}
+		.tc-sms-header .tc-sms-icon .dashicons {
+			color: #fff;
+			font-size: 24px;
+			width: 24px;
+			height: 24px;
+		}
+		.tc-sms-header h1 {
+			margin: 0;
+			padding: 0;
+			font-size: 22px;
+			font-weight: 600;
+			color: #1d2327;
+		}
+		.tc-sms-header p {
+			margin: 2px 0 0;
+			color: #646970;
+			font-size: 13px;
+		}
+		.tc-sms-notice {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			padding: 14px 16px;
+			border-radius: 8px;
+			margin-bottom: 24px;
+			font-size: 14px;
+			font-weight: 500;
+		}
+		.tc-sms-notice.success {
+			background: #edfaef;
+			border: 1px solid #00a32a;
+			color: #1a6629;
+		}
+		.tc-sms-notice.error {
+			background: #fcf0f1;
+			border: 1px solid #d63638;
+			color: #8a1f1f;
+		}
+		.tc-sms-notice .dashicons { font-size: 18px; width: 18px; height: 18px; }
+		.tc-sms-card {
+			background: #fff;
+			border: 1px solid #dcdcde;
+			border-radius: 10px;
+			overflow: hidden;
+			box-shadow: 0 1px 3px rgba(0,0,0,.06);
+		}
+		.tc-sms-card-header {
+			padding: 16px 22px;
+			border-bottom: 1px solid #f0f0f1;
+			background: #f6f7f7;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+		.tc-sms-card-header .dashicons {
+			color: #2271b1;
+			font-size: 18px;
+			width: 18px;
+			height: 18px;
+		}
+		.tc-sms-card-header span {
+			font-size: 14px;
+			font-weight: 600;
+			color: #1d2327;
+		}
+		.tc-sms-card-body {
+			padding: 22px;
+		}
+		.tc-sms-field {
+			margin-bottom: 22px;
+		}
+		.tc-sms-field:last-child { margin-bottom: 0; }
+		.tc-sms-field label {
+			display: block;
+			font-size: 13px;
+			font-weight: 600;
+			color: #1d2327;
+			margin-bottom: 8px;
+		}
+		.tc-sms-field label .required {
+			color: #d63638;
+			margin-right: 3px;
+		}
+		.tc-sms-field textarea {
+			width: 100%;
+			border: 1px solid #dcdcde;
+			border-radius: 6px;
+			padding: 10px 12px;
+			font-size: 14px;
+			line-height: 1.6;
+			color: #1d2327;
+			background: #fff;
+			resize: vertical;
+			transition: border-color .15s, box-shadow .15s;
+			box-sizing: border-box;
+			direction: rtl;
+			font-family: inherit;
+		}
+		.tc-sms-field textarea:focus {
+			border-color: #2271b1;
+			box-shadow: 0 0 0 1px #2271b1;
+			outline: none;
+		}
+		.tc-sms-field .tc-hint {
+			margin-top: 6px;
+			font-size: 12px;
+			color: #646970;
+			display: flex;
+			align-items: center;
+			gap: 4px;
+		}
+		.tc-sms-field .tc-hint .dashicons {
+			font-size: 14px;
+			width: 14px;
+			height: 14px;
+			color: #a7aaad;
+		}
+		.tc-sms-counter {
+			margin-top: 6px;
+			font-size: 12px;
+			color: #646970;
+			display: flex;
+			justify-content: space-between;
+		}
+		.tc-sms-counter span { color: #2271b1; font-weight: 600; }
+		.tc-sms-divider {
+			height: 1px;
+			background: #f0f0f1;
+			margin: 0 0 22px;
+		}
+		.tc-sms-footer {
+			padding: 16px 22px;
+			border-top: 1px solid #f0f0f1;
+			background: #f6f7f7;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.tc-sms-footer .tc-tip {
+			font-size: 12px;
+			color: #646970;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.tc-sms-footer .tc-tip .dashicons {
+			font-size: 14px;
+			width: 14px;
+			height: 14px;
+		}
+		.tc-sms-submit {
+			display: inline-flex;
+			align-items: center;
+			gap: 7px;
+			background: #2271b1;
+			color: #fff !important;
+			border: none;
+			border-radius: 6px;
+			padding: 9px 20px;
+			font-size: 14px;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background .15s, transform .1s;
+			text-decoration: none;
+		}
+		.tc-sms-submit:hover { background: #135e96; }
+		.tc-sms-submit:active { transform: scale(.98); }
+		.tc-sms-submit .dashicons {
+			font-size: 17px;
+			width: 17px;
+			height: 17px;
+		}
+		</style>
+
+		<div class="tc-sms-wrap">
+
+			<div class="tc-sms-header">
+				<div class="tc-sms-icon">
+					<span class="dashicons dashicons-smartphone"></span>
+				</div>
+				<div>
+					<h1>ارسال SMS</h1>
+					<p>ارسال پیامک مستقیم به شماره‌های دلخواه</p>
+				</div>
+			</div>
+
+			<?php if ( $sent ) : ?>
+			<div class="tc-sms-notice success">
+				<span class="dashicons dashicons-yes-alt"></span>
+				پیامک‌ها با موفقیت ارسال شدند.
+			</div>
+			<?php elseif ( $error ) : ?>
+			<div class="tc-sms-notice error">
+				<span class="dashicons dashicons-warning"></span>
+				<?php echo esc_html( $error ); ?>
+			</div>
+			<?php endif; ?>
+
+			<div class="tc-sms-card">
+				<div class="tc-sms-card-header">
+					<span class="dashicons dashicons-edit-page"></span>
+					<span>محتوای پیامک</span>
+				</div>
+				<div class="tc-sms-card-body">
+					<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" id="tc-sms-form">
+						<?php wp_nonce_field( 'tc_bulk_sms', 'tc_bulk_sms_nonce' ); ?>
+						<input type="hidden" name="action" value="tc_send_bulk_sms">
+
+						<div class="tc-sms-field">
+							<label for="tc_bulk_phones">
+								شماره‌های گیرنده
+								<span class="required">*</span>
+							</label>
+							<textarea
+								name="tc_bulk_phones"
+								id="tc_bulk_phones"
+								rows="6"
+								placeholder="09123456789&#10;09876543210&#10;09111111111"
+								required
+							></textarea>
+							<div class="tc-hint">
+								<span class="dashicons dashicons-info-outline"></span>
+								هر شماره را در یک خط جداگانه وارد کنید.
+							</div>
+							<div class="tc-sms-counter">
+								<span></span>
+								<span id="tc-phone-count">۰ شماره</span>
+							</div>
+						</div>
+
+						<div class="tc-sms-divider"></div>
+
+						<div class="tc-sms-field">
+							<label for="tc_bulk_message">
+								متن پیامک
+								<span class="required">*</span>
+							</label>
+							<textarea
+								name="tc_bulk_message"
+								id="tc_bulk_message"
+								rows="5"
+								placeholder="متن پیامک را اینجا بنویسید..."
+								required
+							></textarea>
+							<div class="tc-sms-counter">
+								<span></span>
+								<span id="tc-char-count">۰ کاراکتر</span>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="tc-sms-footer">
+					<div class="tc-tip">
+						<span class="dashicons dashicons-shield-alt"></span>
+						پیامک‌ها از طریق درگاه IPPanel ارسال می‌شوند.
+					</div>
+					<button type="submit" form="tc-sms-form" class="tc-sms-submit">
+						<span class="dashicons dashicons-controls-forward"></span>
+						ارسال پیامک
+					</button>
+				</div>
+			</div>
+
+		</div>
+
+		<script>
+		(function () {
+			function toPersianNum(n) {
+				return String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+			}
+
+			var phonesEl  = document.getElementById('tc_bulk_phones');
+			var msgEl     = document.getElementById('tc_bulk_message');
+			var phoneCount = document.getElementById('tc-phone-count');
+			var charCount  = document.getElementById('tc-char-count');
+
+			function updatePhoneCount() {
+				var lines = phonesEl.value.split(/\n/).filter(function(l){ return l.trim() !== ''; });
+				phoneCount.textContent = toPersianNum(lines.length) + ' شماره';
+			}
+
+			function updateCharCount() {
+				charCount.textContent = toPersianNum(msgEl.value.length) + ' کاراکتر';
+			}
+
+			phonesEl.addEventListener('input', updatePhoneCount);
+			msgEl.addEventListener('input', updateCharCount);
+		})();
+		</script>
+		<?php
+	}
+
+	public function handle_bulk_sms_form(): void {
+		if (
+			! isset( $_POST['tc_bulk_sms_nonce'] ) ||
+			! wp_verify_nonce( $_POST['tc_bulk_sms_nonce'], 'tc_bulk_sms' )
+		) {
+			wp_die( 'نانس نامعتبر است.' );
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( 'دسترسی غیرمجاز' );
+		}
+
+		$raw_phones = sanitize_textarea_field( $_POST['tc_bulk_phones'] ?? '' );
+		$message    = sanitize_textarea_field( $_POST['tc_bulk_message'] ?? '' );
+
+		if ( ! $raw_phones || ! $message ) {
+			wp_redirect( add_query_arg(
+				[ 'tc_sms_error' => rawurlencode( 'شماره یا متن پیامک خالی است.' ) ],
+				admin_url( 'edit.php?post_type=tc_message&page=tc-send-sms' )
+			) );
+			exit;
+		}
+
+		$lines  = preg_split( '/[\r\n]+/', $raw_phones );
+		$phones = array_values( array_filter( array_map( 'trim', $lines ) ) );
+
+		if ( empty( $phones ) ) {
+			wp_redirect( add_query_arg(
+				[ 'tc_sms_error' => rawurlencode( 'هیچ شماره‌ای وارد نشده است.' ) ],
+				admin_url( 'edit.php?post_type=tc_message&page=tc-send-sms' )
+			) );
+			exit;
+		}
+
+		$status   = $this->send_sms_request( $phones, $message );
+		$redirect = admin_url( 'edit.php?post_type=tc_message&page=tc-send-sms' );
+
+		if ( $status === 'sent' ) {
+			wp_redirect( add_query_arg( [ 'tc_sms_sent' => '1' ], $redirect ) );
+		} else {
+			wp_redirect( add_query_arg( [ 'tc_sms_error' => rawurlencode( $status ) ], $redirect ) );
+		}
+		exit;
 	}
 
 	// ── Review reply SMS ──────────────────────────────────────────────────────
