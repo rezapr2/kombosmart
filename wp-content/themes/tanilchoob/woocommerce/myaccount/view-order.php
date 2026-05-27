@@ -202,6 +202,13 @@ $item_status_cls   = $status_map[$order_status]['cls']   ?? 'pending';
 						<span class="tc-view-order__info-val" dir="ltr"><?php echo esc_html($transaction); ?></span>
 					</div>
 				<?php endif; ?>
+				<?php if($payment_note): ?>
+					<div class="tc-view-order__tx-row">
+						<span class="tc-view-order__info-key">توضیحات :</span>
+						<span class="tc-view-order__info-val" dir="ltr"><?php echo ($payment_note); ?></span>
+					</div>
+				<?php endif; ?>
+
 			</div>
 		</div>
 	<?php endif; ?>
