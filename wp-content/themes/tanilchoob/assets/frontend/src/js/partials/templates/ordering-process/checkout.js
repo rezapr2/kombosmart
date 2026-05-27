@@ -279,8 +279,20 @@
         var nationalcode = $.trim($('#tc-addr-nationalcode').val());
         var address_id   = $('#tc-address-id').val();
 
-        if (!first_name || !last_name || !phone || !address_1) {
-            showMsg($msg, 'لطفاً فیلدهای الزامی (نام، نام خانوادگی، شماره تماس، آدرس) را پر کنید.', true);
+        var required = [
+            { val: first_name,   label: 'نام' },
+            { val: last_name,    label: 'نام خانوادگی' },
+            { val: phone,        label: 'شماره تماس' },
+            { val: fixedphone,   label: 'تلفن ثابت' },
+            { val: city,         label: 'شهر' },
+            { val: address_1,    label: 'آدرس' },
+            { val: postcode,     label: 'کد پستی' },
+            { val: nationalcode, label: 'کد ملی' },
+        ];
+        var missing = [];
+        $.each(required, function (_, f) { if (!f.val) missing.push(f.label); });
+        if (missing.length) {
+            showMsg($msg, 'لطفاً فیلدهای زیر را پر کنید: ' + missing.join('، '), true);
             return;
         }
 
