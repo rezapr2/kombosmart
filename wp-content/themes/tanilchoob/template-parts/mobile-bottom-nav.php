@@ -4,14 +4,20 @@ $contact_mode = \TanilChoob\Theme\Helper::get_options_field('contact_mode');
 <div class="mobile-bottom-nav md:hidden fixed bottom-0 left-0 right-0 bg-white px-15 py-15 ">
     <div class="flex flex-row-reverse items-center justify-between">
         <!-- Cart -->
-        <a href="<?php echo $contact_mode ? '#' : wc_get_cart_url(); ?>" class="flex flex-col items-center color-black">
+        <?php
+        $cart_count_mobile = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
+        ?>
+        <a href="<?php echo $contact_mode ? '#' : wc_get_cart_url(); ?>" class="flex flex-col items-center color-black relative">
+            <span class="relative">
                 <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1.66406 1.66699H3.11407C4.01407 1.66699 4.7224 2.44199 4.6474 3.33366L3.95573 11.6337C3.83906 12.992 4.91406 14.1587 6.28072 14.1587H15.1557C16.3557 14.1587 17.4057 13.1753 17.4974 11.9837L17.9474 5.73366C18.0474 4.35033 16.9974 3.22532 15.6057 3.22532H4.8474" stroke="#2F2F2F" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M13.5417 18.3333C14.117 18.3333 14.5833 17.867 14.5833 17.2917C14.5833 16.7164 14.117 16.25 13.5417 16.25C12.9664 16.25 12.5 16.7164 12.5 17.2917C12.5 17.867 12.9664 18.3333 13.5417 18.3333Z" stroke="#2F2F2F" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M6.8776 18.3333C7.4529 18.3333 7.91927 17.867 7.91927 17.2917C7.91927 16.7164 7.4529 16.25 6.8776 16.25C6.30231 16.25 5.83594 16.7164 5.83594 17.2917C5.83594 17.867 6.30231 18.3333 6.8776 18.3333Z" stroke="#2F2F2F" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M7.5 6.66699H17.5" stroke="#2F2F2F" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-            <span class=" yekan-11">سبد خرید</span>
+                <span id="tc-minicart-badge-wrap-mobile"><?php if ( $cart_count_mobile > 0 ) : ?><span class="minicart-badge absolute flex item-center bg-primary"><?php echo esc_html( $cart_count_mobile ); ?></span><?php endif; ?></span>
+            </span>
+            <span class="yekan-11">سبد خرید</span>
         </a>
 
         <!-- Search -->

@@ -139,7 +139,8 @@ class Frontend
 		$badge_inner  = $count > 0
 			? '<span class="minicart-badge absolute flex item-center bg-primary">' . esc_html( $count ) . '</span>'
 			: '';
-		$fragments['#tc-minicart-badge-wrap'] = '<span id="tc-minicart-badge-wrap">' . $badge_inner . '</span>';
+		$fragments['#tc-minicart-badge-wrap']        = '<span id="tc-minicart-badge-wrap">' . $badge_inner . '</span>';
+		$fragments['#tc-minicart-badge-wrap-mobile'] = '<span id="tc-minicart-badge-wrap-mobile">' . $badge_inner . '</span>';
 
 		return $fragments;
 	}
