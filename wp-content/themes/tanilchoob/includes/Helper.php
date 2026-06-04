@@ -167,6 +167,16 @@ class Helper {
         }
     }
 
+    public static function jalali_date(int $timestamp): string
+    {
+        $j = \Jalaali\Jalaali::toJalaali(
+            (int) gmdate('Y', $timestamp),
+            (int) gmdate('m', $timestamp),
+            (int) gmdate('d', $timestamp)
+        );
+        return sprintf('%04d/%02d/%02d', $j['jy'], $j['jm'], $j['jd']);
+    }
+
     public static function get_product_questions_count($product_id)
     {
         $product_id = intval($product_id);

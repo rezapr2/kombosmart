@@ -1299,7 +1299,9 @@
         .tc-steps,
         .tc-checkout__footer,
         .tc-order-success,
-        .tc-invoice-actions {
+        .tc-invoice-actions,
+        #main_footer,
+        #main_header {
             display: none !important;
         }
 

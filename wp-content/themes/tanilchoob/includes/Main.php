@@ -42,6 +42,7 @@ class Main {
     }
 
 	private function load_dependencies() {
+		require_once get_template_directory().'/includes/Jalaali.php';
 		require_once get_template_directory().'/includes/Helper.php';
 		require_once get_template_directory().'/includes/Setup.php';
 		require_once get_template_directory().'/includes/Frontend.php';

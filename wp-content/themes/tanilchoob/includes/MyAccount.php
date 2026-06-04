@@ -197,7 +197,7 @@ class MyAccount
 			}
 			$rating      = (int) get_comment_meta($comment->comment_ID, 'rating', true);
 			$author      = trim($comment->comment_author) ?: 'ناشناس';
-			$date        = get_comment_date('j F Y', $comment);
+			$date        = Helper::jalali_date((int) get_comment_date('U', $comment));
 			$replies     = get_comments([
 				'parent'  => $comment->comment_ID,
 				'status'  => 'approve',
@@ -329,7 +329,7 @@ class MyAccount
 						<p class="yekan-16 color-black-80">
 							<?php echo esc_html($q->post_content); ?>
 						</p>
-						<span class="yekan-14 color-black-30 absolute bottom-0 left-0 px-15 py-15 date"><?php echo esc_html( get_the_date( 'Y/m/j', $q ) ); ?></span>
+						<span class="yekan-14 color-black-30 absolute bottom-0 left-0 px-15 py-15 date"><?php echo esc_html( Helper::jalali_date((int) get_post_time('U', false, $q)) ); ?></span>
 					</div>
 
 				</div>
@@ -412,7 +412,7 @@ class MyAccount
 					بازگشت به لیست پیام‌ها
 				</a>
 				<h2 class="tc-message-detail__title"><?php echo esc_html(get_the_title($msg)); ?></h2>
-				<span class="tc-message-detail__date"><?php echo esc_html(get_the_date('Y/m/d', $msg)); ?></span>
+				<span class="tc-message-detail__date"><?php echo esc_html(Helper::jalali_date((int) get_post_time('U', false, $msg))); ?></span>
 				<?php
 				$video_url      = function_exists('get_field') ? get_field('video_url', $msg->ID) : '';
 				$video_position = function_exists('get_field') ? get_field('video_position', $msg->ID) : 'bottom';
@@ -423,7 +423,7 @@ class MyAccount
 				}
 				if ($video_url && $video_position === 'top') echo $video_block;
 				?>
-				<div class="tc-message-detail__body"><?php echo wpautop(wp_kses_post($msg->post_content)); ?></div>
+				<div class="tc-message-detail__body"><?php echo apply_filters('the_content', $msg->post_content); ?></div>
 				<?php if ($video_url && $video_position !== 'top') echo $video_block; ?>
 			</div>
 			<?php
@@ -457,7 +457,7 @@ class MyAccount
 					? \in_array($msg->ID, $read_message_ids, true)
 					: (bool) get_post_meta($msg->ID, '_tc_message_read', true);
 				$subject  = get_the_title($msg);
-				$date     = get_the_date('Y/m/d', $msg);
+				$date     = Helper::jalali_date((int) get_post_time('U', false, $msg));
 				$view_url = add_query_arg('message', $msg->ID, $base_url);
 				?>
 				<tr class="tc-messages-table__row <?php echo $read ? 'is-read' : 'is-unread'; ?>">

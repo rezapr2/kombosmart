@@ -18,7 +18,9 @@ $customer_note = $order->get_customer_note();
 
 $total = $order->get_total();
 $shipping = (float) $order->get_shipping_total();
-$date_str = $order_date ? $order_date->date_i18n('l j F Y، ساعت H:i') : '—';
+$date_str = $order_date
+	? \TanilChoob\Theme\Helper::jalali_date($order_date->getTimestamp()) . '، ساعت ' . $order_date->date('H:i')
+	: '—';
 
 // Finance 
 $finance = get_field('finance', $order_id);
@@ -157,7 +159,8 @@ $item_status_cls   = $status_map[$order_status]['cls']   ?? 'pending';
 						<?php
 						// Assuming tr_history is an array of transactions with keys: date, status, amount, way, num, description
 						foreach ($finance['tr_history'] as $tx) {
-							$date_str = $tx['date'];
+							$_ts      = is_numeric($tx['date']) ? (int)$tx['date'] : strtotime($tx['date']);
+						$date_str = $_ts ? \TanilChoob\Theme\Helper::jalali_date($_ts) : $tx['date'];
 							$tx_status = $tx['status'];
 							$tx_status_cls = $tx['status_cls'];
 							$total = $tx['amount'];

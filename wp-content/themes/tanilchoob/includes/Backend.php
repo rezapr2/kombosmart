@@ -42,6 +42,14 @@ class Backend {
         // Show tc_option_adjustments clearly in the WooCommerce admin order detail
         add_filter( 'woocommerce_hidden_order_itemmeta', [ $this, 'unhide_option_adjustment_meta' ] );
 
+        add_filter( 'woocommerce_show_admin_notice', function ( $show, $notice ) {
+            if ( 'template_files' === $notice ) {
+                return false;
+            }
+
+            return $show;
+        }, 10, 2 );
+
     }
 
     public function unhide_option_adjustment_meta( array $hidden ): array {

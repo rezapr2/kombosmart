@@ -32,7 +32,7 @@ if (! defined('ABSPATH')) {
 			<div class="flex flex-col">
 				<span class="yekan-16 md:yekan-20 color-black-60"><?php comment_author(); ?></span>
 				<div class="flex items-center">
-					<span class="yekan-10 md:yekan-18 color-black-40">در تاریخ: <?php comment_date('Y-m-d'); ?></span>
+					<span class="yekan-10 md:yekan-18 color-black-40">در تاریخ: <?php echo esc_html(\TanilChoob\Theme\Helper::jalali_date((int) get_comment_date('U'))); ?></span>
 					<?php
 					// Custom star display using theme icons, replacing default Woo hook output.
 					$rating = intval(get_comment_meta($comment->comment_ID, 'rating', true));

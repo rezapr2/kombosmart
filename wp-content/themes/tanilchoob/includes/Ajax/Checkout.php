@@ -237,9 +237,10 @@ class Checkout {
 
 		WC()->cart->empty_cart();
 
-		$order_date = $order->get_date_created()
-			? $order->get_date_created()->date_i18n( 'Y/m/d' )
-			: wp_date( 'Y/m/d' );
+		$created    = $order->get_date_created();
+		$order_date = $created
+			? \TanilChoob\Theme\Helper::jalali_date($created->getTimestamp())
+			: \TanilChoob\Theme\Helper::jalali_date(time());
 
 		wp_send_json_success( [
 			'order_id'       => $order->get_id(),
