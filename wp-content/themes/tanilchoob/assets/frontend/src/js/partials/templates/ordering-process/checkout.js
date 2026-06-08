@@ -381,6 +381,7 @@
         $('#tc-order-number').text(data.order_number);
 
         var addr  = data.address || {};
+        console.log('adde', addr);
         var items = data.items   || [];
 
         var rows = '';
@@ -416,6 +417,7 @@
                     '<div class="tc-invoice-info__row"><strong>شماره تماس :</strong><span>' + esc(addr.phone) + '</span></div>' +
                     (addr.postcode ? '<div class="tc-invoice-info__row"><strong>کد پستی :</strong><span>' + esc(addr.postcode) + '</span></div>' : '') +
                     '<div class="tc-invoice-info__row"><strong>آدرس :</strong><span>' + esc((addr.city ? addr.city + '، ' : '') + addr.address_1) + '</span></div>' +
+                    (addr.nationalcode ? '<div class="tc-invoice-info__row"><strong>کد ملی :</strong><span>' + esc(addr.nationalcode) + '</span></div>' : '') +
                 '</div>' +
                 '<div class="tc-invoice-info__group">' +
                     '<div class="tc-invoice-info__row"><strong>شماره سفارش :</strong><span>' + esc(data.order_number) + '</span></div>' +
