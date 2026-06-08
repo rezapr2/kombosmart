@@ -812,6 +812,23 @@
         flex-direction: column;
         gap: 0.2rem;
 
+        .review-stars {
+                display: inline-flex;
+                gap: 0.3rem;
+                align-items: center;
+                justify-self: end;
+                .star {
+                    color: rgba(0, 0, 0, 0.25);
+                }
+                .star.filled {
+                    color: #FFDC52;
+                }
+                .star-icon {
+                    width: 1.4rem;
+                    height: 1.4rem;
+                }
+            }
+            
         &:hover {
             border-color: var(--color-primary);
             .wc-account-review-item__product {
@@ -3446,6 +3463,9 @@
             color: var(--color-primary);
             text-decoration: underline;
         }
+        figure, img{
+            max-width: 100%;
+        }
     }
 
     &__video {
@@ -3461,7 +3481,7 @@
 }
 
 // ── Messages responsive ────────────────────────────────────────────────────────
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .tc-messages-table {
         font-size: 1.4rem;
 
@@ -3480,6 +3500,11 @@
 
         td {
             padding: 1.2rem 0.8rem;
+        }
+    }
+    .tc-message-detail {
+        &__video {
+            margin: 2rem 0;
         }
     }
 }

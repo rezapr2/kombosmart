@@ -167,6 +167,8 @@ class Checkout {
 				'total'        => $item['line_total'],
 				'subtotal_tax' => $item['line_subtotal_tax'],
 				'total_tax'    => $item['line_tax'],
+				'variation_id' => $item['variation_id'] ?? 0,
+				'variation'    => $item['variation'] ?? [],
 			] );
 
 			if ( ! $order_item ) {

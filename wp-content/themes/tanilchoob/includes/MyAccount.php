@@ -215,7 +215,7 @@ class MyAccount
 				
 				<div class="comment-text">
 					<div class="flex flex-col">
-						<div class="flex items-center">
+						<div class="flex items-center gap-20">
 							<span class="yekan-10 md:yekan-14 color-black-50">در تاریخ: <?php echo esc_html($date); ?></span>
 							<?php if ($rating > 0) : $aria_label = sprintf('Rated %d out of 5', $rating); ?>
 							<div class="review-stars" role="img" aria-label="<?php echo esc_attr($aria_label); ?>">
