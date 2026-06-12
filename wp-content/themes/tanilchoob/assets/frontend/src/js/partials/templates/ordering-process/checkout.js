@@ -48,6 +48,19 @@
         });
     }
 
+    function applyFragments(fragments) {
+        if (!fragments || typeof fragments !== 'object') return;
+        
+        $.each(fragments, function(selector, html) {
+            var $target = $(selector);
+            if ($target.length) {
+                $target.replaceWith(html);
+            } else {
+                console.warn('Fragment target not found:', selector);
+            }
+        });
+    }
+
     // ── Step navigation ──────────────────────────────────────
 
     function goToStep(n) {
@@ -367,6 +380,12 @@
                 window.location.href = data.redirect_url;
                 return;
             }
+            
+            // Apply minicart fragments if present
+            if (data.fragments) {
+                applyFragments(data.fragments);
+            }
+            
             renderInvoice(data);
             goToStep(4);
         }, function (msg) {

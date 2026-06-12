@@ -168,7 +168,7 @@ class Checkout {
 				'subtotal_tax' => $item['line_subtotal_tax'],
 				'total_tax'    => $item['line_tax'],
 				'variation_id' => $item['variation_id'] ?? 0,
-				'variation'    => $item['variation'] ?? [],
+				'variation'    => [], // Don't pass raw variation here, we'll add it manually with proper labels
 			] );
 
 			if ( ! $order_item ) {
@@ -176,6 +176,34 @@ class Checkout {
 			}
 
 			$item_id = is_object( $order_item ) ? $order_item->get_id() : (int) $order_item;
+
+			// Add variation attributes with proper labels
+			if ( $item_id && ! empty( $item['variation'] ) ) {
+				foreach ( $item['variation'] as $name => $value ) {
+					if ( empty( $value ) ) {
+						continue;
+					}
+					
+					// Build taxonomy name
+					$taxonomy = wc_attribute_taxonomy_name( str_replace( 'attribute_pa_', '', urldecode( $name ) ) );
+
+					if ( taxonomy_exists( $taxonomy ) ) {
+						// If this is a term slug, get the term's nice name
+						$term = get_term_by( 'slug', $value, $taxonomy );
+						if ( ! is_wp_error( $term ) && $term && $term->name ) {
+							$value = $term->name;
+						}
+						$label = wc_attribute_label( $taxonomy );
+					} else {
+						// If this is a custom option slug, get the options name
+						$value = apply_filters( 'woocommerce_variation_option_name', $value, null, $taxonomy, $item['data'] );
+						$label = wc_attribute_label( str_replace( 'attribute_', '', $name ), $item['data'] );
+					}
+
+					// Add the variation meta with proper label
+					wc_add_order_item_meta( $item_id, $label, $value );
+				}
+			}
 
 			// Custom option adjustments — written directly to DB so admin always sees them
 			if ( $item_id && ! empty( $item['tc_option_adjustments'] ) && is_array( $item['tc_option_adjustments'] ) ) {
@@ -239,6 +267,16 @@ class Checkout {
 
 		WC()->cart->empty_cart();
 
+		// Generate minicart fragments after cart is emptied
+		$count       = 0; // Cart is now empty
+		$badge_inner = ''; // Empty badge since cart is empty
+
+		$fragments = [
+			'#tc-minicart-dropdown'        => \TanilChoob\Theme\Frontend::render_minicart(),
+			'#tc-minicart-badge-wrap'      => '<span id="tc-minicart-badge-wrap">' . $badge_inner . '</span>',
+			'#tc-minicart-badge-wrap-mobile' => '<span id="tc-minicart-badge-wrap-mobile">' . $badge_inner . '</span>',
+		];
+
 		$created    = $order->get_date_created();
 		$order_date = $created
 			? \TanilChoob\Theme\Helper::jalali_date($created->getTimestamp())
@@ -253,6 +291,8 @@ class Checkout {
 			'notes'          => $notes,
 			'total'          => number_format( (float) $order->get_total(), 0, '.', ',' ),
 			'items'          => $this->get_order_items_data( wc_get_order( $order->get_id() ) ),
+			'fragments'      => $fragments,
+			'cart_count'     => $count,
 		] );
 	}
 
@@ -355,6 +395,8 @@ class Checkout {
 			$qty = $item->get_quantity();
 
 			$customizations = [];
+			
+			// Get all metadata (including our properly-labeled variations and custom options)
 			foreach ( $item->get_formatted_meta_data( '_', true ) as $meta ) {
 				$customizations[] = [
 					'key'   => wp_strip_all_tags( $meta->display_key ),

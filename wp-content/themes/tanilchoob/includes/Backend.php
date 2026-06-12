@@ -42,6 +42,10 @@ class Backend {
         // Show tc_option_adjustments clearly in the WooCommerce admin order detail
         add_filter( 'woocommerce_hidden_order_itemmeta', [ $this, 'unhide_option_adjustment_meta' ] );
 
+        // Transform variation attribute labels in admin order meta display
+        add_filter( 'woocommerce_order_item_display_meta_key', [ $this, 'transform_variation_meta_label' ], 10, 3 );
+        add_filter( 'woocommerce_attribute_label', [ $this, 'transform_attribute_label' ], 10, 3 );
+
         // Show national code, fixed phone and payment note on the admin order edit screen
         add_action( 'woocommerce_admin_order_data_after_billing_address', [ $this, 'render_order_extra_billing_meta' ] );
         add_action( 'woocommerce_admin_order_data_after_billing_address', [ $this, 'render_order_payment_note' ] );
@@ -99,6 +103,47 @@ class Backend {
         return array_values( array_filter( $hidden, function( $key ) {
             return str_starts_with( $key, '_' );
         } ) );
+    }
+
+    public function transform_variation_meta_label( $display_key, $meta, $item ) {
+        // Check if this is a variation attribute (starts with pa_ or attribute_)
+        if ( strpos( $meta->key, 'pa_' ) === 0 || strpos( $meta->key, 'attribute_pa_' ) === 0 || strpos( $meta->key, 'attribute_' ) === 0 ) {
+            $product = $item->get_product();
+            if ( $product ) {
+                // Remove 'attribute_' prefix if present
+                $attribute_name = str_replace( 'attribute_', '', $meta->key );
+                
+                // Use wc_attribute_label to get the proper label
+                $label = wc_attribute_label( $attribute_name, $product );
+                
+                if ( $label && $label !== $attribute_name ) {
+                    return $label;
+                }
+            }
+        }
+        
+        return $display_key;
+    }
+
+    public function transform_attribute_label( $label, $name, $product ) {
+        // If the label is the same as the name (not transformed), try to get proper label
+        if ( $label === $name && ( strpos( $name, 'pa_' ) === 0 || strpos( $name, 'attribute_pa_' ) === 0 ) ) {
+            $attribute_name = str_replace( 'attribute_', '', $name );
+            
+            // Try to get the attribute taxonomy
+            $taxonomy = wc_attribute_taxonomy_name( str_replace( 'pa_', '', $attribute_name ) );
+            
+            if ( taxonomy_exists( $taxonomy ) ) {
+                $attribute_taxonomies = wc_get_attribute_taxonomies();
+                foreach ( $attribute_taxonomies as $tax ) {
+                    if ( wc_attribute_taxonomy_name( $tax->attribute_name ) === $taxonomy ) {
+                        return $tax->attribute_label ? $tax->attribute_label : $tax->attribute_name;
+                    }
+                }
+            }
+        }
+        
+        return $label;
     }
 
 	private function load_dependencies() {
