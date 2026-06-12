@@ -2030,6 +2030,14 @@
         }
     }
 
+    .tc-view-order__tx-mobile-item {
+       
+            border-top: 2px solid rgba(0, 0, 0, 0.08);
+            margin-top: 0.8rem;
+            padding-top: 0.4rem;
+        
+    }
+
     .tc-view-order__tx-row {
         display: flex;
         align-items: baseline;
@@ -2853,35 +2861,6 @@
         }
     }
 
-    .tc-payment-card__check {
-        width: 2.4rem;
-        height: 2.4rem;
-        border-radius: 50%;
-        border: 2px solid rgba(0, 0, 0, 0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        top: 1.2rem;
-        left: 1.2rem;
-        background: transparent;
-        transition:
-            background 0.2s,
-            border-color 0.2s;
-
-        svg {
-            display: none;
-        }
-
-        .tc-payment-card:has(input:checked) & {
-            background: $checkout-primary;
-            border-color: $checkout-primary;
-
-            svg {
-                display: block;
-            }
-        }
-    }
 
     .tc-payment-card__icon {
         color: $checkout-primary;

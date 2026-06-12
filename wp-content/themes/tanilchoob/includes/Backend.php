@@ -42,6 +42,10 @@ class Backend {
         // Show tc_option_adjustments clearly in the WooCommerce admin order detail
         add_filter( 'woocommerce_hidden_order_itemmeta', [ $this, 'unhide_option_adjustment_meta' ] );
 
+        // Show national code, fixed phone and payment note on the admin order edit screen
+        add_action( 'woocommerce_admin_order_data_after_billing_address', [ $this, 'render_order_extra_billing_meta' ] );
+        add_action( 'woocommerce_admin_order_data_after_billing_address', [ $this, 'render_order_payment_note' ] );
+
         add_filter( 'woocommerce_show_admin_notice', function ( $show, $notice ) {
             if ( 'template_files' === $notice ) {
                 return false;
@@ -50,6 +54,43 @@ class Backend {
             return $show;
         }, 10, 2 );
 
+    }
+
+    public function render_order_extra_billing_meta( \WC_Order $order ) {
+        $nationalcode = $order->get_meta( '_tc_billing_nationalcode' );
+        $fixedphone   = $order->get_meta( '_tc_billing_fixedphone' );
+
+        if ( ! $nationalcode && ! $fixedphone ) {
+            return;
+        }
+        ?>
+        <?php if ( $fixedphone ) : ?>
+            <p>
+                <strong><?php esc_html_e( 'تلفن ثابت:', 'tanilchoob' ); ?></strong>
+                <?php echo esc_html( $fixedphone ); ?>
+            </p>
+        <?php endif; ?>
+        <?php if ( $nationalcode ) : ?>
+            <p>
+                <strong><?php esc_html_e( 'کد ملی:', 'tanilchoob' ); ?></strong>
+                <?php echo esc_html( $nationalcode ); ?>
+            </p>
+        <?php endif; ?>
+        <?php
+    }
+
+    public function render_order_payment_note( \WC_Order $order ) {
+        $note = $order->get_meta( '_tc_payment_note' );
+
+        if ( ! $note ) {
+            return;
+        }
+        ?>
+        <p>
+            <strong><?php esc_html_e( 'توضیحات سفارش:', 'tanilchoob' ); ?></strong>
+            <?php echo esc_html( $note ); ?>
+        </p>
+        <?php
     }
 
     public function unhide_option_adjustment_meta( array $hidden ): array {

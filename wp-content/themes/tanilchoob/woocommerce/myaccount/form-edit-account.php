@@ -79,7 +79,7 @@ do_action('woocommerce_before_edit_account_form'); ?>
 					</button>
 				</div>
 			</div>
-
+<!-- 
 			<div class="tc-account-info__field" data-group="newsletter" data-label="دریافت خبرنامه">
 				<div class="tc-account-info__field-inner flex items-center justify-between gap-30">
 					<div class="flex flex-col">
@@ -97,7 +97,7 @@ do_action('woocommerce_before_edit_account_form'); ?>
 						</svg>
 					</button>
 				</div>
-			</div>
+			</div> -->
 
 			<div class="tc-account-info__field" data-group="phone" data-label="شماره موبایل">
 				<div class="tc-account-info__field-inner flex items-center justify-between gap-30">
@@ -168,14 +168,14 @@ do_action('woocommerce_before_edit_account_form'); ?>
 				</div>
 			</div>
 
-			<div class="tc-form-group" data-group="newsletter">
+			<!-- <div class="tc-form-group" data-group="newsletter">
 				<div class="tc-form-field tc-form-field--full tc-form-field--checkbox">
 					<label>
 						<input type="checkbox" name="tc_newsletter" value="1" <?php checked($newsletter, '1'); ?>>
 						<span>دریافت خبرنامه</span>
 					</label>
 				</div>
-			</div>
+			</div> -->
 
 			<div class="tc-form-group" data-group="phone">
 				<div class="tc-form-field">

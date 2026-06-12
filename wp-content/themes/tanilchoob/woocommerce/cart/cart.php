@@ -374,12 +374,7 @@ $steps = [
 				<label class="tc-payment-card" data-method="<?php echo esc_attr($gw_id); ?>">
 					<input type="radio" name="tc_payment_method" value="<?php echo esc_attr($gw_id); ?>"
 						class="tc-payment-radio" <?php checked($first_gateway, true); ?>>
-					<span class="tc-payment-card__check">
-						<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-							<path d="M4 12l6 6L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round"
-								stroke-linejoin="round" />
-						</svg>
-					</span>
+					
 					<div class="tc-payment-card__icon">
 						<?php echo $icon_svg; // phpcs:ignore WordPress.Security.EscapeOutput -- SVG is hardcoded ?>
 					</div>

@@ -119,9 +119,28 @@ if ($user_id) {
 	}
 }
 
+$message_badge = 0;
+if ($user_id) {
+	$messages = \TanilChoob\Theme\PostType\CustomerMessage::get_for_user($user_id);
+	if ($messages) {
+		$read_message_ids = (array) get_user_meta($user_id, '_tc_read_messages', true);
+		foreach ($messages as $msg) {
+			$is_all_msg   = (bool) get_post_meta($msg->ID, '_tc_message_recipient_all', true);
+			$is_group_msg = (bool) get_post_meta($msg->ID, '_tc_message_group_id', true);
+			$read = ($is_all_msg || $is_group_msg)
+				? in_array($msg->ID, $read_message_ids, true)
+				: (bool) get_post_meta($msg->ID, '_tc_message_read', true);
+			if (!$read) {
+				$message_badge++;
+			}
+		}
+	}
+}
+
 $nav_badges = [
 	'reviews'   => $review_badge,
 	'questions' => $question_badge,
+	'messages'  => $message_badge,
 ];
 ?>
 
@@ -141,7 +160,11 @@ $nav_badges = [
 					<?php if ($badge > 0): ?>
 						<span class="nav-badge">
 							<span class="nav-badge__count">+<?php echo esc_html($badge); ?></span>
-							<span class="nav-badge__text"><?php echo $endpoint === 'reviews' ? 'پاسخ جدید برای نظر شما' : 'پاسخ جدید برای پرسش شما'; ?></span>
+							<span class="nav-badge__text"><?php
+								if ($endpoint === 'reviews') echo 'پاسخ جدید برای نظر شما';
+								elseif ($endpoint === 'questions') echo 'پاسخ جدید برای پرسش شما';
+								else echo 'پیام جدید';
+							?></span>
 						</span>
 					<?php endif; ?>
 				</a>

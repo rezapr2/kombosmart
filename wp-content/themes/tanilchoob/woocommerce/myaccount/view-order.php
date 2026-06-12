@@ -66,7 +66,7 @@ $item_status_cls   = $status_map[$order_status]['cls']   ?? 'pending';
 
 	<!-- Back + Invoice (hidden on mobile — my-account.php header handles back) -->
 	<div class="tc-view-order__topbar">
-		<a href="#" class="tc-view-order__back">
+		<a href="<?php echo esc_url(wc_get_account_endpoint_url('orders')); ?>" class="tc-view-order__back">
 			<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
 				<path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
 					stroke-linejoin="round" />
@@ -186,32 +186,47 @@ $item_status_cls   = $status_map[$order_status]['cls']   ?? 'pending';
 
 			<!-- Mobile-only: key-value rows replacing the table -->
 			<div class="tc-view-order__tx-mobile">
-				<div class="tc-view-order__tx-row">
-					<span class="tc-view-order__info-key">تاریخ :</span>
-					<span class="tc-view-order__info-val"><?php echo esc_html($date_str); ?></span>
-				</div>
-				<div class="tc-view-order__tx-row">
-					<span class="tc-view-order__info-key">وضعیت :</span>
-					<span
-						class="tc-view-order__tx-status tc-view-order__tx-status--<?php echo esc_attr($tx_status_cls); ?>"><?php echo esc_html($tx_status); ?></span>
-				</div>
-				<div class="tc-view-order__tx-row">
-					<span class="tc-view-order__info-key">روش پرداخت :</span>
-					<span class="tc-view-order__info-val"><?php echo esc_html($payment_title ?: '—'); ?></span>
-				</div>
-				<?php if ($transaction): ?>
+				<?php foreach ($finance['tr_history'] as $tx):
+					$_ts          = is_numeric($tx['date']) ? (int) $tx['date'] : strtotime($tx['date']);
+					$_date_str    = $_ts ? \TanilChoob\Theme\Helper::jalali_date($_ts) : $tx['date'];
+					$_tx_status      = $tx['status'];
+					$_tx_status_cls  = $tx['status_cls'];
+					$_total          = $tx['amount'];
+					$_payment_title  = $tx['way'];
+					$_transaction    = $tx['num'];
+					$_payment_note   = $tx['description'];
+				?>
+				<div class="tc-view-order__tx-mobile-item">
 					<div class="tc-view-order__tx-row">
-						<span class="tc-view-order__info-key">شماره پیگیری :</span>
-						<span class="tc-view-order__info-val" dir="ltr"><?php echo esc_html($transaction); ?></span>
+						<span class="tc-view-order__info-key">تاریخ :</span>
+						<span class="tc-view-order__info-val"><?php echo esc_html($_date_str); ?></span>
 					</div>
-				<?php endif; ?>
-				<?php if($payment_note): ?>
 					<div class="tc-view-order__tx-row">
-						<span class="tc-view-order__info-key">توضیحات :</span>
-						<span class="tc-view-order__info-val" dir="ltr"><?php echo ($payment_note); ?></span>
+						<span class="tc-view-order__info-key">وضعیت :</span>
+						<span class="tc-view-order__tx-status tc-view-order__tx-status--<?php echo esc_attr($_tx_status_cls); ?>"><?php echo esc_html($_tx_status); ?></span>
 					</div>
-				<?php endif; ?>
-
+					<div class="tc-view-order__tx-row">
+						<span class="tc-view-order__info-key">مبلغ :</span>
+						<span class="tc-view-order__info-val"><?php echo esc_html($_total); ?></span>
+					</div>
+					<div class="tc-view-order__tx-row">
+						<span class="tc-view-order__info-key">روش پرداخت :</span>
+						<span class="tc-view-order__info-val"><?php echo esc_html($_payment_title ?: '—'); ?></span>
+					</div>
+					<?php if ($_transaction): ?>
+						<div class="tc-view-order__tx-row">
+							<span class="tc-view-order__info-key">شماره پیگیری :</span>
+							<span class="tc-view-order__info-val" dir="ltr"><?php echo esc_html($_transaction); ?></span>
+						</div>
+					<?php endif; ?>
+					<?php if ($_payment_note): ?>
+						<div class="tc-view-order__tx-row">
+							<span class="tc-view-order__info-key">توضیحات :</span>
+							<span class="tc-view-order__info-val"><?php echo esc_html($_payment_note); ?></span>
+						</div>
+					<?php endif; ?>
+				</div>
+				<?php endforeach; ?>
 			</div>
 		</div>
 	<?php endif; ?>
