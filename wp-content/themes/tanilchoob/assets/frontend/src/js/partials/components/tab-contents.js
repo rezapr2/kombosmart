@@ -27,6 +27,7 @@
             const targetId = $(this).data('target');
             const $target = $('#' + targetId);
             const $container = $(this).closest('.tab-contents');
+            const $trigger = $(this);
             
             if ($(this).hasClass('active')) {
                 $(this).removeClass('active');
@@ -39,6 +40,13 @@
                 // Open this one
                 $(this).addClass('active');
                 $target.slideDown().addClass('active');
+                
+                // Scroll to the tab after it opens
+                setTimeout(function() {
+                    $('html, body').animate({
+                        scrollTop: $trigger.offset().top - 100
+                    }, 400);
+                }, 300);
             }
         });
     });

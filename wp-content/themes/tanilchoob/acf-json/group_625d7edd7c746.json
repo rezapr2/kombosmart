@@ -911,6 +911,110 @@
             "append": ""
         },
         {
+            "key": "field_6a2ca44ce2292",
+            "label": "توضیحات تکمیلی پیش فاکتور",
+            "name": "preinvoice_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": "",
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_6a2c9e9b5496e",
+            "label": "صفحه ورود و ثبت نام",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_6a2c9eb55496f",
+            "label": "ورود و ثبت نام",
+            "name": "login_page",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_6a2c9eca54970",
+                    "label": "لوگو",
+                    "name": "logo",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "allow_in_bindings": 0,
+                    "preview_size": "medium"
+                },
+                {
+                    "key": "field_6a2c9ed954971",
+                    "label": "متن زیر فیلد ها",
+                    "name": "description",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0
+                }
+            ]
+        },
+        {
             "key": "field_69f7c0b88c598",
             "label": "تنظیمات ارسال sms",
             "name": "",
@@ -949,7 +1053,7 @@
                 "class": "",
                 "id": ""
             },
-            "message": "<p style=\"color:red;\">خطای سرور (کد 502)<\/p>",
+            "message": "<p>اعتبار فعلی شما: <strong>942,829 ریال<\/strong><\/p>",
             "new_lines": "wpautop",
             "esc_html": 0
         },
@@ -1022,7 +1126,11 @@
                 "id": ""
             },
             "choices": {
-                "": "خطا از سرور (کد 502)"
+                "": "پترن را از لیست انتخاب کنید",
+                "xurkv8yynve8ojr": "کاربر گرامی تانیل چوب،\nبه پرسش شما پاسخ داده شد.\nجهت مشاهده پاسخ، لطفاً به حساب کاربری خود در سایت مراجعه فرمایید.",
+                "lpddv1iyu2gsmjh": "کاربر گرامی تانیل چوب،\nپاسخی برای نظر شما ثبت شده است.\nجهت مشاهده پاسخ، لطفاً به حساب کاربری خود در سایت مراجعه فرمایید.",
+                "cicatr9hfc8lonh": "کاربر گرامی،\nکد تایید ورود شما به سایت تانیل چوب:\n%code%",
+                "iuro6xpv1qf4du4": "کاربر گرامی،\nکد تایید ثبت‌نام شما در مجموعه تانیل چوب:\n%code%"
             },
             "default_value": false,
             "return_format": "value",
@@ -1057,7 +1165,11 @@
                 "id": ""
             },
             "choices": {
-                "": "خطا از سرور (کد 502)"
+                "": "پترن را از لیست انتخاب کنید",
+                "xurkv8yynve8ojr": "کاربر گرامی تانیل چوب،\nبه پرسش شما پاسخ داده شد.\nجهت مشاهده پاسخ، لطفاً به حساب کاربری خود در سایت مراجعه فرمایید.",
+                "lpddv1iyu2gsmjh": "کاربر گرامی تانیل چوب،\nپاسخی برای نظر شما ثبت شده است.\nجهت مشاهده پاسخ، لطفاً به حساب کاربری خود در سایت مراجعه فرمایید.",
+                "cicatr9hfc8lonh": "کاربر گرامی،\nکد تایید ورود شما به سایت تانیل چوب:\n%code%",
+                "iuro6xpv1qf4du4": "کاربر گرامی،\nکد تایید ثبت‌نام شما در مجموعه تانیل چوب:\n%code%"
             },
             "default_value": false,
             "return_format": "value",
@@ -1190,5 +1302,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1779829701
+    "modified": 1781310572
 }

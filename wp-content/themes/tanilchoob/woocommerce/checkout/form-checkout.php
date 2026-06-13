@@ -416,6 +416,12 @@ $steps = [
 			</button>
 			<a href="<?php echo esc_url( wc_get_account_endpoint_url( 'orders' ) ); ?>" class="tc-btn tc-btn--primary">پیگیری سفارش</a>
 		</div>
+		<?php $preinvoice_description = get_field('preinvoice_description', 'option');
+		if(isset($preinvoice_description)): ?>
+		<div class="tc-invoice-preinvoice_description yekan-16 mt-30 text-center color-black-70">
+			<?php echo ($preinvoice_description); ?>
+		</div>
+		<?php endif;?>
 		<div class="tc-invoice" id="tc-invoice">
 			<!-- rendered by JS -->
 		</div>

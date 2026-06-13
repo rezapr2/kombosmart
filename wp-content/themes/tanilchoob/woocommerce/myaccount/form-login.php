@@ -16,11 +16,9 @@ $active_tab    = ( isset( $_GET['register'] ) || ( isset( $_POST['register'] ) &
 
 do_action( 'woocommerce_before_customer_login_form' );
 
-$terms_page_id = wc_get_page_id( 'terms' );
-$terms_url     = $terms_page_id > 0 ? get_permalink( $terms_page_id ) : home_url( '/purchasing-rules/' );
-$privacy_url   = function_exists( 'get_privacy_policy_url' ) ? get_privacy_policy_url() : home_url( '/privacy-policy/' );
-$header_logo = get_field('header_logo', 'option');
-
+$login_page = get_field('login_page', 'option');
+$header_logo = isset($login_page['logo']['url']) ? $login_page['logo']['url'] : null;
+$description = isset($login_page['description']) ? $login_page['description'] : '';
 ?>
 <style>
 	/* Hide default WooCommerce login/register forms */
@@ -30,7 +28,7 @@ $header_logo = get_field('header_logo', 'option');
 </style>
 <div class="tc-auth-form tab-contents">
 	<div class="logo">
-		<img src="<?php echo isset($header_logo['url']) ? $header_logo['url'] : ''; ?>" alt="تانیل چوب" />
+		<img src="<?php echo isset($header_logo) ? $header_logo : ''; ?>" alt="تانیل چوب" />
 	</div>
 	<div class="tc-auth-tabs">
 		<div class="tab-item <?php echo $active_tab === 'login' ? 'active' : ''; ?>" id="tab-login">ورود</div>
@@ -57,13 +55,9 @@ $header_logo = get_field('header_logo', 'option');
 						maxlength="11"
 					/>
 				</div>
-				<p class="auth-terms">
-					ورود | ثبت نام شما به معنای پذیرش
-					<a href="<?php echo esc_url( $terms_url ); ?>">قوانین و مقررات</a>
-					و
-					<a href="<?php echo esc_url( $privacy_url ); ?>">حریم خصوصی کاربران</a>
-					تانیل چوب است.
-				</p>
+				<div class="auth-terms">
+					<?php echo($description); ?>
+				</div>
 				<button type="button" class="auth-submit-btn otp-send-btn">ورود</button>
 			</div>
 
@@ -113,13 +107,9 @@ $header_logo = get_field('header_logo', 'option');
 						maxlength="11"
 					/>
 				</div>
-				<p class="auth-terms">
-					ورود | ثبت نام شما به معنای پذیرش
-					<a href="<?php echo esc_url( $terms_url ); ?>">قوانین و مقررات</a>
-					و
-					<a href="<?php echo esc_url( $privacy_url ); ?>">حریم خصوصی کاربران</a>
-					تانیل چوب است.
-				</p>
+				<div class="auth-terms">
+					<?php echo ($description); ?>
+				</div>
 				<button type="button" class="auth-submit-btn otp-send-btn">ثبت نام</button>
 			</div>
 

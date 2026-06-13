@@ -637,8 +637,15 @@ class MyAccount
 										<strong>آدرس :</strong>
 										<span><?php echo esc_html(($addr['city'] ? $addr['city'] . '، ' : '') . $addr['address_1']); ?></span>
 									</div>
+
 									<div class="tc-address-card__meta">
 										<span><strong>شماره تماس :</strong> <?php echo esc_html($addr['phone']); ?></span>
+										<?php if (!empty($addr['fixedphone'])): ?>
+											<span><strong>تلفن ثابت :</strong> <?php echo esc_html($addr['fixedphone']); ?></span>
+										<?php endif; ?>
+										<?php if (!empty($addr['nationalcode'])): ?>
+											<span><strong>کد ملی :</strong> <?php echo esc_html($addr['nationalcode']); ?></span>
+										<?php endif; ?>
 										<?php if ($addr['postcode']): ?>
 											<span><strong>کد پستی :</strong> <?php echo esc_html($addr['postcode']); ?></span>
 										<?php endif; ?>
@@ -716,6 +723,14 @@ class MyAccount
 						<div class="tc-form-field">
 							<label for="tc-addr-phone">شماره تماس <span class="required">*</span></label>
 							<input type="tel" id="tc-addr-phone" placeholder="09xxxxxxxxx" dir="ltr" required>
+						</div>
+						<div class="tc-form-field">
+							<label for="tc-addr-fixedphone">تلفن ثابت <span class="required">*</span></label>
+							<input type="tel" id="tc-addr-fixedphone" placeholder="تلفن ثابت" dir="ltr">
+						</div>
+						<div class="tc-form-field">
+							<label for="tc-addr-nationalcode">کد ملی <span class="required">*</span></label>
+							<input type="text" id="tc-addr-nationalcode" placeholder="کد ملی" dir="ltr">
 						</div>
 						<div class="tc-form-field">
 							<label for="tc-addr-postcode">کد پستی</label>
