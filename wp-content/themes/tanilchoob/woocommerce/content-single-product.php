@@ -166,13 +166,17 @@ $product_status = get_post_meta($product_id, '_product_status', true);
 								<?php foreach ($adjustment_options as $opt) :
 									$opt_id    = isset($opt['id']) ? $opt['id'] : uniqid('opt_');
 									$opt_label = isset($opt['label']) ? $opt['label'] : '';
-									$opt_amt   = isset($opt['amount']) ? floatval($opt['amount']) : 0.0;
-									$is_plus   = $opt_amt >= 0;
-									$amt_display = number_format(abs($opt_amt));
+									
+									// Grab raw Rial amount from DB and immediately convert to Toman
+									$opt_amt_rial = isset($opt['amount']) ? floatval($opt['amount']) : 0.0;
+									$opt_amt_toman = $opt_amt_rial / 10;
+									
+									$is_plus   = $opt_amt_toman >= 0;
+									$amt_display = number_format(abs($opt_amt_toman));
 								?>
 									<li class="flex items-center justify-between gap-10 py-12 px-16">
 										<label class="flex items-center gap-10">
-											<input type="checkbox" class="adj-checkbox" data-id="<?php echo esc_attr($opt_id); ?>" data-label="<?php echo esc_attr($opt_label); ?>" data-amount="<?php echo esc_attr($opt_amt); ?>">
+											<input type="checkbox" class="adj-checkbox" data-id="<?php echo esc_attr($opt_id); ?>" data-label="<?php echo esc_attr($opt_label); ?>" data-amount="<?php echo esc_attr($opt_amt_toman); ?>">
 											<span class="yekan-12 md:yekan-16 color-black-60"><?php echo esc_html($opt_label); ?></span>
 										</label>
 										<span class="yekan-12 md:yekan-16 price-diff" style="color: <?php echo $is_plus ? '#16a34a' : '#dc2626'; ?>;">

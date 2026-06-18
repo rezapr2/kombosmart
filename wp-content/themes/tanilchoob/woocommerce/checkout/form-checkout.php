@@ -42,7 +42,6 @@ $steps = [
 ?>
 <div class="tc-checkout" dir="rtl">
 
-	<!-- ── Progress Steps ───────────────────────────────── -->
 	<?php
 	$step_icons = [
 		1 => 'icon_cart.png',
@@ -55,7 +54,6 @@ $steps = [
 	<div class="header relative">
 		<div class="hidden md:flex top-bg bg-black-03 w-full absolute"></div>
 
-		<!-- Mobile step nav -->
 		<div class="tc-mobile-step-nav flex md:hidden justify-between items-center"
 			id="tc-mobile-step-nav"
 			data-steps="<?php echo esc_attr(wp_json_encode($steps)); ?>">
@@ -77,7 +75,6 @@ $steps = [
 		</div>
 	</div>
 
-	<!-- ── Step 1: Cart ─────────────────────────────────── -->
 	<div class="tc-checkout__step is-active" data-step-panel="1">
 		<div class="tc-cart-table-wrap">
 			<div class="tc-cart-table">
@@ -137,7 +134,12 @@ $steps = [
 					$option_lines = [];
 					if (!empty($cart_item['tc_option_adjustments'])) {
 						foreach ($cart_item['tc_option_adjustments'] as $opt) {
-							$option_lines[] = ($opt['label'] ?? '');
+							$amount = isset($opt['amount']) ? (float) $opt['amount'] : 0.0;
+							$sign   = $amount >= 0 ? '+' : '-';
+							$option_lines[] = [
+								'label'  => $opt['label'] ?? 'گزینه',
+								'amount' => $sign . ' ' . number_format(abs($amount), 0, '.', ',') . ' تومان',
+							];
 						}
 					}
 					?>
@@ -173,8 +175,14 @@ $steps = [
 							<?php foreach ($variation_lines as $vl): ?>
 									<div class="tc-cart-table__meta"><span class='color-black-80 yekan-14 bold'><?php echo esc_html($vl['key']); ?> : </span> <span class='color-black-70 yekan-14'><?php echo esc_html($vl['value']); ?></span></div>
 								<?php endforeach; ?>
+							
 							<?php if ($option_lines): ?>
-								<?php foreach ($option_lines as $ol): ?><span><?php echo esc_html($ol); ?></span><?php endforeach; ?>
+								<?php foreach ($option_lines as $ol): ?>
+									<div class="tc-cart-table__meta">
+										<span class="color-black-80 yekan-14 bold"><?php echo esc_html($ol['label']); ?> :</span>
+										<span class="color-black-70 yekan-14"><?php echo esc_html($ol['amount']); ?></span>
+									</div>
+								<?php endforeach; ?>
 							<?php else: ?>
 								<span class="tc-muted"></span>
 							<?php endif; ?>
@@ -219,7 +227,6 @@ $steps = [
 		</div>
 	</div>
 
-	<!-- ── Step 2: Address ──────────────────────────────── -->
 	<div class="tc-checkout__step" data-step-panel="2">
 
 		<div class="tc-addresses" id="tc-addresses-list">
@@ -298,7 +305,6 @@ $steps = [
 			+ افزودن آدرس جدید
 		</button>
 
-		<!-- Address form modal -->
 		<div class="tc-address-modal-overlay" id="tc-address-modal-overlay" aria-hidden="true">
 			<div class="tc-address-form" id="tc-address-form" role="dialog" aria-modal="true" dir="rtl">
 				<button class="tc-address-form__close" id="tc-cancel-address-btn" aria-label="بستن">
@@ -351,7 +357,6 @@ $steps = [
 
 	</div>
 
-	<!-- ── Step 3: Payment ──────────────────────────────── -->
 	<div class="tc-checkout__step" data-step-panel="3">
 
 		<h2 class="tc-section-title bg-black-03 color-black-80">انتخاب شیوه پرداخت</h2>
@@ -400,7 +405,6 @@ $steps = [
 
 	</div>
 
-	<!-- ── Step 4: Invoice ──────────────────────────────── -->
 	<div class="tc-checkout__step" data-step-panel="4">
 		<div class="tc-order-success flex flex-col gap-10">
 			
@@ -423,12 +427,10 @@ $steps = [
 		</div>
 		<?php endif;?>
 		<div class="tc-invoice" id="tc-invoice">
-			<!-- rendered by JS -->
-		</div>
+			</div>
 		
 	</div>
 
-	<!-- ── COD Info Modal ───────────────────────────────── -->
 	<div class="tc-modal-overlay" id="tc-cod-modal" aria-hidden="true">
 		<div class="tc-modal" role="dialog" aria-modal="true" dir="rtl">
 			<button class="tc-modal__close" id="tc-cod-modal-close" aria-label="بستن">
@@ -445,7 +447,6 @@ $steps = [
 		</div>
 	</div>
 
-	<!-- ── Footer bar ───────────────────────────────────── -->
 	<div class="tc-checkout__footer" id="tc-checkout-footer">
 		<div class="tc-checkout__footer-total flex flex-col md:flex-row items-start md:items-center w-full md:w-auto">
 			<div class="flex items-center justify-between">

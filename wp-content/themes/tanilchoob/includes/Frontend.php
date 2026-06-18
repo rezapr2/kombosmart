@@ -1,13 +1,9 @@
 <?php
 
-
 namespace TanilChoob\Theme;
-
 
 class Frontend
 {
-
-
 	/**
 	 * Frontend constructor.
 	 */
@@ -47,7 +43,7 @@ class Frontend
 		add_filter( 'woocommerce_currency_symbol',      [ $this, 'change_currency_symbol' ], 9999, 2 );
 		add_filter( 'raw_woocommerce_price',            [ $this, 'divide_price_by_10' ], 9999 );
 		add_filter( 'woocommerce_available_variation',  [ $this, 'divide_variation_json_by_10' ], 9999, 3 );
-		add_filter( 'woocommerce_add_cart_item_data',   [ $this, 'correct_cart_options_to_rials' ], 20, 3 );
+	//	add_filter( 'woocommerce_add_cart_item_data',   [ $this, 'correct_cart_options_to_rials' ], 20, 3 );
 	}
 
 	public function ajax_remove_cart_item() {
@@ -269,7 +265,7 @@ EOD;
 
 	/**
 	 * Apply price adjustments to cart items before totals are calculated
-	 */
+	 
 	public function apply_product_option_adjustments($cart)
 	{
 		if (is_admin() && !defined('DOING_AJAX')) { return; }
@@ -284,6 +280,29 @@ EOD;
 				$new_price = $base + $sum;
 				if ($new_price < 0) { $new_price = 0; }
 				$item['data']->set_price($new_price);
+			}
+		}
+	}
+*/
+	public function apply_product_option_adjustments($cart)
+	{
+		if (is_admin() && !defined('DOING_AJAX')) { return; }
+		if (empty($cart)) { return; }
+		foreach ($cart->get_cart() as $key => $item) {
+			if (!empty($item['tc_option_adjustments']) && is_array($item['tc_option_adjustments'])) {
+				$sum_tomans = 0.0;
+				foreach ($item['tc_option_adjustments'] as $opt) {
+					$sum_tomans += isset($opt['amount']) ? (float) $opt['amount'] : 0.0;
+				}
+				
+				// Base price is extracted in Rials for schema compliance
+				$base_rials = isset($item['tc_base_price']) && $item['tc_base_price'] !== null ? (float) $item['tc_base_price'] : (float) $item['data']->get_price();
+				
+				// Multiply Toman options by 10 to safely add them to the Rial base
+				$new_price_rials = $base_rials + ($sum_tomans * 10);
+				
+				if ($new_price_rials < 0) { $new_price_rials = 0; }
+				$item['data']->set_price($new_price_rials);
 			}
 		}
 	}
@@ -316,9 +335,10 @@ EOD;
 			foreach ($values['tc_option_adjustments'] as $opt) {
 				$amount = isset($opt['amount']) ? (float) $opt['amount'] : 0.0;
 				$sign = $amount >= 0 ? '+' : '-';
+				// Using number_format instead of wc_price to prevent HTML injection in DB
 				$item->add_meta_data(
 					isset($opt['label']) ? $opt['label'] : __('گزینه', 'tanilchoob'),
-					$sign . ' ' . wc_price(abs($amount))
+					$sign . ' ' . number_format(abs($amount))
 				);
 			}
 		}
@@ -333,7 +353,13 @@ EOD;
 	}
 
 	public function change_currency_symbol( string $currency_symbol, string $currency ): string {
-		if ( $currency === 'IRR' ) return 'تومان';
+		if ( $currency === 'IRR' ) {
+            // Keep "ریال" in the admin dashboard so it accurately matches the undivided DB value
+            if ( is_admin() && ! Helper::requestIsFrontendAjax() ) {
+                return 'ریال'; 
+            }
+            return 'تومان';
+        }
 		return $currency_symbol;
 	}
 
