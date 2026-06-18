@@ -915,7 +915,7 @@
             "label": "توضیحات تکمیلی پیش فاکتور",
             "name": "preinvoice_description",
             "aria-label": "",
-            "type": "textarea",
+            "type": "wysiwyg",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -925,11 +925,11 @@
                 "id": ""
             },
             "default_value": "",
-            "maxlength": "",
             "allow_in_bindings": 0,
-            "rows": "",
-            "placeholder": "",
-            "new_lines": ""
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
         },
         {
             "key": "field_6a2c9e9b5496e",
@@ -1053,7 +1053,7 @@
                 "class": "",
                 "id": ""
             },
-            "message": "<p>اعتبار فعلی شما: <strong>942,829 ریال<\/strong><\/p>",
+            "message": "<p style=\"color:red;\">خطای سرور (کد 502)<\/p>",
             "new_lines": "wpautop",
             "esc_html": 0
         },
@@ -1126,11 +1126,7 @@
                 "id": ""
             },
             "choices": {
-                "": "پترن را از لیست انتخاب کنید",
-                "xurkv8yynve8ojr": "کاربر گرامی تانیل چوب،\nبه پرسش شما پاسخ داده شد.\nجهت مشاهده پاسخ، لطفاً به حساب کاربری خود در سایت مراجعه فرمایید.",
-                "lpddv1iyu2gsmjh": "کاربر گرامی تانیل چوب،\nپاسخی برای نظر شما ثبت شده است.\nجهت مشاهده پاسخ، لطفاً به حساب کاربری خود در سایت مراجعه فرمایید.",
-                "cicatr9hfc8lonh": "کاربر گرامی،\nکد تایید ورود شما به سایت تانیل چوب:\n%code%",
-                "iuro6xpv1qf4du4": "کاربر گرامی،\nکد تایید ثبت‌نام شما در مجموعه تانیل چوب:\n%code%"
+                "": "خطا از سرور (کد 502)"
             },
             "default_value": false,
             "return_format": "value",
@@ -1165,11 +1161,7 @@
                 "id": ""
             },
             "choices": {
-                "": "پترن را از لیست انتخاب کنید",
-                "xurkv8yynve8ojr": "کاربر گرامی تانیل چوب،\nبه پرسش شما پاسخ داده شد.\nجهت مشاهده پاسخ، لطفاً به حساب کاربری خود در سایت مراجعه فرمایید.",
-                "lpddv1iyu2gsmjh": "کاربر گرامی تانیل چوب،\nپاسخی برای نظر شما ثبت شده است.\nجهت مشاهده پاسخ، لطفاً به حساب کاربری خود در سایت مراجعه فرمایید.",
-                "cicatr9hfc8lonh": "کاربر گرامی،\nکد تایید ورود شما به سایت تانیل چوب:\n%code%",
-                "iuro6xpv1qf4du4": "کاربر گرامی،\nکد تایید ثبت‌نام شما در مجموعه تانیل چوب:\n%code%"
+                "": "خطا از سرور (کد 502)"
             },
             "default_value": false,
             "return_format": "value",
@@ -1302,5 +1294,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1781310572
+    "modified": 1781796049
 }

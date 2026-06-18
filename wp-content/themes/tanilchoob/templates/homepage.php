@@ -10,6 +10,7 @@
 get_header(); ?>
 
 <div class="home-page wrapper">
+    <h1 class="hidden">تانیل چوب</h1>
     <?php
     $page_id = get_the_ID();
 

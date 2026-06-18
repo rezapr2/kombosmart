@@ -361,6 +361,7 @@ $item_status_cls   = $status_map[$order_status]['cls']   ?? 'pending';
 				$image_id = $product ? $product->get_image_id() : 0;
 				$image_url = $image_id ? wp_get_attachment_image_url($image_id, 'medium') : wc_placeholder_img_src();
 				$name = $item->get_name();
+				$quantity = $item->get_quantity();
 				$subtotal = $order->get_line_subtotal($item, false, true);
 				$permalink = $product ? $product->get_permalink() : '#';
 				// Try brand (ACF or taxonomy)
@@ -390,6 +391,10 @@ $item_status_cls   = $status_map[$order_status]['cls']   ?? 'pending';
 								<?php echo esc_html($brand); ?>
 							</span>
 						<?php endif; ?>
+						<span class="tc-view-order__item-qty">
+							<span class="tc-view-order__info-key">تعداد :</span>
+							<span class="tc-view-order__info-val"><?php echo esc_html($quantity); ?></span>
+						</span>
 						<span class="tc-view-order__item-price">
 							<?php echo esc_html(number_format($subtotal)); ?> تومان
 						</span>
