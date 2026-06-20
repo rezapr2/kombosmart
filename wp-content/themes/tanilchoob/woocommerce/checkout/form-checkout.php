@@ -19,7 +19,7 @@ if (!is_array($addresses)) {
 	$addresses = [];
 }
 
-$cart_total = number_format((float) $cart->get_total(''), 0, '.', ',');
+$cart_total = number_format(WC()->cart->total / 10, 0, '.', ',');
 
 $payment_gateways = WC()->payment_gateways()->get_available_payment_gateways();
 
@@ -96,7 +96,7 @@ $steps = [
 					$image_url = $image_id ? wp_get_attachment_image_url($image_id, 'thumbnail') : wc_placeholder_img_src('thumbnail');
 					$product_name = $product->get_name();
 					$qty = $cart_item['quantity'];
-					$line_total = number_format((float) $cart_item['line_total'], 0, '.', ',');
+					$line_total = number_format(((float) $cart_item['line_total']) / 10, 0, '.', ',');
 
 					// Variation attributes
 					$variation_lines = [];
@@ -494,4 +494,19 @@ wp_localize_script('scripts', 'tcCheckout', [
 	'ajaxUrl' => admin_url('admin-ajax.php'),
 	'nonce' => wp_create_nonce('ajax-nonce'),
 ]);
+
 ?>
+
+<script>
+jQuery(document).ready(function($) {
+    $(document).ajaxSuccess(function(event, xhr, settings) {
+        // Safely check if the AJAX request was for updating or removing a cart item
+        if (typeof settings.data === 'string' && (settings.data.indexOf('tc_cart_update_qty') !== -1 || settings.data.indexOf('tc_cart_remove_item') !== -1)) {
+            if (xhr.responseJSON && xhr.responseJSON.success && xhr.responseJSON.data && xhr.responseJSON.data.cart_total) {
+                // Instantly update the desktop total with the new AJAX Toman value
+                $('#tc-cart-total-desktop').text(xhr.responseJSON.data.cart_total);
+            }
+        }
+    });
+});
+</script>

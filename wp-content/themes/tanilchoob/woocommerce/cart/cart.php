@@ -19,7 +19,7 @@ if (!is_array($addresses)) {
 	$addresses = [];
 }
 
-$cart_total = number_format(((float) $cart->get_total('')) / 10, 0, '.', ',');
+$cart_total = number_format(WC()->cart->total / 10, 0, '.', ',');
 
 $payment_gateways = WC()->payment_gateways()->get_available_payment_gateways();
 
@@ -476,7 +476,7 @@ $steps = [
 		</div>
 		<div class="flex gap-30 items-center flex-wrap w-full md:w-auto">
 			<div class="color-primary hidden md:flex">
-				<strong id="tc-cart-total"><?php echo esc_html($cart_total); ?></strong>
+				<strong id="tc-cart-total-desktop"><?php echo esc_html($cart_total); ?></strong>
 				<span><?php echo wp_kses_post(get_woocommerce_currency_symbol()); ?></span>
 			</div>
 			<button class="tc-btn tc-btn--primary tc-btn--lg tc-checkout-next" id="tc-checkout-next">
@@ -492,4 +492,19 @@ wp_localize_script('scripts', 'tcCheckout', [
 	'ajaxUrl' => admin_url('admin-ajax.php'),
 	'nonce' => wp_create_nonce('ajax-nonce'),
 ]);
+
 ?>
+
+<script>
+jQuery(document).ready(function($) {
+    $(document).ajaxSuccess(function(event, xhr, settings) {
+        // Safely check if the AJAX request was for updating or removing a cart item
+        if (typeof settings.data === 'string' && (settings.data.indexOf('tc_cart_update_qty') !== -1 || settings.data.indexOf('tc_cart_remove_item') !== -1)) {
+            if (xhr.responseJSON && xhr.responseJSON.success && xhr.responseJSON.data && xhr.responseJSON.data.cart_total) {
+                // Instantly update the desktop total with the new AJAX Toman value
+                $('#tc-cart-total-desktop').text(xhr.responseJSON.data.cart_total);
+            }
+        }
+    });
+});
+</script>

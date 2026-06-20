@@ -102,7 +102,7 @@ $item_status_cls   = $status_map[$order_status]['cls']   ?? 'pending';
 			<div class="tc-view-order__info-row">
 				<span class="tc-view-order__info-key">مبلغ کل :</span>
 				<span class="tc-view-order__info-val tc-view-order__info-val--price">
-					<?php echo esc_html(number_format($total)); ?> تومان
+					<?php echo esc_html(number_format($total / 10)); ?> تومان
 				</span>
 			</div>
 			<?php if (isset($finance['delivery_cost'])): ?>
@@ -396,7 +396,7 @@ $item_status_cls   = $status_map[$order_status]['cls']   ?? 'pending';
 							<span class="tc-view-order__info-val"><?php echo esc_html($quantity); ?></span>
 						</span>
 						<span class="tc-view-order__item-price">
-							<?php echo esc_html(number_format($subtotal)); ?> تومان
+							<?php echo esc_html(number_format($subtotal / 10)); ?> تومان
 						</span>
 						<?php foreach ( $item->get_formatted_meta_data( '_' ) as $meta ) : ?>
 							<div class="tc-view-order__item-meta">

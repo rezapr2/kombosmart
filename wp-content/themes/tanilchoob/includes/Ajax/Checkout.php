@@ -54,8 +54,8 @@ class Checkout {
 		$line_total     = $item ? $item['line_total'] : 0;
 
 		wp_send_json_success( [
-			'line_total'   => number_format( $line_total, 0, '.', ',' ),
-			'cart_total'   => number_format( (float) WC()->cart->get_total( '' ), 0, '.', ',' ),
+			'line_total'   => number_format( ((float) $line_total) / 10, 0, '.', ',' ),
+			'cart_total'   => number_format( WC()->cart->total / 10, 0, '.', ',' ),
 			'is_empty'     => WC()->cart->is_empty(),
 		] );
 	}
@@ -73,7 +73,7 @@ class Checkout {
 		WC()->cart->calculate_totals();
 
 		wp_send_json_success( [
-			'cart_total' => number_format( (float) WC()->cart->get_total( '' ), 0, '.', ',' ),
+			'cart_total' => number_format( WC()->cart->total / 10, 0, '.', ',' ),
 			'is_empty'   => WC()->cart->is_empty(),
 		] );
 	}
@@ -289,7 +289,7 @@ class Checkout {
 			'payment_title'  => $gateway_obj->get_title(),
 			'address'        => $address,
 			'notes'          => $notes,
-			'total'          => number_format( (float) $order->get_total(), 0, '.', ',' ),
+			'total'          => number_format( $order->get_total() / 10, 0, '.', ',' ),
 			'items'          => $this->get_order_items_data( wc_get_order( $order->get_id() ) ),
 			'fragments'      => $fragments,
 			'cart_count'     => $count,
@@ -341,8 +341,8 @@ class Checkout {
 
 	private function coupon_response(): array {
 		return [
-			'cart_total'      => number_format( (float) WC()->cart->get_total( '' ), 0, '.', ',' ),
-			'discount_total'  => number_format( (float) WC()->cart->get_discount_total(), 0, '.', ',' ),
+			'cart_total'      => number_format( WC()->cart->total / 10, 0, '.', ',' ),
+			'discount_total'  => number_format( WC()->cart->get_discount_total() / 10, 0, '.', ',' ),
 			'applied_coupons' => WC()->cart->get_applied_coupons(),
 		];
 	}
