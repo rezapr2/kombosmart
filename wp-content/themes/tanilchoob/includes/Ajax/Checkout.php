@@ -407,8 +407,8 @@ class Checkout {
 			$items[] = [
 				'name'           => $item->get_name(),
 				'qty'            => $qty,
-				'price'          => number_format( $qty > 0 ? (float) $item->get_subtotal() / $qty : 0, 0, '.', ',' ),
-				'total'          => number_format( (float) $item->get_subtotal(), 0, '.', ',' ),
+				'price'          => number_format( $qty > 0 ? ((float) $item->get_subtotal() / $qty) / 10 : 0, 0, '.', ',' ),
+				'total'          => number_format( ((float) $item->get_subtotal()) / 10, 0, '.', ',' ),
 				'customizations' => $customizations,
 			];
 		}
