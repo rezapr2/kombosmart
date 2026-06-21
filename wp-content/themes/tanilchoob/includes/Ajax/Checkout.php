@@ -255,6 +255,40 @@ class Checkout {
 		if ( ! empty( $address['nationalcode'] ) ) $order->update_meta_data( '_tc_billing_nationalcode', $address['nationalcode'] );
 		$order->save();
 
+		// Build a posted-data array shaped like WC_Checkout::get_posted_data(),
+		// so listeners of woocommerce_checkout_order_processed receive what they expect.
+		$posted_data = [
+			'billing_first_name'        => $address['first_name'],
+			'billing_last_name'         => $address['last_name'],
+			'billing_phone'             => $address['phone'],
+			'billing_address_1'         => $address['address_1'],
+			'billing_city'              => $address['city'] ?? '',
+			'billing_postcode'          => $address['postcode'] ?? '',
+			'billing_country'           => 'IR',
+			'shipping_first_name'       => $address['first_name'],
+			'shipping_last_name'        => $address['last_name'],
+			'shipping_address_1'        => $address['address_1'],
+			'shipping_city'             => $address['city'] ?? '',
+			'shipping_postcode'         => $address['postcode'] ?? '',
+			'shipping_country'          => 'IR',
+			'payment_method'            => $payment_method,
+			'order_comments'            => $notes,
+			'ship_to_different_address' => false,
+		];
+
+		/**
+		 * Fire WooCommerce's native checkout-processed hook for our custom flow.
+		 *
+		 * WC_Checkout::process_checkout() is bypassed here (we build the order with
+		 * wc_create_order), so this hook would otherwise never run. Firing it lets
+		 * plugins/integrations that listen for a placed order work as usual.
+		 *
+		 * @param int       $order_id    The new order ID.
+		 * @param array     $posted_data Checkout field data.
+		 * @param \WC_Order $order       The order object.
+		 */
+		do_action( 'woocommerce_checkout_order_processed', $order->get_id(), $posted_data, $order );
+
 		// For gateways that handle payment themselves (e.g. online bank redirect),
 		// call process_payment() to get the redirect URL.
 		if ( $gateway_obj->id !== 'cod' && $gateway_obj->id !== 'bacs' && $gateway_obj->id !== 'cheque' ) {
