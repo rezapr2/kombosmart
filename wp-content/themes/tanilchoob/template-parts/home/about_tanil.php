@@ -33,7 +33,7 @@ $cta_url = $about_tanil['more_btn_link'] ?: '#';
                 <p class="about-tanil__title yekan-24 md:yekan-26"><?php echo ($title); ?></p>
             </div>
 
-            <div class="about-tanil__description yekan-16 md:yekan-18 color-black-50 text-center md:text-justify">
+            <div class="about-tanil__description yekan-16 md:yekan-18 color-black-60 text-center md:text-justify">
                 <?php echo wp_kses_post($description); ?>
             </div>
             <div class="flex flex-col md:flex-row justify-between items-center">

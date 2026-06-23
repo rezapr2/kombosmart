@@ -26,7 +26,7 @@ $read_more_text = isset($args['read_more_text']) ? $args['read_more_text'] : 'ا
             <h3 class="article-card__title yekan-12 md:yekan-20 text-center md:text-right regular color-black-80">
                 <?php echo esc_html($title); ?>
             </h3>
-            <div class="article-card__excerpt yekan-10 md:yekan-16 color-black-50 text-justify">
+            <div class="article-card__excerpt yekan-10 md:yekan-16 color-black-60 text-justify">
                 <?php echo wp_kses_post($excerpt); ?>
             </div>
             <a href="<?php echo esc_url($permalink); ?>" class="article-card__read-more transition md:w-fit w-100 border-box color-white yekan-14 flex items-center justify-center md:justify-content-start gap-10">

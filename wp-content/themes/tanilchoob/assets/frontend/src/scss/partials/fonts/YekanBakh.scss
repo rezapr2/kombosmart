@@ -1,5 +1,9 @@
 // YekanBakh Font Family
 // Persian/Farsi font with number support
+//
+// NOTE: The Regular and Bold woff2 files are <link rel="preload">ed in
+// includes/Frontend.php::preload_fonts() to break the CSS->font critical
+// request chain. If you rename these files, update that method too.
 
 @font-face {
   font-family: 'YekanBakh';

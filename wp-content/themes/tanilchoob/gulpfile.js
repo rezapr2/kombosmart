@@ -14,6 +14,8 @@ const prefix = require('gulp-autoprefixer')
 const cssmin = require('gulp-cssnano')
 const imagemin = require('gulp-imagemin')
 const notify = require('gulp-notify')
+const mergeStream = require('merge-stream')
+const fs = require('fs')
 
 const sassOptions = {
   outputStyle: 'expanded'
@@ -129,7 +131,9 @@ function jsDeps(done) {
 
 function jsBuild(done) {
   return (
-      src("./assets/frontend/src/js/partials/**/*.js")
+      // Exclude templates/** — those are built as standalone, conditionally-loaded
+      // bundles (see jsTemplatesBuild) instead of being merged into scripts.min.js.
+      src(["./assets/frontend/src/js/partials/**/*.js", "!./assets/frontend/src/js/partials/templates/**/*.js"])
           .pipe(plumber({errorHandler: onError}))
           // Notice the name change.
           .pipe(concat("main.build.js"))
@@ -178,6 +182,40 @@ function jsClean(done) {
   )
 }
 
+// Build standalone, conditionally-loaded JS bundles — one per folder under
+// js/partials/templates/ (e.g. single-product/ -> templates/single-product.js).
+// Each file is a self-contained IIFE, so files are concatenated per folder, then
+// transpiled and minified the same way as the main bundle. Loaded per page type
+// (see Frontend.php) with the main 'scripts' handle as a dependency.
+function jsTemplatesBuild(done) {
+  const baseDir = "./assets/frontend/src/js/partials/templates"
+  if (!fs.existsSync(baseDir)) { done(); return; }
+  const folders = fs.readdirSync(baseDir).filter(function (name) {
+    return fs.statSync(baseDir + "/" + name).isDirectory()
+  })
+  if (!folders.length) { done(); return; }
+
+  return mergeStream(folders.map(function (folder) {
+    return src(baseDir + "/" + folder + "/**/*.js")
+        .pipe(plumber({errorHandler: onError}))
+        .pipe(concat(folder + ".js"))
+        .pipe(
+            babel({
+              presets: [
+                [
+                  "@babel/env",
+                  {
+                    modules: false
+                  }
+                ]
+              ]
+            })
+        )
+        .pipe(uglify())
+        .pipe(dest("./assets/frontend/dist/js/templates"))
+  }))
+}
+
 task('images', function () {
   return src(['./assets/frontend/src/images/**/*', './assets/frontend/src/images/*'])
       .pipe(imagemin([
@@ -203,7 +241,7 @@ task('styles', series(parallel(cssDeps, scssBuild, scssPageTemplatesBuild, scssT
   cb()
 }));
 
-task('scripts', series(parallel(jsDeps, jsBuild), jsConcat, jsClean, function (cb) {
+task('scripts', series(parallel(jsDeps, jsBuild, jsTemplatesBuild), jsConcat, jsClean, function (cb) {
   cb()
 }));
 
@@ -213,7 +251,8 @@ task('watch', series(function (cb) {
   watch(['./assets/frontend/src/scss/partials/page-templates/*.scss'], series(scssPageTemplatesBuild));
   watch(['./assets/frontend/src/scss/template-bundles/*.scss', './assets/frontend/src/scss/partials/templates/**/*.scss'], series(scssTemplatesBuild));
   watch(['./assets/frontend/src/vendors/js/**/*.js'], series('scripts'));
-  watch(['./assets/frontend/src/js/partials/**/*.js'], series('scripts'));
+  watch(['./assets/frontend/src/js/partials/**/*.js', '!./assets/frontend/src/js/partials/templates/**/*.js'], series('scripts'));
+  watch(['./assets/frontend/src/js/partials/templates/**/*.js'], series(jsTemplatesBuild));
   watch(['./assets/frontend/src/images'], series('images'));
   watch(['./assets/frontend/src/fonts'], series('fonts'));
   cb()

@@ -10,6 +10,9 @@ class Frontend
 	public function __construct()
 	{
 		add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
+		// Preload above-the-fold fonts early to break the CSS->font critical request chain.
+		// Priority 1 prints these before the stylesheet (styles print at wp_head priority 8).
+		add_action('wp_head', [$this, 'preload_fonts'], 1);
 		add_filter('mod_rewrite_rules', [$this, 'fix_security_headers']);
 		// Customize WooCommerce breadcrumb classes
 		add_filter('woocommerce_breadcrumb_defaults', [$this, 'wc_breadcrumb_defaults']);
@@ -17,6 +20,8 @@ class Frontend
 		add_filter('woocommerce_enqueue_styles', '__return_empty_array');
 		// Dequeue WooCommerce Blocks styles after they are enqueued
 		add_action('wp_enqueue_scripts', [$this, 'dequeue_wc_block_styles'], 100);
+		// Dashicons isn't used by the theme frontend; drop it unless the admin bar needs it
+		add_action('wp_enqueue_scripts', [$this, 'dequeue_dashicons'], 100);
 		// WooCommerce Blocks styles (wc-blocks-style and per-block wc-blocks-style-*) are
 		// enqueued lazily during block render, long after wp_enqueue_scripts has fired, so a
 		// dequeue can't catch them. Suppress them at print time instead, which always works.
@@ -166,6 +171,40 @@ class Frontend
 		return $pre;
 	}
 
+	/**
+	 * Preload the above-the-fold web fonts to break the CSS->font critical request chain.
+	 *
+	 * The stylesheet's @font-face rules are only discovered after the CSS is downloaded and
+	 * parsed, so LCP text waits on a serial CSS->font chain. Emitting a preload in <head>
+	 * (before the stylesheet prints) lets the browser fetch the primary weights in parallel
+	 * with the CSS. Only Regular (body) and Bold (headings) are above the fold; the decorative
+	 * Thin weight is intentionally left to load on demand.
+	 *
+	 * crossorigin is required even for same-origin fonts: fonts are always fetched in CORS
+	 * mode, so without it the preload would not match the @font-face request and the file
+	 * would be downloaded twice.
+	 */
+	public function preload_fonts()
+	{
+		if (is_admin()) {
+			return;
+		}
+
+		$fonts_uri = get_template_directory_uri() . '/assets/frontend/dist/fonts/';
+		$preload   = [
+			'YekanBakhFaNum-Regular.woff2',
+			'YekanBakhFaNum-Bold.woff2',
+			'YekanBakhFaNum-Thin.woff2',
+		];
+
+		foreach ($preload as $file) {
+			printf(
+				'<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
+				esc_url($fonts_uri . $file)
+			);
+		}
+	}
+
 	public function enqueue_scripts()
 	{
 		if (! is_admin()) {
@@ -232,6 +271,37 @@ class Frontend
 					'loadMore'     => __('Load more', 'tanilchoob'),
 				],
 			]);
+
+			// Conditionally enqueue standalone JS bundles for theme template types
+			// (built by gulp jsTemplatesBuild into dist/js/templates/). Each loads only on
+			// its page type and depends on the main 'scripts' handle (jQuery, Swiper, and
+			// the localized tanilchoob/tcCheckout globals are attached there).
+			$js_bundles = [];
+			if ($template_slug === 'page-templates/blog.php') {
+				$js_bundles[] = 'blog';
+			}
+			if (is_category()) {
+				$js_bundles[] = 'category';
+			}
+			if (is_singular('post')) {
+				$js_bundles[] = 'single-post';
+			}
+			if (function_exists('is_product') && is_product()) {
+				$js_bundles[] = 'single-product';
+			}
+			if (function_exists('is_product_category') && is_product_category()) {
+				$js_bundles[] = 'taxonomy-product_cat';
+			}
+			if ((function_exists('is_checkout') && is_checkout()) || (function_exists('is_account_page') && is_account_page())) {
+				$js_bundles[] = 'ordering-process';
+			}
+			foreach ($js_bundles as $bundle) {
+				$tb_js_rel = '/assets/frontend/dist/js/templates/' . $bundle . '.js';
+				$tb_js_abs = get_theme_file_path($tb_js_rel);
+				if (file_exists($tb_js_abs)) {
+					wp_enqueue_script('tanilchoob-' . $bundle, get_template_directory_uri() . $tb_js_rel, ['jquery', 'scripts'], filemtime($tb_js_abs), true);
+				}
+			}
 		}
 	}
 	
@@ -272,6 +342,22 @@ EOD;
 		wp_dequeue_style('wc-blocks-style-product-query');
 		// WooCommerce inline style handle
 		wp_dequeue_style('woocommerce-inline');
+	}
+
+	/**
+	 * Remove the core dashicons stylesheet from the theme frontend.
+	 *
+	 * The theme UI doesn't use dashicons. The one frontend consumer that does is the
+	 * admin bar (shown to logged-in users), so keep the stylesheet whenever the admin
+	 * bar is rendering and drop it otherwise.
+	 */
+	public function dequeue_dashicons()
+	{
+		if (is_admin_bar_showing()) {
+			return;
+		}
+		wp_dequeue_style('dashicons');
+		wp_deregister_style('dashicons');
 	}
 
 	/**
