@@ -75,6 +75,22 @@ function scssPageTemplatesBuild(done) {
   )
 }
 
+// Build standalone CSS bundles for theme templates (homepage, single, taxonomy).
+// Each entry file in template-bundles/ imports its own mixins/variables, so they
+// compile in isolation and are loaded conditionally per page type (see Frontend.php).
+function scssTemplatesBuild(done) {
+  return (
+      src("./assets/frontend/src/scss/template-bundles/*.scss")
+          .pipe(plumber({errorHandler: onError}))
+          .pipe(sassGlob())
+          .pipe(sourcemaps.init())
+          .pipe(sass(sassOptions))
+          .pipe(sourcemaps.write())
+          .pipe(prefix(prefixerOptions))
+          .pipe(dest("./assets/frontend/dist/css/templates"))
+  )
+}
+
 function cssConcat(done) {
   // An array of the two temp (concatenated) files.
   const files = ["./tmp/main.deps.css", "./tmp/main.build.css"]
@@ -183,7 +199,7 @@ task('fonts', function () {
       .pipe(dest('./assets/frontend/dist/fonts'));
 });
 
-task('styles', series(parallel(cssDeps, scssBuild, scssPageTemplatesBuild), cssConcat, cssClean, function (cb) {
+task('styles', series(parallel(cssDeps, scssBuild, scssPageTemplatesBuild, scssTemplatesBuild), cssConcat, cssClean, function (cb) {
   cb()
 }));
 
@@ -195,6 +211,7 @@ task('watch', series(function (cb) {
   watch(['./assets/frontend/src/vendors/css/**/*.css'], series('styles'));
   watch(['./assets/frontend/src/scss/**/*.scss'], series('styles'));
   watch(['./assets/frontend/src/scss/partials/page-templates/*.scss'], series(scssPageTemplatesBuild));
+  watch(['./assets/frontend/src/scss/template-bundles/*.scss', './assets/frontend/src/scss/partials/templates/**/*.scss'], series(scssTemplatesBuild));
   watch(['./assets/frontend/src/vendors/js/**/*.js'], series('scripts'));
   watch(['./assets/frontend/src/js/partials/**/*.js'], series('scripts'));
   watch(['./assets/frontend/src/images'], series('images'));

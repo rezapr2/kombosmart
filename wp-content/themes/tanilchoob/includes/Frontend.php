@@ -17,6 +17,10 @@ class Frontend
 		add_filter('woocommerce_enqueue_styles', '__return_empty_array');
 		// Dequeue WooCommerce Blocks styles after they are enqueued
 		add_action('wp_enqueue_scripts', [$this, 'dequeue_wc_block_styles'], 100);
+		// WooCommerce Blocks styles (wc-blocks-style and per-block wc-blocks-style-*) are
+		// enqueued lazily during block render, long after wp_enqueue_scripts has fired, so a
+		// dequeue can't catch them. Suppress them at print time instead, which always works.
+		add_filter('style_loader_tag', [$this, 'remove_wc_block_style_tags'], 10, 2);
 
 		// Woo single product script is heavy and we have custom UI; keep it dequeued.
 		add_action('wp_enqueue_scripts', function(){ if (is_product()) { wp_dequeue_script('wc-single-product'); } }, 100);
@@ -193,6 +197,29 @@ class Frontend
 				}
 			}
 
+			// Conditionally enqueue standalone CSS bundles for theme template types
+			// (built by gulp scssTemplatesBuild into dist/css/templates/). Each loads only on its page type.
+			$template_bundles = [];
+			if ($template_slug === 'templates/homepage.php' || is_front_page()) {
+				$template_bundles[] = 'homepage';
+			}
+			if (is_singular('post')) {
+				$template_bundles[] = 'single-post';
+			}
+			if (function_exists('is_product') && is_product()) {
+				$template_bundles[] = 'single-product';
+			}
+			if (function_exists('is_product_category') && is_product_category()) {
+				$template_bundles[] = 'taxonomy-product_cat';
+			}
+			foreach ($template_bundles as $bundle) {
+				$tb_css_rel = '/assets/frontend/dist/css/templates/' . $bundle . '.css';
+				$tb_css_abs = get_theme_file_path($tb_css_rel);
+				if (file_exists($tb_css_abs)) {
+					wp_enqueue_style('tanilchoob-' . $bundle, get_template_directory_uri() . $tb_css_rel, ['tanilchoob'], filemtime($tb_css_abs));
+				}
+			}
+
 			wp_enqueue_script('scripts', get_template_directory_uri() . $js_relative_path, ['jquery'], $js_version);
 			wp_localize_script('scripts', 'tanilchoob', [
 				'ajax' => [
@@ -239,11 +266,32 @@ EOD;
 
 	public function dequeue_wc_block_styles()
 	{
-		// Known WooCommerce Blocks style handles
+		// Known WooCommerce Blocks style handles (catches anything enqueued before this runs;
+		// late, render-time enqueues are handled by remove_wc_block_style_tags()).
 		wp_dequeue_style('wc-blocks-style');
 		wp_dequeue_style('wc-blocks-style-product-query');
 		// WooCommerce inline style handle
 		wp_dequeue_style('woocommerce-inline');
+	}
+
+	/**
+	 * Suppress WooCommerce Blocks stylesheet tags at print time.
+	 *
+	 * Block styles are registered as wc-blocks-style and wc-blocks-style-* and enqueued
+	 * lazily while blocks render (after wp_enqueue_scripts), so dequeue alone misses them.
+	 * Filtering the printed tag removes them no matter when they are enqueued. In RTL these
+	 * print as wc-blocks-rtl.css under the wc-blocks-style handle.
+	 *
+	 * @param string $tag    The full <link> tag for the stylesheet.
+	 * @param string $handle The stylesheet handle.
+	 * @return string Empty string to drop the tag, otherwise the original tag.
+	 */
+	public function remove_wc_block_style_tags($tag, $handle)
+	{
+		if (strpos($handle, 'wc-blocks-style') === 0) {
+			return '';
+		}
+		return $tag;
 	}
 
 	/**

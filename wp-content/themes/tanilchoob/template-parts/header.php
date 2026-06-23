@@ -19,7 +19,7 @@ $header_logo_mobile = get_field('header_logo_mobile', 'option');
             <div class="search">
                 <form class="search-form flex items-center" action="<?php echo home_url(); ?>" method="get">
                     <input class="transition" type="text" name="s" placeholder="جستجو در تانیل چوب">
-                    <button type="submit" class="btn btn--primary flex items-center">
+                    <button type="submit" class="btn btn--primary flex items-center" aria-label="جستجو">
                         <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/search-normal.svg')); ?>
                     </button>
                 </form>
@@ -32,12 +32,12 @@ $header_logo_mobile = get_field('header_logo_mobile', 'option');
             </button>
         </div>
         <div class="top-row__left gap-10 hidden md:flex ">
-                            <a href="<?php echo esc_url( wc_get_account_endpoint_url('wishlist') ); ?>" class="bascket-btn flex item-center transition pointer minicart__icon-wish">
+                            <a href="<?php echo esc_url( wc_get_account_endpoint_url('wishlist') ); ?>" class="bascket-btn flex item-center transition pointer minicart__icon-wish" aria-label="لیست علاقه‌مندی‌ها">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12.62 20.81c-.34.12-.9.12-1.24 0C8.48 19.82 2 15.69 2 8.69 2 5.6 4.49 3.1 7.56 3.1c1.82 0 3.43.88 4.44 2.24 1.01-1.36 2.63-2.24 4.44-2.24C19.51 3.1 22 5.6 22 8.69c0 7-6.48 11.13-9.38 12.12z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                             </a>
 
             <div class="minicart-wrapper relative">
-                <button type="button" class="bascket-btn flex item-center transition relative pointer" id="tc-minicart-trigger" aria-expanded="false" aria-controls="tc-minicart-dropdown">
+                <button type="button" class="bascket-btn flex item-center transition relative pointer" id="tc-minicart-trigger" aria-expanded="false" aria-controls="tc-minicart-dropdown" aria-label="سبد خرید">
                     <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/shopping-cart.svg')); ?>
                     <?php $cart_count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0; ?>
                     <span id="tc-minicart-badge-wrap"><?php if ( $cart_count > 0 ) : ?><span class="minicart-badge absolute flex item-center bg-primary"><?php echo esc_html( $cart_count ); ?></span><?php endif; ?></span>

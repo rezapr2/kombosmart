@@ -32,7 +32,7 @@ use TanilChoob\Theme\Helper;
                         if ($socials):
                             foreach ($socials as $key => $social):
                         ?>
-                                <a class="footer_social transition border flex item-center" href="<?php echo $social; ?>" target="_blank">
+                                <a class="footer_social transition border flex item-center" href="<?php echo $social; ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr(ucfirst($key)); ?>">
                                     <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/' . $key . '.svg')); ?>
                                 </a>
                         <?php endforeach;
@@ -80,7 +80,7 @@ use TanilChoob\Theme\Helper;
                         if ($socials):
                             foreach ($socials as $key => $social):
                         ?>
-                                <a class="footer_social transition border flex item-center" href="<?php echo $social; ?>" target="_blank">
+                                <a class="footer_social transition border flex item-center" href="<?php echo $social; ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr(ucfirst($key)); ?>">
                                     <?php echo Helper::file_get_contents(Helper::getAssetPath('dist/images/' . $key . '.svg')); ?>
                                 </a>
                         <?php endforeach;
