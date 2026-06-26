@@ -126,12 +126,28 @@ if(!$testimonials_customers) {
 
       <?php
         $customer_video = get_field('customer_video', $post_id);
-        if(isset($customer_video['url'])){
+        
+        // Ensure $customer_video is an array and has a URL
+        if (!empty($customer_video) && is_array($customer_video) && !empty($customer_video['url'])) {
           $video_url = $customer_video['url'];
-          $video_poster = $customer_video['cover'];
+          $video_poster_url = '';
+          
+          // Check if cover image exists and is an array before grabbing the URL
+          if (!empty($customer_video['cover']) && is_array($customer_video['cover']) && !empty($customer_video['cover']['url'])) {
+              $video_poster_url = $customer_video['cover']['url'];
+          }
+
+          // Fetch the post title as a fallback since $title was previously undefined
+          $alt_text = get_the_title($post_id);
+
           echo '<div class="customer_video flex">';
           echo '<a class="customer_video-wrapper relative video-lightbox" data-video-url="'.esc_url($video_url).'">';
-          echo '<img class="customer_video-poster h-100" src="'.esc_url($video_poster['url']).'" alt="'.esc_attr($title).'">';
+          
+          // Only output the poster image tag if the poster URL actually exists
+          if ($video_poster_url) {
+              echo '<img class="customer_video-poster h-100" src="'.esc_url($video_poster_url).'" alt="'.esc_attr($alt_text).'">';
+          }
+          
           // Dark overlay on top of poster image
           echo '<div class="customer_video-overlay dark-overlay"></div>';
           echo '<div class="absolute center">';
