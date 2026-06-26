@@ -87,10 +87,17 @@ if(!$testimonials_customers) {
         if($customer_videos_gallery){
           foreach ($customer_videos_gallery as $video) {
             if (!empty($video['video_url'])) {
+                
+            // Safely check if the cover image exists and is an array
+              $thumb_url = '';
+              if (!empty($video['video_cover_image']) && is_array($video['video_cover_image']) && !empty($video['video_cover_image']['url'])) {
+                  $thumb_url = $video['video_cover_image']['url'];
+              }
+              
               $lightbox_items[] = array(
                 'type' => 'video',
                 'video_url' => esc_url($video['video_url']),
-                'thumb' => esc_url($video['video_cover_image']['url']),
+                'thumb' => esc_url($thumb_url),
               );
             }
           }
