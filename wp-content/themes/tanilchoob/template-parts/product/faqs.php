@@ -4,7 +4,28 @@ use TanilChoob\Theme\Helper;
 $faqs = isset($faqs) ? $faqs : get_query_var('faqs');
 $faq_page_link = Helper::get_options_field( 'faq_page_link' ) ?: '#faq-items';
 
+// --- SCHEMA GENERATION START ---
+if ($faqs) {
+    $faq_schema = [
+        '@context' => 'https://schema.org',
+        '@type'    => 'FAQPage',
+        'mainEntity' => []
+    ];
+    foreach ($faqs as $faq) {
+        $faq_schema['mainEntity'][] = [
+            '@type' => 'Question',
+            'name'  => wp_strip_all_tags($faq['question']),
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text'  => wp_strip_all_tags($faq['answer'])
+            ]
+        ];
+    }
+    echo '<script type="application/ld+json">' . wp_json_encode($faq_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
+}
+// --- SCHEMA GENERATION END ---
 ?>
+
 <?php if ($faqs) : ?>
 <div class="product-faqs flex flex-col gap-20 mb-40">
 	<div class="container flex flex-col-reverse md:flex-row justify-between">
@@ -25,11 +46,9 @@ $faq_page_link = Helper::get_options_field( 'faq_page_link' ) ?: '#faq-items';
 			<?php
 			$faq_icon = Helper::getAssetUri('/images/faq_icon.png');
 			echo '<img src="' . esc_url($faq_icon) . '" alt="FAQ Icon" />';
-
 			?>
 			<div class="faq-icon-text yekan-22 md:yekan-26 color-black-80">شما عزیزان می توانید با مراجعه به بخش <a href="<?php echo esc_url($faq_page_link); ?>" class="color-white bg-black px-25 inline-block">( پرسش های متدوال)</a> بخش تمامی سوالات احتمالی خود را دریافت کنید</div>
 		</div>
 	</div>
-
 </div>
 <?php endif; ?>
