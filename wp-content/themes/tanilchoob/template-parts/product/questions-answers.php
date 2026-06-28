@@ -1,9 +1,6 @@
 <?php
 /**
  * Product Questions & Answers
- *
- * Displays customer questions (stored as posts of type 'product_question') and answers
- * (child posts of those questions), along with a question submission form.
  */
 
 defined('ABSPATH') || exit;
@@ -28,7 +25,36 @@ $questions_query = new WP_Query([
 ]);
 
 $questions = $questions_query->posts;
+
+// --- SCHEMA GENERATION START ---
+if (!empty($questions)) {
+    $qa_schema = [
+        '@context' => 'https://schema.org',
+        '@type'    => 'FAQPage', 
+        'mainEntity' => []
+    ];
+    foreach ($questions as $question) {
+        $answer_text = get_field('answer_text', $question->ID);
+        // Only output schema for questions that have been answered
+        if (!empty($answer_text)) {
+            $qa_schema['mainEntity'][] = [
+                '@type' => 'Question',
+                'name'  => wp_strip_all_tags($question->post_content),
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text'  => wp_strip_all_tags($answer_text)
+                ]
+            ];
+        }
+    }
+    
+    if (!empty($qa_schema['mainEntity'])) {
+        echo '<script type="application/ld+json">' . wp_json_encode($qa_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
+    }
+}
+// --- SCHEMA GENERATION END ---
 ?>
+
 <div class="product-qa flex flex-col items-center parent-wrapper">
     <div class="submit-question flex flex-col md:flex-row gap-20 items-center justify-between w-full">
         <div class="flex flex-col">
@@ -38,6 +64,7 @@ $questions = $questions_query->posts;
         <div id="submit-question" class="qa-submit submit-button yekan-18 color-white bg-black pointer">ثبت پرسش</div>
     </div>
 
+    <!-- Rest of your HTML (Form and List output) remains exactly the same below here -->
     <div id="qa_form_wrapper" class="submit-form mt-40 hidden">
         <form id="product-qa-form" class="qa-form">
             <input type="hidden" name="product_id" value="<?php echo (int) $post_id; ?>" />
@@ -112,8 +139,6 @@ $questions = $questions_query->posts;
             <p class="yekan-18 color-black-60 w-full">هنوز سوالی ثبت نشده است.</p>
         <?php endif; ?>
     </div>
-
-    
 
     <div class="clear"></div>
 </div>
