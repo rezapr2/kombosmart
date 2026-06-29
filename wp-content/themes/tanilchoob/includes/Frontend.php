@@ -292,7 +292,7 @@ class Frontend
 			if (function_exists('is_product_category') && is_product_category()) {
 				$js_bundles[] = 'taxonomy-product_cat';
 			}
-			if ((function_exists('is_checkout') && is_checkout()) || (function_exists('is_account_page') && is_account_page())) {
+			if ((function_exists('is_checkout') && is_checkout()) || (function_exists('is_cart') && is_cart()) || (function_exists('is_account_page') && is_account_page())) {
 				$js_bundles[] = 'ordering-process';
 			}
 			foreach ($js_bundles as $bundle) {
