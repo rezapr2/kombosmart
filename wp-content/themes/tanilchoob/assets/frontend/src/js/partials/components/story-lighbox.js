@@ -145,6 +145,7 @@
     };
 
     $(document).ready(function () {
+        if(!$('.story-item').length) return;
         $('.story-item').storyLightbox();
     });
 })(jQuery);
