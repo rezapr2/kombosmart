@@ -222,7 +222,7 @@ $steps = [
 		</div>
 		<div class="tc-notes-wrap">
 			<label for="tc-order-notes color-black">توضیحات تکمیلی:</label>
-			<textarea id="tc-order-notes" placeholder="درصورت نیاز توضیحات تکمیلی را اینجا وارد نمایید."
+			<textarea id="tc-order-notes" placeholder="درصورت نیاز توضیحات تکمیلی ( مانند کد رنگ چوب و پارچه محصول خود)  را اینجا وارد نمایید."
 				rows="4"></textarea>
 		</div>
 	</div>
