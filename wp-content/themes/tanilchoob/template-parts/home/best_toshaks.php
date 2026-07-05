@@ -21,7 +21,7 @@ $brands = $best_toshaks['brands'];
         <div class="brands flex items-center justify-between">
             <?php foreach ($brands as $brand) : ?>
                 <a href="<?php echo esc_url($brand['link']['url']); ?>">
-                    <img src="<?php echo esc_url($brand['image']['url']); ?>" alt="<?php echo $brand['link']['title']; ?>">
+                    <img src="<?php echo esc_url($brand['image']['url']); ?>" width="<?php echo esc_attr($brand['image']['width']); ?>" height="<?php echo esc_attr($brand['image']['height']); ?>" alt="<?php echo $brand['link']['title']; ?>">
                 </a>
             <?php endforeach; ?>
         </div>

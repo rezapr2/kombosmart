@@ -13,7 +13,7 @@ if (empty($banners)) {
             $link = $banner['link'] ?: null;
             if ($img) {
                 echo '<a class="flex" href="' . $link['url'] . '" target="_blank" rel="noopener noreferrer">';
-                echo '<img class="w-full" src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'banner') . '" />';
+                echo '<img class="w-full" src="' . $img['url'] . '" width="' . $img['width'] . '" height="' . $img['height'] . '" alt="' . ($link['title'] ?: 'banner') . '" />';
                 echo '</a>';
             }
             ?>
@@ -26,7 +26,7 @@ if (empty($banners)) {
             $link = $banner['link'] ?: null;
             if ($img) {
                 echo '<a class="flex" href="' . $link['url'] . '" target="_blank" rel="noopener noreferrer">';
-                echo '<img class="w-full" src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'banner') . '" />';
+                echo '<img class="w-full" src="' . $img['url'] . '" width="' . $img['width'] . '" height="' . $img['height'] . '" alt="' . ($link['title'] ?: 'banner') . '" />';
                 echo '</a>';
             }
             ?>

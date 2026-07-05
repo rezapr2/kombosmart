@@ -25,7 +25,7 @@ use TanilChoob\Theme\Helper;
                     <?php $img = get_field('footer_logo', 'options');
                     if ($img):
                     ?>
-                        <img class="footer_logo h-auto" src="<?php echo $img['url']; ?>" alt="<?php echo $img['alt']; ?>">
+                        <img class="footer_logo h-auto" src="<?php echo $img['url']; ?>" width="<?php echo esc_attr($img['width']); ?>" height="<?php echo esc_attr($img['height']); ?>" alt="<?php echo $img['alt']; ?>">
                     <?php endif; ?>
                     <div class="footer_socials hidden md:flex">
                         <?php $socials = get_field('social_networks', 'options');

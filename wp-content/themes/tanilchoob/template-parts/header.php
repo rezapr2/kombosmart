@@ -10,9 +10,11 @@ $header_logo_mobile = get_field('header_logo_mobile', 'option');
         <div class="top-row__right flex flex-row-reverse md:flex-row items-center">
             <a class="logo" href="<?php echo home_url(); ?>">
                 <img class="hidden md:flex" src="<?php echo isset($header_logo['url']) ? $header_logo['url'] : ''; ?>"
+                    width="<?php echo isset($header_logo['width']) ? esc_attr($header_logo['width']) : ''; ?>" height="<?php echo isset($header_logo['height']) ? esc_attr($header_logo['height']) : ''; ?>"
                     alt="<?php bloginfo('name'); ?>">
                 <?php if (isset($header_logo_mobile['url']) && $header_logo_mobile['url'] !== '') : ?>
                 <img class="flex md:hidden" src="<?php echo isset($header_logo_mobile['url']) ? $header_logo_mobile['url'] : ''; ?>"
+                    width="<?php echo isset($header_logo_mobile['width']) ? esc_attr($header_logo_mobile['width']) : ''; ?>" height="<?php echo isset($header_logo_mobile['height']) ? esc_attr($header_logo_mobile['height']) : ''; ?>"
                     alt="<?php bloginfo('name'); ?>">
                 <?php endif; ?>
             </a>
