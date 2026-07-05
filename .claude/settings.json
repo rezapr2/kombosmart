@@ -8,7 +8,9 @@
       "Bash(php -l includes/Frontend.php)",
       "Bash(/Applications/ServBay/package/php/8.3/8.3.27/bin/php -l includes/Frontend.php)",
       "Bash(grep -Ev \"\\\\.php$\")",
-      "Bash(echo \"---exit: $?---\")"
+      "Bash(echo \"---exit: $?---\")",
+      "Bash(grep -oE \".{20}mobile-drawer-menu.{0,40}scrollTop[^\\)]*\\\\\\)\" assets/frontend/dist/js/scripts.min.js)",
+      "Bash(grep -oE \"activateItem\\\\\\([^\\)]*\\\\\\);[^;]{0,80}scrollTop[^\\)]*\\\\\\)\" assets/frontend/dist/js/scripts.min.js)"
     ]
   }
 }

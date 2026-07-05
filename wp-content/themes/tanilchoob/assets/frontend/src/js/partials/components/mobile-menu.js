@@ -55,6 +55,8 @@
                     $link.on('click', function(e){
                         e.preventDefault();
                         activateItem($item);
+                        // Scroll the drawer menu back to its first point.
+                        $item.closest('.mobile-drawer-menu').stop().animate({ scrollTop: 0 }, 300);
                     });
                 }
             });
