@@ -57,7 +57,7 @@ $bottom_tabs = get_field('bottom_tabs', $page_id);
                 <div class="swiper-slide post relative flex flex-col gap-10">
                     <a href="<?php echo esc_url($p_link); ?>" class="block w-100 h-100">
                         <?php if($p_img): ?>
-                            <img class="transition object-cover w-100 h-100 absolute inset-0" src="<?php echo esc_url($p_img); ?>" alt="<?php echo esc_attr($p_title); ?>">
+                            <img class="flex transition object-cover w-100 h-100 absolute inset-0" src="<?php echo esc_url($p_img); ?>" alt="<?php echo esc_attr($p_title); ?>">
                         <?php endif; ?>
                         <h3 class="yekan-22 md:yekan-24 color-white" >
                             <?php echo esc_html($p_title); ?>
@@ -97,7 +97,7 @@ $bottom_tabs = get_field('bottom_tabs', $page_id);
     <?php endif; ?>
     <section class="flex flex-col-reverse md:flex-row container gap-10 mt-40">
         <div class="tab-contents w-100 md:w-75">
-            <div class="tabs flex w-full relative mb-10">
+            <div class="tabs gap-10 flex w-full relative mb-10">
                     <div id="tab-recent" class="tab-item yekan-14 color-black-30 pointer active">جدیدترین مطالب</div>
                     <?php if($most_popular_posts): ?>
                         <div id="tab-popular" class="tab-item yekan-14 color-black-30 pointer">پربازدیدترین</div>
@@ -261,7 +261,7 @@ $bottom_tabs = get_field('bottom_tabs', $page_id);
     </section>
     <section class="flex container mt-40">
         <div class="tab-contents w-full">
-            <div class="tabs flex w-full relative">
+            <div class="tabs gap-10 flex w-full relative">
                     <?php if(isset($bottom_tabs['new_posts'])): ?>
                     <div id="tab-mp" class="tab-item yekan-14 color-black-30 pointer active">جدیدترین مطالب</div>
                     <?php endif; ?>
@@ -313,7 +313,7 @@ $bottom_tabs = get_field('bottom_tabs', $page_id);
                                     ?>
                                     <a href="<?php echo esc_url($p_link); ?>" class="post relative flex flex-col gap-10">
                                         <?php if($p_img): ?>
-                                            <img class="transition object-cover w-100 h-100 absolute inset-0" src="<?php echo esc_url($p_img); ?>" alt="<?php echo esc_attr($p_title); ?>">
+                                            <img class="flex transition object-cover w-100 h-100 absolute inset-0" src="<?php echo esc_url($p_img); ?>" alt="<?php echo esc_attr($p_title); ?>">
                                         <?php endif; ?>
                                         <h3 class="yekan-12 md:yekan-24 color-white" >
                                             <?php echo esc_html($p_title); ?>
@@ -367,7 +367,7 @@ $bottom_tabs = get_field('bottom_tabs', $page_id);
                                     ?>
                                     <a href="<?php echo esc_url($p_link); ?>" class="post relative flex flex-col gap-10">
                                         <?php if($p_img): ?>
-                                            <img class="transition object-cover w-100 h-100 absolute inset-0" src="<?php echo esc_url($p_img); ?>" alt="<?php echo esc_attr($p_title); ?>">
+                                            <img class="flex transition object-cover w-100 h-100 absolute inset-0" src="<?php echo esc_url($p_img); ?>" alt="<?php echo esc_attr($p_title); ?>">
                                         <?php endif; ?>
                                         <h3 class="yekan-12 md:yekan-24 color-white" >
                                             <?php echo esc_html($p_title); ?>
@@ -419,7 +419,7 @@ $bottom_tabs = get_field('bottom_tabs', $page_id);
                                     ?>
                                     <a href="<?php echo esc_url($p_link); ?>" class="post relative flex flex-col gap-10">
                                         <?php if($p_img): ?>
-                                            <img class="transition object-cover w-100 h-100 absolute inset-0" src="<?php echo esc_url($p_img); ?>" alt="<?php echo esc_attr($p_title); ?>">
+                                            <img class="flex transition object-cover w-100 h-100 absolute inset-0" src="<?php echo esc_url($p_img); ?>" alt="<?php echo esc_attr($p_title); ?>">
                                         <?php endif; ?>
                                         <h3 class="yekan-12 md:yekan-24 color-white" >
                                             <?php echo esc_html($p_title); ?>
