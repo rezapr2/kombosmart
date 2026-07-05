@@ -54,7 +54,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                 <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                     <?php
                     if ($img) {
-                        echo '<img class="w-100 h-100 object-cover" fetchpriority=high src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'soffa') . '" />';
+                        echo '<img class="flex w-100 h-100 object-cover" fetchpriority=high src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'soffa') . '" />';
                     }
                     ?>
                     <div class="content">
@@ -75,7 +75,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
             <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                 <?php
                 if ($img) {
-                    echo '<img class="w-100 h-100 object-cover" fetchpriority=high src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'tv desk') . '" />';
+                    echo '<img class="flex w-100 h-100 object-cover" fetchpriority=high src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'tv desk') . '" />';
                 }
                 ?>
                 <div class="content">
@@ -94,7 +94,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
             <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item md:hidden relative" >
                 <?php
                 if ($img) {
-                    echo '<img class="w-100 h-100 object-cover" fetchpriority=high src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'console desk') . '" />';
+                    echo '<img class="flex w-100 h-100 object-cover" fetchpriority=high src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'console desk') . '" />';
                 }
                 ?>
                 <div class="content">
@@ -116,7 +116,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
             <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative" >
                 <?php
                 if ($img) {
-                    echo '<img class="w-100 h-100 object-cover" fetchpriority=high src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'console desk') . '" />';
+                    echo '<img class="flex w-100 h-100 object-cover" fetchpriority=high src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'console desk') . '" />';
                 }
                 ?>
                 <div class="content">
@@ -138,7 +138,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                 <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                     <?php
                     if ($img) {
-                        echo '<img class="w-100 h-100 object-cover" fetchpriority=high src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'sleep products') . '" />';
+                        echo '<img class="flex w-100 h-100 object-cover" fetchpriority=high src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'sleep products') . '" />';
                     }
                     ?>
                     <div class="content">
@@ -157,7 +157,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                 <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                     <?php
                     if ($img) {
-                        echo '<img class="w-100 h-100 object-cover" fetchpriority=high src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'sleep pack') . '" />';
+                        echo '<img class="flex w-100 h-100 object-cover" fetchpriority=high src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'sleep pack') . '" />';
                     }
                     ?>
                     <div class="content">
@@ -178,7 +178,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                 <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                     <?php
                     if ($img) {
-                        echo '<img class="w-100 h-100 object-cover" fetchpriority=high src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'food products') . '" />';
+                        echo '<img class="flex w-100 h-100 object-cover" fetchpriority=high src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'food products') . '" />';
                     }
                     ?>
                     <div class="content">
@@ -197,7 +197,7 @@ $arrow = Helper::file_get_contents(Helper::getAssetPath('dist/images/arrow-left-
                 <a href="<?php echo $link['url'] ?: '#' ?>" class="category-item relative">
                     <?php
                     if ($img) {
-                        echo '<img class="w-100 h-100 object-cover" fetchpriority=high src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'soffa desk') . '" />';
+                        echo '<img class="flex w-100 h-100 object-cover" fetchpriority=high src="' . $img['url'] . '" alt="' . ($link['title'] ?: 'soffa desk') . '" />';
                     }
                     ?>
                     <div class="content">
