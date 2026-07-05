@@ -34,7 +34,7 @@ $page_blocks = get_field('page_blocks', $page_id);
         <div class="content-box tanil-story flex flex-col-reverse md:flex-row items-center gap-20">
             <div class="story-box flex-1 flex flex-col gap-07">
                 <h2 class="title color-black regular yekan-22 md:yekan-28 text-center md:text-right">درباره کارخانه تانیل چوب</h2>
-                <div class="description yekan-14 md:yekan-18 color-black-50 text-center md:text-right">
+                <div class="description yekan-14 md:yekan-18 color-black-60 text-center md:text-right">
                     <?php echo $about_factory_text ? $about_factory_text : ''; ?>
                 </div>
             </div>

@@ -126,8 +126,8 @@ $product_status = get_post_meta($product_id, '_product_status', true);
 				<div class="accordion-box slide-down-wrapper flex flex-col gap-10">
 					<div class="box-title flex items-center justify-between">
 						<span class="yekan-14 md:yekan-18 color-black-60">اجزای محصول:</span>
-						<div class="slide-down-trigger transition" role="button" aria-expanded="false">
-							<svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<div class="slide-down-trigger transition" role="button" aria-expanded="false" aria-label="نمایش اجزای محصول">
+							<svg aria-hidden="true" width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M0.75 6L6.01498 0.749929L11.28 6" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 							</svg>
 						</div>
@@ -153,8 +153,8 @@ $product_status = get_post_meta($product_id, '_product_status', true);
 				<div class="accordion-box slide-down-wrapper flex flex-col gap-10">
 					<div class="box-title flex items-center justify-between">
 						<span class="yekan-14 md:yekan-18 color-black-60">تغییر در متعلقات ست:</span>
-						<div class="slide-down-trigger transition" role="button" aria-expanded="false">
-							<svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<div class="slide-down-trigger transition" role="button" aria-expanded="false" aria-label="نمایش تغییر در متعلقات ست">
+							<svg aria-hidden="true" width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M0.75 6L6.01498 0.749929L11.28 6" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 							</svg>
 						</div>
@@ -179,7 +179,7 @@ $product_status = get_post_meta($product_id, '_product_status', true);
 											<input type="checkbox" class="adj-checkbox" data-id="<?php echo esc_attr($opt_id); ?>" data-label="<?php echo esc_attr($opt_label); ?>" data-amount="<?php echo esc_attr($opt_amt_toman); ?>">
 											<span class="yekan-12 md:yekan-16 color-black-60"><?php echo esc_html($opt_label); ?></span>
 										</label>
-										<span class="yekan-12 md:yekan-16 price-diff" style="color: <?php echo $is_plus ? '#16a34a' : '#dc2626'; ?>;">
+										<span class="yekan-12 md:yekan-16 price-diff" style="color: <?php echo $is_plus ? '#079b3e' : '#ff0000'; ?>;">
 											 <?php echo esc_html($amt_display); ?> <?php echo $is_plus ? '+' : '-'; ?>
 										</span>
 									</li>
@@ -464,7 +464,7 @@ $product_status = get_post_meta($product_id, '_product_status', true);
 										<div class="sub-product-name yekan-14 md:yekan-18 color-black-80"><?php echo $sub_product['title']; ?></div>
                                         <div class="sub-product-price yekan-12 md:yekan-16 color-primary"><?php echo wp_kses_post( wc_price( $sub_product['price'] ) ); ?></div>
 									<?php else : ?>
-										<div class="sub-product-name yekan-14 md:yekan-18 color-black-50 text-center">غیر قابل فروش به صورت تکی</div>
+										<div class="sub-product-name yekan-14 md:yekan-18 color-black-60 text-center">غیر قابل فروش به صورت تکی</div>
 									<?php endif; ?>
 								</a>
 							</div>

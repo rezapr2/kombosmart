@@ -105,7 +105,7 @@ $play_icon_src = function_exists('get_theme_file_uri')
                             <?php if ($product_cats) : ?>
                                 <div class="spec-item flex flex-col gap-05 py-10 md:py-20 px-15 md:px-40 bg-black-03">
                                     <h3 class="spec-name yekan-16 regular md:yekan-20 color-black-80">دسته بندی محصول</h3>
-                                    <div class="spec-value yekan-14 md:yekan-18 color-black-50">
+                                    <div class="spec-value yekan-14 md:yekan-18 color-black-60">
                                         <?php
                                         $cat_names = array();
                                         foreach ($product_cats as $cat) {
@@ -144,7 +144,7 @@ $play_icon_src = function_exists('get_theme_file_uri')
                                         ?>
                                         <div class="spec-item flex flex-col gap-05 py-10 md:py-20 px-15 md:px-40 bg-black-03">
                                             <h3 class="spec-name yekan-16 regular md:yekan-20 color-black-80"><?php echo esc_html($label); ?></h3>
-                                            <div class="spec-value yekan-14 md:yekan-18 color-black-50"><?php echo esc_html($valueStr); ?></div>
+                                            <div class="spec-value yekan-14 md:yekan-18 color-black-60"><?php echo esc_html($valueStr); ?></div>
                                         </div>
                                         <?php
                                     }

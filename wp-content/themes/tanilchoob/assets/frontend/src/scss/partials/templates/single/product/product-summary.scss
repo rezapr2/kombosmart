@@ -8,10 +8,10 @@
         }
         &-comments-ratings {
             margin-bottom: 1.8rem;
-            color: #999999;
+            color: #848484;
             li {
                 padding-left: 1rem;
-                border-left: 1px solid #999999;
+                border-left: 1px solid #848484;
                 &:last-child {
                     border-left: none;
                 }
@@ -64,6 +64,10 @@
     }
     .variation-box {
         .variation-radio-item {
+            // Comfortable touch target + spacing between options (WCAG 2.5.5 / 2.5.8).
+            min-height: 4.4rem;
+            padding: 0.5rem 0.8rem;
+            margin: 0.3rem 0;
             &.has-color-patern {
                 input {
                     display: none;
@@ -71,6 +75,11 @@
             }
             &.checked span {
                 color: var(--color-primary);
+            }
+            input[type="radio"] {
+                width: 2rem;
+                height: 2rem;
+                flex-shrink: 0;
             }
         }
 
@@ -98,7 +107,7 @@
             border: 1px solid var(--color-primary);
             .woocommerce-Price-currencySymbol {
                 font-weight: 400;
-                opacity: 0.25;
+                opacity: 0.4;
                 font-size: 2rem;
                 margin-right: 0.6rem;
             }
