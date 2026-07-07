@@ -73,6 +73,7 @@ class CategoryProductsLoadMore extends AjaxHandler
         ]);
     }
 
+
     private function normalize_orderby($val)
     {
         $val = strtolower((string)$val);

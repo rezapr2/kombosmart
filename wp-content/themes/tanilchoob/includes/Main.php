@@ -50,6 +50,7 @@ class Main {
 		require_once get_template_directory().'/includes/Backend.php';
 		require_once get_template_directory().'/includes/Acf.php';
 		require_once get_template_directory().'/includes/WC_Product_BackOffice.php';
+		require_once get_template_directory().'/includes/ProductStockOrdering.php';
 		require_once get_template_directory().'/includes/Walker_Nav_Menu_Custom.php';
 		require_once get_template_directory().'/includes/MyAccount.php';
     }
@@ -61,6 +62,7 @@ class Main {
 		new Backend();
 		new ACF();
 		new WC_Product_BackOffice();
+		new ProductStockOrdering();
 		new MyAccount();
 	}
 

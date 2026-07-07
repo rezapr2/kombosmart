@@ -31,10 +31,11 @@
         }
         @media (max-width: 768px) {
             .slide-content{
-                padding: calcRem(50) calcRem(15);
+                padding: calcRem(50) calcRem(0);
             }
             .slide-img{
                 height: calcRem(100);
+                width: 50%;
             }
             .hero-slider-content{
                 .title{
