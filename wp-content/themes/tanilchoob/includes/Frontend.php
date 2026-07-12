@@ -52,6 +52,8 @@ class Frontend
 		add_filter( 'woocommerce_currency_symbol',      [ $this, 'change_currency_symbol' ], 9999, 2 );
 		add_filter( 'raw_woocommerce_price',            [ $this, 'divide_price_by_10' ], 9999 );
 		add_filter( 'woocommerce_available_variation',  [ $this, 'divide_variation_json_by_10' ], 9999, 3 );
+        add_filter( 'wp_schema_pro_schema_product', [$this, 'inject_custom_offers_schema'], 10, 3 );
+		add_action( 'wp_head', [$this, 'inject_standalone_video_schema'], 99 );
 	//	add_filter( 'woocommerce_add_cart_item_data',   [ $this, 'correct_cart_options_to_rials' ], 20, 3 );
 	}
 
@@ -553,6 +555,105 @@ EOD;
 			return $converter->getText();
 		} catch (\Exception $e) {
 			return $content;
+		}
+	}
+
+    /**
+	 * Inject custom price and availability into Schema Pro.
+	 */
+	public function inject_custom_offers_schema( $schema, $data, $post ) {
+		$post_id = is_object( $post ) ? $post->ID : ( is_array( $post ) && isset( $post['ID'] ) ? $post['ID'] : get_the_ID() );
+		
+		if ( ! $post_id ) {
+			return $schema;
+		}
+
+		$product = wc_get_product( $post_id );
+		if ( ! $product ) {
+			return $schema;
+		}
+
+		$product_status = get_post_meta( $post_id, '_product_status', true );
+
+		if ( in_array( $product_status, ['out_of_stock', 'out_of_stock_temporary'], true ) ) {
+			$price        = '0';
+			$availability = 'http://schema.org/OutOfStock';
+		} else {
+			$price        = $product->get_price();
+			$availability = 'http://schema.org/InStock';
+			if ( '' === $price ) {
+				$price = '0';
+			}
+		}
+
+		if ( ! isset( $schema['offers'] ) ) {
+			$schema['offers'] = array( '@type' => 'Offer' );
+		}
+
+		if ( isset( $schema['offers']['@type'] ) ) {
+			$schema['offers']['price']         = $price;
+			$schema['offers']['priceCurrency'] = get_woocommerce_currency();
+			$schema['offers']['availability']  = $availability;
+			$schema['offers']['url']           = $product->get_permalink();
+		} elseif ( is_array( $schema['offers'] ) ) {
+			foreach ( $schema['offers'] as $key => $offer ) {
+				$schema['offers'][$key]['price']         = $price;
+				$schema['offers'][$key]['priceCurrency'] = get_woocommerce_currency();
+				$schema['offers'][$key]['availability']  = $availability;
+				if ( ! isset( $schema['offers'][$key]['url'] ) ) {
+					$schema['offers'][$key]['url'] = $product->get_permalink();
+				}
+			}
+		}
+
+		return $schema;
+	}
+
+	/**
+	 * Output an independent VideoObject schema for self-hosted product videos.
+	 */
+	public function inject_standalone_video_schema() {
+		if ( ! function_exists( 'is_product' ) || ! is_product() ) {
+			return;
+		}
+
+		$post_id = get_the_ID();
+		$product = wc_get_product( $post_id );
+		
+		if ( ! $product ) {
+			return;
+		}
+
+		$video_url = get_field('video_gallery_url', $post_id);
+		
+		if ( empty( $video_url ) ) {
+			return;
+		}
+
+		// Ensure we extract the raw URL string
+		$actual_video_url = is_array( $video_url ) && isset( $video_url['url'] ) ? $video_url['url'] : $video_url;
+
+		if ( is_string( $actual_video_url ) && trim( $actual_video_url ) !== '' ) {
+			
+			$image_id  = $product->get_image_id();
+			$thumbnail = $image_id ? wp_get_attachment_image_url( $image_id, 'full' ) : '';
+
+			if ( $thumbnail ) {
+				$schema = array(
+					'@context'     => 'https://schema.org',
+					'@type'        => 'VideoObject',
+					'name'         => $product->get_name() . ' - ویدیو معرفی', 
+					'description'  => 'ویدیو بررسی و معرفی ' . $product->get_name(), 
+					'thumbnailUrl' => $thumbnail,
+					'uploadDate'   => get_the_date( 'c', $post_id ),
+					'contentUrl'   => $actual_video_url 
+				);
+
+				// Print the JSON-LD directly into the HTML head
+				echo "\n<!-- Product Video Schema -->\n";
+				echo '<script type="application/ld+json">' . wp_json_encode( $schema ) . '</script>';
+				echo "\n<!-- / Product Video Schema -->\n";
+			}
 		}
 	}
 }
