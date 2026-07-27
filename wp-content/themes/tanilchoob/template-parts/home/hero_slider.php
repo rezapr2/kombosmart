@@ -15,7 +15,7 @@ if ($hero_slider) {
                                     <div class="title color-white">
                                         <?php echo $item['title']; ?>
                                     </div>
-                                    <div class="description color-white opacity-5 thin">
+                                    <div class="description color-white opacity-8 thin">
                                         <?php echo $item['description']; ?>
                                     </div>
                                     <?php if ($item['link']) { ?>
