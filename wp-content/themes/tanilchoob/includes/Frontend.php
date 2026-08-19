@@ -57,6 +57,7 @@ class Frontend
 		add_action( 'wp_head', [$this, 'inject_blog_post_video_schema'], 99 );
 		add_action( 'wp_head', [$this, 'inject_blog_post_article_schema'], 99 );
 	//	add_filter( 'woocommerce_add_cart_item_data',   [ $this, 'correct_cart_options_to_rials' ], 20, 3 );
+		add_filter( 'wpseo_robots', [$this, 'noindex_paginated_pages'] );
 	}
 
 	public function ajax_remove_cart_item() {
@@ -559,6 +560,16 @@ EOD;
 			return $content;
 		}
 	}
+
+	/**
+	* Force Yoast SEO to noindex paginated pages to prevent them from outranking the main category.
+	*/
+	public function noindex_paginated_pages( $robots ) {
+		if ( is_paged() || ( get_query_var('paged') > 1 ) ) {
+			return 'noindex, follow';
+		}
+		return $robots;
+	}	
 
 /**
 	 * Inject custom price, availability, brand, shipping, return policy, and reviews into Schema Pro.
