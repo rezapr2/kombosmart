@@ -52,8 +52,10 @@ class Frontend
 		add_filter( 'woocommerce_currency_symbol',      [ $this, 'change_currency_symbol' ], 9999, 2 );
 		add_filter( 'raw_woocommerce_price',            [ $this, 'divide_price_by_10' ], 9999 );
 		add_filter( 'woocommerce_available_variation',  [ $this, 'divide_variation_json_by_10' ], 9999, 3 );
-        add_filter( 'wp_schema_pro_schema_product', [$this, 'inject_custom_offers_schema'], 10, 3 );
+		add_filter( 'wp_schema_pro_schema_product', [$this, 'inject_custom_offers_schema'], 10, 3 );
 		add_action( 'wp_head', [$this, 'inject_standalone_video_schema'], 99 );
+		add_action( 'wp_head', [$this, 'inject_blog_post_video_schema'], 99 );
+		add_action( 'wp_head', [$this, 'inject_blog_post_article_schema'], 99 );
 	//	add_filter( 'woocommerce_add_cart_item_data',   [ $this, 'correct_cart_options_to_rials' ], 20, 3 );
 	}
 
@@ -558,11 +560,11 @@ EOD;
 		}
 	}
 
-    /**
-	 * Inject custom price and availability into Schema Pro.
+/**
+	 * Inject custom price, availability, brand, shipping, return policy, and reviews into Schema Pro.
 	 */
 	public function inject_custom_offers_schema( $schema, $data, $post ) {
-		$post_id = is_object( $post ) ? $post->ID : ( is_array( $post ) && isset( $post['ID'] ) ? $post['ID'] : get_the_ID() );
+		$post_id = is_object( $post ) ? $post->ID : ( ( is_array( $post ) && isset( $post['ID'] ) ) ? $post['ID'] : get_the_ID() );
 		
 		if ( ! $post_id ) {
 			return $schema;
@@ -573,42 +575,155 @@ EOD;
 			return $schema;
 		}
 
+		// --- 1. BRAND SCHEMA ---
+		$schema['brand'] = array(
+			'@type' => 'Brand',
+			'name'  => get_bloginfo( 'name' ) ?: 'تانیل چوب',
+		);
+
+		// --- 2. STATUS & SHIPPING TIME LOGIC ---
 		$product_status = get_post_meta( $post_id, '_product_status', true );
 
-		if ( in_array( $product_status, ['out_of_stock', 'out_of_stock_temporary'], true ) ) {
+		if ( 'out_of_stock' === $product_status ) {
+			// توقف کامل تولید
 			$price        = '0';
 			$availability = 'http://schema.org/OutOfStock';
-		} else {
-			$price        = $product->get_price();
+			$handling_min = 0;
+			$handling_max = 0;
+		} elseif ( 'out_of_stock_temporary' === $product_status ) {
+			// توقف موقت تولید
+			$price        = '0';
+			$availability = 'http://schema.org/OutOfStock';
+			$handling_min = 0;
+			$handling_max = 0;
+		} elseif ( 'in_produce' === $product_status ) {
+			// در حال تولید (14 الی 21 روز)
+			$price        = $product->get_price() ?: '0';
 			$availability = 'http://schema.org/InStock';
-			if ( '' === $price ) {
-				$price = '0';
-			}
+			$handling_min = 14;
+			$handling_max = 21;
+		} else {
+			// موجود و آماده ارسال (24 الی 48 ساعت)
+			$price        = $product->get_price() ?: '0';
+			$availability = 'http://schema.org/InStock';
+			$handling_min = 1;
+			$handling_max = 2;
 		}
 
+		// --- 3. SHIPPING DETAILS (Array Format for Schema Pro) ---
+		$shipping_details_array = array(
+			array(
+				'@type'               => 'OfferShippingDetails',
+				'shippingDestination' => array(
+					array(
+						'@type'          => 'DefinedRegion',
+						'addressCountry' => 'IR',
+					)
+				),
+				'deliveryTime'        => array(
+					'@type'        => 'ShippingDeliveryTime',
+					'handlingTime' => array(
+						'@type'    => 'QuantitativeValue',
+						'minValue' => $handling_min,
+						'maxValue' => $handling_max,
+						'unitCode' => 'DAY',
+					),
+					'transitTime'  => array(
+						'@type'    => 'QuantitativeValue',
+						'minValue' => 1,
+						'maxValue' => 3,
+						'unitCode' => 'DAY',
+					),
+				),
+			)
+		);
+
+		// --- 4. RETURN POLICY (Array Format for Schema Pro) ---
+		$return_policy_array = array(
+			array(
+				'@type'                => 'MerchantReturnPolicy',
+				'applicableCountry'    => 'IR',
+				'returnPolicyCategory' => 'https://schema.org/MerchantReturnFiniteReturnWindow',
+				'merchantReturnDays'   => 7,
+				'returnMethod'         => 'https://schema.org/ReturnByMail',
+				'returnFees'           => 'https://schema.org/FreeReturn',
+				'merchantReturnLink'   => 'https://tanilchoob.com/warranty-policy/',
+			)
+		);
+
+		// --- 5. INJECT OFFERS DATA ---
 		if ( ! isset( $schema['offers'] ) ) {
 			$schema['offers'] = array( '@type' => 'Offer' );
 		}
 
 		if ( isset( $schema['offers']['@type'] ) ) {
-			$schema['offers']['price']         = $price;
-			$schema['offers']['priceCurrency'] = get_woocommerce_currency();
-			$schema['offers']['availability']  = $availability;
-			$schema['offers']['url']           = $product->get_permalink();
+			$schema['offers']['price']                   = $price;
+			$schema['offers']['priceCurrency']           = get_woocommerce_currency();
+			$schema['offers']['availability']            = $availability;
+			$schema['offers']['url']                     = $product->get_permalink();
+			$schema['offers']['shippingDetails']         = $shipping_details_array;
+			$schema['offers']['hasMerchantReturnPolicy'] = $return_policy_array;
 		} elseif ( is_array( $schema['offers'] ) ) {
 			foreach ( $schema['offers'] as $key => $offer ) {
-				$schema['offers'][$key]['price']         = $price;
-				$schema['offers'][$key]['priceCurrency'] = get_woocommerce_currency();
-				$schema['offers'][$key]['availability']  = $availability;
+				$schema['offers'][$key]['price']                   = $price;
+				$schema['offers'][$key]['priceCurrency']           = get_woocommerce_currency();
+				$schema['offers'][$key]['availability']            = $availability;
+				$schema['offers'][$key]['shippingDetails']         = $shipping_details_array;
+				$schema['offers'][$key]['hasMerchantReturnPolicy'] = $return_policy_array;
 				if ( ! isset( $schema['offers'][$key]['url'] ) ) {
 					$schema['offers'][$key]['url'] = $product->get_permalink();
 				}
 			}
 		}
 
+		// --- 6. REVIEWS & AGGREGATE RATING LOGIC ---
+		$rating_count   = $product->get_rating_count();
+		$average_rating = $product->get_average_rating();
+
+		if ( $rating_count > 0 && $average_rating > 0 ) {
+			$schema['aggregateRating'] = array(
+				'@type'       => 'AggregateRating',
+				'ratingValue' => $average_rating,
+				'reviewCount' => $rating_count,
+			);
+
+			$comments = get_comments( array(
+				'post_id' => $post_id,
+				'status'  => 'approve',
+				'type'    => 'review',
+			) );
+
+			if ( ! empty( $comments ) ) {
+				$reviews_array = array();
+				
+				foreach ( $comments as $comment ) {
+					$rating = get_comment_meta( $comment->comment_ID, 'rating', true );
+					if ( ! empty( $rating ) ) {
+						$reviews_array[] = array(
+							'@type'        => 'Review',
+							'reviewRating' => array(
+								'@type'       => 'Rating',
+								'ratingValue' => $rating,
+							),
+							'author'       => array(
+								'@type' => 'Person',
+								'name'  => ! empty( $comment->comment_author ) ? $comment->comment_author : 'کاربر',
+							),
+							'reviewBody'   => wp_strip_all_tags( $comment->comment_content ),
+							'datePublished'=> get_comment_date( 'c', $comment->comment_ID ),
+						);
+					}
+				}
+				
+				if ( ! empty( $reviews_array ) ) {
+					$schema['review'] = $reviews_array;
+				}
+			}
+		}
+
 		return $schema;
 	}
-
+	
 	/**
 	 * Output an independent VideoObject schema for self-hosted product videos.
 	 */
@@ -656,4 +771,153 @@ EOD;
 			}
 		}
 	}
+
+	/**
+	 * Output an independent VideoObject schema for blog posts.
+	 */
+	public function inject_blog_post_video_schema() {
+		// Only run on individual blog posts
+		if ( ! is_singular( 'post' ) ) {
+			return;
+		}
+
+		$post_id = get_the_ID();
+		
+		// Pull the specific ACF field used in single-post.php
+		$top_video = get_field('top_video', $post_id);
+		
+		if ( empty( $top_video ) || empty( $top_video['video_link'] ) ) {
+			return;
+		}
+
+		$actual_video_url = $top_video['video_link'];
+
+		if ( is_string( $actual_video_url ) && trim( $actual_video_url ) !== '' ) {
+			
+			// Try to get the specific video poster image first
+			$thumbnail = '';
+			if ( ! empty( $top_video['video_imge']['url'] ) ) {
+				$thumbnail = $top_video['video_imge']['url'];
+			} elseif ( has_post_thumbnail( $post_id ) ) {
+				// Fallback to the main blog post thumbnail
+				$thumbnail = get_the_post_thumbnail_url( $post_id, 'full' );
+			}
+
+			if ( $thumbnail ) {
+				$post_title = get_the_title( $post_id );
+				
+				$schema = array(
+					'@context'     => 'https://schema.org',
+					'@type'        => 'VideoObject',
+					'name'         => $post_title . ' - ویدیو', 
+					'description'  => 'ویدیو مربوط به مقاله ' . $post_title, 
+					'thumbnailUrl' => $thumbnail,
+					'uploadDate'   => get_the_date( 'c', $post_id ),
+					'contentUrl'   => $actual_video_url 
+				);
+
+				// Print the JSON-LD directly into the HTML head
+				echo "\n<!-- Blog Post Video Schema -->\n";
+				echo '<script type="application/ld+json">' . wp_json_encode( $schema ) . '</script>';
+				echo "\n<!-- / Blog Post Video Schema -->\n";
+			}
+		}
+	}
+
+	/**
+	 * Inject BlogPosting and Organization schema for single blog posts.
+	 */
+	public function inject_blog_post_article_schema() {
+		// Only run on individual blog post pages
+		if ( ! is_singular( 'post' ) ) {
+			return;
+		}
+
+		$post_id   = get_the_ID();
+		$permalink = get_permalink( $post_id );
+		$home_url  = home_url( '/' );
+		$org_id    = rtrim( $home_url, '/' ) . '/#organization';
+
+		// 1. Fetch Featured Image details (URL, Width, Height)
+		$image_schema = null;
+		if ( has_post_thumbnail( $post_id ) ) {
+			$thumb_id   = get_post_thumbnail_id( $post_id );
+			$thumb_data = wp_get_attachment_image_src( $thumb_id, 'full' );
+			if ( $thumb_data ) {
+				$image_schema = array(
+					'@type'  => 'ImageObject',
+					'url'    => $thumb_data[0],
+					'width'  => $thumb_data[1],
+					'height' => $thumb_data[2],
+				);
+			}
+		}
+
+		// 2. Fetch Logo details for Organization
+		$logo_url = '';
+		$custom_logo_id = get_theme_mod( 'custom_logo' );
+		if ( $custom_logo_id ) {
+			$logo_data = wp_get_attachment_image_src( $custom_logo_id, 'full' );
+			if ( $logo_data ) {
+				$logo_url = $logo_data[0];
+			}
+		}
+		if ( ! $logo_url ) {
+			// Fallback to site icon or brand logo
+			$logo_url = get_site_icon_url();
+		}
+
+		// 3. Build Organization Entity (Brand)
+		$org_schema = array(
+			'@type' => 'Organization',
+			'@id'   => $org_id,
+			'name'  => get_bloginfo( 'name' ) ?: 'تانیل چوب',
+			'url'   => $home_url,
+		);
+
+		if ( $logo_url ) {
+			$org_schema['logo'] = array(
+				'@type' => 'ImageObject',
+				'url'   => $logo_url,
+			);
+		}
+
+		// 4. Build BlogPosting Entity
+		$article_schema = array(
+			'@type'            => 'BlogPosting',
+			'@id'              => rtrim( $permalink, '/' ) . '/#article',
+			'headline'         => get_the_title( $post_id ),
+			'url'              => $permalink,
+			'datePublished'    => get_the_date( 'c', $post_id ),
+			'dateModified'     => get_the_modified_date( 'c', $post_id ),
+			'mainEntityOfPage' => array(
+				'@type' => 'WebPage',
+				'@id'   => $permalink,
+			),
+			'author'           => array(
+				'@id' => $org_id,
+			),
+			'publisher'        => array(
+				'@id' => $org_id,
+			),
+		);
+
+		if ( $image_schema ) {
+			$article_schema['image'] = $image_schema;
+		}
+
+		// 5. Output via @graph
+		$schema_graph = array(
+			'@context' => 'https://schema.org',
+			'@graph'   => array(
+				$org_schema,
+				$article_schema,
+			),
+		);
+
+		echo "\n<!-- Blog Article & Organization Schema -->\n";
+		echo '<script type="application/ld+json">' . wp_json_encode( $schema_graph, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>';
+		echo "\n<!-- / Blog Article & Organization Schema -->\n";
+	}
+	
 }
