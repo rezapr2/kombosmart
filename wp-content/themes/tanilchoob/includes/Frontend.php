@@ -58,6 +58,7 @@ class Frontend
 		add_action( 'wp_head', [$this, 'inject_blog_post_article_schema'], 99 );
 	//	add_filter( 'woocommerce_add_cart_item_data',   [ $this, 'correct_cart_options_to_rials' ], 20, 3 );
 		add_filter( 'wpseo_robots', [$this, 'noindex_paginated_pages'] );
+		add_action( 'template_redirect', [$this, 'noindex_rss_feeds'] );
 	}
 
 	public function ajax_remove_cart_item() {
@@ -571,6 +572,15 @@ EOD;
         }
         return $robots;
     }
+
+	/**
+	* Send an X-Robots-Tag HTTP header to noindex RSS feeds.
+	*/
+	public function noindex_rss_feeds() {
+		if ( is_feed() && ! is_admin() ) {
+			header( 'X-Robots-Tag: noindex, follow', true );
+		}
+	}	
 
 	/**
 	 * Inject custom price, availability, brand, shipping, return policy, and reviews into Schema Pro.
