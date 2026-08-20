@@ -562,16 +562,17 @@ EOD;
 	}
 
 	/**
-	* Force Yoast SEO to noindex paginated pages to prevent them from outranking the main category.
-	*/
-	public function noindex_paginated_pages( $robots ) {
-		if ( is_paged() || ( get_query_var('paged') > 1 ) ) {
-			return 'noindex, follow';
-		}
-		return $robots;
-	}	
+     * Force Yoast SEO to noindex paginated pages AND WooCommerce sorting/filtering parameters.
+     */
+    public function noindex_paginated_pages( $robots ) {
+        // Check if it's a paginated page, OR if the URL contains WooCommerce sorting parameters
+        if ( is_paged() || ( get_query_var('paged') > 1 ) || isset($_GET['orderby']) || isset($_GET['shop_view']) ) {
+            return 'noindex, follow';
+        }
+        return $robots;
+    }
 
-/**
+	/**
 	 * Inject custom price, availability, brand, shipping, return policy, and reviews into Schema Pro.
 	 */
 	public function inject_custom_offers_schema( $schema, $data, $post ) {
