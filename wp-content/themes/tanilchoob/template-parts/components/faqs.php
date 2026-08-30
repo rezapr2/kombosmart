@@ -11,7 +11,7 @@
  */
 use TanilChoob\Theme\Helper;
 
-$faqs = isset($faqs) && is_array($faqs) ? $faqs : get_query_var('faqs');
+$faqs = isset($args['faqs']) ? $args['faqs'] : (isset($faqs) ? $faqs : get_query_var('faqs'));
 $faqs = is_array($faqs) ? $faqs : array();
 $faq_page_link = Helper::get_options_field( 'faq_page_link' ) ?: '#faq-items';
 

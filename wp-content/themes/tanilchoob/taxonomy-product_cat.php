@@ -225,13 +225,16 @@ $product_cat_slug = get_query_var('product_cat'); // گرفتن اسلاگ دس�
         
     </div>
 <?php endif; ?>
+<div class="container">
 <?php
 // FAQs (ACF repeater stored on the term)
 $term_faqs = $term_id ? get_field('faqs', get_queried_object()) : array();
+
 if (! empty($term_faqs)) {
     get_template_part('template-parts/components/faqs', null, ['faqs' => $term_faqs]);
 }
 ?>
+</div>
 <?php
 /**
  * Hook: woocommerce_after_main_content.

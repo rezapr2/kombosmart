@@ -33,5 +33,5 @@ if (empty($products_video_url)) {
             <path d="M6.5 4L0.5 7.464V0.536L6.5 4Z" fill="currentColor" />
         </svg>
     </span>
-    <span>نمایش فیلم محصولات</span>
+    <span>نمایش ویدئو معرفی محصولات</span>
 </button>
