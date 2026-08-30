@@ -188,6 +188,74 @@
             "elements": "",
             "bidirectional": 0,
             "bidirectional_target": []
+        },
+        {
+            "key": "field_6a935c1d4e2a0",
+            "label": "سوالات متداول",
+            "name": "faqs",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "سوال جدید",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_6a935c1d4e2a1",
+                    "label": "پرسش",
+                    "name": "question",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6a935c1d4e2a0"
+                },
+                {
+                    "key": "field_6a935c1d4e2a2",
+                    "label": "پاسخ",
+                    "name": "answer",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "rows": 4,
+                    "placeholder": "",
+                    "new_lines": "",
+                    "parent_repeater": "field_6a935c1d4e2a0"
+                }
+            ]
         }
     ],
     "location": [
@@ -209,5 +277,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1770236289
+    "modified": 1788103081
 }

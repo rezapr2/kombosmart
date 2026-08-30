@@ -1,7 +1,18 @@
 <?php
+/**
+ * Shared FAQs section.
+ *
+ * Used by the single product, single post and product category/tag archive
+ * templates. Pass the ACF `faqs` repeater rows in:
+ *
+ *   get_template_part('template-parts/components/faqs', null, ['faqs' => $faqs]);
+ *
+ * @package TanilChoob
+ */
 use TanilChoob\Theme\Helper;
 
-$faqs = isset($faqs) ? $faqs : get_query_var('faqs');
+$faqs = isset($faqs) && is_array($faqs) ? $faqs : get_query_var('faqs');
+$faqs = is_array($faqs) ? $faqs : array();
 $faq_page_link = Helper::get_options_field( 'faq_page_link' ) ?: '#faq-items';
 
 // --- SCHEMA GENERATION START ---

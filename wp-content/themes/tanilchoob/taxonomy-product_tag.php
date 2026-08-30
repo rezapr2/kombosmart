@@ -207,8 +207,16 @@ if ($term_id) {
             }
             ?>
         </div>
+        
     </div>
 <?php endif; ?>
+<?php
+// FAQs (ACF repeater stored on the term)
+$term_faqs = $term_id ? get_field('faqs', get_queried_object()) : array();
+if (! empty($term_faqs)) {
+    get_template_part('template-parts/components/faqs', null, ['faqs' => $term_faqs]);
+}
+?>
 <?php
 /**
  * Hook: woocommerce_after_main_content.

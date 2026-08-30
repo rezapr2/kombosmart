@@ -167,6 +167,7 @@ if(!$sidebar_ads) {
                         </div>
                     </div>
                     <?php endif; ?>
+                    
                     <!-- Post categories -->
                     <?php
                         $categories = get_the_category();
@@ -278,6 +279,14 @@ if(!$sidebar_ads) {
         </aside>
 
     </div>
+
+    <!-- FAQs -->
+    <?php
+    $post_faqs = get_field('faqs', $page_id);
+    if (! empty($post_faqs)) {
+        get_template_part('template-parts/components/faqs', null, ['faqs' => $post_faqs]);
+    }
+    ?>
 
     <!-- Bottom Related Posts -->
     <section class="bottom-related-posts container-right md:container mt-40">
