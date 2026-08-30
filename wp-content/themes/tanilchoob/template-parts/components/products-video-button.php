@@ -27,9 +27,9 @@ if (empty($products_video_url)) {
     return;
 }
 ?>
-<button type="button" class="show_products_video video-lightbox yekan-14 color-primary pointer transition" data-video-url="<?php echo esc_url($products_video_url); ?>">
+<button type="button" class="w-full md:w-auto flex justify-center show_products_video video-lightbox yekan-14 color-primary pointer transition" data-video-url="<?php echo esc_url($products_video_url); ?>">
     <span class="play-icon flex items-center justify-center">
-        <svg width="7" height="8" viewBox="0 0 7 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <svg viewBox="0 0 7 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M6.5 4L0.5 7.464V0.536L6.5 4Z" fill="currentColor" />
         </svg>
     </span>

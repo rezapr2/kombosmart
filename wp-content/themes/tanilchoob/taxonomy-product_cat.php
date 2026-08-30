@@ -125,8 +125,8 @@ $product_cat_slug = get_query_var('product_cat'); // گرفتن اسلاگ دس�
             // You can add 'rating' => 'بالاترین امتیاز' if needed
         );
         ?>
-        <div class="flex items-center justify-between">
-            <div class="flex items-center gap-15">
+        <div class="flex flex-col md:flex-row gap-20 items-center justify-between">
+            <div class="w-full md:w-auto justify-between flex items-center gap-15">
                 <div class="flex items-center color-black-30">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3 7H21" stroke="black" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round"/>
@@ -157,9 +157,7 @@ $product_cat_slug = get_query_var('product_cat'); // گرفتن اسلاگ دس�
                             <?php endforeach; ?>
                         </select>
                     </div>
-                </div>
-                <div class="flex-grow"></div>
-                
+                </div>                
             </div>
             <?php get_template_part('template-parts/components/products-video-button'); ?>
         </div>

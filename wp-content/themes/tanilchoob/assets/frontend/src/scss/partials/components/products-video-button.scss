@@ -21,13 +21,15 @@
         color: var(--color-primary);
         svg {
             display: block;
+            width: calcRem(10);
+            height: calcRem(12);
             // Nudge the triangle so it reads as centred inside the circle.
             transform: translateX(calcRem(1));
         }
     }
 
     @media (max-width: 767px) {
-        padding: calcRem(7) calcRem(10);
+        padding: calcRem(12) calcRem(10);
         gap: calcRem(6);
     }
 }
