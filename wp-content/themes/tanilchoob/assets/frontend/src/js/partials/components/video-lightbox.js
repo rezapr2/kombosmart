@@ -50,6 +50,18 @@
                 videoEmbed = `<iframe width="100%" height="100%" src="https://player.vimeo.com/video/${vimeoId}?autoplay=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
             }
         }
+        // Handle Aparat videos
+        else if (videoUrl.includes('aparat.com')) {
+            if (videoUrl.includes('/embed/')) {
+                videoEmbed = `<iframe width="100%" height="100%" src="${videoUrl}" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+            } else {
+                // Watch links look like https://www.aparat.com/v/{hash}
+                const aparatMatch = videoUrl.match(/aparat\.com\/v\/([A-Za-z0-9]+)/);
+                if (aparatMatch) {
+                    videoEmbed = `<iframe width="100%" height="100%" src="https://www.aparat.com/video/video/embed/videohash/${aparatMatch[1]}/vt/frame?autoplay=true" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+                }
+            }
+        }
         // Handle direct video files
         else if (videoUrl.match(/\.(mp4|webm|ogg)$/i)) {
             videoEmbed = `<video width="100%" height="100%" controls autoplay><source src="${videoUrl}" type="video/${videoUrl.split('.').pop()}">Your browser does not support the video tag.</video>`;
