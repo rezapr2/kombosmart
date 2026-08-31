@@ -8,10 +8,13 @@
  *   get_template_part('template-parts/components/faqs', null, ['faqs' => $faqs]);
  *
  * Accepted args:
- *   'faqs'    array  Repeater rows, each with 'question' and 'answer'.
- *   'variant' string 'list' (default) renders the plain list used on the FAQs
- *                    page; 'product' renders the wide block with the side CTA.
- *   'title'   string Section heading. Defaults to سوالات متداول.
+ *   'faqs'      array  Repeater rows, each with 'question' and 'answer'.
+ *   'variant'   string 'list' (default) renders the plain list used on the FAQs
+ *                      page; 'product' renders the wide block with the side CTA.
+ *   'title'     string Section heading. Defaults to سوالات متداول.
+ *   'container' bool   List variant only. Whether to add the `container`
+ *                      class (5vw/10vw side padding). Pass false when the
+ *                      section is already nested inside a container.
  *
  * @package TanilChoob
  */
@@ -22,6 +25,7 @@ $faqs = is_array($faqs) ? $faqs : array();
 
 $faq_variant = isset($args['variant']) ? $args['variant'] : 'list';
 $faq_title   = isset($args['title']) ? $args['title'] : 'سوالات متداول';
+$faq_container = isset($args['container']) ? (bool) $args['container'] : true;
 
 if (! $faqs) {
 	return;
@@ -74,7 +78,7 @@ echo '<script type="application/ld+json">' . wp_json_encode($faq_schema, JSON_UN
 	</div>
 </div>
 <?php else : ?>
-<section class="faqs-section container flex flex-col gap-20 mt-20 md:mt-40 mb-40">
+<section class="faqs-section <?php echo $faq_container ? 'container ' : ''; ?>flex flex-col gap-20 mt-20 md:mt-40 mb-40">
 	<h2 class="page_blocks_title text-center yekan-18 md:yekan-28 bold color-primary"><?php echo esc_html($faq_title); ?></h2>
 	<div class="list_faqs flex flex-col gap-20">
 		<?php foreach ($faqs as $faq) : ?>

@@ -122,6 +122,13 @@ if(!$sidebar_ads) {
                         <?php echo $content_with_ids; ?>
                     </div>
 
+                    <!-- FAQs -->
+                    <?php
+                    $post_faqs = get_field('faqs', $page_id);
+                    if (! empty($post_faqs)) {
+                        get_template_part('template-parts/components/faqs', null, ['faqs' => $post_faqs, 'container' => false]);
+                    }
+                    ?>
                     <!-- Related Products -->
                     <?php 
                     $related_products = get_field('related_products');
@@ -280,13 +287,6 @@ if(!$sidebar_ads) {
 
     </div>
 
-    <!-- FAQs -->
-    <?php
-    $post_faqs = get_field('faqs', $page_id);
-    if (! empty($post_faqs)) {
-        get_template_part('template-parts/components/faqs', null, ['faqs' => $post_faqs]);
-    }
-    ?>
 
     <!-- Bottom Related Posts -->
     <section class="bottom-related-posts container-right md:container mt-40">
