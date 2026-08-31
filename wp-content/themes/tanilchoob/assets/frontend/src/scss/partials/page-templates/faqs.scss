@@ -12,46 +12,12 @@
             margin-top: 12rem;
         }
     }
-    
-    .list_faqs{
-        .faq-item{
-            padding: 2.4rem 4rem;
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            &.active{
-                border-color: #5D0E87;
-            }
-            .faq-question {
-                &::after{
-                    content: '+';
-                    font-size: 3rem;
-                    line-height: 0;
-                    font-weight: 100;
-                }
-            }
-            .faq-answer {
-                padding-top: 2rem;
-            }
-            
-            &.active {
-                .faq-question {
-                    &::after{
-                        content: '-';
-                    }
-                }
-            }
-        }
-    }
     @media (max-width: 768px) {
         .hero {
             padding-top: 3rem;
             padding-bottom: 3rem;
             .title {
                 font-size: 2rem;
-            }
-        }
-        .list_faqs{
-            .faq-item{
-                padding: 2rem 1rem;
             }
         }
     }

@@ -508,7 +508,7 @@ $product_status = get_post_meta($product_id, '_product_status', true);
 	<?php
 	$faqs = get_field('faqs');
 	if ($faqs) :
-		get_template_part('template-parts/components/faqs', null, ['faqs' => $faqs]);
+		get_template_part('template-parts/components/faqs', null, ['faqs' => $faqs, 'variant' => 'product']);
 	endif; ?>
 
 	<?php get_template_part('template-parts/product/testimonials'); ?>

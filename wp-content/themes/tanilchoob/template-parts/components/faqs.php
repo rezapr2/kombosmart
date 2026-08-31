@@ -7,41 +7,51 @@
  *
  *   get_template_part('template-parts/components/faqs', null, ['faqs' => $faqs]);
  *
+ * Accepted args:
+ *   'faqs'    array  Repeater rows, each with 'question' and 'answer'.
+ *   'variant' string 'list' (default) renders the plain list used on the FAQs
+ *                    page; 'product' renders the wide block with the side CTA.
+ *   'title'   string Section heading. Defaults to سوالات متداول.
+ *
  * @package TanilChoob
  */
 use TanilChoob\Theme\Helper;
 
 $faqs = isset($args['faqs']) ? $args['faqs'] : (isset($faqs) ? $faqs : get_query_var('faqs'));
 $faqs = is_array($faqs) ? $faqs : array();
-$faq_page_link = Helper::get_options_field( 'faq_page_link' ) ?: '#faq-items';
+
+$faq_variant = isset($args['variant']) ? $args['variant'] : 'list';
+$faq_title   = isset($args['title']) ? $args['title'] : 'سوالات متداول';
+
+if (! $faqs) {
+	return;
+}
 
 // --- SCHEMA GENERATION START ---
-if ($faqs) {
-    $faq_schema = [
-        '@context' => 'https://schema.org',
-        '@type'    => 'FAQPage',
-        'mainEntity' => []
-    ];
-    foreach ($faqs as $faq) {
-        $faq_schema['mainEntity'][] = [
-            '@type' => 'Question',
-            'name'  => wp_strip_all_tags($faq['question']),
-            'acceptedAnswer' => [
-                '@type' => 'Answer',
-                'text'  => wp_strip_all_tags($faq['answer'])
-            ]
-        ];
-    }
-    echo '<script type="application/ld+json">' . wp_json_encode($faq_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
+$faq_schema = [
+	'@context' => 'https://schema.org',
+	'@type'    => 'FAQPage',
+	'mainEntity' => []
+];
+foreach ($faqs as $faq) {
+	$faq_schema['mainEntity'][] = [
+		'@type' => 'Question',
+		'name'  => wp_strip_all_tags($faq['question']),
+		'acceptedAnswer' => [
+			'@type' => 'Answer',
+			'text'  => wp_strip_all_tags($faq['answer'])
+		]
+	];
 }
+echo '<script type="application/ld+json">' . wp_json_encode($faq_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
 // --- SCHEMA GENERATION END ---
 ?>
 
-<?php if ($faqs) : ?>
+<?php if ($faq_variant === 'product') : ?>
 <div class="product-faqs flex flex-col gap-20 mb-40">
 	<div class="container flex flex-col-reverse md:flex-row justify-between">
 		<div class="faq-items-wrapper flex flex-col gap-20">
-			<h2 class="faq-title yekan-28 bold color-primary text-center md:text-right">سوالات متداول</h2>
+			<h2 class="faq-title yekan-28 bold color-primary text-center md:text-right"><?php echo esc_html($faq_title); ?></h2>
 			<div class="faq-items flex flex-col gap-10">
 				<?php foreach ($faqs as $faq) : ?>
 					<div class="faq-item slide-down-wrapper flex flex-col">
@@ -55,6 +65,7 @@ if ($faqs) {
 		</div>
 		<div class="faqs-desc flex flex-col items-center justify-center">
 			<?php
+			$faq_page_link = Helper::get_options_field('faq_page_link') ?: '#faq-items';
 			$faq_icon = Helper::getAssetUri('/images/faq_icon.png');
 			echo '<img src="' . esc_url($faq_icon) . '" alt="FAQ Icon" />';
 			?>
@@ -62,4 +73,20 @@ if ($faqs) {
 		</div>
 	</div>
 </div>
+<?php else : ?>
+<section class="faqs-section container flex flex-col gap-20 mt-20 md:mt-40 mb-40">
+	<h2 class="page_blocks_title text-center yekan-18 md:yekan-28 bold color-primary"><?php echo esc_html($faq_title); ?></h2>
+	<div class="list_faqs flex flex-col gap-20">
+		<?php foreach ($faqs as $faq) : ?>
+			<div class="faq-item slide-down-wrapper flex flex-col gap-04 md:gap-20">
+				<div class="faq-question slide-down-trigger flex justify-between items-center pointer">
+					<h3 class="regular yekan-14 md:yekan-24 color-black-80"><?php echo $faq['question']; ?></h3>
+				</div>
+				<div class="faq-answer slide-down-content yekan-12 md:yekan-20 text-center md:text-right color-black-70" style="display: none;">
+					<p><?php echo $faq['answer']; ?></p>
+				</div>
+			</div>
+		<?php endforeach; ?>
+	</div>
+</section>
 <?php endif; ?>
