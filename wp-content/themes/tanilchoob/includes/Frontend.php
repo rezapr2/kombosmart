@@ -56,6 +56,7 @@ class Frontend
 		add_action( 'wp_head', [$this, 'inject_standalone_video_schema'], 99 );
 		add_action( 'wp_head', [$this, 'inject_blog_post_video_schema'], 99 );
 		add_action( 'wp_head', [$this, 'inject_blog_post_article_schema'], 99 );
+		add_action( 'wp_head', [$this, 'inject_taxonomy_video_schema'], 99 );
 	//	add_filter( 'woocommerce_add_cart_item_data',   [ $this, 'correct_cart_options_to_rials' ], 20, 3 );
 		add_filter( 'wpseo_robots', [$this, 'noindex_paginated_pages'] );
 		add_action( 'template_redirect', [$this, 'noindex_rss_feeds'] );
@@ -942,4 +943,76 @@ EOD;
 		echo "\n<!-- / Blog Article & Organization Schema -->\n";
 	}
 	
+	/**
+	 * Output an independent VideoObject schema for product category and tag archives.
+	 */
+	public function inject_taxonomy_video_schema() {
+		// Only run on product category or product tag archives
+		if ( ! is_tax( 'product_cat' ) && ! is_tax( 'product_tag' ) ) {
+			return;
+		}
+
+		$term = get_queried_object();
+		if ( ! $term || ! isset( $term->term_id ) ) {
+			return;
+		}
+
+		// Pull the specific ACF field used in products-video-button.php
+		$video_url = get_field( 'products_video_url', $term );
+		
+		if ( empty( $video_url ) ) {
+			return;
+		}
+
+		$actual_video_url = is_array( $video_url ) && isset( $video_url['url'] ) ? $video_url['url'] : $video_url;
+
+		if ( is_string( $actual_video_url ) && trim( $actual_video_url ) !== '' ) {
+			
+			$thumbnail = '';
+			
+			// 1. Try to get the WooCommerce category/tag thumbnail
+			$thumb_id  = get_term_meta( $term->term_id, 'thumbnail_id', true );
+			if ( $thumb_id ) {
+				$thumb_data = wp_get_attachment_image_src( $thumb_id, 'full' );
+				if ( $thumb_data ) {
+					$thumbnail = $thumb_data[0];
+				}
+			}
+			
+			// 2. Fallback to site logo if the category doesn't have a thumbnail
+			if ( ! $thumbnail ) {
+				$custom_logo_id = get_theme_mod( 'custom_logo' );
+				if ( $custom_logo_id ) {
+					$logo_data = wp_get_attachment_image_src( $custom_logo_id, 'full' );
+					if ( $logo_data ) {
+						$thumbnail = $logo_data[0];
+					}
+				}
+			}
+
+			// 3. Final fallback to WordPress Site Icon
+			if ( ! $thumbnail ) {
+				$thumbnail = get_site_icon_url();
+			}
+
+			if ( $thumbnail ) {
+				$term_name = single_term_title( '', false );
+				
+				$schema = array(
+					'@context'     => 'https://schema.org',
+					'@type'        => 'VideoObject',
+					'name'         => $term_name . ' - ویدیو معرفی', 
+					'description'  => 'ویدیو بررسی و معرفی ' . $term_name, 
+					'thumbnailUrl' => $thumbnail,
+					'uploadDate'   => gmdate( 'c' ), // Taxonomies lack publish dates, so we use the current timestamp
+					'contentUrl'   => $actual_video_url 
+				);
+
+				// Print the JSON-LD directly into the HTML head
+				echo "\n<!-- Taxonomy Video Schema -->\n";
+				echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>';
+				echo "\n<!-- / Taxonomy Video Schema -->\n";
+			}
+		}
+	}
 }
