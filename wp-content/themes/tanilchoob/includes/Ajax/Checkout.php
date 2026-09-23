@@ -219,7 +219,7 @@ class Checkout {
 			}
 		}
 
-		$gateways       = WC()->payment_gateways()->payment_gateways();
+		$gateways       = WC()->payment_gateways()->get_available_payment_gateways();
 		$gateway_obj    = $gateways[ $payment_method ] ?? null;
 
 		if ( ! $gateway_obj ) {
@@ -293,10 +293,19 @@ class Checkout {
 		// call process_payment() to get the redirect URL.
 		if ( $gateway_obj->id !== 'cod' && $gateway_obj->id !== 'bacs' && $gateway_obj->id !== 'cheque' ) {
 			$result = $gateway_obj->process_payment( $order->get_id() );
+
 			if ( isset( $result['result'] ) && $result['result'] === 'success' && ! empty( $result['redirect'] ) ) {
-				WC()->cart->empty_cart();
+				// Don't empty the cart yet — the order isn't paid until the gateway
+				// confirms it (e.g. via its own payment_complete()/verify callback).
+				// If we clear it now and the payment later fails, the customer is
+				// bounced back to checkout with nothing left to retry.
 				wp_send_json_success( [ 'redirect_url' => $result['redirect'] ] );
 			}
+
+			// Gateway failed to start the payment. Leave the order pending and the
+			// cart untouched so the customer can see the error and try again,
+			// instead of silently showing the "order placed" success screen.
+			wp_send_json_error( [ 'message' => 'در اتصال به درگاه پرداخت خطایی رخ داد. لطفاً دوباره تلاش کنید.' ] );
 		}
 
 		WC()->cart->empty_cart();

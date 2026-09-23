@@ -43,6 +43,26 @@ $steps = [
 <div class="tc-checkout" dir="rtl">
 
 	<?php
+	// Surface any queued WooCommerce notices (e.g. a failed payment-gateway
+	// attempt redirecting back here) using the theme's own message styling,
+	// since this custom template doesn't call wc_print_notices().
+	$tc_checkout_notices = array_merge(
+		wc_get_notices( 'error' ),
+		wc_get_notices( 'notice' )
+	);
+	if ( $tc_checkout_notices ) :
+		?>
+		<div class="tc-checkout-notices">
+			<?php foreach ( $tc_checkout_notices as $tc_notice ) : ?>
+				<p class="tc-form-msg is-error"><?php echo wp_kses_post( $tc_notice['notice'] ); ?></p>
+			<?php endforeach; ?>
+		</div>
+		<?php
+		wc_clear_notices();
+	endif;
+	?>
+
+	<?php
 	$step_icons = [
 		1 => 'icon_cart.png',
 		2 => 'icon_location.png',
