@@ -1163,6 +1163,42 @@
         &.is-hidden {
             display: none;
         }
+        &.tc-checkout__footer--receipt{
+                direction: ltr;
+                br{
+                    display: none;
+                }
+                .snapppay-checkout-form{
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .button.alt{
+                    padding: 1.4rem 3.2rem;
+                    font-size: 1.6rem;
+                    background: var(--color-primary);
+                    color: #fff;
+                    border-color: var(--color-primary);
+                        display: inline-flex;
+                        -webkit-box-align: center;
+                        -ms-flex-align: center;
+                        align-items: center;
+                        gap: 0.6rem;
+                        padding: 1.1rem 2rem;
+                        font-size: 1.4rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                        -webkit-transition: all 0.2s;
+                        transition: all 0.2s;
+                        border: 2px solid transparent;
+                        text-decoration: none;
+                        line-height: 1;
+                        &:hover{
+                            opacity: 0.88;
+                        }
+                }
+        }
         @media (max-width: 768px) {
             margin-top: 1.5rem;
 

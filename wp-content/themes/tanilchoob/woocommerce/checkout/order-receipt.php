@@ -58,7 +58,7 @@ if ( $tc_notices ) {
 		</table>
 	</div>
 
-	<div class="tc-checkout__footer">
+	<div class="tc-checkout__footer tc-checkout__footer--receipt">
 		<?php
 		/**
 		 * The payment gateway (e.g. WC_Gateway_SnappPay::process_payment_request())

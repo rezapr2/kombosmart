@@ -29,7 +29,6 @@ $template_uri = get_template_directory_uri();
 <?php else : ?>
 
 	<?php ob_start(); ?>
-	<?php do_action( 'woocommerce_before_thankyou', $order->get_id() ); ?>
 	<?php $tc_before_thankyou_html = ob_get_clean(); ?>
 	<?php if ( trim( wp_strip_all_tags( $tc_before_thankyou_html ) ) !== '' ) : ?>
 		<div class="tc-checkout-notices"><?php echo $tc_before_thankyou_html; // phpcs:ignore WordPress.Security.EscapeOutput -- gateway-provided notice markup ?></div>
@@ -142,10 +141,7 @@ $template_uri = get_template_directory_uri();
 
 	<?php endif; ?>
 
-	<?php
-	do_action( 'woocommerce_thankyou_' . $order->get_payment_method(), $order->get_id() );
-	do_action( 'woocommerce_thankyou', $order->get_id() );
-	?>
+	
 
 <?php endif; ?>
 
