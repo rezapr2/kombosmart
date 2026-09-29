@@ -169,9 +169,9 @@
                     "placeholder": ""
                 },
                 {
-                    "key": "field_68e6f1fc3d097",
-                    "label": "لینک یوتیوب",
-                    "name": "youtube_link",
+                    "key": "field_sw_telegram_link",
+                    "label": "لینک تلگرام",
+                    "name": "telegram_link",
                     "aria-label": "",
                     "type": "url",
                     "instructions": "",
@@ -490,6 +490,98 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_sw_footer_badges",
+            "label": "نمادها و مجوزها (فوتر)",
+            "name": "footer_badges",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "لوگوی نمادهایی مثل اینماد، ساماندهی و... اینجا اضافه می‌شود. هر سطر یک لوگو است و به ترتیب زیر لینک‌های فوتر نمایش داده می‌شود.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "افزودن نماد",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_sw_footer_badge_image",
+                    "label": "لوگو",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "allow_in_bindings": 0,
+                    "preview_size": "thumbnail",
+                    "parent_repeater": "field_sw_footer_badges"
+                },
+                {
+                    "key": "field_sw_footer_badge_link",
+                    "label": "لینک",
+                    "name": "link",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "لینک صفحه تأیید نماد (برای اینماد همان آدرس trustseal.enamad.ir همراه با id و Code)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "https://",
+                    "parent_repeater": "field_sw_footer_badges"
+                },
+                {
+                    "key": "field_sw_footer_badge_title",
+                    "label": "عنوان",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "متن جایگزین تصویر، مثل «نماد اعتماد الکترونیکی»",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_sw_footer_badges"
+                }
+            ]
         },
         {
             "key": "field_sw_ga_measurement_id",
@@ -1286,5 +1378,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1790350187
+    "modified": 1790716653
 }

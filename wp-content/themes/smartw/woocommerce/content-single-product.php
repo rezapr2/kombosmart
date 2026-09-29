@@ -126,6 +126,23 @@ if (isset(WC()->structured_data)) {
 			<?php endif; ?>
 
 			<?php
+			$condition_notes = get_field('product_condition', $product_id) === 'used' ? trim((string) get_field('product_condition_notes', $product_id)) : '';
+			if ($condition_notes):
+			?>
+				<div class="accordion-box slide-down-wrapper flex flex-col gap-10">
+					<div class="box-title flex items-center justify-between">
+						<span class="yekan-14 md:yekan-18 color-black-60">وضعیت کالا:</span>
+						<div class="slide-down-trigger transition" role="button" aria-expanded="false" aria-label="نمایش وضعیت کالا">
+							<svg aria-hidden="true" width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M0.75 6L6.01498 0.749929L11.28 6" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+							</svg>
+						</div>
+					</div>
+					<div class="content slide-down-content yekan-14 md:yekan-18 color-primary"><?php echo nl2br(esc_html($condition_notes)); ?></div>
+				</div>
+			<?php endif; ?>
+
+			<?php
 			$product_components_text = get_field('product_components_text', $product_id);
 			if ($product_components_text):
 			?>
@@ -508,8 +525,6 @@ if (isset(WC()->structured_data)) {
 	if ($faqs) :
 		get_template_part('template-parts/components/faqs', null, ['faqs' => $faqs, 'variant' => 'product']);
 	endif; ?>
-
-	<?php get_template_part('template-parts/product/testimonials'); ?>
 
 	<?php get_template_part('template-parts/product/help-cta'); ?>
 

@@ -193,6 +193,34 @@
         }
     }
 
+    // Trust badges (eNamad, etc.): logos sit on white tiles so they stay legible on the dark footer.
+    .footer__badges {
+        flex-wrap: wrap;
+        gap: calcRem(16);
+        margin: 0;
+        padding: calcRem(28) 0;
+        list-style: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer__badge {
+        justify-content: center;
+        padding: calcRem(10);
+        border-radius: var(--radius-sm);
+        background: #fff;
+        transition: transform 0.2s ease;
+        img {
+            display: block;
+            width: auto;
+            height: calcRem(72);
+            max-width: calcRem(140);
+            object-fit: contain;
+        }
+        &:is(a):hover {
+            transform: translateY(-2px);
+        }
+    }
+
     .footer__bottom {
         gap: calcRem(20);
         padding-top: calcRem(24);
@@ -252,6 +280,9 @@
         .footer__about,
         .footer__links a {
             font-size: calcRem(13);
+        }
+        .footer__badges {
+            justify-content: center;
         }
         .footer__bottom {
             flex-direction: column-reverse;

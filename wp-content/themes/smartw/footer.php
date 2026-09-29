@@ -25,11 +25,12 @@ $address         = get_field('footer_address', 'options');
 $location_link   = get_field('location_link', 'options');
 $copyright       = get_field('footer_copyright_text', 'options');
 $ga_id           = get_field('ga_measurement_id', 'options');
+$badges          = array_filter((array) get_field('footer_badges', 'options'), fn($badge) => !empty($badge['image']['ID']));
 
 $social_labels = [
     'instagram_link' => 'اینستاگرام',
     'whatsapp_link'  => 'واتس‌اپ',
-    'youtube_link'   => 'یوتیوب',
+    'telegram_link'  => 'تلگرام',
     'facebook_link'  => 'فیس‌بوک',
 ];
 
@@ -120,6 +121,30 @@ if (!$columns) {
                 </div>
             <?php endif; ?>
         </div>
+
+        <?php if ($badges) : ?>
+            <ul class="footer__badges flex items-center">
+                <?php foreach ($badges as $badge) : ?>
+                    <?php
+                    $badge_title = $badge['title'] ?? '';
+                    $badge_img   = wp_get_attachment_image($badge['image']['ID'], 'medium', false, [
+                        'class' => 'footer__badge-img',
+                        'alt'   => $badge_title,
+                    ]);
+                    ?>
+                    <li>
+                        <?php if (!empty($badge['link'])) : ?>
+                            <?php // No "noreferrer": eNamad and similar registries check the referring origin. ?>
+                            <a class="footer__badge flex items-center" href="<?php echo esc_url($badge['link']); ?>" target="_blank" rel="noopener" referrerpolicy="origin"<?php echo $badge_title ? ' title="' . esc_attr($badge_title) . '"' : ''; ?>>
+                                <?php echo $badge_img; ?>
+                            </a>
+                        <?php else : ?>
+                            <span class="footer__badge flex items-center"><?php echo $badge_img; ?></span>
+                        <?php endif; ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
 
         <div class="footer__bottom flex items-center justify-between">
             <div class="footer__copyright">

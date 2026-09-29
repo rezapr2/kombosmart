@@ -72,6 +72,35 @@
             "append": ""
         },
         {
+            "key": "field_sw_product_condition_notes",
+            "label": "توضیحات وضعیت کالا",
+            "name": "product_condition_notes",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "فقط برای کالای استوک. وضعیت دقیق قطعات را هر مورد در یک خط بنویسید (صفحه نمایش، کیبورد، سلامت SSD، وضعیت باتری، بدنه و ...). در صفحه محصول زیر هشدار استوک نمایش داده می‌شود.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_sw_product_condition",
+                        "operator": "==",
+                        "value": "used"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 6,
+            "placeholder": "صفحه نمایش: بدون خط و خش، بدون پیکسل سوخته\nکیبورد: سالم، بدون ساییدگی\nسلامت SSD: ۹۶٪\nوضعیت باتری: ۸۵٪ ظرفیت اولیه\nبدنه: خط و خش جزئی روی درب",
+            "new_lines": ""
+        },
+        {
             "key": "field_6903ec193674a",
             "label": "اطلاعات محصول",
             "name": "",
@@ -581,307 +610,6 @@
             ]
         },
         {
-            "key": "field_691a4a32dbe0c",
-            "label": "تجربه خرید مشتریان",
-            "name": "",
-            "aria-label": "",
-            "type": "accordion",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "open": 0,
-            "multi_expand": 1,
-            "endpoint": 0
-        },
-        {
-            "key": "field_691a4a49dbe0d",
-            "label": "تجربه خرید مشتریان",
-            "name": "testimonials_customers",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "block",
-            "pagination": 0,
-            "min": 0,
-            "max": 0,
-            "collapsed": "",
-            "button_label": "سطر جدید",
-            "rows_per_page": 20,
-            "sub_fields": [
-                {
-                    "key": "field_691a4a8ddbe0e",
-                    "label": "نام مشتری",
-                    "name": "customer_name",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_691a4a49dbe0d"
-                },
-                {
-                    "key": "field_691a4ab7dbe0f",
-                    "label": "تاریخ",
-                    "name": "date",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_691a4a49dbe0d"
-                },
-                {
-                    "key": "field_691a4ad0dbe10",
-                    "label": "تصویر",
-                    "name": "image",
-                    "aria-label": "",
-                    "type": "image",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "library": "all",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": "",
-                    "allow_in_bindings": 0,
-                    "preview_size": "medium",
-                    "parent_repeater": "field_691a4a49dbe0d"
-                },
-                {
-                    "key": "field_691a4aeedbe11",
-                    "label": "متن",
-                    "name": "description",
-                    "aria-label": "",
-                    "type": "textarea",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "rows": 6,
-                    "placeholder": "",
-                    "new_lines": "",
-                    "parent_repeater": "field_691a4a49dbe0d"
-                }
-            ]
-        },
-        {
-            "key": "field_691b8e7cb1974",
-            "label": "تصاویر خرید مشتریان",
-            "name": "customer_images",
-            "aria-label": "",
-            "type": "gallery",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "return_format": "array",
-            "library": "all",
-            "min": "",
-            "max": "",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": "",
-            "insert": "append",
-            "preview_size": "medium"
-        },
-        {
-            "key": "field_69368b3b0692a",
-            "label": "گالری ویدئو های خرید مشتریان",
-            "name": "customer_videos_gallery",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "table",
-            "pagination": 0,
-            "min": 0,
-            "max": 0,
-            "collapsed": "",
-            "button_label": "سطر جدید",
-            "rows_per_page": 20,
-            "sub_fields": [
-                {
-                    "key": "field_69368c173dd01",
-                    "label": "لینک ویدئو",
-                    "name": "video_url",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_69368b3b0692a"
-                },
-                {
-                    "key": "field_69368b620692b",
-                    "label": "تصویر کاور ویدئو",
-                    "name": "video_cover_image",
-                    "aria-label": "",
-                    "type": "image",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "library": "all",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": "",
-                    "allow_in_bindings": 0,
-                    "preview_size": "thumbnail",
-                    "parent_repeater": "field_69368b3b0692a"
-                }
-            ]
-        },
-        {
-            "key": "field_691b8ed4b1975",
-            "label": "ویدئو اصلی تجربه مشتریان",
-            "name": "customer_video",
-            "aria-label": "",
-            "type": "group",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "block",
-            "sub_fields": [
-                {
-                    "key": "field_691b8fe2b1976",
-                    "label": "لینک ویدئو",
-                    "name": "url",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": ""
-                },
-                {
-                    "key": "field_691b8ffbb1977",
-                    "label": "کاور ویدئو",
-                    "name": "cover",
-                    "aria-label": "",
-                    "type": "image",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "library": "all",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": "",
-                    "allow_in_bindings": 0,
-                    "preview_size": "medium"
-                }
-            ]
-        },
-        {
             "key": "field_691908870cc9e",
             "label": "محصولات مکمل",
             "name": "",
@@ -1001,5 +729,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1790373483
+    "modified": 1790716128
 }
