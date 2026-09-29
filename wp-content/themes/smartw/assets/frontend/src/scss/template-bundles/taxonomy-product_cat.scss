@@ -1,0 +1,6 @@
+// Standalone bundle: product category archive. Loaded only on is_product_category().
+// Mixins/variables are imported so functions like calcRem() resolve outside style.scss.
+@import "../partials/mixins";
+@import "../partials/variables/**/*";
+
+@import "../partials/templates/taxonomy/product_cat/**/*";

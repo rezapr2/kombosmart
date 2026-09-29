@@ -1,0 +1,84 @@
+// 404 page (404.php).
+.page-404 {
+    margin-top: calcRem(32);
+
+    &__card {
+        position: relative;
+        gap: calcRem(18);
+        padding: calcRem(72) calcRem(32);
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        isolation: isolate;
+        background: var(--tone-gradient);
+        color: #fff;
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background:
+                radial-gradient(26rem 26rem at 15% 20%, rgba(255, 61, 129, 0.55), transparent 70%),
+                radial-gradient(24rem 24rem at 85% 90%, rgba(0, 180, 240, 0.45), transparent 70%);
+        }
+    }
+
+    &__code {
+        font-size: calcRem(140);
+        font-weight: 700;
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.95);
+        text-shadow: 0 1.2rem 4rem rgba(var(--color-ink-rgb), 0.3);
+    }
+
+    &__title {
+        margin: 0;
+        font-size: calcRem(32);
+        font-weight: 700;
+    }
+
+    &__text {
+        max-width: calcRem(520);
+        margin: 0;
+        font-size: calcRem(16);
+        line-height: 1.9;
+        color: rgba(255, 255, 255, 0.82);
+    }
+
+    &__search {
+        gap: calcRem(6);
+        width: 100%;
+        max-width: calcRem(480);
+        margin-top: calcRem(8);
+        padding: calcRem(5);
+        border-radius: var(--radius-pill);
+        background: #fff;
+
+        input[type='text'] {
+            flex: 1;
+            min-width: 0;
+            height: calcRem(46);
+            padding: 0 calcRem(18);
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: calcRem(15);
+        }
+    }
+
+    @media (max-width: 767px) {
+        &__card {
+            padding: calcRem(48) calcRem(20);
+            border-radius: var(--radius-lg);
+        }
+        &__code {
+            font-size: calcRem(90);
+        }
+        &__title {
+            font-size: calcRem(20);
+        }
+        &__text {
+            font-size: calcRem(13);
+        }
+    }
+}

@@ -1,0 +1,37 @@
+.consult-cta {
+    padding: 1.4rem 1.4rem 1.4rem 1.4rem;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    transition: box-shadow 0.25s ease;
+    .divider {
+        width: 0.6rem;
+        height: 4rem;
+        border-radius: var(--radius-pill);
+        background: var(--gradient-brand) !important;
+    }
+    .more-btn {
+        padding: 1rem 3.4rem;
+        border-radius: var(--radius-pill);
+    }
+    &:hover {
+        box-shadow: var(--shadow);
+    }
+    &:hover {
+        .divider {
+            background-color: var(--color-primary);
+        }
+        .more-btn {
+            color: #fff;
+            background-color: var(--color-primary);
+            svg path{
+                stroke: #fff;
+            }
+        }
+    }
+    @media screen and (max-width: 768px) {
+        padding: .45rem .95rem .45rem .55rem;
+        .more-btn {
+            padding: 1.2rem 1.5rem;
+        }
+    }
+}

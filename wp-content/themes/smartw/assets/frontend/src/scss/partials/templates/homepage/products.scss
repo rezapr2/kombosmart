@@ -1,0 +1,58 @@
+// Homepage product grid sections.
+.home-products {
+    &__grid {
+        gap: calcRem(24);
+    }
+
+    &__more {
+        margin-top: calcRem(40);
+    }
+
+    .sw-section-head__title strong {
+        background: var(--gradient-brand);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    // Second grid sits on a full-width tinted band with a sunset-colored accent.
+    &--featured {
+        padding-top: calcRem(80);
+        padding-bottom: calcRem(90);
+        background:
+            radial-gradient(60rem 30rem at 85% 0%, rgba(255, 61, 129, 0.12), transparent 70%),
+            radial-gradient(60rem 30rem at 10% 100%, rgba(0, 180, 240, 0.12), transparent 70%),
+            var(--color-surface);
+
+        .sw-section-head__eyebrow {
+            background: #FFEAF2;
+            color: var(--color-pink);
+            &::before {
+                background: var(--gradient-sunset);
+            }
+        }
+        .sw-section-head__title strong {
+            background: var(--gradient-sunset);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+    }
+
+    @media (max-width: 767px) {
+        &__grid {
+            gap: calcRem(10);
+        }
+        &__more {
+            margin-top: calcRem(24);
+        }
+        &--featured {
+            padding-top: calcRem(40);
+            padding-bottom: calcRem(48);
+        }
+    }
+}
+
+// The bento/CTA sections follow the tinted band directly; keep their own spacing.
+.home-products--featured + .home-cta {
+    margin-top: calcRem(90);
+}

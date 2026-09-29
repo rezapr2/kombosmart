@@ -1,0 +1,204 @@
+// "Recommended categories" bento grid: tall tile, two stacked tiles, wide tile.
+.home-bento {
+    .sw-section-head__title strong {
+        background: var(--gradient-ocean);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        grid-template-rows: calcRem(300) calcRem(300) calcRem(340);
+        gap: calcRem(24);
+
+        &.count-3 {
+            grid-template-rows: calcRem(300) calcRem(300);
+        }
+        &.count-2 {
+            grid-template-rows: calcRem(480);
+        }
+        &.count-1 {
+            grid-template-columns: 1fr;
+            grid-template-rows: calcRem(420);
+        }
+    }
+
+    @media (max-width: 767px) {
+        &__grid {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: calcRem(300) calcRem(210) calcRem(220);
+            gap: calcRem(10);
+
+            &.count-3 {
+                grid-template-rows: calcRem(300) calcRem(210);
+            }
+            &.count-2,
+            &.count-1 {
+                grid-template-rows: calcRem(300);
+            }
+        }
+    }
+}
+
+.bento-tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: calcRem(32);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--tone-gradient);
+    color: var(--tone-on, #fff);
+
+    &__pattern {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.22) 1.5px, transparent 1.6px);
+        background-size: calcRem(22) calcRem(22);
+        mask-image: linear-gradient(to bottom left, #000 0%, transparent 70%);
+        -webkit-mask-image: linear-gradient(to bottom left, #000 0%, transparent 70%);
+    }
+
+    &__img {
+        position: absolute;
+        z-index: -1;
+        transition: transform 0.5s ease;
+    }
+
+    &.is-contain &__img {
+        object-fit: contain;
+        filter: drop-shadow(0 2rem 2.4rem rgba(var(--color-ink-rgb), 0.3));
+    }
+
+    &.is-cover {
+        .bento-tile__img {
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(to top, rgba(var(--color-ink-rgb), 0.7) 0%, rgba(var(--color-ink-rgb), 0) 60%);
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: calcRem(16);
+    }
+
+    &__title {
+        font-size: calcRem(28);
+        font-weight: 700;
+        line-height: 1.4;
+        strong {
+            color: var(--tone-accent, var(--color-yellow));
+        }
+    }
+
+    &:hover &__img {
+        transform: scale(1.05) rotate(-2deg);
+    }
+
+    // Tall tile (first): headline at the bottom, product centered above it.
+    &--big {
+        grid-row: 1 / span 2;
+        justify-content: flex-end;
+        .bento-tile__title {
+            font-size: calcRem(36);
+        }
+        &.is-contain .bento-tile__img {
+            left: 10%;
+            top: 6%;
+            width: 80%;
+            height: 64%;
+        }
+    }
+
+    // Stacked tiles: headline at the top, product on the far side.
+    &--small {
+        justify-content: flex-start;
+        &.is-contain .bento-tile__img {
+            left: 3%;
+            bottom: 4%;
+            width: 54%;
+            height: 84%;
+        }
+    }
+
+    // Wide tile: spans the full row, headline at the bottom.
+    &--wide {
+        grid-column: 1 / -1;
+        justify-content: flex-end;
+        .bento-tile__title {
+            font-size: calcRem(34);
+        }
+        &.is-contain .bento-tile__img {
+            left: 6%;
+            top: 8%;
+            width: 46%;
+            height: 84%;
+        }
+    }
+
+    .count-2 &--small {
+        grid-row: 1 / span 2;
+    }
+
+    @media (max-width: 767px) {
+        padding: calcRem(18);
+        border-radius: var(--radius);
+
+        &__title,
+        &--big .bento-tile__title,
+        &--wide .bento-tile__title {
+            font-size: calcRem(18);
+        }
+
+        &--big {
+            grid-row: auto;
+            grid-column: 1 / -1;
+            &.is-contain .bento-tile__img {
+                left: 15%;
+                width: 70%;
+                height: 62%;
+            }
+        }
+
+        &--small {
+            justify-content: flex-end;
+            &.is-contain .bento-tile__img {
+                left: 15%;
+                top: 6%;
+                bottom: auto;
+                width: 70%;
+                height: 38%;
+            }
+            .bento-tile__title {
+                font-size: calcRem(16);
+            }
+        }
+
+        &--wide.is-contain .bento-tile__img {
+            left: 4%;
+            top: 10%;
+            width: 50%;
+            height: 80%;
+        }
+
+        .count-2 &--small {
+            grid-row: auto;
+            grid-column: 1 / -1;
+        }
+    }
+}

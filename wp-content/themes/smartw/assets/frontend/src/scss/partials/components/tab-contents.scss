@@ -1,0 +1,203 @@
+.tab-contents {
+    .tab-item {
+        padding: 1rem 2rem;
+        border-radius: var(--radius-pill);
+        border-bottom: none;
+        transition: all 0.25s ease;
+        &:hover {
+            color: var(--color-primary);
+        }
+        &.active {
+            color: #fff;
+            background: var(--color-ink);
+            font-weight: 700;
+        }
+        @media (max-width: 768px) {
+            padding: 1rem 1rem;
+        }
+    }
+    .tabs {
+        gap: 0.6rem;
+        margin-bottom: 1.6rem;
+    }
+    .tab-content-item {
+        display: none;
+        border-radius: var(--radius-lg);
+        &.active {
+            display: block;
+        }
+        &.bg-black-03 {
+            background-color: var(--color-surface);
+        }
+    }
+    .product-tags,
+    .product-cats {
+        a {
+            padding: 0.4rem 1.2rem;
+            border-radius: var(--radius-pill);
+            background: var(--color-primary-light);
+            color: var(--color-primary);
+        }
+    }
+    
+    .accordion-wrapper {
+        border: 1px solid var(--color-line);
+        border-radius: var(--radius);
+        overflow: hidden;
+        @media (min-width: 768px) {
+            border: none;
+            overflow: visible;
+            display: contents;
+        }
+    }
+
+    .accordion-tab-trigger {
+        padding: 1.5rem;
+        &.active {
+            svg {
+                transform: rotate(180deg);
+            }
+        }
+
+        svg {
+            transition: transform 0.3s ease;
+        }
+    }
+
+    #tab-technical-review-content {
+        .technical-review-item {
+            &.active {
+                svg {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+        .spec-item {
+            .spec-name,
+            .spec-value {
+                padding: 1.5rem;
+                border: 1px solid rgba(0, 0, 0, 0.08);
+            }
+            .spec-name {
+                width: 12%;
+            }
+            .spec-value {
+                width: 88%;
+            }
+        }
+        @media screen and (max-width: 768px) {
+            .spec-item {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                padding-bottom: 1rem;
+                .spec-name,
+                .spec-value {
+                    padding: 0;
+                    border: none;
+                }
+                .spec-name {
+                    width: 100%;
+                    font-size: 1.3rem;
+                    font-weight: 600;
+                }
+                .spec-value {
+                    width: 100%;
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+    #tab-production-content {
+        .production-process-video {
+            height: 50rem;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .video {
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                }
+            }
+            @media screen and (max-width: 768px) {
+                height: 20rem;
+            }
+        }
+    }
+    /* Toggle visibility of controls */
+    .desc-readmore .desc-toggle {
+        display: inline-flex;
+        gap: 6px;
+        margin: 0 auto;
+        &:hover {
+            transform: scale(1.07);
+        }
+    }
+    .desc-readmore.active .desc-toggle-more {
+        display: none;
+    }
+    .desc-readmore:not(.active) .desc-toggle-less {
+        display: none;
+    }
+
+    /* Clamp height and apply a larger fade when collapsed */
+    .desc-readmore .desc-full {
+        position: relative;
+        overflow: hidden;
+        max-height: 280px; /* height-based preview */
+        transition: max-height 0.35s ease;
+    }
+    .desc-readmore:not(.active) .desc-full {
+        /* Larger fade area: fade bottom ~60% */
+        -webkit-mask-image: linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 1) 40%,
+            rgba(0, 0, 0, 0) 100%
+        );
+        mask-image: linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 1) 40%,
+            rgba(0, 0, 0, 0) 100%
+        );
+    }
+    .desc-readmore.active .desc-full {
+        max-height: none;
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+    .product-tags,
+    .product-cats {
+        a {
+            color: rgba($color: #000000, $alpha: 0.6);
+            background-color: rgba($color: #000000, $alpha: 0.1);
+            padding: 0.5rem 1rem;
+            transition: all 0.5s ease;
+            &:hover {
+                color: #fff;
+                background-color: #000;
+            }
+        }
+    }
+}
+
+// Spec grids ("مشخصات کلی" / "بررسی تخصصی"): rounded cells on the surface color.
+.tab-contents {
+    #tab-specs-content .spec-item {
+        border-radius: var(--radius);
+        background: var(--color-surface);
+    }
+    #tab-technical-review-content .spec-item {
+        .spec-name,
+        .spec-value {
+            border-color: var(--color-line);
+            border-radius: var(--radius-sm);
+            background: #fff;
+        }
+    }
+}

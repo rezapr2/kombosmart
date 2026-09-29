@@ -1,0 +1,84 @@
+.p-0{
+    padding: 0;
+}
+.pt-10{
+    padding-top: calcRem(10);
+}
+.pt-20{
+    padding-top: calcRem(20);
+}
+.pb-20{
+    padding-bottom: calcRem(20);
+}
+
+.px-15{
+    padding-left: calcRem(15);
+    padding-right: calcRem(15);
+}
+.px-20{
+    padding-left: calcRem(20);
+    padding-right: calcRem(20);
+}
+.px-25{
+    padding-left: calcRem(25);
+    padding-right: calcRem(25);
+}
+.px-40{
+    padding-left: calcRem(40);
+    padding-right: calcRem(40);
+}
+.py-10{
+    padding-top: calcRem(10);
+    padding-bottom: calcRem(10);
+}
+.py-15{
+    padding-top: calcRem(15);
+    padding-bottom: calcRem(15);
+}
+.py-20{
+    padding-top: calcRem(20);
+    padding-bottom: calcRem(20);
+}
+.py-25{
+    padding-top: calcRem(25);
+    padding-bottom: calcRem(25);
+}
+.py-40{
+    padding-top: calcRem(40);
+    padding-bottom: calcRem(40);
+}
+@media (min-width: 768px) {
+    .md\:px-0{
+        padding-left: calcRem(0);
+        padding-right: calcRem(0);
+    }
+    .md\:px-25{
+        padding-left: calcRem(25);
+        padding-right: calcRem(25);
+    }
+    .md\:px-30{
+        padding-left: calcRem(30);
+        padding-right: calcRem(30);
+    }
+    .md\:px-40{
+        padding-left: calcRem(40);
+        padding-right: calcRem(40);
+    }
+    .md\:px-80{
+        padding-left: calcRem(80);
+        padding-right: calcRem(80);           
+    }
+    
+    .md\:py-20{
+        padding-top: calcRem(20);
+        padding-bottom: calcRem(20);
+    }
+    .md\:py-25{
+        padding-top: calcRem(25);
+        padding-bottom: calcRem(25);
+    }
+    .md\:py-40{
+        padding-top: calcRem(40);
+        padding-bottom: calcRem(40);
+    }
+}

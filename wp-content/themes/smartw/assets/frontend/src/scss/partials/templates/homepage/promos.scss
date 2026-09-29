@@ -1,0 +1,139 @@
+// Row of three promo cards under the hero.
+.home-promos {
+    margin-top: calcRem(24);
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: calcRem(24);
+    }
+
+    @media (max-width: 767px) {
+        margin-top: calcRem(16);
+        padding-left: 0;
+
+        &__grid {
+            grid-template-columns: none;
+            grid-auto-flow: column;
+            grid-auto-columns: 72%;
+            gap: calcRem(12);
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding-left: 5vw;
+            scrollbar-width: none;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+}
+
+.promo-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    aspect-ratio: 1 / 1.08;
+    padding: calcRem(28);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--tone-gradient);
+    color: var(--tone-on, #fff);
+    scroll-snap-align: start;
+
+    &__glow {
+        position: absolute;
+        z-index: -1;
+        width: 80%;
+        aspect-ratio: 1;
+        left: 10%;
+        top: 4%;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 68%);
+    }
+
+    &__img {
+        position: absolute;
+        z-index: -1;
+        transition: transform 0.5s ease;
+    }
+
+    &.is-contain &__img {
+        left: 12%;
+        top: 6%;
+        width: 76%;
+        height: 58%;
+        object-fit: contain;
+        filter: drop-shadow(0 2rem 2.4rem rgba(var(--color-ink-rgb), 0.3));
+    }
+
+    &.is-cover {
+        .promo-card__img {
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .promo-card__glow {
+            display: none;
+        }
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(to top, rgba(var(--color-ink-rgb), 0.75) 0%, rgba(var(--color-ink-rgb), 0) 55%);
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: calcRem(16);
+    }
+
+    &__title {
+        font-size: calcRem(24);
+        font-weight: 700;
+        line-height: 1.5;
+        strong {
+            color: var(--tone-accent, var(--color-yellow));
+        }
+    }
+
+    &:hover &__img {
+        transform: scale(1.06) rotate(-2deg);
+    }
+
+    // Third card: headline centered at the top, product below (mirrors the reference layout).
+    &:nth-child(3) {
+        justify-content: flex-start;
+        text-align: center;
+        .promo-card__content {
+            align-items: center;
+        }
+        .promo-card__title {
+            font-size: calcRem(30);
+        }
+        &.is-contain .promo-card__img {
+            top: auto;
+            bottom: 4%;
+            height: 54%;
+        }
+        .promo-card__glow {
+            top: auto;
+            bottom: -10%;
+        }
+    }
+
+    @media (max-width: 767px) {
+        padding: calcRem(20);
+        border-radius: var(--radius);
+        &__title,
+        &:nth-child(3) .promo-card__title {
+            font-size: calcRem(18);
+        }
+    }
+}

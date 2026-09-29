@@ -1,0 +1,131 @@
+.page-template-material {
+    .hero {
+        background-color: #fdfaff;
+        padding-top: 4rem;
+        padding-bottom: 6rem;
+        border-bottom: 0.3rem solid #dfdfdf;
+        .title {
+            font-size: 4.2rem;
+        }
+
+        .line {
+            margin-top: 12rem;
+        }
+    }
+
+    .page_blocks_title {
+        background-color: rgba(var(--color-primary-rgb), 0.03);
+        padding: 1.5rem;
+    }
+
+    .why_material {
+        .image-box {
+            width: 40%;
+            margin-right: 2rem;
+        }
+    }
+
+    .content-box {
+        .title_wrapper {
+            .subtitle {
+                a {
+                    color: #0800ef;
+                }
+            }
+        }
+        .image-box {
+            width: 30%;
+            &::after {
+                content: '';
+                position: absolute;
+                background: linear-gradient(
+                    270deg,
+                    #f7f7f7 0%,
+                    rgba(247, 247, 247, 0) 100%
+                );
+                height: 100%;
+                right: 0;
+                width: 100%;
+                top: 0;
+                transition: all 0.35s ease-in-out;
+            }
+        }
+        .features {
+            li {
+                background-color: rgba(var(--color-primary-rgb), 0.08);
+                padding: 1rem 2.5rem;
+                border-radius: 5rem;
+            }
+        }
+        &:hover {
+            .image-box {
+                &::after {
+                    width: 0;
+                }
+            }
+        }
+    }
+    .call-us {
+        background-color: rgba(var(--color-primary-rgb), 0.1);
+        padding: 4rem;
+        .button {
+            a {
+                padding: 1rem 6rem;
+            }
+        }
+    }
+    @media (max-width: 768px) {
+        .hero {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+            .title {
+                font-size: 2rem;
+            }
+        }
+        .page_blocks_title {
+            padding: 2.5rem 1.5rem;
+        }
+        .why_material {
+            .image-box {
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+
+        .content-box {
+            .image-box {
+                width: 100%;
+                &::after {
+                    background: linear-gradient(
+                        0deg,
+                        #f7f7f7 0%,
+                        rgba(247, 247, 247, 0) 100%
+                    );
+                    bottom: -1px;
+                    top: inherit;
+                }
+            }
+            .features {
+                li {
+                    padding: 0.5rem 2rem;
+                }
+            }
+            &:hover {
+                .image-box {
+                    &::after {
+                        width: 100%;
+                        height: 15%;
+                    }
+                }
+            }
+        }
+        .call-us {
+            padding: 3rem;
+            .button {
+                a {
+                    padding: 1rem 5rem;
+                }
+            }
+        }
+    }
+}

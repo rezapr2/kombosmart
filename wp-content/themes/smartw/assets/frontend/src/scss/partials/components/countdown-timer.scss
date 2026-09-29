@@ -1,0 +1,27 @@
+// Countdown Timer Styles
+.countdown-timer {
+    &__time {
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        span {
+            display: inline-block;
+            width: 5rem;
+            height: 5rem;
+            line-height: 5rem;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.59);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+    }
+    @media (max-width: 768px) {
+        &__time {
+            gap: .2rem;
+            span {
+                width: 2.4rem;
+                height: 2.4rem;
+                line-height: 2.4rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+@use "sass:math";
+
+// Design tokens (:root custom properties) live in variables/colors.scss.
+
+@function calcRem($size) {
+    $remSize: math.div($size, 10);
+    @return #{$remSize}rem;
+}
+
+// Multi-line truncation. Autoprefixer strips -webkit-box-orient as "outdated" unless told not to.
+@mixin line-clamp($lines) {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    /* autoprefixer: ignore next */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

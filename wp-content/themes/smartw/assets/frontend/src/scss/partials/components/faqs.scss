@@ -1,0 +1,104 @@
+// Shared FAQ item look: rounded cards with a round +/− toggle.
+@mixin faq-item {
+    padding: 2rem 2.8rem;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    background: #fff;
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+    &:hover {
+        box-shadow: var(--shadow-sm);
+    }
+    &.active {
+        border-color: rgba(var(--color-primary-rgb), 0.4);
+        box-shadow: var(--shadow);
+    }
+    .faq-question {
+        gap: 1.6rem;
+        &::after {
+            content: '+';
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 3.6rem;
+            height: 3.6rem;
+            border-radius: 50%;
+            background: var(--color-primary-light);
+            color: var(--color-primary);
+            font-size: 2.2rem;
+            line-height: 1;
+            font-weight: 400;
+            transition: all 0.25s ease;
+        }
+    }
+    .faq-answer {
+        padding-top: 1.6rem;
+        line-height: 2;
+    }
+    &.active {
+        .faq-question::after {
+            content: '−';
+            background: var(--gradient-brand);
+            color: #fff;
+        }
+    }
+    @media (max-width: 768px) {
+        padding: 1.6rem 1.6rem;
+        border-radius: var(--radius);
+        .faq-question::after {
+            width: 3rem;
+            height: 3rem;
+            font-size: 1.8rem;
+        }
+    }
+}
+
+.product-faqs {
+    padding: 5rem 0;
+    background:
+        radial-gradient(50rem 26rem at 90% 0%, rgba(var(--color-primary-rgb), 0.12), transparent 70%),
+        radial-gradient(40rem 22rem at 5% 100%, rgba(0, 180, 240, 0.1), transparent 70%),
+        var(--color-surface);
+    .faq-items-wrapper {
+        width: 55%;
+    }
+    .faq-items .faq-item {
+        @include faq-item;
+    }
+    .faqs-desc {
+        width: 24%;
+        margin-left: 5%;
+        .faq-icon-text {
+            text-align: justify;
+            line-height: 1.9;
+            a {
+                margin: 0 0.4rem;
+                padding: 0.2rem 1.4rem !important;
+                border-radius: var(--radius-pill);
+                background: var(--gradient-brand) !important;
+            }
+        }
+    }
+    @media (max-width: 768px) {
+        .faq-items-wrapper {
+            width: 100%;
+        }
+        .faqs-desc {
+            width: 100%;
+            margin-bottom: 3rem;
+            .faq-icon-text {
+                text-align: center;
+            }
+        }
+    }
+}
+
+// Plain FAQ list — the FAQs page layout, reused on single posts and
+// product category/tag archives via template-parts/components/faqs.php.
+.list_faqs {
+    .faq-item {
+        @include faq-item;
+    }
+}

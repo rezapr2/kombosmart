@@ -1,0 +1,57 @@
+.m-0{
+    margin: 0;
+}
+.mt-10{
+    margin-top: 1rem;
+}
+.mt-15{
+    margin-top: 1.5rem;
+}
+.mt-20{
+    margin-top: 2rem;
+}
+.mt-25{
+    margin-top: 2.5rem;
+}
+.mt-30{
+    margin-top: 3rem;
+}
+.mt-40{
+    margin-top: 4rem;
+}
+.mt-60{
+    margin-top: 6rem;
+}
+.mb-10{
+    margin-bottom: 1rem;
+}
+.mb-20{
+    margin-bottom: 2rem;
+}
+.mb-25{
+    margin-bottom: 2.5rem;
+}
+.mb-40{
+    margin-bottom: 4rem;
+}
+@media (min-width: 768px) {
+    
+    .md\:mt-30{
+        margin-top: 3rem;
+    }
+    .md\:mt-40{
+        margin-top: 4rem;
+    }
+    .md\:mt-60{
+        margin-top: 6rem;
+    }
+    .md\:mb-0{
+        margin-bottom: 0;
+    }
+    .md\:mb-25{
+        margin-bottom: 2.5rem;
+    }
+    .md\:mb-40{
+        margin-bottom: 4rem;
+    }
+}

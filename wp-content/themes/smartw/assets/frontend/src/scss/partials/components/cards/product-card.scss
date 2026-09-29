@@ -1,0 +1,213 @@
+// Product Card Styles
+// Tone variables (--tone, --tone-soft) come from the .tone-* class set per product category.
+.product-card {
+    height: auto;
+    border-radius: var(--radius-lg);
+    background-color: #fff;
+    border: 1px solid var(--color-line);
+    transition:
+        box-shadow 0.3s ease,
+        transform 0.3s ease,
+        border-color 0.3s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        border-color: transparent;
+        box-shadow: var(--shadow);
+        .product-card__img {
+            transform: scale(1.06) rotate(-1deg);
+        }
+    }
+
+    &__inner {
+        padding: calcRem(10);
+    }
+
+    &__media {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 1 / 0.86;
+        border-radius: var(--radius);
+        background:
+            radial-gradient(circle at 50% 35%, #fff 0%, rgba(255, 255, 255, 0) 62%),
+            var(--tone-soft, var(--color-surface));
+    }
+
+    &__img {
+        width: 84%;
+        height: 84%;
+        object-fit: contain;
+        mix-blend-mode: multiply;
+        transition: transform 0.5s ease;
+    }
+
+    &__discount {
+        position: absolute;
+        top: calcRem(12);
+        right: calcRem(12);
+        z-index: 1;
+        padding: calcRem(4) calcRem(10);
+        border-radius: var(--radius-pill);
+        background: var(--gradient-sunset);
+        color: #fff;
+        font-size: calcRem(13);
+        font-weight: 700;
+    }
+
+    &__condition {
+        position: absolute;
+        top: calcRem(12);
+        left: calcRem(12);
+        z-index: 1;
+        padding: calcRem(4) calcRem(10);
+        border-radius: var(--radius-pill);
+        background: #fff;
+        color: var(--tone);
+        box-shadow: var(--shadow-sm);
+        font-size: calcRem(12);
+        font-weight: 700;
+    }
+
+    &__content {
+        flex-grow: 1;
+        gap: calcRem(8);
+        padding: calcRem(16) calcRem(8) calcRem(6);
+    }
+
+    &__meta {
+        gap: calcRem(8);
+        min-height: calcRem(40);
+    }
+
+    &__price {
+        display: flex;
+        flex-direction: column;
+        font-size: calcRem(20);
+        font-weight: 700;
+        color: var(--color-ink);
+        line-height: 1.2;
+
+        .amount {
+            font-weight: 700;
+        }
+
+        .woocommerce-Price-currencySymbol {
+            margin-right: calcRem(3);
+            font-size: calcRem(12);
+            font-weight: 400;
+            color: var(--color-muted);
+        }
+
+        del {
+            order: -1;
+            font-size: calcRem(13);
+            font-weight: 400;
+            color: var(--color-muted);
+            .woocommerce-Price-currencySymbol {
+                display: none;
+            }
+        }
+    }
+
+    &__status {
+        font-size: calcRem(14);
+        color: var(--color-pink);
+        &.is-on-request {
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+    }
+
+    &__title {
+        margin: 0;
+        font-size: calcRem(16);
+        font-weight: 700;
+        line-height: 1.6;
+        // Two lines: product names carry model + key specs (SEO titles) and get long.
+        a {
+            @include line-clamp(2);
+            min-height: 3.2em;
+            color: var(--color-ink);
+            &:hover {
+                color: var(--tone, var(--color-primary));
+            }
+        }
+    }
+
+    &__excerpt {
+        @include line-clamp(2);
+        margin: 0;
+        font-size: calcRem(13);
+        line-height: 1.8;
+        color: var(--color-muted);
+    }
+
+    &__rating {
+        gap: calcRem(4);
+        font-size: calcRem(13);
+        color: var(--color-muted);
+        svg {
+            width: calcRem(14);
+            height: calcRem(14);
+            color: var(--color-yellow);
+        }
+    }
+
+    &__actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: calcRem(8);
+        margin-top: auto;
+        padding-top: calcRem(10);
+
+        .sw-btn--block {
+            grid-column: 1 / -1;
+        }
+
+        // WooCommerce appends a "View cart" link after AJAX add-to-cart; the minicart covers it.
+        .added_to_cart {
+            display: none;
+        }
+    }
+
+    &.is-unavailable {
+        .product-card__img {
+            filter: grayscale(0.6);
+            opacity: 0.8;
+        }
+    }
+
+    @media (max-width: 767px) {
+        border-radius: var(--radius);
+        &__inner {
+            padding: calcRem(6);
+        }
+        &__media {
+            border-radius: calc(var(--radius) - 0.4rem);
+        }
+        &__content {
+            gap: calcRem(6);
+            padding: calcRem(10) calcRem(4) calcRem(4);
+        }
+        &__meta {
+            flex-direction: column-reverse;
+            align-items: flex-start;
+        }
+        &__price {
+            font-size: calcRem(15);
+        }
+        &__title {
+            font-size: calcRem(13);
+        }
+        &__excerpt {
+            display: none;
+        }
+        &__actions {
+            grid-template-columns: 1fr;
+            .product-card__add-to-cart {
+                display: none;
+            }
+        }
+    }
+}

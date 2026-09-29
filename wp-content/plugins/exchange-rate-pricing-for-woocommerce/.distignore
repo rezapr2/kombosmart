@@ -1,0 +1,6 @@
+/.git
+/tests
+/node_modules
+HANDOFF.md
+.distignore
+.DS_Store

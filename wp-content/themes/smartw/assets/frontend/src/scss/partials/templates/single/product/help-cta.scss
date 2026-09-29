@@ -1,0 +1,19 @@
+.help-cta{
+    background: var(--tone-gradient, var(--gradient-brand));
+    border-radius: var(--radius-xl);
+    .btn{
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: var(--radius-pill);
+        padding: 1.2rem 2rem;
+        path{
+            stroke: #fff;
+        }
+        &:hover{
+            background-color: #fff;
+            color: var(--color-primary);
+            path{
+                stroke: var(--color-primary);
+            }
+        }
+    }
+}

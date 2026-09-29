@@ -1,0 +1,43 @@
+.category-desc {
+    /* Toggle visibility of controls */
+    .desc-readmore .desc-toggle {
+        display: inline-flex;
+        gap: 6px;
+        margin: 0 auto;
+        &:hover {
+            transform: scale(1.07);
+        }
+    }
+    .desc-readmore.active .desc-toggle-more {
+        display: none;
+    }
+    .desc-readmore:not(.active) .desc-toggle-less {
+        display: none;
+    }
+
+    /* Clamp height and apply a larger fade when collapsed */
+    .desc-readmore .desc-full {
+        position: relative;
+        overflow: hidden;
+        max-height: 280px; /* height-based preview */
+        transition: max-height 0.35s ease;
+    }
+    .desc-readmore:not(.active) .desc-full {
+        /* Larger fade area: fade bottom ~60% */
+        -webkit-mask-image: linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 1) 40%,
+            rgba(0, 0, 0, 0) 100%
+        );
+        mask-image: linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 1) 40%,
+            rgba(0, 0, 0, 0) 100%
+        );
+    }
+    .desc-readmore.active .desc-full {
+        max-height: none;
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+}
