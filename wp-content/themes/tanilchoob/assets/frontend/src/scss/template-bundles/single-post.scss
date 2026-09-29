@@ -1,6 +1,0 @@
-// Standalone bundle: single post. Loaded only on is_singular('post').
-// Mixins/variables are imported so functions like calcRem() resolve outside style.scss.
-@import "../partials/mixins";
-@import "../partials/variables/**/*";
-
-@import "../partials/templates/single/post/**/*";

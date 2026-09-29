@@ -1,6 +1,0 @@
-// Standalone bundle: Homepage template. Loaded only on the "Homepage" page template.
-// Mixins/variables are imported so functions like calcRem() resolve outside style.scss.
-@import "../partials/mixins";
-@import "../partials/variables/**/*";
-
-@import "../partials/templates/homepage/**/*";

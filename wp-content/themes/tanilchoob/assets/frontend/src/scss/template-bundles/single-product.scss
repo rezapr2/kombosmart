@@ -1,6 +1,0 @@
-// Standalone bundle: single product. Loaded only on is_product().
-// Mixins/variables are imported so functions like calcRem() resolve outside style.scss.
-@import "../partials/mixins";
-@import "../partials/variables/**/*";
-
-@import "../partials/templates/single/product/**/*";
