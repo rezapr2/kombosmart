@@ -70,13 +70,13 @@ class Backend {
         ?>
         <?php if ( $fixedphone ) : ?>
             <p>
-                <strong><?php esc_html_e( 'تلفن ثابت:', 'tanilchoob' ); ?></strong>
+                <strong><?php esc_html_e( 'تلفن ثابت:', 'smartw' ); ?></strong>
                 <?php echo esc_html( $fixedphone ); ?>
             </p>
         <?php endif; ?>
         <?php if ( $nationalcode ) : ?>
             <p>
-                <strong><?php esc_html_e( 'کد ملی:', 'tanilchoob' ); ?></strong>
+                <strong><?php esc_html_e( 'کد ملی:', 'smartw' ); ?></strong>
                 <?php echo esc_html( $nationalcode ); ?>
             </p>
         <?php endif; ?>
@@ -91,7 +91,7 @@ class Backend {
         }
         ?>
         <p>
-            <strong><?php esc_html_e( 'توضیحات سفارش:', 'tanilchoob' ); ?></strong>
+            <strong><?php esc_html_e( 'توضیحات سفارش:', 'smartw' ); ?></strong>
             <?php echo esc_html( $note ); ?>
         </p>
         <?php

@@ -381,8 +381,8 @@
                 }
             });
 
-            var ajaxUrl = (typeof tanilchoob !== 'undefined' && tanilchoob.ajax && tanilchoob.ajax.url)
-                ? tanilchoob.ajax.url
+            var ajaxUrl = (typeof smartw !== 'undefined' && smartw.ajax && smartw.ajax.url)
+                ? smartw.ajax.url
                 : '/wp-admin/admin-ajax.php';
 
             $.ajax({

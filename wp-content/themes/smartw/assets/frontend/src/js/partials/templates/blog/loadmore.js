@@ -15,12 +15,12 @@
             button.find('.spinner').removeClass('hidden');
 
             $.ajax({
-                url: tanilchoob.ajax.url,
+                url: smartw.ajax.url,
                 type: 'POST',
                 data: {
                     action: 'tanilchoob_load_more_posts',
                     page: next_page,
-                    nonce: tanilchoob.ajax.nonce,
+                    nonce: smartw.ajax.nonce,
                 },
                 success: function (response) {
                     if (response) {

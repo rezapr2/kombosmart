@@ -23,7 +23,7 @@ class WC_Product_BackOffice
 	public function add_price_options_tab($tabs)
 	{
 		$tabs['tc_price_options'] = array(
-			'label'    => __('گزینه‌های قیمت', 'tanilchoob'),
+			'label'    => __('گزینه‌های قیمت', 'smartw'),
 			'target'   => 'tc_price_options_panel',
 			'class'    => array(),
 			'priority' => 80,
@@ -42,13 +42,13 @@ class WC_Product_BackOffice
 		?>
 		<div id="tc_price_options_panel" class="panel woocommerce_options_panel">
 			<div class="options-group">
-				<p><?php _e('گزینه‌هایی که روی قیمت اثر می‌گذارند را اضافه کنید. مقدار می‌تواند مثبت یا منفی باشد.', 'tanilchoob'); ?></p>
+				<p><?php _e('گزینه‌هایی که روی قیمت اثر می‌گذارند را اضافه کنید. مقدار می‌تواند مثبت یا منفی باشد.', 'smartw'); ?></p>
 				<table class="widefat wc_input_table" style="margin-top:10px;">
 					<thead>
 						<tr>
-							<th style="width:40%;"><?php _e('عنوان گزینه', 'tanilchoob'); ?></th>
-							<th style="width:25%;"><?php _e('مقدار (ریال)', 'tanilchoob'); ?></th>
-							<th style="width:25%;"><?php _e('شناسه (اختیاری)', 'tanilchoob'); ?></th>
+							<th style="width:40%;"><?php _e('عنوان گزینه', 'smartw'); ?></th>
+							<th style="width:25%;"><?php _e('مقدار (ریال)', 'smartw'); ?></th>
+							<th style="width:25%;"><?php _e('شناسه (اختیاری)', 'smartw'); ?></th>
 							<th style="width:10%;"></th>
 						</tr>
 					</thead>
@@ -62,13 +62,13 @@ class WC_Product_BackOffice
 							<td><input type="text" name="tc_option_label[]" value="<?php echo esc_attr($label); ?>" class="short" /></td>
 							<td><input type="number" step="1" name="tc_option_amount[]" value="<?php echo esc_attr($amount); ?>" class="short" /></td>
 							<td><input type="text" name="tc_option_id[]" value="<?php echo esc_attr($id); ?>" class="short" /></td>
-							<td><button type="button" class="button remove_row"><?php _e('حذف', 'tanilchoob'); ?></button></td>
+							<td><button type="button" class="button remove_row"><?php _e('حذف', 'smartw'); ?></button></td>
 						</tr>
 						<?php endforeach; endif; ?>
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="4"><button type="button" class="button add_row"><?php _e('افزودن گزینه', 'tanilchoob'); ?></button></td>
+							<td colspan="4"><button type="button" class="button add_row"><?php _e('افزودن گزینه', 'smartw'); ?></button></td>
 						</tr>
 					</tfoot>
 				</table>
@@ -81,7 +81,7 @@ class WC_Product_BackOffice
 						+ '<td><input type="text" name="tc_option_label[]" class="short" /></td>\n'
 						+ '<td><input type="number" step="1" name="tc_option_amount[]" class="short" /></td>\n'
 						+ '<td><input type="text" name="tc_option_id[]" class="short" /></td>\n'
-						+ '<td><button type="button" class="button remove_row"><?php echo esc_js(__('حذف', 'tanilchoob')); ?></button></td>\n'
+						+ '<td><button type="button" class="button remove_row"><?php echo esc_js(__('حذف', 'smartw')); ?></button></td>\n'
 					+ '</tr>');
 				}
 				$('#tc_price_options_panel').on('click', '.add_row', function(){

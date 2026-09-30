@@ -14,7 +14,7 @@ if (empty($args['url']) || $args['url'] === '#') {
 	</div>
 
 	<!-- Click CTA -->
-	<a href="<?php echo $args['url']; ?>" class="more-btn bg-black-05 yekan-18 color-black" aria-label="<?php echo esc_attr(sprintf(__('کلیک کنید برای %s', 'tanilchoob'), $args['label'])); ?>">
+	<a href="<?php echo $args['url']; ?>" class="more-btn bg-black-05 yekan-18 color-black" aria-label="<?php echo esc_attr(sprintf(__('کلیک کنید برای %s', 'smartw'), $args['label'])); ?>">
 		<span class="hidden md:flex">
 		کلیک کنید
 		</span>

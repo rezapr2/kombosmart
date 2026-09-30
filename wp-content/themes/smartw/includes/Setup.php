@@ -17,7 +17,7 @@ class Setup {
 	}
 
 	public function setup() {
-		load_theme_textdomain( 'tanilchoob', get_template_directory() . '/languages' );
+		load_theme_textdomain( 'smartw', get_template_directory() . '/languages' );
 
 		// Title Tag Support
 		add_theme_support( 'title-tag' );
@@ -36,8 +36,8 @@ class Setup {
 		// Register Nav menus
 		register_nav_menus(
 			[
-				'main_menu'   => __( 'Header main menu', 'tanilchoob' ),
-				'product_categories_menu'   => __( 'Product Categories Menu', 'tanilchoob' ),
+				'main_menu'   => __( 'Header main menu', 'smartw' ),
+				'product_categories_menu'   => __( 'Product Categories Menu', 'smartw' ),
 			]
 		);
 
@@ -62,7 +62,7 @@ class Setup {
     public function widgets() {
 
 //        register_sidebar( array(
-//            'name'          => __( 'Footer 1', 'tanilchoob' ),
+//            'name'          => __( 'Footer 1', 'smartw' ),
 //            'id'            => 'footer-1',
 //            'before_widget' => '<div class="widget">',
 //            'after_widget'  => '</div>',
@@ -71,7 +71,7 @@ class Setup {
 //        ) );
 //
 //        register_sidebar( array(
-//            'name'          => __( 'Footer 2', 'tanilchoob' ),
+//            'name'          => __( 'Footer 2', 'smartw' ),
 //            'id'            => 'footer-2',
 //            'before_widget' => '<div class="widget">',
 //            'after_widget'  => '</div>',
@@ -80,7 +80,7 @@ class Setup {
 //        ) );
 //
 //        register_sidebar( array(
-//            'name'          => __( 'Footer 3', 'tanilchoob' ),
+//            'name'          => __( 'Footer 3', 'smartw' ),
 //            'id'            => 'footer-3',
 //            'before_widget' => '<div class="widget">',
 //            'after_widget'  => '</div>',

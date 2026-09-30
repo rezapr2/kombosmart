@@ -63,7 +63,7 @@ if ($on_sale && $regular_price > 0 && $sale_price !== '') {
 
 // Availability follows WooCommerce stock.
 $is_available = $product->is_in_stock();
-$status_label = __('ناموجود', 'tanilchoob');
+$status_label = __('ناموجود', 'smartw');
 
 // In stock but no price set yet: show "call for price" instead of a price.
 $price_on_request = $is_available && $product->get_price() === '';

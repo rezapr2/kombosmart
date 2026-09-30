@@ -21,7 +21,7 @@ defined('ABSPATH') || exit;
 <div
 	class="cart_totals flex justify-between items-center <?php echo (WC()->customer->has_calculated_shipping()) ? 'calculated_shipping' : ''; ?>">
 
-	<div class="yekan-28 color-black"><?php esc_html_e('مبلغ قابل پرداخت:', 'tanilchoob'); ?></div>
+	<div class="yekan-28 color-black"><?php esc_html_e('مبلغ قابل پرداخت:', 'smartw'); ?></div>
 	<div class="flex items-center gap-20">
 		<div class="yekan-30 bold color-primary"><?php wc_cart_totals_order_total_html(); ?></div>
 		<div class="wc-proceed-to-checkout bg-primary text-white yekan-24">

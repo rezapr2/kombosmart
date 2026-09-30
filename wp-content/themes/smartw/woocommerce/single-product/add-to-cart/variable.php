@@ -39,7 +39,7 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 				<div class="box-title flex items-center justify-between">
 					<div class="label yekan-14 md:yekan-18 color-black-60"><label for="<?php echo esc_attr(sanitize_title($attribute_name)); ?>"><?php echo wc_attribute_label($attribute_name); // WPCS: XSS ok. 
 																																		?>:</label></div>
-					<div class="slide-down-trigger transition" role="button" aria-expanded="false" aria-label="<?php echo esc_attr(sprintf(__('نمایش گزینه‌های %s', 'tanilchoob'), wc_attribute_label($attribute_name))); ?>">
+					<div class="slide-down-trigger transition" role="button" aria-expanded="false" aria-label="<?php echo esc_attr(sprintf(__('نمایش گزینه‌های %s', 'smartw'), wc_attribute_label($attribute_name))); ?>">
 						<svg aria-hidden="true" width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M0.75 6L6.01498 0.749929L11.28 6" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 						</svg>

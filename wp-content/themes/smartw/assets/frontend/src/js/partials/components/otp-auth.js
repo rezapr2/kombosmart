@@ -91,11 +91,11 @@
         clearMessage($form);
 
         $.ajax({
-            url: tanilchoob.ajax.url,
+            url: smartw.ajax.url,
             type: 'POST',
             data: {
                 action: 'tanilchoob_otp_send',
-                nonce:  tanilchoob.ajax.nonce,
+                nonce:  smartw.ajax.nonce,
                 mobile: rawMobile,
             },
             success: function (response) {
@@ -133,11 +133,11 @@
         clearMessage($form);
 
         $.ajax({
-            url: tanilchoob.ajax.url,
+            url: smartw.ajax.url,
             type: 'POST',
             data: {
                 action: 'tanilchoob_otp_verify',
-                nonce:  tanilchoob.ajax.nonce,
+                nonce:  smartw.ajax.nonce,
                 mobile: mobile,
                 otp:    otp,
             },

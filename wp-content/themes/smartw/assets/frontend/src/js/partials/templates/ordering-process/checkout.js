@@ -5,8 +5,8 @@
     // Guard: only run on the checkout or account addresses page
     if (!$('.tc-checkout').length && !$('.tc-account-addresses').length) return;
     var cfg       = window.tcCheckout || {};
-    var AJAX_URL  = cfg.ajaxUrl || (window.tanilchoob && tanilchoob.ajax.url) || '';
-    var NONCE     = cfg.nonce  || (window.tanilchoob && tanilchoob.ajax.nonce) || '';
+    var AJAX_URL  = cfg.ajaxUrl || (window.smartw && smartw.ajax.url) || '';
+    var NONCE     = cfg.nonce  || (window.smartw && smartw.ajax.nonce) || '';
 
     var currentStep = 1;
     var totalSteps  = 4;

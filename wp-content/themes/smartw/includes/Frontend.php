@@ -296,7 +296,7 @@ class Frontend
 			$css_version = filemtime(get_theme_file_path($css_relative_path));
 			$js_version  = filemtime(get_theme_file_path($js_relative_path));
 
-			wp_enqueue_style('tanilchoob', get_template_directory_uri() . $css_relative_path, [], $css_version);
+			wp_enqueue_style('smartw', get_template_directory_uri() . $css_relative_path, [], $css_version);
 
 			// Conditionally enqueue standalone CSS for specific page templates
 			$template_slug = function_exists('get_page_template_slug') ? get_page_template_slug() : '';
@@ -312,7 +312,7 @@ class Frontend
 				$pt_css_abs = get_theme_file_path($pt_css_rel);
 				if (file_exists($pt_css_abs)) {
 					$pt_ver = filemtime($pt_css_abs);
-					wp_enqueue_style('tanilchoob-' . $basename, get_template_directory_uri() . $pt_css_rel, ['tanilchoob'], $pt_ver);
+					wp_enqueue_style('smartw-' . $basename, get_template_directory_uri() . $pt_css_rel, ['smartw'], $pt_ver);
 				}
 			}
 
@@ -335,27 +335,27 @@ class Frontend
 				$tb_css_rel = '/assets/frontend/dist/css/templates/' . $bundle . '.css';
 				$tb_css_abs = get_theme_file_path($tb_css_rel);
 				if (file_exists($tb_css_abs)) {
-					wp_enqueue_style('tanilchoob-' . $bundle, get_template_directory_uri() . $tb_css_rel, ['tanilchoob'], filemtime($tb_css_abs));
+					wp_enqueue_style('smartw-' . $bundle, get_template_directory_uri() . $tb_css_rel, ['smartw'], filemtime($tb_css_abs));
 				}
 			}
 
 			wp_enqueue_script('scripts', get_template_directory_uri() . $js_relative_path, ['jquery'], $js_version);
-			wp_localize_script('scripts', 'tanilchoob', [
+			wp_localize_script('scripts', 'smartw', [
 				'ajax' => [
 					'url'          => admin_url('admin-ajax.php'),
 					'nonce' => wp_create_nonce('ajax-nonce'),
 					'posts'        => json_encode($wp_query->query_vars), // everything about your loop is here
 					'current_page' => get_query_var('paged') ? get_query_var('paged') : 1,
 					'max_page'     => $wp_query->max_num_pages,
-					'loading'      => __('Loading...', 'tanilchoob'),
-					'loadMore'     => __('Load more', 'tanilchoob'),
+					'loading'      => __('Loading...', 'smartw'),
+					'loadMore'     => __('Load more', 'smartw'),
 				],
 			]);
 
 			// Conditionally enqueue standalone JS bundles for theme template types
 			// (built by gulp jsTemplatesBuild into dist/js/templates/). Each loads only on
 			// its page type and depends on the main 'scripts' handle (jQuery, Swiper, and
-			// the localized tanilchoob/tcCheckout globals are attached there).
+			// the localized smartw/tcCheckout globals are attached there).
 			$js_bundles = [];
 			if ($template_slug === 'page-templates/blog.php') {
 				$js_bundles[] = 'blog';
@@ -379,7 +379,7 @@ class Frontend
 				$tb_js_rel = '/assets/frontend/dist/js/templates/' . $bundle . '.js';
 				$tb_js_abs = get_theme_file_path($tb_js_rel);
 				if (file_exists($tb_js_abs)) {
-					wp_enqueue_script('tanilchoob-' . $bundle, get_template_directory_uri() . $tb_js_rel, ['jquery', 'scripts'], filemtime($tb_js_abs), true);
+					wp_enqueue_script('smartw-' . $bundle, get_template_directory_uri() . $tb_js_rel, ['jquery', 'scripts'], filemtime($tb_js_abs), true);
 				}
 			}
 		}
@@ -531,7 +531,7 @@ EOD;
 				$amount = isset($opt['amount']) ? (float) $opt['amount'] : 0.0;
 				$sign = $amount >= 0 ? '+' : '-';
 				$item_data[] = [
-					'name' => isset($opt['label']) ? $opt['label'] : __('گزینه', 'tanilchoob'),
+					'name' => isset($opt['label']) ? $opt['label'] : __('گزینه', 'smartw'),
 					'value' => $sign . ' ' . wc_price(abs($amount)),
 					'display' => $sign . ' ' . wc_price(abs($amount)),
 				];
@@ -551,7 +551,7 @@ EOD;
 				$sign = $amount >= 0 ? '+' : '-';
 				// Using number_format instead of wc_price to prevent HTML injection in DB
 				$item->add_meta_data(
-					isset($opt['label']) ? $opt['label'] : __('گزینه', 'tanilchoob'),
+					isset($opt['label']) ? $opt['label'] : __('گزینه', 'smartw'),
 					$sign . ' ' . number_format(abs($amount))
 				);
 			}

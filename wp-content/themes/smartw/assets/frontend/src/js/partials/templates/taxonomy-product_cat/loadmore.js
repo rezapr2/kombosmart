@@ -71,13 +71,13 @@
                 const orderby = currentUrl.searchParams.get('orderby') || 'date';
                 const body = new URLSearchParams({
                     action: 'tanilchoob_category_products_load',
-                    nonce: (window.tanilchoob && tanilchoob.ajax && tanilchoob.ajax.nonce) ? tanilchoob.ajax.nonce : '',
+                    nonce: (window.smartw && smartw.ajax && smartw.ajax.nonce) ? smartw.ajax.nonce : '',
                     paged: String(nextPage),
-                    query_vars: (window.tanilchoob && tanilchoob.ajax && tanilchoob.ajax.posts) ? tanilchoob.ajax.posts : '{}',
+                    query_vars: (window.smartw && smartw.ajax && smartw.ajax.posts) ? smartw.ajax.posts : '{}',
                     orderby: orderby,
                 });
 
-                const res = await fetch((window.tanilchoob && tanilchoob.ajax && tanilchoob.ajax.url) ? tanilchoob.ajax.url : '/wp-admin/admin-ajax.php', {
+                const res = await fetch((window.smartw && smartw.ajax && smartw.ajax.url) ? smartw.ajax.url : '/wp-admin/admin-ajax.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
                     body: body.toString(),

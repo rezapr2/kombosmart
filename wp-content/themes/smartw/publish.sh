@@ -1,5 +1,5 @@
 #!/bin/bash
-theme="tanilchoob"
+theme="smartw"
 date=$(date '+%Y-%m-%d-%H-%M-%S')
 
 echo Generating...

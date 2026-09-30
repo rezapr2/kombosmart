@@ -86,9 +86,9 @@ $form = get_field('form', $page_id);
                     echo do_shortcode('[contact-form-7 id="' . $form_id . '" title="فرم تماس با ما"]');
                 elseif ($form_id) :
                     // CF7 not active; show a basic fallback message.
-                    echo '<p class="yekan-16 color-black-60">' . esc_html__('Contact form plugin is not active.', 'tanilchoob') . '</p>';
+                    echo '<p class="yekan-16 color-black-60">' . esc_html__('Contact form plugin is not active.', 'smartw') . '</p>';
                 else :
-                    echo '<p class="yekan-16 color-black-60">' . esc_html__('No contact form selected for this page.', 'tanilchoob') . '</p>';
+                    echo '<p class="yekan-16 color-black-60">' . esc_html__('No contact form selected for this page.', 'smartw') . '</p>';
                 endif;
                 ?>
             </div>
