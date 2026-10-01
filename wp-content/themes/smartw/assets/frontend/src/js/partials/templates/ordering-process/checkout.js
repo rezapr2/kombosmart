@@ -428,8 +428,8 @@
 
         var logoUrl  = (window.tcCheckout && tcCheckout.logoUrl) ? tcCheckout.logoUrl : '';
         var logoHtml = logoUrl
-            ? '<img src="' + logoUrl + '" alt="تانیل چوب">'
-            : '<strong style="font-size:2rem;color:var(--color-primary)">تانیل چوب</strong>';
+            ? '<img src="' + logoUrl + '" alt="اسمارت">'
+            : '<strong style="font-size:2rem;color:var(--color-primary)">اسمارت</strong>';
 
         var html =
             '<div class="tc-invoice-header">' +
