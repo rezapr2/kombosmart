@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-26T07:08:28+00:00\n"
+"POT-Creation-Date: 2026-10-01T10:42:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: exchange-rate-pricing-for-woocommerce\n"
@@ -113,8 +113,8 @@ msgid "Manual price"
 msgstr ""
 
 #: src/Admin/ProductFields.php:98
-#: src/Admin/ProductList.php:190
-#: src/Admin/ProductList.php:232
+#: src/Admin/ProductList.php:194
+#: src/Admin/ProductList.php:234
 msgid "Pricing"
 msgstr ""
 
@@ -129,7 +129,7 @@ msgid "Exchange rate: the store price is calculated from a base currency price a
 msgstr ""
 
 #: src/Admin/ProductFields.php:116
-#: src/Admin/ProductList.php:244
+#: src/Admin/ProductList.php:246
 msgid "Markup (%)"
 msgstr ""
 
@@ -149,20 +149,20 @@ msgstr ""
 
 #. translators: %s: currency symbol such as $.
 #: src/Admin/ProductFields.php:214
-#: src/Admin/ProductList.php:202
+#: src/Admin/ProductList.php:185
 #, php-format
 msgid "Base regular price (%s)"
 msgstr ""
 
 #. translators: %s: currency symbol such as $.
 #: src/Admin/ProductFields.php:221
-#: src/Admin/ProductList.php:208
+#: src/Admin/ProductList.php:187
 #, php-format
 msgid "Base sale price (%s)"
 msgstr ""
 
 #: src/Admin/ProductFields.php:227
-#: src/Admin/ProductList.php:214
+#: src/Admin/ProductList.php:216
 msgid "Discount (%)"
 msgstr ""
 
@@ -175,6 +175,7 @@ msgid "Product not found."
 msgstr ""
 
 #: src/Admin/ProductFields.php:376
+#: src/CLI.php:101
 msgid "Set the exchange rate first."
 msgstr ""
 
@@ -209,17 +210,17 @@ msgid "Missing base price"
 msgstr ""
 
 #: src/Admin/ProductList.php:172
-#: src/Admin/ProductList.php:236
+#: src/Admin/ProductList.php:238
 msgid "Store default"
 msgstr ""
 
-#: src/Admin/ProductList.php:187
-#: src/Admin/ProductList.php:230
+#: src/Admin/ProductList.php:191
+#: src/Admin/ProductList.php:232
 msgid "Exchange rate pricing"
 msgstr ""
 
-#: src/Admin/ProductList.php:235
-#: src/Admin/ProductList.php:246
+#: src/Admin/ProductList.php:237
+#: src/Admin/ProductList.php:248
 msgid "— No change —"
 msgstr ""
 
@@ -248,40 +249,47 @@ msgstr ""
 
 #. translators: %s: time span such as "2 hours".
 #: src/Admin/RateWidget.php:119
-#: src/Admin/SettingsPage.php:409
+#: src/Admin/SettingsPage.php:411
 #, php-format
 msgid "Updated %s ago."
 msgstr ""
 
-#: src/Admin/RateWidget.php:144
+#. translators: %s: currency code such as USD.
+#: src/Admin/RateWidget.php:134
+#: src/Admin/SettingsPage.php:393
+#, php-format
+msgid "1 %s ="
+msgstr ""
+
+#: src/Admin/RateWidget.php:146
 msgid "Update"
 msgstr ""
 
-#: src/Admin/RateWidget.php:162
+#: src/Admin/RateWidget.php:164
 msgid "Exchange rate settings"
 msgstr ""
 
-#: src/Admin/RateWidget.php:210
+#: src/Admin/RateWidget.php:212
 #: src/Rates.php:89
 msgid "Invalid currency."
 msgstr ""
 
-#: src/Admin/RateWidget.php:214
+#: src/Admin/RateWidget.php:216
 #: src/Admin/SettingsPage.php:319
 #: src/Rates.php:93
 msgid "The exchange rate must be a number greater than zero."
 msgstr ""
 
-#: src/Admin/RateWidget.php:227
-#: src/Admin/RateWidget.php:258
+#: src/Admin/RateWidget.php:229
+#: src/Admin/RateWidget.php:260
 msgid "You are not allowed to change the exchange rate."
 msgstr ""
 
-#: src/Admin/RateWidget.php:241
+#: src/Admin/RateWidget.php:243
 msgid "Saved. Prices are being recalculated."
 msgstr ""
 
-#: src/Admin/RateWidget.php:242
+#: src/Admin/RateWidget.php:244
 msgid "The rate is unchanged; marked as up to date."
 msgstr ""
 
@@ -487,41 +495,90 @@ msgid "Delete settings, rate history and base prices when the plugin is deleted.
 msgstr ""
 
 #. translators: 1: time span such as "2 hours", 2: user name.
-#: src/Admin/SettingsPage.php:407
+#: src/Admin/SettingsPage.php:409
 #, php-format
 msgid "Updated %1$s ago by %2$s."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:412
+#: src/Admin/SettingsPage.php:414
 msgid "No rate set yet. Prices are only calculated once a rate is saved."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:455
+#: src/Admin/SettingsPage.php:457
 msgid "Recalculate all prices now"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:473
+#: src/Admin/SettingsPage.php:475
 msgid "No rate changes yet."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:480
+#: src/Admin/SettingsPage.php:482
 msgid "Date"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:481
+#: src/Admin/SettingsPage.php:483
 msgid "Rate"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:482
+#: src/Admin/SettingsPage.php:484
 msgid "Change"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:483
+#: src/Admin/SettingsPage.php:485
 msgid "Source"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:484
+#: src/Admin/SettingsPage.php:486
 msgid "User"
+msgstr ""
+
+#. translators: %s: currency code such as USD.
+#: src/CLI.php:50
+#: src/CLI.php:133
+#, php-format
+msgid "No rate set for %s."
+msgstr ""
+
+#. translators: 1: exchange rate such as "1 USD = 100,000 Toman", 2: time span such as "2 hours".
+#: src/CLI.php:56
+#, php-format
+msgid "%1$s (updated %2$s ago)"
+msgstr ""
+
+#: src/CLI.php:67
+msgid "The rate must be a number."
+msgstr ""
+
+#. translators: 1: exchange rate such as "1 USD = 100,000 Toman", 2: result message.
+#: src/CLI.php:79
+#, php-format
+msgid "%1$s. %2$s"
+msgstr ""
+
+#: src/CLI.php:81
+msgid "Recalculation scheduled."
+msgstr ""
+
+#: src/CLI.php:81
+msgid "Rate unchanged."
+msgstr ""
+
+#. translators: %d: number of products.
+#: src/CLI.php:106
+#, php-format
+msgid "Scheduled recalculation of %d product."
+msgid_plural "Scheduled recalculation of %d products."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/CLI.php:110
+msgid "Recalculating"
+msgstr ""
+
+#. translators: 1: run status, 2: products processed, 3: total products, 4: products updated, 5: products unchanged, 6: products without a base price.
+#: src/CLI.php:146
+#, php-format
+msgid "Recalculation: %1$s. %2$d of %3$d processed, %4$d updated, %5$d unchanged, %6$d missing a base price."
 msgstr ""
 
 #: src/CsvImportExport.php:62
@@ -563,11 +620,11 @@ msgstr ""
 msgid "Base price: %s"
 msgstr ""
 
-#: src/Plugin.php:122
+#: src/Plugin.php:123
 msgid "Settings"
 msgstr ""
 
-#: src/Plugin.php:138
+#: src/Plugin.php:139
 msgid "Exchange Rate Pricing for WooCommerce needs WooCommerce to be installed and active."
 msgstr ""
 

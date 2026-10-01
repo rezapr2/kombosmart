@@ -1,6 +1,8 @@
 /.git
+/.idea
+/.vscode
 /tests
 /node_modules
-HANDOFF.md
 .distignore
 .DS_Store
+*.zip

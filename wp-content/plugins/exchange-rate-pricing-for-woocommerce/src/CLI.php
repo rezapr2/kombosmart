@@ -46,17 +46,25 @@ final class CLI {
 			$entry = Rates::get( $currency );
 
 			if ( ! $entry ) {
-				WP_CLI::error( sprintf( 'No rate set for %s.', $currency ) );
+				/* translators: %s: currency code such as USD. */
+				WP_CLI::error( sprintf( __( 'No rate set for %s.', 'exchange-rate-pricing-for-woocommerce' ), $currency ) );
 			}
 
-			WP_CLI::log( sprintf( '%s (updated %s ago)', Format::rate( $entry['rate'], $currency ), human_time_diff( (int) $entry['updated_at'] ) ) );
+			WP_CLI::log(
+				sprintf(
+					/* translators: 1: exchange rate such as "1 USD = 100,000 Toman", 2: time span such as "2 hours". */
+					__( '%1$s (updated %2$s ago)', 'exchange-rate-pricing-for-woocommerce' ),
+					Format::rate( $entry['rate'], $currency ),
+					human_time_diff( (int) $entry['updated_at'] )
+				)
+			);
 			return;
 		}
 
 		$value = Format::parse_float( $args[0] );
 
 		if ( null === $value ) {
-			WP_CLI::error( 'The rate must be a number.' );
+			WP_CLI::error( __( 'The rate must be a number.', 'exchange-rate-pricing-for-woocommerce' ) );
 		}
 
 		$result = Rates::set( $currency, Settings::to_store( $value ), 'cli', get_current_user_id() );
@@ -65,7 +73,14 @@ final class CLI {
 			WP_CLI::error( $result->get_error_message() );
 		}
 
-		WP_CLI::success( sprintf( '%s. %s', Format::rate( Settings::to_store( $value ), $currency ), $result ? 'Recalculation scheduled.' : 'Rate unchanged.' ) );
+		WP_CLI::success(
+			sprintf(
+				/* translators: 1: exchange rate such as "1 USD = 100,000 Toman", 2: result message. */
+				__( '%1$s. %2$s', 'exchange-rate-pricing-for-woocommerce' ),
+				Format::rate( Settings::to_store( $value ), $currency ),
+				$result ? __( 'Recalculation scheduled.', 'exchange-rate-pricing-for-woocommerce' ) : __( 'Rate unchanged.', 'exchange-rate-pricing-for-woocommerce' )
+			)
+		);
 	}
 
 	/**
@@ -83,15 +98,16 @@ final class CLI {
 		$state = Recalculator::schedule( 'cli' );
 
 		if ( 'no_rate' === $state['status'] ) {
-			WP_CLI::error( 'Set an exchange rate first.' );
+			WP_CLI::error( __( 'Set the exchange rate first.', 'exchange-rate-pricing-for-woocommerce' ) );
 		}
 
 		if ( empty( $assoc_args['now'] ) ) {
-			WP_CLI::success( sprintf( 'Scheduled recalculation of %d products.', $state['total'] ) );
+			/* translators: %d: number of products. */
+			WP_CLI::success( sprintf( _n( 'Scheduled recalculation of %d product.', 'Scheduled recalculation of %d products.', (int) $state['total'], 'exchange-rate-pricing-for-woocommerce' ), (int) $state['total'] ) );
 			return;
 		}
 
-		$progress = \WP_CLI\Utils\make_progress_bar( 'Recalculating', max( 1, (int) $state['total'] ) );
+		$progress = \WP_CLI\Utils\make_progress_bar( __( 'Recalculating', 'exchange-rate-pricing-for-woocommerce' ), max( 1, (int) $state['total'] ) );
 		$done     = 0;
 		$state    = Recalculator::run_now(
 			static function ( $current ) use ( $progress, &$done ) {
@@ -113,7 +129,8 @@ final class CLI {
 	public function status( $args, $assoc_args ) {
 		$entry = Rates::get();
 
-		WP_CLI::log( $entry ? Format::rate( $entry['rate'] ) : sprintf( 'No rate set for %s.', Settings::base_currency() ) );
+		/* translators: %s: currency code such as USD. */
+		WP_CLI::log( $entry ? Format::rate( $entry['rate'] ) : sprintf( __( 'No rate set for %s.', 'exchange-rate-pricing-for-woocommerce' ), Settings::base_currency() ) );
 		$this->print_state( Recalculator::state() );
 	}
 
@@ -125,7 +142,8 @@ final class CLI {
 	private function print_state( array $state ) {
 		WP_CLI::log(
 			sprintf(
-				'Recalculation: %s — %d/%d processed, %d updated, %d unchanged, %d missing a base price.',
+				/* translators: 1: run status, 2: products processed, 3: total products, 4: products updated, 5: products unchanged, 6: products without a base price. */
+				__( 'Recalculation: %1$s. %2$d of %3$d processed, %4$d updated, %5$d unchanged, %6$d missing a base price.', 'exchange-rate-pricing-for-woocommerce' ),
 				$state['status'],
 				$state['processed'],
 				$state['total'],

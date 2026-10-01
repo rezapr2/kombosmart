@@ -130,6 +130,8 @@ final class RateWidget {
 		$entry    = Rates::get( $currency );
 		$value    = $entry ? wc_format_localized_decimal( Settings::to_display( $entry['rate'] ) ) : '';
 		$input_id = 'erpfw-rate-' . $context;
+		/* translators: %s: currency code such as USD. */
+		$prefix = sprintf( __( '1 %s =', 'exchange-rate-pricing-for-woocommerce' ), $currency );
 
 		ob_start();
 		?>
@@ -138,7 +140,7 @@ final class RateWidget {
 			<input type="hidden" name="currency" value="<?php echo esc_attr( $currency ); ?>" />
 			<input type="hidden" name="erpfw_nonce" value="<?php echo esc_attr( wp_create_nonce( 'erpfw_update_rate' ) ); ?>" />
 			<?php wp_referer_field(); ?>
-			<label class="erpfw-rate-form__prefix" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_html( sprintf( '1 %s =', $currency ) ); ?></label>
+			<label class="erpfw-rate-form__prefix" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_html( $prefix ); ?></label>
 			<input type="text" inputmode="decimal" name="rate" id="<?php echo esc_attr( $input_id ); ?>" value="<?php echo esc_attr( $value ); ?>" required />
 			<span class="erpfw-rate-form__unit"><?php echo esc_html( Settings::unit_label() ); ?></span>
 			<button type="submit" class="button button-primary"><?php esc_html_e( 'Update', 'exchange-rate-pricing-for-woocommerce' ); ?></button>

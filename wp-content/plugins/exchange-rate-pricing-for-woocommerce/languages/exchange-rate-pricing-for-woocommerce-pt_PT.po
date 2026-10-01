@@ -9,544 +9,544 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-10-01T10:41:56+00:00\n"
 "PO-Revision-Date: 2026-10-01T10:41:56+00:00\n"
-"Language: fa_IR\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: exchange-rate-pricing-for-woocommerce\n"
 
 #. Plugin Name of the plugin
 #: exchange-rate-pricing-for-woocommerce.php
 msgid "Exchange Rate Pricing for WooCommerce"
-msgstr "قیمت‌گذاری ارزی برای ووکامرس"
+msgstr "Preços por Taxa de Câmbio para WooCommerce"
 
 #. Description of the plugin
 #: exchange-rate-pricing-for-woocommerce.php
 msgid "Price products in a foreign currency such as USD and sell them in your store currency using an exchange rate you control, with markup, rounding and sale rules."
-msgstr "قیمت محصولات را به ارز خارجی مانند دلار وارد کنید و با نرخی که خودتان تعیین می‌کنید به ارز فروشگاه بفروشید؛ همراه با سود، گرد کردن و قوانین حراج."
+msgstr "Defina os preços dos produtos numa moeda estrangeira, como o dólar (USD), e venda na moeda da sua loja com uma taxa de câmbio que controla, com margem, arredondamento e regras de promoção."
 
 #. Author of the plugin
 #: exchange-rate-pricing-for-woocommerce.php
 msgid "Reza Rajabi"
-msgstr "رضا رجبی"
+msgstr "Reza Rajabi"
 
 #: src/Admin/Admin.php:85
 msgid "Calculating…"
-msgstr "در حال محاسبه…"
+msgstr "A calcular…"
 
 #: src/Admin/Admin.php:86
 msgid "Could not calculate the price."
-msgstr "محاسبهٔ قیمت ممکن نشد."
+msgstr "Não foi possível calcular o preço."
 
 #: src/Admin/Admin.php:87
 msgid "Calculated from the exchange rate. Edit the base currency price instead."
-msgstr "این قیمت از نرخ ارز محاسبه می‌شود. به‌جای آن، قیمت ارزی را ویرایش کنید."
+msgstr "Calculado a partir da taxa de câmbio. Edite antes o preço na moeda base."
 
 #: src/Admin/Admin.php:111
 msgid "The exchange rate was saved. Prices are being recalculated in the background."
-msgstr "نرخ ارز ذخیره شد. قیمت‌ها در پس‌زمینه دوباره محاسبه می‌شوند."
+msgstr "A taxa de câmbio foi guardada. Os preços estão a ser recalculados em segundo plano."
 
 #: src/Admin/Admin.php:113
 msgid "The exchange rate could not be saved. Enter a number greater than zero."
-msgstr "نرخ ارز ذخیره نشد. عددی بزرگ‌تر از صفر وارد کنید."
+msgstr "Não foi possível guardar a taxa de câmbio. Introduza um número superior a zero."
 
 #: src/Admin/Admin.php:117
 msgid "Update the rate"
-msgstr "به‌روزرسانی نرخ"
+msgstr "Atualizar a taxa"
 
 #. translators: %s: currency code such as USD.
 #: src/Admin/Admin.php:125
 #, php-format
 msgid "Exchange Rate Pricing: no %s exchange rate is set yet, so exchange-rate priced products keep their current prices."
-msgstr "قیمت‌گذاری ارزی: هنوز نرخ %s ثبت نشده است؛ محصولات ارزی فعلاً قیمت کنونی خود را نگه می‌دارند."
+msgstr "Preços por Taxa de Câmbio: ainda não foi definida uma taxa de câmbio para %s, por isso os produtos com preço por taxa de câmbio mantêm os preços atuais."
 
 #. translators: 1: currency code such as USD, 2: time span such as "3 days".
 #: src/Admin/Admin.php:136
 #, php-format
 msgid "Exchange Rate Pricing: the %1$s rate was last updated %2$s ago."
-msgstr "قیمت‌گذاری ارزی: نرخ %1$s آخرین بار %2$s پیش به‌روز شده است."
+msgstr "Preços por Taxa de Câmbio: a taxa de %1$s foi atualizada pela última vez há %2$s."
 
 #. translators: 1: products checked so far, 2: total products.
 #: src/Admin/Admin.php:219
 #, php-format
 msgid "Recalculating prices… %1$s of %2$s products checked."
-msgstr "در حال محاسبهٔ دوبارهٔ قیمت‌ها… %1$s از %2$s محصول بررسی شد."
+msgstr "A recalcular os preços… %1$s de %2$s produtos verificados."
 
 #. translators: 1: time span such as "5 minutes", 2: products checked, 3: products updated, 4: products without a base price.
 #: src/Admin/Admin.php:227
 #, php-format
 msgid "Last run %1$s ago. Checked: %2$s · Updated: %3$s · Missing a base price: %4$s"
-msgstr "آخرین اجرا %1$s پیش. بررسی‌شده: %2$s · به‌روزشده: %3$s · بدون قیمت ارزی: %4$s"
+msgstr "Última execução há %1$s. Verificados: %2$s · Atualizados: %3$s · Sem preço base: %4$s"
 
 #: src/Admin/Admin.php:235
 msgid "Waiting for an exchange rate."
-msgstr "در انتظار ثبت نرخ ارز."
+msgstr "A aguardar uma taxa de câmbio."
 
 #: src/Admin/Admin.php:238
 msgid "Prices have not been recalculated yet."
-msgstr "قیمت‌ها هنوز دوباره محاسبه نشده‌اند."
+msgstr "Os preços ainda não foram recalculados."
 
 #: src/Admin/CategoryFields.php:41
 msgid "Exchange rate markup (%)"
-msgstr "سود قیمت‌گذاری ارزی (٪)"
+msgstr "Margem para preço por câmbio (%)"
 
 #. translators: %s: unit such as Toman.
 #: src/Admin/CategoryFields.php:46
 #, php-format
 msgid "Exchange rate fixed markup (%s)"
-msgstr "سود ثابت قیمت‌گذاری ارزی (%s)"
+msgstr "Margem fixa para preço por câmbio (%s)"
 
 #: src/Admin/CategoryFields.php:79
 #: src/Admin/CategoryFields.php:97
 msgid "Leave empty to use the parent category or store markup."
-msgstr "برای استفاده از سود دستهٔ والد یا سود کلی فروشگاه، خالی بگذارید."
+msgstr "Deixe em branco para usar a margem da categoria superior ou da loja."
 
 #. translators: %s: currency code such as USD.
 #: src/Admin/ProductFields.php:77
 #: src/Admin/ProductList.php:174
 #, php-format
 msgid "Exchange rate (%s)"
-msgstr "نرخ ارز (%s)"
+msgstr "Taxa de câmbio (%s)"
 
 #: src/Admin/ProductFields.php:78
 #: src/Admin/ProductList.php:175
 msgid "Manual price"
-msgstr "قیمت دستی"
+msgstr "Preço manual"
 
 #: src/Admin/ProductFields.php:98
 #: src/Admin/ProductList.php:194
 #: src/Admin/ProductList.php:234
 msgid "Pricing"
-msgstr "قیمت‌گذاری"
+msgstr "Tipo de preço"
 
 #. translators: %s: default pricing mode name.
 #: src/Admin/ProductFields.php:101
 #, php-format
 msgid "Store default (%s)"
-msgstr "پیش‌فرض فروشگاه (%s)"
+msgstr "Predefinição da loja (%s)"
 
 #: src/Admin/ProductFields.php:106
 msgid "Exchange rate: the store price is calculated from a base currency price and updated automatically when the rate changes."
-msgstr "نرخ ارز: قیمت فروشگاه از روی قیمت ارزی محاسبه می‌شود و با تغییر نرخ، خودکار به‌روز می‌شود."
+msgstr "Taxa de câmbio: o preço da loja é calculado a partir de um preço na moeda base e atualizado automaticamente quando a taxa muda."
 
 #: src/Admin/ProductFields.php:116
 #: src/Admin/ProductList.php:246
 msgid "Markup (%)"
-msgstr "سود (٪)"
+msgstr "Margem (%)"
 
 #: src/Admin/ProductFields.php:121
 msgid "Leave empty to use the category or store markup (shown as placeholder)."
-msgstr "برای استفاده از سود دسته یا فروشگاه (که کم‌رنگ نمایش داده شده) خالی بگذارید."
+msgstr "Deixe em branco para usar a margem da categoria ou da loja (mostrada no campo)."
 
 #. translators: %s: unit such as Toman.
 #: src/Admin/ProductFields.php:132
 #, php-format
 msgid "Fixed markup (%s)"
-msgstr "سود ثابت (%s)"
+msgstr "Margem fixa (%s)"
 
 #: src/Admin/ProductFields.php:137
 msgid "Leave empty to use the category or store value (shown as placeholder)."
-msgstr "برای استفاده از مقدار دسته یا فروشگاه (که کم‌رنگ نمایش داده شده) خالی بگذارید."
+msgstr "Deixe em branco para usar o valor da categoria ou da loja (mostrado no campo)."
 
 #. translators: %s: currency symbol such as $.
 #: src/Admin/ProductFields.php:214
 #: src/Admin/ProductList.php:185
 #, php-format
 msgid "Base regular price (%s)"
-msgstr "قیمت عادی ارزی (%s)"
+msgstr "Preço normal base (%s)"
 
 #. translators: %s: currency symbol such as $.
 #: src/Admin/ProductFields.php:221
 #: src/Admin/ProductList.php:187
 #, php-format
 msgid "Base sale price (%s)"
-msgstr "قیمت حراج ارزی (%s)"
+msgstr "Preço promocional base (%s)"
 
 #: src/Admin/ProductFields.php:227
 #: src/Admin/ProductList.php:216
 msgid "Discount (%)"
-msgstr "تخفیف (٪)"
+msgstr "Desconto (%)"
 
 #: src/Admin/ProductFields.php:245
 msgid "Store price"
-msgstr "قیمت فروشگاه"
+msgstr "Preço na loja"
 
 #: src/Admin/ProductFields.php:372
 msgid "Product not found."
-msgstr "محصول پیدا نشد."
+msgstr "Produto não encontrado."
 
 #: src/Admin/ProductFields.php:376
 #: src/CLI.php:101
 msgid "Set the exchange rate first."
-msgstr "ابتدا نرخ ارز را ثبت کنید."
+msgstr "Defina primeiro a taxa de câmbio."
 
 #: src/Admin/ProductFields.php:429
 msgid "Enter a base regular price to calculate."
-msgstr "برای محاسبه، قیمت عادی ارزی را وارد کنید."
+msgstr "Introduza um preço normal base para calcular."
 
 #. translators: 1: regular price, 2: sale price.
 #: src/Admin/ProductFields.php:438
 #, php-format
 msgid "%1$s, on sale for %2$s"
-msgstr "%1$s، در حراج %2$s"
+msgstr "%1$s, em promoção por %2$s"
 
 #. translators: 1: exchange rate such as "1 USD = 100,000 Toman", 2: markup percent, 3: fixed markup with unit.
 #: src/Admin/ProductFields.php:448
 #, php-format
 msgid "%1$s · markup %2$s%% + %3$s"
-msgstr "%1$s · سود %2$s%% + %3$s"
+msgstr "%1$s · margem %2$s%% + %3$s"
 
 #. translators: %s: currency code such as USD.
 #: src/Admin/ProductList.php:42
 #, php-format
 msgid "Base price (%s)"
-msgstr "قیمت ارزی (%s)"
+msgstr "Preço base (%s)"
 
 #: src/Admin/ProductList.php:79
 msgid "Manual"
-msgstr "دستی"
+msgstr "Manual"
 
 #: src/Admin/ProductList.php:89
 msgid "Missing base price"
-msgstr "قیمت ارزی وارد نشده"
+msgstr "Sem preço base"
 
 #: src/Admin/ProductList.php:172
 #: src/Admin/ProductList.php:238
 msgid "Store default"
-msgstr "پیش‌فرض فروشگاه"
+msgstr "Predefinição da loja"
 
 #: src/Admin/ProductList.php:191
 #: src/Admin/ProductList.php:232
 msgid "Exchange rate pricing"
-msgstr "قیمت‌گذاری ارزی"
+msgstr "Preço por taxa de câmbio"
 
 #: src/Admin/ProductList.php:237
 #: src/Admin/ProductList.php:248
 msgid "— No change —"
-msgstr "— بدون تغییر —"
+msgstr "— Sem alteração —"
 
 #: src/Admin/RateWidget.php:73
 msgid "Saving…"
-msgstr "در حال ذخیره…"
+msgstr "A guardar…"
 
 #: src/Admin/RateWidget.php:74
 msgid "The exchange rate could not be saved."
-msgstr "نرخ ارز ذخیره نشد."
+msgstr "Não foi possível guardar a taxa de câmbio."
 
 #: src/Admin/RateWidget.php:85
 #: src/Admin/SettingsPage.php:68
 msgid "Exchange rate"
-msgstr "نرخ ارز"
+msgstr "Taxa de câmbio"
 
 #. translators: %s: currency code such as USD.
 #: src/Admin/RateWidget.php:100
 #, php-format
 msgid "%s: no rate"
-msgstr "%s: بدون نرخ"
+msgstr "%s: sem taxa"
 
 #: src/Admin/RateWidget.php:115
 msgid "No rate set yet."
-msgstr "هنوز نرخی ثبت نشده است."
+msgstr "Ainda não foi definida nenhuma taxa."
 
 #. translators: %s: time span such as "2 hours".
 #: src/Admin/RateWidget.php:119
 #: src/Admin/SettingsPage.php:411
 #, php-format
 msgid "Updated %s ago."
-msgstr "%s پیش به‌روز شد."
+msgstr "Atualizada há %s."
 
 #. translators: %s: currency code such as USD.
 #: src/Admin/RateWidget.php:134
 #: src/Admin/SettingsPage.php:393
 #, php-format
 msgid "1 %s ="
-msgstr "هر %s:"
+msgstr "1 %s ="
 
 #: src/Admin/RateWidget.php:146
 msgid "Update"
-msgstr "به‌روزرسانی"
+msgstr "Atualizar"
 
 #: src/Admin/RateWidget.php:164
 msgid "Exchange rate settings"
-msgstr "تنظیمات نرخ ارز"
+msgstr "Definições da taxa de câmbio"
 
 #: src/Admin/RateWidget.php:212
 #: src/Rates.php:89
 msgid "Invalid currency."
-msgstr "ارز نامعتبر است."
+msgstr "Moeda inválida."
 
 #: src/Admin/RateWidget.php:216
 #: src/Admin/SettingsPage.php:319
 #: src/Rates.php:93
 msgid "The exchange rate must be a number greater than zero."
-msgstr "نرخ ارز باید عددی بزرگ‌تر از صفر باشد."
+msgstr "A taxa de câmbio deve ser um número superior a zero."
 
 #: src/Admin/RateWidget.php:229
 #: src/Admin/RateWidget.php:260
 msgid "You are not allowed to change the exchange rate."
-msgstr "شما اجازهٔ تغییر نرخ ارز را ندارید."
+msgstr "Não tem permissão para alterar a taxa de câmbio."
 
 #: src/Admin/RateWidget.php:243
 msgid "Saved. Prices are being recalculated."
-msgstr "ذخیره شد. قیمت‌ها در حال محاسبهٔ دوباره هستند."
+msgstr "Guardado. Os preços estão a ser recalculados."
 
 #: src/Admin/RateWidget.php:244
 msgid "The rate is unchanged; marked as up to date."
-msgstr "نرخ تغییری نکرد؛ به‌عنوان به‌روز ثبت شد."
+msgstr "A taxa não mudou; foi marcada como atualizada."
 
 #: src/Admin/SettingsPage.php:30
 msgid "Exchange rates"
-msgstr "نرخ ارز"
+msgstr "Taxas de câmbio"
 
 #: src/Admin/SettingsPage.php:70
 msgid "Products priced by exchange rate get their store price from a base currency price, this rate, your markup and rounding. Prices are saved as normal WooCommerce prices, so sorting, filters, carts and payment gateways work as usual."
-msgstr "قیمت فروشگاهِ محصولات ارزی از قیمت ارزی، این نرخ، سود و گرد کردن شما به دست می‌آید. قیمت‌ها مثل قیمت‌های عادی ووکامرس ذخیره می‌شوند؛ پس مرتب‌سازی، فیلترها، سبد خرید و درگاه‌های پرداخت مثل همیشه کار می‌کنند."
+msgstr "Os produtos com preço por taxa de câmbio obtêm o preço da loja a partir de um preço na moeda base, desta taxa, da sua margem e do arredondamento. Os preços são guardados como preços normais do WooCommerce, por isso a ordenação, os filtros, os carrinhos e os métodos de pagamento funcionam como habitualmente."
 
 #: src/Admin/SettingsPage.php:74
 msgid "Base currency"
-msgstr "ارز پایه"
+msgstr "Moeda base"
 
 #: src/Admin/SettingsPage.php:80
 msgid "The currency you enter product prices in."
-msgstr "ارزی که قیمت محصولات را با آن وارد می‌کنید."
+msgstr "A moeda em que introduz os preços dos produtos."
 
 #: src/Admin/SettingsPage.php:86
 msgid "Enter amounts in"
-msgstr "واحد وارد کردن مبالغ"
+msgstr "Introduzir valores em"
 
 #: src/Admin/SettingsPage.php:90
 #: src/Settings.php:142
 msgid "Toman"
-msgstr "تومان"
+msgstr "Toman"
 
 #: src/Admin/SettingsPage.php:91
 msgid "Rial (store currency)"
-msgstr "ریال (ارز فروشگاه)"
+msgstr "Rial (moeda da loja)"
 
 #: src/Admin/SettingsPage.php:94
 msgid "Used for the rate, fixed markup and rounding step. Prices are always saved in Rial."
-msgstr "برای نرخ ارز، سود ثابت و گام گرد کردن استفاده می‌شود. قیمت‌ها همیشه به ریال ذخیره می‌شوند."
+msgstr "Usado para a taxa, a margem fixa e o passo de arredondamento. Os preços são sempre guardados em Rial."
 
 #: src/Admin/SettingsPage.php:102
 msgid "Rate source"
-msgstr "منبع نرخ"
+msgstr "Origem da taxa"
 
 #: src/Admin/SettingsPage.php:107
 msgid "Where the exchange rate comes from. Extensions can add automatic sources."
-msgstr "نرخ ارز از کجا گرفته شود. افزونه‌های دیگر می‌توانند منبع خودکار اضافه کنند."
+msgstr "De onde vem a taxa de câmbio. As extensões podem adicionar origens automáticas."
 
 #: src/Admin/SettingsPage.php:110
 msgid "Current rate"
-msgstr "نرخ فعلی"
+msgstr "Taxa atual"
 
 #: src/Admin/SettingsPage.php:116
 msgid "Outdated rate warning"
-msgstr "هشدار نرخ قدیمی"
+msgstr "Aviso de taxa desatualizada"
 
 #: src/Admin/SettingsPage.php:125
 msgid "Warn in the admin when the rate is older than this many days. 0 turns the warning off."
-msgstr "اگر نرخ از این تعداد روز قدیمی‌تر شد، در پیشخوان هشدار داده شود. 0 یعنی بدون هشدار."
+msgstr "Avisar na administração quando a taxa tiver mais do que este número de dias. 0 desativa o aviso."
 
 #: src/Admin/SettingsPage.php:128
 msgid "Admin bar"
-msgstr "نوار مدیریت"
+msgstr "Barra de administração"
 
 #: src/Admin/SettingsPage.php:132
 msgid "Show the rate in the admin bar with a quick update form"
-msgstr "نمایش نرخ در نوار مدیریت همراه با فرم به‌روزرسانی سریع"
+msgstr "Mostrar a taxa na barra de administração com um formulário de atualização rápida"
 
 #: src/Admin/SettingsPage.php:140
 msgid "Products"
-msgstr "محصولات"
+msgstr "Produtos"
 
 #: src/Admin/SettingsPage.php:145
 msgid "Default pricing"
-msgstr "قیمت‌گذاری پیش‌فرض"
+msgstr "Tipo de preço predefinido"
 
 #: src/Admin/SettingsPage.php:149
 msgid "Manual price: products opt in one by one"
-msgstr "قیمت دستی: محصولات را یکی‌یکی ارزی کنید"
+msgstr "Preço manual: ative a taxa de câmbio produto a produto"
 
 #. translators: %s: currency code such as USD.
 #: src/Admin/SettingsPage.php:151
 #, php-format
 msgid "Exchange rate: all products are priced in %s"
-msgstr "نرخ ارز: قیمت همهٔ محصولات به %s است"
+msgstr "Taxa de câmbio: todos os produtos têm preço em %s"
 
 #: src/Admin/SettingsPage.php:154
 msgid "Applies to products set to \"Store default\". Each product can override it."
-msgstr "برای محصولاتی که روی «پیش‌فرض فروشگاه» هستند اعمال می‌شود. هر محصول می‌تواند آن را تغییر دهد."
+msgstr "Aplica-se aos produtos definidos como \"Predefinição da loja\". Cada produto pode substituir esta opção."
 
 #: src/Admin/SettingsPage.php:157
 msgid "Sale prices"
-msgstr "قیمت‌های حراج"
+msgstr "Preços promocionais"
 
 #: src/Admin/SettingsPage.php:161
 msgid "Base currency sale price or discount percent"
-msgstr "قیمت حراج ارزی یا درصد تخفیف"
+msgstr "Preço promocional na moeda base ou percentagem de desconto"
 
 #: src/Admin/SettingsPage.php:162
 msgid "Base currency sale price only"
-msgstr "فقط قیمت حراج ارزی"
+msgstr "Apenas preço promocional na moeda base"
 
 #: src/Admin/SettingsPage.php:163
 msgid "Discount percent only"
-msgstr "فقط درصد تخفیف"
+msgstr "Apenas percentagem de desconto"
 
 #: src/Admin/SettingsPage.php:166
 msgid "When a product has both, the sale price wins."
-msgstr "اگر محصولی هر دو را داشته باشد، قیمت حراج اولویت دارد."
+msgstr "Quando um produto tem os dois, o preço promocional prevalece."
 
 #: src/Admin/SettingsPage.php:174
 msgid "Markup"
-msgstr "سود"
+msgstr "Margem"
 
 #: src/Admin/SettingsPage.php:176
 msgid "Added on top of the converted price. Product categories and single products can override these values; leave their fields empty to inherit."
-msgstr "به قیمت تبدیل‌شده اضافه می‌شود. دسته‌ها و تک‌تک محصولات می‌توانند این مقادیر را تغییر دهند؛ برای استفاده از همین مقادیر، فیلدهای آن‌ها را خالی بگذارید."
+msgstr "Adicionada ao preço convertido. As categorias de produtos e os produtos individuais podem substituir estes valores; deixe os respetivos campos em branco para herdar."
 
 #: src/Admin/SettingsPage.php:180
 #: src/CsvImportExport.php:66
 msgid "Markup percent"
-msgstr "درصد سود"
+msgstr "Margem percentual"
 
 #: src/Admin/SettingsPage.php:189
 #: src/CsvImportExport.php:67
 msgid "Fixed markup"
-msgstr "سود ثابت"
+msgstr "Margem fixa"
 
 #: src/Admin/SettingsPage.php:193
 msgid "Added after the percent markup."
-msgstr "پس از درصد سود اضافه می‌شود."
+msgstr "Adicionada após a margem percentual."
 
 #: src/Admin/SettingsPage.php:196
 msgid "Products in several categories"
-msgstr "محصولاتی که در چند دسته هستند"
+msgstr "Produtos em várias categorias"
 
 #: src/Admin/SettingsPage.php:200
 msgid "Use the highest category markup"
-msgstr "بیشترین سود دسته‌ها اعمال شود"
+msgstr "Usar a maior margem entre as categorias"
 
 #: src/Admin/SettingsPage.php:201
 msgid "Use the lowest category markup"
-msgstr "کمترین سود دسته‌ها اعمال شود"
+msgstr "Usar a menor margem entre as categorias"
 
 #: src/Admin/SettingsPage.php:211
 msgid "Rounding"
-msgstr "گرد کردن"
+msgstr "Arredondamento"
 
 #: src/Admin/SettingsPage.php:216
 msgid "Round to multiples of"
-msgstr "گرد کردن به مضرب"
+msgstr "Arredondar para múltiplos de"
 
 #: src/Admin/SettingsPage.php:220
 msgid "For example 10000 turns 48,372,500 into 48,380,000. 0 turns rounding off."
-msgstr "برای نمونه، با 10000 مبلغ 48,372,500 به 48,380,000 تبدیل می‌شود. 0 یعنی بدون گرد کردن."
+msgstr "Por exemplo, 10000 transforma 48 372 500 em 48 380 000. 0 desativa o arredondamento."
 
 #: src/Admin/SettingsPage.php:223
 msgid "Rounding direction"
-msgstr "جهت گرد کردن"
+msgstr "Direção do arredondamento"
 
 #: src/Admin/SettingsPage.php:227
 msgid "Up"
-msgstr "رو به بالا"
+msgstr "Para cima"
 
 #: src/Admin/SettingsPage.php:228
 msgid "Nearest"
-msgstr "نزدیک‌ترین"
+msgstr "Mais próximo"
 
 #: src/Admin/SettingsPage.php:229
 msgid "Down"
-msgstr "رو به پایین"
+msgstr "Para baixo"
 
 #: src/Admin/SettingsPage.php:239
 msgid "Recalculation"
-msgstr "محاسبهٔ دوباره"
+msgstr "Recálculo"
 
 #: src/Admin/SettingsPage.php:241
 msgid "Prices are recalculated automatically in the background whenever the rate, these settings or a category markup change."
-msgstr "هر بار که نرخ، این تنظیمات یا سود یک دسته تغییر کند، قیمت‌ها خودکار در پس‌زمینه دوباره محاسبه می‌شوند."
+msgstr "Os preços são recalculados automaticamente em segundo plano sempre que a taxa, estas definições ou a margem de uma categoria mudam."
 
 #: src/Admin/SettingsPage.php:245
 msgid "Status"
-msgstr "وضعیت"
+msgstr "Estado"
 
 #: src/Admin/SettingsPage.php:251
 msgid "Batch size"
-msgstr "اندازهٔ هر مرحله"
+msgstr "Tamanho do lote"
 
 #: src/Admin/SettingsPage.php:261
 msgid "Products processed per background step. Lower it on slow hosting."
-msgstr "تعداد محصولاتی که در هر مرحلهٔ پس‌زمینه پردازش می‌شوند. روی هاست کند، کمترش کنید."
+msgstr "Produtos processados por etapa em segundo plano. Reduza em alojamentos lentos."
 
 #: src/Admin/SettingsPage.php:264
 msgid "Rate history"
-msgstr "تاریخچهٔ نرخ"
+msgstr "Histórico de taxas"
 
 #: src/Admin/SettingsPage.php:275
 msgid "Uninstall"
-msgstr "حذف افزونه"
+msgstr "Desinstalação"
 
 #: src/Admin/SettingsPage.php:280
 msgid "Remove data"
-msgstr "پاک کردن داده‌ها"
+msgstr "Remover dados"
 
 #: src/Admin/SettingsPage.php:284
 msgid "Delete settings, rate history and base prices when the plugin is deleted. Store prices and order records are kept."
-msgstr "با حذف افزونه، تنظیمات، تاریخچهٔ نرخ و قیمت‌های ارزی پاک شوند. قیمت‌های فروشگاه و سوابق سفارش‌ها حفظ می‌شوند."
+msgstr "Eliminar as definições, o histórico de taxas e os preços base quando o plugin for eliminado. Os preços da loja e os registos de encomendas são mantidos."
 
 #. translators: 1: time span such as "2 hours", 2: user name.
 #: src/Admin/SettingsPage.php:409
 #, php-format
 msgid "Updated %1$s ago by %2$s."
-msgstr "%1$s پیش توسط %2$s به‌روز شد."
+msgstr "Atualizada há %1$s por %2$s."
 
 #: src/Admin/SettingsPage.php:414
 msgid "No rate set yet. Prices are only calculated once a rate is saved."
-msgstr "هنوز نرخی ثبت نشده است. قیمت‌ها فقط پس از ثبت نرخ محاسبه می‌شوند."
+msgstr "Ainda não foi definida nenhuma taxa. Os preços só são calculados depois de guardar uma taxa."
 
 #: src/Admin/SettingsPage.php:457
 msgid "Recalculate all prices now"
-msgstr "محاسبهٔ دوبارهٔ همهٔ قیمت‌ها، همین حالا"
+msgstr "Recalcular todos os preços agora"
 
 #: src/Admin/SettingsPage.php:475
 msgid "No rate changes yet."
-msgstr "هنوز تغییری در نرخ ثبت نشده است."
+msgstr "Ainda não há alterações de taxa."
 
 #: src/Admin/SettingsPage.php:482
 msgid "Date"
-msgstr "تاریخ"
+msgstr "Data"
 
 #: src/Admin/SettingsPage.php:483
 msgid "Rate"
-msgstr "نرخ"
+msgstr "Taxa"
 
 #: src/Admin/SettingsPage.php:484
 msgid "Change"
-msgstr "تغییر"
+msgstr "Variação"
 
 #: src/Admin/SettingsPage.php:485
 msgid "Source"
-msgstr "منبع"
+msgstr "Origem"
 
 #: src/Admin/SettingsPage.php:486
 msgid "User"
-msgstr "کاربر"
+msgstr "Utilizador"
 
 #. translators: %s: currency code such as USD.
 #: src/CLI.php:50
 #: src/CLI.php:133
 #, php-format
 msgid "No rate set for %s."
-msgstr "هیچ نرخی برای %s ثبت نشده است."
+msgstr "Não há nenhuma taxa definida para %s."
 
 #. translators: 1: exchange rate such as "1 USD = 100,000 Toman", 2: time span such as "2 hours".
 #: src/CLI.php:56
 #, php-format
 msgid "%1$s (updated %2$s ago)"
-msgstr "%1$s (%2$s پیش به‌روز شد)"
+msgstr "%1$s (atualizada há %2$s)"
 
 #: src/CLI.php:67
 msgid "The rate must be a number."
-msgstr "نرخ باید عدد باشد."
+msgstr "A taxa deve ser um número."
 
 #. translators: 1: exchange rate such as "1 USD = 100,000 Toman", 2: result message.
 #: src/CLI.php:79
@@ -556,44 +556,45 @@ msgstr "%1$s. %2$s"
 
 #: src/CLI.php:81
 msgid "Recalculation scheduled."
-msgstr "محاسبهٔ دوباره زمان‌بندی شد."
+msgstr "Recálculo agendado."
 
 #: src/CLI.php:81
 msgid "Rate unchanged."
-msgstr "نرخ تغییری نکرد."
+msgstr "Taxa sem alteração."
 
 #. translators: %d: number of products.
 #: src/CLI.php:106
 #, php-format
 msgid "Scheduled recalculation of %d product."
 msgid_plural "Scheduled recalculation of %d products."
-msgstr[0] "محاسبهٔ دوبارهٔ %d محصول زمان‌بندی شد."
+msgstr[0] "Recálculo de %d produto agendado."
+msgstr[1] "Recálculo de %d produtos agendado."
 
 #: src/CLI.php:110
 msgid "Recalculating"
-msgstr "در حال محاسبهٔ دوباره"
+msgstr "A recalcular"
 
 #. translators: 1: run status, 2: products processed, 3: total products, 4: products updated, 5: products unchanged, 6: products without a base price.
 #: src/CLI.php:146
 #, php-format
 msgid "Recalculation: %1$s. %2$d of %3$d processed, %4$d updated, %5$d unchanged, %6$d missing a base price."
-msgstr "محاسبهٔ دوباره: %1$s. %2$d از %3$d پردازش شد، %4$d به‌روز شد، %5$d بدون تغییر، %6$d بدون قیمت ارزی."
+msgstr "Recálculo: %1$s. %2$d de %3$d processados, %4$d atualizados, %5$d sem alteração, %6$d sem preço base."
 
 #: src/CsvImportExport.php:62
 msgid "Exchange rate pricing mode"
-msgstr "حالت قیمت‌گذاری ارزی"
+msgstr "Modo de preço por taxa de câmbio"
 
 #: src/CsvImportExport.php:63
 msgid "Base regular price"
-msgstr "قیمت عادی ارزی"
+msgstr "Preço normal base"
 
 #: src/CsvImportExport.php:64
 msgid "Base sale price"
-msgstr "قیمت حراج ارزی"
+msgstr "Preço promocional base"
 
 #: src/CsvImportExport.php:65
 msgid "Base sale percent"
-msgstr "درصد تخفیف ارزی"
+msgstr "Percentagem de desconto base"
 
 #. translators: 1: amount, 2: unit such as Toman or a currency symbol.
 #: src/Format.php:101
@@ -606,30 +607,30 @@ msgstr "%1$s %2$s"
 #: src/Format.php:132
 #, php-format
 msgid "1 %1$s = %2$s"
-msgstr "هر %1$s: %2$s"
+msgstr "1 %1$s = %2$s"
 
 #: src/Orders.php:105
 msgid "Exchange rate at purchase"
-msgstr "نرخ ارز هنگام خرید"
+msgstr "Taxa de câmbio na compra"
 
 #. translators: %s: price in the base currency, e.g. $499.
 #: src/Orders.php:132
 #, php-format
 msgid "Base price: %s"
-msgstr "قیمت ارزی: %s"
+msgstr "Preço base: %s"
 
 #: src/Plugin.php:123
 msgid "Settings"
-msgstr "تنظیمات"
+msgstr "Definições"
 
 #: src/Plugin.php:139
 msgid "Exchange Rate Pricing for WooCommerce needs WooCommerce to be installed and active."
-msgstr "افزونهٔ قیمت‌گذاری ارزی برای ووکامرس به ووکامرسِ نصب‌شده و فعال نیاز دارد."
+msgstr "O plugin Preços por Taxa de Câmbio para WooCommerce necessita que o WooCommerce esteja instalado e ativo."
 
 #: src/RateProviders/ManualProvider.php:30
 msgid "Manual entry"
-msgstr "ورود دستی"
+msgstr "Introdução manual"
 
 #: src/RateProviders/ManualProvider.php:44
 msgid "Manual rates are entered by hand."
-msgstr "در این حالت، نرخ را خودتان وارد می‌کنید."
+msgstr "As taxas manuais são introduzidas à mão."

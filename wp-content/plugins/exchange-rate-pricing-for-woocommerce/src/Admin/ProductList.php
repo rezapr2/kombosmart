@@ -181,6 +181,10 @@ final class ProductList {
 	 */
 	public static function quick_edit_fields() {
 		$symbol = Format::currency_symbol( Settings::base_currency() );
+		/* translators: %s: currency symbol such as $. */
+		$regular_label = sprintf( __( 'Base regular price (%s)', 'exchange-rate-pricing-for-woocommerce' ), $symbol );
+		/* translators: %s: currency symbol such as $. */
+		$sale_label = sprintf( __( 'Base sale price (%s)', 'exchange-rate-pricing-for-woocommerce' ), $symbol );
 		?>
 		<div class="erpfw-quick-edit">
 			<br class="clear" />
@@ -198,14 +202,12 @@ final class ProductList {
 			</label>
 			<div class="erpfw-quick-prices">
 				<label>
-					<?php /* translators: %s: currency symbol such as $. */ ?>
-					<span class="title"><?php echo esc_html( sprintf( __( 'Base regular price (%s)', 'exchange-rate-pricing-for-woocommerce' ), $symbol ) ); ?></span>
+					<span class="title"><?php echo esc_html( $regular_label ); ?></span>
 					<span class="input-text-wrap"><input type="text" name="erpfw_regular_price" class="text" inputmode="decimal" value="" /></span>
 				</label>
 				<?php if ( 'percent' !== Settings::get( 'sale_mode' ) ) : ?>
 					<label>
-						<?php /* translators: %s: currency symbol such as $. */ ?>
-						<span class="title"><?php echo esc_html( sprintf( __( 'Base sale price (%s)', 'exchange-rate-pricing-for-woocommerce' ), $symbol ) ); ?></span>
+						<span class="title"><?php echo esc_html( $sale_label ); ?></span>
 						<span class="input-text-wrap"><input type="text" name="erpfw_sale_price" class="text" inputmode="decimal" value="" /></span>
 					</label>
 				<?php endif; ?>

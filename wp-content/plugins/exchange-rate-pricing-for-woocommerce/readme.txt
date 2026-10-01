@@ -1,8 +1,8 @@
 === Exchange Rate Pricing for WooCommerce ===
-Contributors: rezarajabi
+Contributors: rezapr2
 Tags: exchange rate, currency, dollar price, dynamic pricing, woocommerce
 Requires at least: 6.5
-Tested up to: 6.9
+Tested up to: 7.1
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
@@ -34,6 +34,7 @@ When you change the rate, every exchange-rate priced product is recalculated in 
 * WP-CLI commands: `wp erpfw rate`, `wp erpfw recalculate`, `wp erpfw status`.
 * Iranian Rial stores can enter amounts in Toman.
 * Compatible with High-Performance Order Storage and the Cart and Checkout blocks.
+* Translation ready. Includes Persian, Portuguese (Brazil) and Portuguese (Portugal) translations.
 
 = How prices are stored =
 
@@ -76,6 +77,10 @@ No. Prices are calculated when the rate or a product changes, not when pages loa
 = What happens when a cart is open while the rate changes? =
 
 The cart uses the product's current price, like any price change in WooCommerce. Orders keep the price and rate they were placed with.
+
+= Can I translate the plugin? =
+
+Yes. All text can be translated on [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/exchange-rate-pricing-for-woocommerce/). Persian and Portuguese translations are included with the plugin.
 
 == Changelog ==
 

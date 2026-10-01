@@ -38,12 +38,13 @@ final class Plugin {
 	 * Register hooks.
 	 */
 	private function __construct() {
+		add_action( 'init', array( $this, 'load_textdomain' ) );
+
 		if ( ! class_exists( 'WooCommerce' ) ) {
 			add_action( 'admin_notices', array( $this, 'missing_woocommerce_notice' ) );
 			return;
 		}
 
-		add_action( 'init', array( $this, 'load_textdomain' ) );
 		add_action( 'admin_init', array( Installer::class, 'maybe_upgrade' ) );
 		add_action( 'erpfw_rate_updated', array( $this, 'on_rate_updated' ) );
 		add_action( 'update_option_' . Settings::OPTION, array( $this, 'on_settings_updated' ), 10, 2 );

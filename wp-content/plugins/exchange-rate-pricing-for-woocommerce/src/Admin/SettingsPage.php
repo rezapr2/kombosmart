@@ -389,10 +389,12 @@ class SettingsPage extends WC_Settings_Page {
 		$currency = Settings::base_currency();
 		$entry    = Rates::get( $currency );
 		$value    = $entry ? wc_format_localized_decimal( Settings::to_display( $entry['rate'] ) ) : '';
+		/* translators: %s: currency code such as USD. */
+		$prefix = sprintf( __( '1 %s =', 'exchange-rate-pricing-for-woocommerce' ), $currency );
 
 		$this->row_start( $field, 'erpfw_rate' );
 		?>
-		<span class="erpfw-rate-prefix"><?php echo esc_html( sprintf( '1 %s =', $currency ) ); ?></span>
+		<span class="erpfw-rate-prefix"><?php echo esc_html( $prefix ); ?></span>
 		<input type="text" inputmode="decimal" name="erpfw_rate" id="erpfw_rate" value="<?php echo esc_attr( $value ); ?>" style="width:160px" />
 		<span><?php echo esc_html( Settings::unit_label() ); ?></span>
 		<input type="hidden" name="erpfw_rate_currency" value="<?php echo esc_attr( $currency ); ?>" />
