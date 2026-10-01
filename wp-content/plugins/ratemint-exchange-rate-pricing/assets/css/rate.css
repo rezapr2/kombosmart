@@ -1,0 +1,111 @@
+/* RateMint: admin bar item and dashboard widget. */
+
+#wpadminbar #wp-admin-bar-erpfw-rate > .ab-item .ab-icon::before {
+	content: "\f18e"; /* dashicons-money-alt */
+	top: 2px;
+}
+
+#wpadminbar #wp-admin-bar-erpfw-rate.erpfw-stale > .ab-item,
+#wpadminbar #wp-admin-bar-erpfw-rate.erpfw-stale > .ab-item .ab-icon::before {
+	color: #f0b849;
+}
+
+#wpadminbar #wp-admin-bar-erpfw-rate-form > .ab-item {
+	height: auto;
+	min-width: 280px;
+	padding: 10px 12px;
+	white-space: normal;
+}
+
+#wpadminbar .erpfw-rate-form {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	align-items: center;
+	line-height: 1.4;
+}
+
+#wpadminbar .erpfw-rate-form label,
+#wpadminbar .erpfw-rate-form span {
+	color: #f0f0f1;
+	font-size: 13px;
+	line-height: 28px;
+}
+
+#wpadminbar .erpfw-rate-form input[type="text"] {
+	box-sizing: border-box;
+	width: 120px;
+	height: 28px;
+	margin: 0;
+	padding: 0 8px;
+	border: 1px solid #8c8f94;
+	border-radius: 3px;
+	background: #fff;
+	color: #1d2327;
+	font-size: 13px;
+	line-height: 26px;
+}
+
+#wpadminbar .erpfw-rate-form button {
+	height: 28px;
+	margin: 0;
+	padding: 0 12px;
+	border: 0;
+	border-radius: 3px;
+	background: #2271b1;
+	color: #fff;
+	font-size: 13px;
+	line-height: 28px;
+	cursor: pointer;
+}
+
+#wpadminbar .erpfw-rate-form button:disabled {
+	opacity: 0.6;
+	cursor: default;
+}
+
+#wpadminbar .erpfw-rate-form .erpfw-rate-form__message {
+	flex-basis: 100%;
+	color: #c3c4c7;
+	font-size: 12px;
+	line-height: 1.4;
+}
+
+#wpadminbar .erpfw-rate-form .erpfw-rate-form__message:empty {
+	display: none;
+}
+
+.erpfw-rate-widget .erpfw-rate-current {
+	margin: 0 0 4px;
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.erpfw-rate-widget .erpfw-rate-updated {
+	margin-top: 0;
+	color: #646970;
+}
+
+.erpfw-rate-widget .erpfw-rate-updated.is-stale {
+	color: #b32d2e;
+}
+
+.erpfw-rate-widget .erpfw-rate-form {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	align-items: center;
+}
+
+.erpfw-rate-widget .erpfw-rate-form input[type="text"] {
+	width: 140px;
+}
+
+.erpfw-rate-widget .erpfw-rate-form__message {
+	flex-basis: 100%;
+	color: #646970;
+}
+
+.erpfw-rate-widget .erpfw-rate-status {
+	color: #646970;
+}
