@@ -306,7 +306,7 @@ class Frontend
 			}
 
 			if ($template_slug) {
-				// Expect template slugs like 'page-templates/contact-us.php'
+				// Expect template slugs like 'page-templates/my-account.php'
 				$basename = basename($template_slug, '.php');
 				$pt_css_rel = '/assets/frontend/dist/css/page-templates/' . $basename . '.css';
 				$pt_css_abs = get_theme_file_path($pt_css_rel);
@@ -357,9 +357,6 @@ class Frontend
 			// its page type and depends on the main 'scripts' handle (jQuery, Swiper, and
 			// the localized smartw/tcCheckout globals are attached there).
 			$js_bundles = [];
-			if ($template_slug === 'page-templates/blog.php') {
-				$js_bundles[] = 'blog';
-			}
 			if (is_category()) {
 				$js_bundles[] = 'category';
 			}
