@@ -244,6 +244,22 @@
             position: relative;
             transform: translateY(-50%);
         }
+        .gallery-lightbox-caption {
+            position: absolute;
+            // Clear of the "n / total" counter at the bottom of the slide.
+            bottom: 4rem;
+            left: 1.6rem;
+            right: 1.6rem;
+            width: fit-content;
+            margin: 0 auto;
+            padding: 0.8rem 1.6rem;
+            border-radius: var(--radius);
+            background: rgba(var(--color-ink-rgb), 0.78);
+            color: var(--color-white);
+            text-align: center;
+            line-height: 1.6;
+            z-index: 2;
+        }
         .gallery-lightbox-main .swiper-slide .video-wrapper {
             width: 100%;
             height: 100%;

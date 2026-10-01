@@ -101,6 +101,87 @@
             "new_lines": ""
         },
         {
+            "key": "field_sw_product_condition_images",
+            "label": "تصاویر وضعیت کالا",
+            "name": "product_condition_images",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "فقط برای کالای استوک. عکس واقعی همین دستگاه (نه عکس رسمی سازنده): درب، صفحه نمایش روشن، کیبورد، زیر دستگاه، پورت‌ها و هر خط و خش یا ایراد ظاهری. در صفحه محصول زیر وضعیت کالا نمایش داده می‌شود و با کلیک بزرگ می‌شود.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_sw_product_condition",
+                        "operator": "==",
+                        "value": "used"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 12,
+            "collapsed": "",
+            "button_label": "افزودن تصویر",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_sw_product_condition_image",
+                    "label": "تصویر",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "id",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "jpg, jpeg, png, webp",
+                    "allow_in_bindings": 0,
+                    "preview_size": "thumbnail",
+                    "parent_repeater": "field_sw_product_condition_images"
+                },
+                {
+                    "key": "field_sw_product_condition_image_caption",
+                    "label": "توضیح تصویر",
+                    "name": "caption",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": 80,
+                    "allow_in_bindings": 0,
+                    "placeholder": "مثلاً: خط و خش جزئی روی درب",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_sw_product_condition_images"
+                }
+            ]
+        },
+        {
             "key": "field_6903ec193674a",
             "label": "اطلاعات محصول",
             "name": "",
@@ -729,5 +810,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1790716128
+    "modified": 1790849971
 }

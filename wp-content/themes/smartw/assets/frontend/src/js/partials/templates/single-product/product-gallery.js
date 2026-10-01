@@ -54,13 +54,15 @@
                 galleryMain.slideTo(index);
             });
 
-            // Direct click binding on the "view all" button to ensure reliability
+            // Direct click binding on the "view all" button to ensure reliability.
+            // Also used by the condition photos, which keep data-gallery on their wrapper
+            // and pass the clicked photo's position as data-index.
             $(document).on('click', '.open-gallery-lightbox', function (e) {
                 e.preventDefault();
-                var imagesJson = $(this).attr('data-gallery');
+                var imagesJson = $(this).closest('[data-gallery]').attr('data-gallery');
                 try {
                     var images = JSON.parse(imagesJson || '[]');
-                    openGalleryLightbox(images);
+                    openGalleryLightbox(images, parseInt($(this).attr('data-index'), 10) || 0);
                 } catch (err) {
                     // ignore
                 }
@@ -84,7 +86,7 @@
             });
 
             // Lightbox creation and initialization
-            function openGalleryLightbox(images) {
+            function openGalleryLightbox(images, startIndex) {
                 if (!images || !images.length) return;
 
                 var $existing = $('#gallery-lightbox-modal');
@@ -151,6 +153,13 @@
                             + '</span>';
                         thumbHtml += '</div></div>';
                         $thumbWrapper.append(thumbHtml);
+                    } else if (img.caption) {
+                        $mainWrapper.append(
+                            $('<div class="swiper-slide"></div>')
+                                .append($('<img>', { src: full, alt: img.caption }))
+                                .append($('<div class="gallery-lightbox-caption yekan-14 md:yekan-16"></div>').text(img.caption))
+                        );
+                        $thumbWrapper.append('<div class="swiper-slide"><div class="thumb-item flex relative"><img src="' + (thumb || full) + '" alt="" /></div></div>');
                     } else {
                         $mainWrapper.append('<div class="swiper-slide"><img src="' + full + '" alt="" /></div>');
                         $thumbWrapper.append('<div class="swiper-slide"><div class="thumb-item flex relative"><img src="' + (thumb || full) + '" alt="" /></div></div>');
@@ -200,6 +209,7 @@
                     });
                     $modal.data('mainSwiper', modalMain);
                 }
+                modalMain.slideTo(startIndex || 0, 0);
 
                 // Open modal
                 $modal.addClass('open');

@@ -126,7 +126,8 @@ if (isset(WC()->structured_data)) {
 			<?php endif; ?>
 
 			<?php
-			$condition_notes = get_field('product_condition', $product_id) === 'used' ? trim((string) get_field('product_condition_notes', $product_id)) : '';
+			$is_used         = get_field('product_condition', $product_id) === 'used';
+			$condition_notes = $is_used ? trim((string) get_field('product_condition_notes', $product_id)) : '';
 			if ($condition_notes):
 			?>
 				<div class="accordion-box slide-down-wrapper flex flex-col gap-10">
@@ -139,6 +140,38 @@ if (isset(WC()->structured_data)) {
 						</div>
 					</div>
 					<div class="content slide-down-content yekan-14 md:yekan-18 color-primary"><?php echo nl2br(esc_html($condition_notes)); ?></div>
+				</div>
+			<?php endif; ?>
+
+			<?php
+			// Real photos of this used unit; each opens the gallery lightbox at its own slide.
+			$condition_images = [];
+			foreach ($is_used ? (array) get_field('product_condition_images', $product_id) : [] as $row) {
+				$full = !empty($row['image']) ? wp_get_attachment_image_src($row['image'], 'large') : false;
+				if ($full) {
+					$condition_images[] = ['id' => (int) $row['image'], 'full' => $full[0], 'caption' => trim((string) ($row['caption'] ?? ''))];
+				}
+			}
+			if ($condition_images):
+				$condition_lightbox = array_map(function ($img) {
+					$thumb = wp_get_attachment_image_src($img['id'], 'thumbnail');
+					return ['type' => 'image', 'full' => $img['full'], 'thumb' => $thumb ? $thumb[0] : '', 'caption' => $img['caption']];
+				}, $condition_images);
+			?>
+				<div class="product-condition-images flex flex-col gap-10" data-gallery="<?php echo esc_attr(wp_json_encode($condition_lightbox)); ?>">
+					<span class="yekan-14 md:yekan-18 color-black-60">تصاویر واقعی کالا:</span>
+					<ul class="condition-images-list">
+						<?php foreach ($condition_images as $i => $img) : ?>
+							<li class="flex flex-col gap-05">
+								<button type="button" class="condition-image open-gallery-lightbox pointer" data-index="<?php echo esc_attr($i); ?>" aria-label="<?php echo esc_attr($img['caption'] ? 'بزرگنمایی: ' . $img['caption'] : 'بزرگنمایی تصویر ' . ($i + 1)); ?>">
+									<?php echo wp_get_attachment_image($img['id'], 'medium', false, ['alt' => $img['caption'] ?: get_the_title() . ' - وضعیت کالا']); ?>
+								</button>
+								<?php if ($img['caption']) : ?>
+									<span class="condition-image__caption yekan-12 color-black-60"><?php echo esc_html($img['caption']); ?></span>
+								<?php endif; ?>
+							</li>
+						<?php endforeach; ?>
+					</ul>
 				</div>
 			<?php endif; ?>
 
