@@ -301,6 +301,25 @@ class Helper {
     }
 
     /**
+     * Store WhatsApp chat link: the social networks link when set, otherwise the contact box
+     * link. A bare "https://wa.me/" placeholder (no number) counts as empty. '' if none.
+     */
+    public static function whatsapp_link(): string
+    {
+        $socials     = self::get_options_field('social_networks');
+        $contact_box = self::get_options_field('contact_box');
+
+        foreach ([$socials['whatsapp_link'] ?? '', $contact_box['whatsapp_link'] ?? ''] as $link) {
+            $link = trim((string) $link);
+            if ($link && untrailingslashit(preg_replace('#^https?://#', '', $link)) !== 'wa.me') {
+                return $link;
+            }
+        }
+
+        return '';
+    }
+
+    /**
      * Permalink of the "نکات خرید کالای استوک" page (slug `stock-terms`), or '' if it
      * doesn't exist. Linked from the single product page and checkout when a cart/product
      * is "used" condition.

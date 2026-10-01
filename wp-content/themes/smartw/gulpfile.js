@@ -73,7 +73,9 @@ function scssBuild(done) {
           .pipe(sourcemaps.write())
           .pipe(prefix(prefixerOptions))
           .pipe(concat("main.build.css"))
-          .pipe(cssmin({zindex: false, autoprefixer: false}))
+          // reduceIdents off: this file is minified separately from main.deps.css and then
+          // concatenated, so both would rename their @keyframes to "a" and the later one wins.
+          .pipe(cssmin({zindex: false, autoprefixer: false, reduceIdents: false}))
           .pipe(dest("./tmp"))
 
   )

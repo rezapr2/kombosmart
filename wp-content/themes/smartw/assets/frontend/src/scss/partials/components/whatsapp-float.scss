@@ -1,0 +1,98 @@
+// Floating WhatsApp chat button (template-parts/components/whatsapp-float.php), on every page.
+// Sits at the bottom-left (inline-end in RTL). z-index stays below the menu overlays (90),
+// header drawers and modals so they cover it when open.
+.whatsapp-float {
+    --whatsapp-green: #25D366;
+
+    position: fixed;
+    inset-inline-end: calcRem(24);
+    bottom: calcRem(24);
+    z-index: 85;
+    height: calcRem(56);
+    padding: calcRem(13);
+    border-radius: var(--radius-pill);
+    background-color: var(--whatsapp-green);
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 1rem 2.4rem rgba(37, 211, 102, 0.35);
+    transition: box-shadow .3s ease, transform .3s ease;
+
+    // Soft ring that pulses a few times after load to draw the eye, then stops.
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background-color: var(--whatsapp-green);
+        z-index: -1;
+        animation: whatsapp-float-pulse 2s ease-out 1s 3;
+    }
+
+    &__icon svg {
+        display: block;
+        width: calcRem(30);
+        height: calcRem(30);
+    }
+
+    // Label slides out on hover/focus (desktop); the button is icon-only by default.
+    &__label {
+        max-width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        opacity: 0;
+        transition: max-width .3s ease, opacity .2s ease, margin .3s ease;
+    }
+
+    &:hover,
+    &:focus-visible {
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 1.4rem 3rem rgba(37, 211, 102, 0.45);
+
+        .whatsapp-float__label {
+            max-width: calcRem(160);
+            opacity: 1;
+            margin-inline: calcRem(8) calcRem(6);
+        }
+    }
+
+    &:focus-visible {
+        outline: 3px solid rgba(37, 211, 102, 0.4);
+        outline-offset: 3px;
+    }
+
+    // Clear the fixed mobile bottom nav (70px tall).
+    @media (max-width: 767px) {
+        inset-inline-end: calcRem(16);
+        bottom: calcRem(86);
+        height: calcRem(52);
+        padding: calcRem(11);
+
+        &__label {
+            display: none;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+
+        &::before {
+            animation: none;
+        }
+
+        &__label {
+            transition: none;
+        }
+    }
+}
+
+@keyframes whatsapp-float-pulse {
+    0% {
+        opacity: .5;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.6);
+    }
+}

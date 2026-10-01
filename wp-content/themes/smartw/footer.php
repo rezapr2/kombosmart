@@ -166,6 +166,8 @@ if (!$columns) {
 
 <?php get_template_part('template-parts/mobile-bottom-nav'); ?>
 
+<?php get_template_part('template-parts/components/whatsapp-float'); ?>
+
 <?php wp_footer(); ?>
 
 <?php if ($ga_id) : ?>
