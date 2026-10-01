@@ -299,8 +299,9 @@ class SettingsPage extends WC_Settings_Page {
 	 * Posted amounts are read with the unit the form was shown in, i.e. the saved unit.
 	 */
 	public function save() {
-		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WC_Admin_Settings::save() verified the nonce.
-		if ( isset( $_POST['erpfw_rate'] ) && current_user_can( Settings::capability() ) ) {
+		$verified = isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_wpnonce'] ) ), 'woocommerce-settings' );
+
+		if ( $verified && isset( $_POST['erpfw_rate'] ) && current_user_can( Settings::capability() ) ) {
 			$raw      = sanitize_text_field( wp_unslash( $_POST['erpfw_rate'] ) );
 			$value    = Format::parse_float( $raw );
 			$currency = isset( $_POST['erpfw_rate_currency'] ) ? strtoupper( sanitize_key( wp_unslash( $_POST['erpfw_rate_currency'] ) ) ) : Settings::base_currency();
@@ -319,7 +320,6 @@ class SettingsPage extends WC_Settings_Page {
 				WC_Admin_Settings::add_error( __( 'The exchange rate must be a number greater than zero.', 'exchange-rate-pricing-for-woocommerce' ) );
 			}
 		}
-		// phpcs:enable
 
 		parent::save();
 	}

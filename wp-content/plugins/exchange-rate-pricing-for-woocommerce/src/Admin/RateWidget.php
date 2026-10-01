@@ -120,12 +120,11 @@ final class RateWidget {
 	}
 
 	/**
-	 * The rate form. Works without JavaScript through admin-post.php.
+	 * Print the rate form. Works without JavaScript through admin-post.php.
 	 *
 	 * @param string $context Unique suffix for element ids.
-	 * @return string
 	 */
-	private static function form( $context ) {
+	private static function render_form( $context ) {
 		$currency = Settings::base_currency();
 		$entry    = Rates::get( $currency );
 		$value    = $entry ? wc_format_localized_decimal( Settings::to_display( $entry['rate'] ) ) : '';
@@ -133,7 +132,6 @@ final class RateWidget {
 		/* translators: %s: currency code such as USD. */
 		$prefix = sprintf( __( '1 %s =', 'exchange-rate-pricing-for-woocommerce' ), $currency );
 
-		ob_start();
 		?>
 		<form class="erpfw-rate-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 			<input type="hidden" name="action" value="erpfw_update_rate" />
@@ -147,7 +145,6 @@ final class RateWidget {
 			<span class="erpfw-rate-form__message" role="status" aria-live="polite"></span>
 		</form>
 		<?php
-		return (string) ob_get_clean();
 	}
 
 	/**
@@ -159,7 +156,7 @@ final class RateWidget {
 		<div class="erpfw-rate-widget">
 			<p class="erpfw-rate-current"><?php echo esc_html( $entry ? Format::rate( $entry['rate'] ) : self::short_label() ); ?></p>
 			<p class="erpfw-rate-updated<?php echo Rates::is_stale() ? ' is-stale' : ''; ?>"><?php echo esc_html( self::updated_text() ); ?></p>
-			<?php echo self::form( 'widget' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped while building. ?>
+			<?php self::render_form( 'widget' ); ?>
 			<p class="erpfw-rate-status"><?php echo esc_html( Admin::recalc_summary( Recalculator::state() ) ); ?></p>
 			<p><a href="<?php echo esc_url( Settings::page_url() ); ?>"><?php esc_html_e( 'Exchange rate settings', 'exchange-rate-pricing-for-woocommerce' ); ?></a></p>
 		</div>
@@ -188,25 +185,28 @@ final class RateWidget {
 			)
 		);
 
+		ob_start();
+		self::render_form( 'bar' );
+
 		$admin_bar->add_node(
 			array(
 				'parent' => 'erpfw-rate',
 				'id'     => 'erpfw-rate-form',
-				'title'  => self::form( 'bar' ),
+				'title'  => (string) ob_get_clean(),
 			)
 		);
 	}
 
 	/**
-	 * Parse and save a posted rate.
+	 * Validate and save a submitted rate.
 	 *
+	 * @param string $currency Submitted currency code.
+	 * @param string $rate     Submitted rate in the entry unit.
 	 * @return bool|WP_Error True if changed, false if unchanged.
 	 */
-	private static function save_posted_rate() {
-		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Callers verify the nonce.
-		$currency = isset( $_POST['currency'] ) ? strtoupper( sanitize_key( wp_unslash( $_POST['currency'] ) ) ) : Settings::base_currency();
-		$value    = Format::parse_float( isset( $_POST['rate'] ) ? sanitize_text_field( wp_unslash( $_POST['rate'] ) ) : '' );
-		// phpcs:enable
+	private static function save_rate( $currency, $rate ) {
+		$currency = '' !== $currency ? strtoupper( $currency ) : Settings::base_currency();
+		$value    = Format::parse_float( $rate );
 
 		if ( ! array_key_exists( $currency, get_woocommerce_currencies() ) ) {
 			return new WP_Error( 'erpfw_invalid_currency', __( 'Invalid currency.', 'exchange-rate-pricing-for-woocommerce' ) );
@@ -229,7 +229,10 @@ final class RateWidget {
 			wp_send_json_error( array( 'message' => __( 'You are not allowed to change the exchange rate.', 'exchange-rate-pricing-for-woocommerce' ) ), 403 );
 		}
 
-		$result = self::save_posted_rate();
+		$result = self::save_rate(
+			isset( $_POST['currency'] ) ? sanitize_key( wp_unslash( $_POST['currency'] ) ) : '',
+			isset( $_POST['rate'] ) ? sanitize_text_field( wp_unslash( $_POST['rate'] ) ) : ''
+		);
 
 		if ( is_wp_error( $result ) ) {
 			wp_send_json_error( array( 'message' => $result->get_error_message() ) );
@@ -260,7 +263,10 @@ final class RateWidget {
 			wp_die( esc_html__( 'You are not allowed to change the exchange rate.', 'exchange-rate-pricing-for-woocommerce' ), 403 );
 		}
 
-		$result   = self::save_posted_rate();
+		$result   = self::save_rate(
+			isset( $_POST['currency'] ) ? sanitize_key( wp_unslash( $_POST['currency'] ) ) : '',
+			isset( $_POST['rate'] ) ? sanitize_text_field( wp_unslash( $_POST['rate'] ) ) : ''
+		);
 		$referer  = wp_get_referer();
 		$redirect = $referer ? $referer : admin_url();
 

@@ -258,8 +258,11 @@ final class ProductList {
 	 * @param WC_Product $product Product.
 	 */
 	public static function quick_edit_save( $product ) {
-		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- WordPress verified the inline edit nonce.
-		if ( empty( $_REQUEST['erpfw_quick_edit'] ) || ! $product instanceof WC_Product ) {
+		if ( ! isset( $_REQUEST['woocommerce_quick_edit_nonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_REQUEST['woocommerce_quick_edit_nonce'] ) ), 'woocommerce_quick_edit_nonce' ) ) {
+			return;
+		}
+
+		if ( empty( $_REQUEST['erpfw_quick_edit'] ) || ! $product instanceof WC_Product || ! current_user_can( 'edit_product', $product->get_id() ) ) {
 			return;
 		}
 
@@ -282,7 +285,6 @@ final class ProductList {
 				}
 			}
 		}
-		// phpcs:enable
 
 		$product->save_meta_data();
 		Pricer::apply( $product );
@@ -294,12 +296,14 @@ final class ProductList {
 	 * @param WC_Product $product Product.
 	 */
 	public static function bulk_edit_save( $product ) {
-		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- WordPress verified the bulk edit nonce.
+		if ( ! isset( $_REQUEST['woocommerce_quick_edit_nonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_REQUEST['woocommerce_quick_edit_nonce'] ) ), 'woocommerce_quick_edit_nonce' ) ) {
+			return;
+		}
+
 		$mode   = isset( $_REQUEST['erpfw_bulk_mode'] ) ? sanitize_key( wp_unslash( $_REQUEST['erpfw_bulk_mode'] ) ) : '';
 		$markup = isset( $_REQUEST['erpfw_bulk_markup_percent'] ) ? Format::parse_number( sanitize_text_field( wp_unslash( $_REQUEST['erpfw_bulk_markup_percent'] ) ) ) : '';
-		// phpcs:enable
 
-		if ( ( '' === $mode && '' === $markup ) || ! $product instanceof WC_Product ) {
+		if ( ( '' === $mode && '' === $markup ) || ! $product instanceof WC_Product || ! current_user_can( 'edit_product', $product->get_id() ) ) {
 			return;
 		}
 

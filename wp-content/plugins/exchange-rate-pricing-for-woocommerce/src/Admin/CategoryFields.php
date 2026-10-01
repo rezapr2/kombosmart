@@ -107,7 +107,13 @@ final class CategoryFields {
 	 * @param int $term_id Term id.
 	 */
 	public static function save( $term_id ) {
-		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WordPress verified the term form nonce before these hooks.
+		$adding  = isset( $_POST['_wpnonce_add-tag'] ) && wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_wpnonce_add-tag'] ) ), 'add-tag' );
+		$editing = isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_wpnonce'] ) ), 'update-tag_' . $term_id );
+
+		if ( ! $adding && ! $editing ) {
+			return;
+		}
+
 		if ( ! isset( $_POST['erpfw_markup_percent'] ) && ! isset( $_POST['erpfw_markup_fixed'] ) ) {
 			return;
 		}
@@ -145,7 +151,6 @@ final class CategoryFields {
 				update_term_meta( $term_id, $field['meta'], $value );
 			}
 		}
-		// phpcs:enable
 
 		if ( $changed ) {
 			Recalculator::schedule( 'category' );

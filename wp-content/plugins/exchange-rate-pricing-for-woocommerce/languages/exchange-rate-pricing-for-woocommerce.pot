@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-01T10:42:32+00:00\n"
+"POT-Creation-Date: 2026-10-01T11:01:06+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: exchange-rate-pricing-for-woocommerce\n"
@@ -170,27 +170,27 @@ msgstr ""
 msgid "Store price"
 msgstr ""
 
-#: src/Admin/ProductFields.php:372
+#: src/Admin/ProductFields.php:380
 msgid "Product not found."
 msgstr ""
 
-#: src/Admin/ProductFields.php:376
+#: src/Admin/ProductFields.php:384
 #: src/CLI.php:101
 msgid "Set the exchange rate first."
 msgstr ""
 
-#: src/Admin/ProductFields.php:429
+#: src/Admin/ProductFields.php:440
 msgid "Enter a base regular price to calculate."
 msgstr ""
 
 #. translators: 1: regular price, 2: sale price.
-#: src/Admin/ProductFields.php:438
+#: src/Admin/ProductFields.php:449
 #, php-format
 msgid "%1$s, on sale for %2$s"
 msgstr ""
 
 #. translators: 1: exchange rate such as "1 USD = 100,000 Toman", 2: markup percent, 3: fixed markup with unit.
-#: src/Admin/ProductFields.php:448
+#: src/Admin/ProductFields.php:459
 #, php-format
 msgid "%1$s · markup %2$s%% + %3$s"
 msgstr ""
@@ -255,17 +255,17 @@ msgid "Updated %s ago."
 msgstr ""
 
 #. translators: %s: currency code such as USD.
-#: src/Admin/RateWidget.php:134
+#: src/Admin/RateWidget.php:133
 #: src/Admin/SettingsPage.php:393
 #, php-format
 msgid "1 %s ="
 msgstr ""
 
-#: src/Admin/RateWidget.php:146
+#: src/Admin/RateWidget.php:144
 msgid "Update"
 msgstr ""
 
-#: src/Admin/RateWidget.php:164
+#: src/Admin/RateWidget.php:161
 msgid "Exchange rate settings"
 msgstr ""
 
@@ -275,21 +275,21 @@ msgid "Invalid currency."
 msgstr ""
 
 #: src/Admin/RateWidget.php:216
-#: src/Admin/SettingsPage.php:319
+#: src/Admin/SettingsPage.php:320
 #: src/Rates.php:93
 msgid "The exchange rate must be a number greater than zero."
 msgstr ""
 
 #: src/Admin/RateWidget.php:229
-#: src/Admin/RateWidget.php:260
+#: src/Admin/RateWidget.php:263
 msgid "You are not allowed to change the exchange rate."
 msgstr ""
 
-#: src/Admin/RateWidget.php:243
+#: src/Admin/RateWidget.php:246
 msgid "Saved. Prices are being recalculated."
 msgstr ""
 
-#: src/Admin/RateWidget.php:244
+#: src/Admin/RateWidget.php:247
 msgid "The rate is unchanged; marked as up to date."
 msgstr ""
 

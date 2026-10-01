@@ -169,27 +169,27 @@ msgstr "تخفیف (٪)"
 msgid "Store price"
 msgstr "قیمت فروشگاه"
 
-#: src/Admin/ProductFields.php:372
+#: src/Admin/ProductFields.php:380
 msgid "Product not found."
 msgstr "محصول پیدا نشد."
 
-#: src/Admin/ProductFields.php:376
+#: src/Admin/ProductFields.php:384
 #: src/CLI.php:101
 msgid "Set the exchange rate first."
 msgstr "ابتدا نرخ ارز را ثبت کنید."
 
-#: src/Admin/ProductFields.php:429
+#: src/Admin/ProductFields.php:440
 msgid "Enter a base regular price to calculate."
 msgstr "برای محاسبه، قیمت عادی ارزی را وارد کنید."
 
 #. translators: 1: regular price, 2: sale price.
-#: src/Admin/ProductFields.php:438
+#: src/Admin/ProductFields.php:449
 #, php-format
 msgid "%1$s, on sale for %2$s"
 msgstr "%1$s، در حراج %2$s"
 
 #. translators: 1: exchange rate such as "1 USD = 100,000 Toman", 2: markup percent, 3: fixed markup with unit.
-#: src/Admin/ProductFields.php:448
+#: src/Admin/ProductFields.php:459
 #, php-format
 msgid "%1$s · markup %2$s%% + %3$s"
 msgstr "%1$s · سود %2$s%% + %3$s"
@@ -254,17 +254,17 @@ msgid "Updated %s ago."
 msgstr "%s پیش به‌روز شد."
 
 #. translators: %s: currency code such as USD.
-#: src/Admin/RateWidget.php:134
+#: src/Admin/RateWidget.php:133
 #: src/Admin/SettingsPage.php:393
 #, php-format
 msgid "1 %s ="
 msgstr "هر %s:"
 
-#: src/Admin/RateWidget.php:146
+#: src/Admin/RateWidget.php:144
 msgid "Update"
 msgstr "به‌روزرسانی"
 
-#: src/Admin/RateWidget.php:164
+#: src/Admin/RateWidget.php:161
 msgid "Exchange rate settings"
 msgstr "تنظیمات نرخ ارز"
 
@@ -274,21 +274,21 @@ msgid "Invalid currency."
 msgstr "ارز نامعتبر است."
 
 #: src/Admin/RateWidget.php:216
-#: src/Admin/SettingsPage.php:319
+#: src/Admin/SettingsPage.php:320
 #: src/Rates.php:93
 msgid "The exchange rate must be a number greater than zero."
 msgstr "نرخ ارز باید عددی بزرگ‌تر از صفر باشد."
 
 #: src/Admin/RateWidget.php:229
-#: src/Admin/RateWidget.php:260
+#: src/Admin/RateWidget.php:263
 msgid "You are not allowed to change the exchange rate."
 msgstr "شما اجازهٔ تغییر نرخ ارز را ندارید."
 
-#: src/Admin/RateWidget.php:243
+#: src/Admin/RateWidget.php:246
 msgid "Saved. Prices are being recalculated."
 msgstr "ذخیره شد. قیمت‌ها در حال محاسبهٔ دوباره هستند."
 
-#: src/Admin/RateWidget.php:244
+#: src/Admin/RateWidget.php:247
 msgid "The rate is unchanged; marked as up to date."
 msgstr "نرخ تغییری نکرد؛ به‌عنوان به‌روز ثبت شد."
 

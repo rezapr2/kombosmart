@@ -274,8 +274,11 @@ final class ProductFields {
 	 * @param WC_Product $product Product being saved.
 	 */
 	public static function save_product( $product ) {
-		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WC_Admin_Meta_Boxes verified the nonce.
-		if ( ! isset( $_POST['erpfw_mode'] ) ) {
+		if ( ! isset( $_POST['erpfw_mode'], $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['woocommerce_meta_nonce'] ) ), 'woocommerce_save_data' ) ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'edit_product', $product->get_id() ) ) {
 			return;
 		}
 
@@ -302,7 +305,6 @@ final class ProductFields {
 				$product->update_meta_data( $meta, self::clean_price( sanitize_text_field( wp_unslash( $_POST[ $field ] ) ), $meta ) );
 			}
 		}
-		// phpcs:enable
 
 		Pricer::apply_to_object( $product );
 	}
@@ -327,7 +329,14 @@ final class ProductFields {
 	 * @param int                  $i         Variation index in the posted arrays.
 	 */
 	public static function save_variation( $variation, $i ) {
-		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WC_AJAX::save_variations verified the nonce.
+		// Variations are saved over AJAX; also accept the product form nonce in case WooCommerce saves them there.
+		$verified = ( isset( $_POST['security'] ) && wp_verify_nonce( sanitize_key( wp_unslash( $_POST['security'] ) ), 'save-variations' ) )
+			|| ( isset( $_POST['woocommerce_meta_nonce'] ) && wp_verify_nonce( sanitize_key( wp_unslash( $_POST['woocommerce_meta_nonce'] ) ), 'woocommerce_save_data' ) );
+
+		if ( ! $verified || ! current_user_can( 'edit_product', $variation->get_parent_id() ) ) {
+			return;
+		}
+
 		$touched = false;
 
 		foreach ( self::PRICE_FIELDS as $field => $meta ) {
@@ -338,7 +347,6 @@ final class ProductFields {
 				$touched = true;
 			}
 		}
-		// phpcs:enable
 
 		if ( $touched ) {
 			$parent = wc_get_product( $variation->get_parent_id() );
@@ -386,11 +394,14 @@ final class ProductFields {
 			$shared['category_ids'] = array_map( 'absint', (array) wp_unslash( $_POST['category_ids'] ) );
 		}
 
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Each value is parsed as a number below.
-		$items  = isset( $_POST['items'] ) && is_array( $_POST['items'] ) ? wp_unslash( $_POST['items'] ) : array();
+		$items  = isset( $_POST['items'] ) && is_array( $_POST['items'] ) ? map_deep( wp_unslash( $_POST['items'] ), 'sanitize_text_field' ) : array();
 		$output = array();
 
 		foreach ( $items as $key => $item ) {
+			if ( ! is_array( $item ) ) {
+				continue;
+			}
+
 			$target_id = isset( $item['id'] ) ? absint( $item['id'] ) : 0;
 			$target    = $target_id === $product_id ? $product : wc_get_product( $target_id );
 
@@ -399,9 +410,9 @@ final class ProductFields {
 			}
 
 			$overrides = $shared + array(
-				'regular'      => Format::parse_number( isset( $item['regular'] ) ? sanitize_text_field( $item['regular'] ) : '' ),
-				'sale'         => Format::parse_number( isset( $item['sale'] ) ? sanitize_text_field( $item['sale'] ) : '' ),
-				'sale_percent' => Format::parse_number( isset( $item['sale_percent'] ) ? sanitize_text_field( $item['sale_percent'] ) : '' ),
+				'regular'      => Format::parse_number( isset( $item['regular'] ) ? $item['regular'] : '' ),
+				'sale'         => Format::parse_number( isset( $item['sale'] ) ? $item['sale'] : '' ),
+				'sale_percent' => Format::parse_number( isset( $item['sale_percent'] ) ? $item['sale_percent'] : '' ),
 			);
 
 			$parent                        = $target->is_type( 'variation' ) ? $product : null;

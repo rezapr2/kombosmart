@@ -169,27 +169,27 @@ msgstr "Desconto (%)"
 msgid "Store price"
 msgstr "Preço na loja"
 
-#: src/Admin/ProductFields.php:372
+#: src/Admin/ProductFields.php:380
 msgid "Product not found."
 msgstr "Produto não encontrado."
 
-#: src/Admin/ProductFields.php:376
+#: src/Admin/ProductFields.php:384
 #: src/CLI.php:101
 msgid "Set the exchange rate first."
 msgstr "Defina a taxa de câmbio primeiro."
 
-#: src/Admin/ProductFields.php:429
+#: src/Admin/ProductFields.php:440
 msgid "Enter a base regular price to calculate."
 msgstr "Digite um preço normal base para calcular."
 
 #. translators: 1: regular price, 2: sale price.
-#: src/Admin/ProductFields.php:438
+#: src/Admin/ProductFields.php:449
 #, php-format
 msgid "%1$s, on sale for %2$s"
 msgstr "%1$s, em promoção por %2$s"
 
 #. translators: 1: exchange rate such as "1 USD = 100,000 Toman", 2: markup percent, 3: fixed markup with unit.
-#: src/Admin/ProductFields.php:448
+#: src/Admin/ProductFields.php:459
 #, php-format
 msgid "%1$s · markup %2$s%% + %3$s"
 msgstr "%1$s · margem %2$s%% + %3$s"
@@ -254,17 +254,17 @@ msgid "Updated %s ago."
 msgstr "Atualizada há %s."
 
 #. translators: %s: currency code such as USD.
-#: src/Admin/RateWidget.php:134
+#: src/Admin/RateWidget.php:133
 #: src/Admin/SettingsPage.php:393
 #, php-format
 msgid "1 %s ="
 msgstr "1 %s ="
 
-#: src/Admin/RateWidget.php:146
+#: src/Admin/RateWidget.php:144
 msgid "Update"
 msgstr "Atualizar"
 
-#: src/Admin/RateWidget.php:164
+#: src/Admin/RateWidget.php:161
 msgid "Exchange rate settings"
 msgstr "Configurações da taxa de câmbio"
 
@@ -274,21 +274,21 @@ msgid "Invalid currency."
 msgstr "Moeda inválida."
 
 #: src/Admin/RateWidget.php:216
-#: src/Admin/SettingsPage.php:319
+#: src/Admin/SettingsPage.php:320
 #: src/Rates.php:93
 msgid "The exchange rate must be a number greater than zero."
 msgstr "A taxa de câmbio deve ser um número maior que zero."
 
 #: src/Admin/RateWidget.php:229
-#: src/Admin/RateWidget.php:260
+#: src/Admin/RateWidget.php:263
 msgid "You are not allowed to change the exchange rate."
 msgstr "Você não tem permissão para alterar a taxa de câmbio."
 
-#: src/Admin/RateWidget.php:243
+#: src/Admin/RateWidget.php:246
 msgid "Saved. Prices are being recalculated."
 msgstr "Salvo. Os preços estão sendo recalculados."
 
-#: src/Admin/RateWidget.php:244
+#: src/Admin/RateWidget.php:247
 msgid "The rate is unchanged; marked as up to date."
 msgstr "A taxa não mudou; foi marcada como atualizada."
 

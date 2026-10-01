@@ -26,7 +26,7 @@ function erpfw_uninstall_site() {
 	}
 
 	// phpcs:disable WordPress.DB.DirectDatabaseQuery -- One-time cleanup of plugin data.
-	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}erpfw_rate_history" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.SchemaChange
+	$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $wpdb->prefix . 'erpfw_rate_history' ) );
 	$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE %s", $wpdb->esc_like( '_erpfw_' ) . '%' ) );
 	$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->termmeta} WHERE meta_key LIKE %s", $wpdb->esc_like( 'erpfw_' ) . '%' ) );
 	// phpcs:enable
