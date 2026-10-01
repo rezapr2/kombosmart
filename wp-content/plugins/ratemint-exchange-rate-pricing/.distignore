@@ -1,8 +1,0 @@
-/.git
-/.idea
-/.vscode
-/tests
-/node_modules
-.distignore
-.DS_Store
-*.zip
