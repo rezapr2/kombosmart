@@ -1,0 +1,96 @@
+$color-light-gray : #BDBDBD;
+$color-blue : #1F4A8A;
+
+// Design tokens for the kombosmart (smart home) look.
+// A restrained "luxury blue" palette: deep navy ink, sapphire primary and icy tints,
+// plus a set of blue "tones" used to color cards, badges and tiles.
+:root{
+    --color-primary: #1F4A8A;
+    --color-primary-rgb: 31, 74, 138;
+    --color-primary-light: #E8EEF8;
+    --color-primary-dark: #0C1E3C;
+    --color-black: #0C1E3C;
+    --color-white: #fff;
+
+    --color-ink: #0C1E3C;
+    --color-ink-rgb: 12, 30, 60;
+    --color-muted: #5D6B82;
+    --color-line: #E2E8F1;
+    --color-surface: #F3F6FB;
+
+    // Former accent colors, now shades of blue so every accent stays on-palette.
+    --color-pink: #183564;
+    --color-cyan: #2F5F9E;
+    --color-lime: #2C5DA6;
+    --color-orange: #2F5F9E;
+    --color-yellow: #9DB9E0;
+    --color-gold: #C8A95B;
+
+    --gradient-brand: linear-gradient(120deg, #0C1E3C 0%, #1F4A8A 60%, #3A6AB4 100%);
+    --gradient-sunset: linear-gradient(120deg, #183564 0%, #2C5DA6 100%);
+    --gradient-ocean: linear-gradient(120deg, #12294F 0%, #3A6AB4 100%);
+
+    --radius-sm: 1rem;
+    --radius: 1.6rem;
+    --radius-lg: 2.4rem;
+    --radius-xl: 3.2rem;
+    --radius-pill: 100rem;
+
+    --shadow-sm: 0 0.2rem 0.8rem rgba(12, 30, 60, 0.06);
+    --shadow: 0 1.2rem 3.2rem rgba(12, 30, 60, 0.08);
+    --shadow-primary: 0 1rem 2.4rem rgba(31, 74, 138, 0.28);
+}
+
+// Tones: each sets --tone (strong), --tone-soft (tinted surface), --tone-gradient (tile
+// background), --tone-on (text on the gradient) and --tone-accent (highlighted <strong> text
+// on the gradient). Apply .tone-* on a card/tile/badge and read the variables in its styles.
+// The class names are kept for saved content; each one is now a shade of blue.
+.tone-violet{ // sapphire
+    --tone: #1F4A8A;
+    --tone-soft: #E8EEF8;
+    --tone-gradient: linear-gradient(135deg, #2C5DA6 0%, #173A70 100%);
+    --tone-on: #fff;
+    --tone-accent: #C9DAF2;
+}
+.tone-pink{ // royal navy
+    --tone: #183564;
+    --tone-soft: #E6EBF4;
+    --tone-gradient: linear-gradient(135deg, #22457E 0%, #0F2549 100%);
+    --tone-on: #fff;
+    --tone-accent: #C9DAF2;
+}
+.tone-cyan{ // steel blue
+    --tone: #2F5F9E;
+    --tone-soft: #E8F0F9;
+    --tone-gradient: linear-gradient(135deg, #4A78B8 0%, #24508A 100%);
+    --tone-on: #fff;
+    --tone-accent: #E3ECF8;
+}
+.tone-lime{ // slate blue
+    --tone: #3A5478;
+    --tone-soft: #E9EEF4;
+    --tone-gradient: linear-gradient(135deg, #50698D 0%, #2D4363 100%);
+    --tone-on: #fff;
+    --tone-accent: #D3DFEE;
+}
+.tone-orange{ // midnight
+    --tone: #10264A;
+    --tone-soft: #E5EAF2;
+    --tone-gradient: linear-gradient(135deg, #1B3561 0%, #091A35 100%);
+    --tone-on: #fff;
+    --tone-accent: #B9D0F0;
+}
+.tone-yellow{ // ice (light)
+    --tone: #1F4A8A;
+    --tone-soft: #EFF4FB;
+    --tone-gradient: linear-gradient(135deg, #EEF3FA 0%, #CFDDF0 100%);
+    --tone-on: #0C1E3C;
+    --tone-accent: #1F4A8A;
+}
+.tone-ink{
+    --tone: #0C1E3C;
+    --tone-soft: #E8ECF2;
+    --tone-gradient: linear-gradient(135deg, #1A2C4E 0%, #060F22 100%);
+    --tone-on: #fff;
+    --tone-accent: #B9D0F0;
+}

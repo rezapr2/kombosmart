@@ -1,0 +1,239 @@
+// Homepage hero slider. Each slide is colored by its .tone-* class; an optional image is
+// either a transparent product shot (.is-contain) or a full-bleed photo (.is-cover).
+.home-hero {
+    margin-top: calcRem(20);
+
+    &__slider {
+        position: relative;
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        isolation: isolate;
+    }
+
+    &__slide {
+        position: relative;
+        display: flex;
+        align-items: center;
+        min-height: calcRem(560);
+        padding: calcRem(60) calcRem(72);
+        overflow: hidden;
+        background: var(--tone-gradient);
+        color: var(--tone-on, #fff);
+    }
+
+    &__decor {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    &__blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(60px);
+        opacity: 0.7;
+
+        &--1 {
+            width: calcRem(420);
+            height: calcRem(420);
+            left: -6%;
+            top: -20%;
+            background: #2C5DA6;
+        }
+        &--2 {
+            width: calcRem(360);
+            height: calcRem(360);
+            left: 26%;
+            bottom: -34%;
+            background: #00B4F0;
+            opacity: 0.55;
+        }
+    }
+
+    &__ring {
+        position: absolute;
+        width: calcRem(520);
+        height: calcRem(520);
+        left: 8%;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        border: calcRem(60) solid rgba(255, 255, 255, 0.08);
+    }
+
+    &__img {
+        position: absolute;
+        z-index: 1;
+    }
+
+    &__slide.is-contain &__img {
+        left: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 46%;
+        height: 86%;
+        object-fit: contain;
+        filter: drop-shadow(0 3rem 4rem rgba(var(--color-ink-rgb), 0.35));
+        animation: sw-float 6s ease-in-out infinite;
+    }
+
+    &__slide.is-cover {
+        .home-hero__img {
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .home-hero__decor {
+            display: none;
+        }
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: linear-gradient(to left, rgba(var(--color-ink-rgb), 0.78) 0%, rgba(var(--color-ink-rgb), 0.2) 60%, rgba(var(--color-ink-rgb), 0) 100%);
+        }
+    }
+
+    &__content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: calcRem(20);
+        max-width: calcRem(580);
+    }
+
+    &__title {
+        margin: 0;
+        font-size: calcRem(56);
+        font-weight: 700;
+        line-height: 1.3;
+        color: inherit;
+
+        strong {
+            color: var(--tone-accent, #C9DAF2);
+        }
+    }
+
+    &__desc {
+        margin: 0;
+        max-width: calcRem(480);
+        font-size: calcRem(18);
+        line-height: 1.9;
+        color: inherit;
+        opacity: 0.86;
+    }
+
+    &__cta {
+        margin-top: calcRem(12);
+    }
+
+    &__nav {
+        position: absolute;
+        left: calcRem(32);
+        bottom: calcRem(32);
+        z-index: 5;
+        gap: calcRem(10);
+        .sw-icon-btn {
+            border-color: transparent;
+        }
+    }
+
+    // Swiper's fraction class makes the pagination absolute + full width; keep it inline.
+    &__pagination {
+        position: static;
+        width: auto;
+        margin-left: calcRem(10);
+        color: #fff;
+        font-size: calcRem(15);
+        font-weight: 700;
+        .swiper-pagination-total {
+            opacity: 0.6;
+        }
+    }
+
+    @media (max-width: 767px) {
+        margin-top: calcRem(12);
+
+        &__slider {
+            border-radius: var(--radius-lg);
+        }
+
+        &__slide {
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-start;
+            min-height: calcRem(520);
+            padding: calcRem(32) calcRem(24);
+        }
+
+        &__slide.is-contain &__img {
+            left: 50%;
+            top: auto;
+            bottom: calcRem(20);
+            transform: translateX(-50%);
+            width: 86%;
+            height: 44%;
+            animation: none;
+        }
+
+        &__slide.is-cover::after {
+            background: linear-gradient(to bottom, rgba(var(--color-ink-rgb), 0.78) 0%, rgba(var(--color-ink-rgb), 0.1) 75%);
+        }
+
+        &__ring {
+            width: calcRem(300);
+            height: calcRem(300);
+            left: 50%;
+            top: auto;
+            bottom: -10%;
+            transform: translateX(-50%);
+            border-width: calcRem(36);
+        }
+
+        &__content {
+            gap: calcRem(12);
+        }
+
+        &__title {
+            font-size: calcRem(28);
+        }
+
+        &__desc {
+            font-size: calcRem(13);
+        }
+
+        &__cta {
+            margin-top: calcRem(4);
+        }
+
+        &__nav {
+            left: calcRem(16);
+            bottom: calcRem(16);
+            .sw-icon-btn {
+                width: calcRem(38);
+                height: calcRem(38);
+            }
+        }
+    }
+}
+
+@keyframes sw-float {
+    0%,
+    100% {
+        transform: translateY(-50%);
+    }
+    50% {
+        transform: translateY(calc(-50% - 1.2rem));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .home-hero__img {
+        animation: none !important;
+    }
+}
