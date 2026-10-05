@@ -14,11 +14,22 @@ defined( 'ABSPATH' ) || exit;
 
 global $product;
 
+// Out of stock: "unavailable" box, whether or not a price is set. Checked first because
+// a product without a price is not purchasable and would otherwise render nothing.
+if ( ! $product->is_in_stock() ) {
+	?>
+	<div class="buttons-wrapper flex flex-col md:flex-row-reverse gap-07">
+		<div class="product-price is-unavailable h-100 px-20 flex items-center justify-center flex-1 yekan-20 bold">ناموجود</div>
+	</div>
+	<?php
+	return;
+}
+
 $contact_mode = \TanilChoob\Theme\Helper::get_options_field( 'contact_mode' );
 $price_html   = preg_replace( '/<\/?(ins)[^>]*>/', '', $product->get_price_html() );
 
 // In stock but no price set yet: "call for price" box with a phone button.
-if ( $product->get_price() === '' && $product->is_in_stock() ) {
+if ( $product->get_price() === '' ) {
 	$phone_link = \TanilChoob\Theme\Helper::store_phone_link();
 	?>
 	<div class="buttons-wrapper flex flex-col md:flex-row-reverse gap-07">
@@ -41,39 +52,31 @@ if ( ! $product->is_purchasable() ) {
 }
 ?>
 
-<?php if ( ! $product->is_in_stock() ) : ?>
+<?php do_action( 'woocommerce_before_add_to_cart_form' ); ?>
+
+<form class="cart" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype='multipart/form-data'>
+	<?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
+
 	<div class="buttons-wrapper flex flex-col md:flex-row-reverse gap-07">
-		<div class="product-price is-unavailable h-100 px-20 flex items-center justify-center flex-1 yekan-20 bold">ناموجود</div>
-	</div>
-<?php else : ?>
-
-	<?php do_action( 'woocommerce_before_add_to_cart_form' ); ?>
-
-	<form class="cart" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype='multipart/form-data'>
-		<?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
-
-		<div class="buttons-wrapper flex flex-col md:flex-row-reverse gap-07">
-			<div class="tanil-variation-price product-price h-100 px-20 flex items-center justify-center flex-1 yekan-22 color-primary bold">
-				<?php echo wp_kses_post( $price_html ); ?>
-			</div>
-
-			<div class="variations_button h-100 flex-grow-1">
-				<?php if ( $contact_mode ) : ?>
-					<a href="#help_cta" class="add-to-cart flex items-center justify-center h-100 gap-10 pointer transition">
-						<span class="yekan-20 color-white">تماس با ما</span>
-					</a>
-				<?php else : ?>
-					<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button add-to-cart w-full flex items-center justify-center h-100 gap-10 pointer transition">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 2h1.74c1.08 0 1.93.93 1.84 2l-.83 9.96A2.8 2.8 0 0 0 7.54 17h10.65c1.44 0 2.7-1.18 2.81-2.61l.54-7.5A2.77 2.77 0 0 0 18.73 3.9H5.82M16.25 22a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5ZM8.25 22a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5ZM9 8h12" stroke="currentColor" stroke-width="1.6" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
-						<span class="yekan-20"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></span>
-					</button>
-				<?php endif; ?>
-			</div>
+		<div class="tanil-variation-price product-price h-100 px-20 flex items-center justify-center flex-1 yekan-22 color-primary bold">
+			<?php echo wp_kses_post( $price_html ); ?>
 		</div>
 
-		<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
-	</form>
+		<div class="variations_button h-100 flex-grow-1">
+			<?php if ( $contact_mode ) : ?>
+				<a href="#help_cta" class="add-to-cart flex items-center justify-center h-100 gap-10 pointer transition">
+					<span class="yekan-20 color-white">تماس با ما</span>
+				</a>
+			<?php else : ?>
+				<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button add-to-cart w-full flex items-center justify-center h-100 gap-10 pointer transition">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 2h1.74c1.08 0 1.93.93 1.84 2l-.83 9.96A2.8 2.8 0 0 0 7.54 17h10.65c1.44 0 2.7-1.18 2.81-2.61l.54-7.5A2.77 2.77 0 0 0 18.73 3.9H5.82M16.25 22a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5ZM8.25 22a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5ZM9 8h12" stroke="currentColor" stroke-width="1.6" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+					<span class="yekan-20"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></span>
+				</button>
+			<?php endif; ?>
+		</div>
+	</div>
 
-	<?php do_action( 'woocommerce_after_add_to_cart_form' ); ?>
+	<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
+</form>
 
-<?php endif; ?>
+<?php do_action( 'woocommerce_after_add_to_cart_form' ); ?>
