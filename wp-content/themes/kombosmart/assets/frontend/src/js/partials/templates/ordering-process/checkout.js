@@ -428,8 +428,8 @@
 
         var logoUrl  = (window.tcCheckout && tcCheckout.logoUrl) ? tcCheckout.logoUrl : '';
         var logoHtml = logoUrl
-            ? '<img src="' + logoUrl + '" alt="کومبو اسمارت">'
-            : '<strong style="font-size:2rem;color:var(--color-primary)">کومبو اسمارت</strong>';
+            ? '<img src="' + logoUrl + '" alt="کمبو اسمارت">'
+            : '<strong style="font-size:2rem;color:var(--color-primary)">کمبو اسمارت</strong>';
 
         var html =
             '<div class="tc-invoice-header">' +

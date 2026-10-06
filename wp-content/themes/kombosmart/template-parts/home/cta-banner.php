@@ -8,7 +8,7 @@
 
 use TanilChoob\Theme\Helper;
 
-$title    = !empty($args['title']) ? $args['title'] : 'با کومبو اسمارت، <strong>خانه‌ات</strong> را یک قدم هوشمندتر کن';
+$title    = !empty($args['title']) ? $args['title'] : 'با کمبو اسمارت، <strong>خانه‌ات</strong> را یک قدم هوشمندتر کن';
 $link     = !empty($args['link']['url']) ? $args['link'] : ['url' => get_permalink(wc_get_page_id('shop')), 'title' => 'شروع خرید', 'target' => ''];
 $tone     = !empty($args['tone']) ? $args['tone'] : 'ink';
 $fit      = !empty($args['image_fit']) ? $args['image_fit'] : 'contain';
